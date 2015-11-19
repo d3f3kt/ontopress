@@ -1,0 +1,23 @@
+{
+    "name": "SWT-WordPress/plugins",
+    "description": "Wordpress Plugin for SWT practical training 2016",
+    "require": {
+        "squizlabs/php_codesniffer": "2.*",
+        "phpunit/phpunit": "5.0.*"
+                
+    },
+    "license": "private",
+    "authors": [
+        {
+            "name": "David Geistert",
+            "email": "david@geistert.info"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
+
