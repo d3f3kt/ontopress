@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    OntoPress Dashboard
+    <a href="?page=ontopress_ontologyadd" class="page-title-action">Neu hinzufügen</a>
+{% endblock %}
+{% block content %}
+    <form method="get">
+        <div class="tablenav top">
+            <br class="clear">
+        </div>
+        <table class="wp-list-table widefat fixed striped users">
+            <thead>
+            <tr>
+                <td id="cb" class="manage-column column-cb check-column">
+                    <label class="screen-reader-text" for="cb-select-all-1">Alle auswählen</label>
+                    <input id="cb-select-all-1" type="checkbox">
+                </td>
+                <th scope="col" id="id" class="manage-column column-username column-primary sortable desc">
+                    <a href="#">
+                        <span>ID</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                <th scope="col" id="ontology" class="manage-column column-name sortable desc">
+                    <a href="#">
+                        <span>Ontologie</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                <th scope="col" id="form" class="manage-column column-email sorted asc">
+                    <a href="#">
+                        <span>Formular Anz.</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody id="the-list" data-wp-lists="list:user">
+
+            <tr id="user-1">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>1</strong><br>
+                    <div class="row-actions">
+                        <span class="edit"><a href="#">Bearbeiten</a></span>
+                        <span class="delete"><a href="#">Löschen</a></span>
+                    </div>
+                </td>
+                <td class="ontology column-ontology" data-colname="Ontology">
+                <p> Gebäude</p>
+                </td>
+                <td class="form column-form" data-colname="Form">
+                    <a href="#">10</a>
+                </td>
+            </tr>
+
+            <tr id="user-1">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>2</strong><br>
+                    <div class="row-actions">
+                        <span class="edit"><a href="#">Bearbeiten</a></span>
+                        <span class="delete"><a href="#">Löschen</a></span>
+                    </div>
+                </td>
+                <td class="ontology column-ontology" data-colname="Ontology">
+                    <p> Plätze</p>
+                </td>
+                <td class="form column-form" data-colname="Form">
+                    <a href="#">5</a>
+                </td>
+            </tr>
+
+            <tr id="user-1">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>3</strong><br>
+                    <div class="row-actions">
+                        <span class="edit"><a href="#">Bearbeiten</a></span>
+                        <span class="delete"><a href="#">Löschen</a></span>
+                    </div>
+                </td>
+                <td class="ontology column-ontology" data-colname="Ontology">
+                    <p> Kirchen</p>
+                </td>
+                <td class="form column-form" data-colname="Form">
+                    <a href="#">8</a>
+                </td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td id="cb" class="manage-column column-cb check-column">
+                        <label class="screen-reader-text" for="cb-select-all-1">Alle auswählen</label>
+                        <input id="cb-select-all-1" type="checkbox">
+                    </td>
+                    <th scope="col" id="id" class="manage-column column-username column-primary sortable desc">
+                        <a href="#">
+                            <span>ID</span>
+                            <span class="sorting-indicator"></span>
+                        </a>
+                    </th>
+                    <th scope="col" id="ontology" class="manage-column column-name sortable desc">
+                        <a href="#">
+                            <span>Ontologie</span>
+                            <span class="sorting-indicator"></span>
+                        </a>
+                    </th>
+                    <th scope="col" id="form" class="manage-column column-email sorted asc">
+                        <a href="#">
+                            <span>Formular Anz.</span>
+                            <span class="sorting-indicator"></span>
+                        </a>
+                    </th>
+                </tr>
+           </tfoot>
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

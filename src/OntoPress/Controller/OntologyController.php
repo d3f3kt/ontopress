@@ -7,6 +7,6 @@ class OntologyController extends Controller
 {
     public function showManageAction()
     {
-        return 'dummy';
+        return $this->render('ontology/managePage.html.twig', array());
     }
 }
