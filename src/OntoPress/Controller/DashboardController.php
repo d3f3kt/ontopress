@@ -7,6 +7,6 @@ class DashboardController extends Controller
 {
     public function showDashboardAction()
     {
-        return 'dummy';
+        return $this->render('dashboard/dashboard.html.twig', array());
     }
 }
