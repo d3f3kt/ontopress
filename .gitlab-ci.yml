@@ -1,0 +1,9 @@
+before_script:
+    - sudo composer self-update
+    - composer install
+stages:
+    - test
+
+test:
+    script:
+        - vendor/bin/phpcs --standard=PSR2 -n --report=full src/OntoPress
