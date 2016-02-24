@@ -1,20 +1,19 @@
-ontopress:
-    page_title: STRING PAGE_TITLE
-    menu_title: STRING MENU_TITLE
-    capability: STRING CAPABILITY
-    slug: STRING ontopress
-    icon: dashicons-list-view
-    position: 30
-    sub_sites:
-        dummy1:
-            parent: NULL | PARENT_SLUG
-            page_title: PAGE_TITLE
-            menu_title: MENU_TITLE
-            capability: CAPABILITY
-            slug: SLUG
-        dummy2:
-            parent: NULL | PARENT_SLUG
-            page_title: PAGE_TITLE
-            menu_title: MENU_TITLE
-            capability: CAPABILITY
-            slug: SLUG
+sites:
+    ontopress:
+        page_title: OntoPress
+        menu_title: OntoPress
+        capability: manage_options
+        icon: dashicons-list-view
+        position: 30
+        controller: Test:showTest
+        sub_sites:
+            ontopress:
+                page_title: PAGE_TITLE
+                menu_title: MENU_TITLE
+                capability: manage_options
+                controller: Test:showTest
+            dummy2:
+                page_title: PAGE_TITLE
+                menu_title: MENU_TITLE
+                capability: manage_options
+                controller: Test:showTest
