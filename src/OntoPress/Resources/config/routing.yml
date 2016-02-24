@@ -5,25 +5,25 @@ sites:
         capability: manage_options
         icon: dashicons-list-view
         position: 30
-        controller: Test:showTest
+        controller: Dashboard:showDashboard
         sub_sites:
             ontopress:
                 page_title: OntoPress Dashboard
                 menu_title: Dashboard
                 capability: manage_options
-                controller: Test:showTest
+                controller: Dashboard:showDashboard
             ontology:
                 page_title: Ontologie Verwaltung
                 menu_title: Ontologien
                 capability: manage_options
-                controller: Test:showTest
+                controller: Ontology:showManage
             forms:
                 page_title: Formular Verwaltung
                 menu_title: Formulare
                 capability: manage_options
-                controller: Test:showTest
+                controller: Form:showManage
             add resource:
                 page_title: Ressourcen
                 menu_title: + Ressource
                 capability: manage_options
-                controller: Test:showTest
+                controller: Resource:showAdd
