@@ -5,16 +5,41 @@ namespace OntoPress\Wordpress;
 use Symfony\Component\DependencyInjection\Container;
 use OntoPress\Libary\Router;
 
+/**
+ * WP Admin init hooks.
+ */
 class AdminInit
 {
+    /**
+     * Singelton fallback.
+     *
+     * @var AdminInit
+     */
     private static $initialize;
+
+    /**
+     * Dependency injection container.
+     *
+     * @var Container
+     */
     private $container;
 
+    /**
+     * Create Singleton and execute all hooks.
+     *
+     * @param Container $container Dependency injection container
+     *
+     * @return AdminInit Singleton
+     */
     public static function init(Container $container)
     {
         return self::$initialize ? self::$initialize : new self($container);
     }
 
+    /**
+     * Add custom methods to Wordpress actions.
+     * @param Container $container [description]
+     */
     private function __construct(Container $container)
     {
         $this->container = $container;
@@ -22,12 +47,18 @@ class AdminInit
         add_action('admin_enqueue_scripts', array($this, 'loadResources'));
     }
 
+    /**
+     * Use Wordpress functions to manipulate admin menu
+     */
     public function adminMenu()
     {
         $router = new Router($this->container);
         $router->setRoutes();
     }
 
+    /**
+     * Load admin resources.
+     */
     public function loadResources()
     {
         //TODO: load custom css/js
