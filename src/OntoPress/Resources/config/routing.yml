@@ -8,12 +8,22 @@ sites:
         controller: Test:showTest
         sub_sites:
             ontopress:
-                page_title: PAGE_TITLE
-                menu_title: MENU_TITLE
+                page_title: OntoPress Dashboard
+                menu_title: Dashboard
                 capability: manage_options
                 controller: Test:showTest
-            dummy2:
-                page_title: PAGE_TITLE
-                menu_title: MENU_TITLE
+            ontology:
+                page_title: Ontologie Verwaltung
+                menu_title: Ontologien
+                capability: manage_options
+                controller: Test:showTest
+            forms:
+                page_title: Formular Verwaltung
+                menu_title: Formulare
+                capability: manage_options
+                controller: Test:showTest
+            add resource:
+                page_title: Ressourcen
+                menu_title: + Ressource
                 capability: manage_options
                 controller: Test:showTest
