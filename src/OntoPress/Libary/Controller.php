@@ -33,7 +33,7 @@ abstract class Controller
      *
      * @return string The rendered template
      */
-    protected function render($name , array $context = array())
+    protected function render($name, array $context = array())
     {
         return $this->get('twig')->render($name, $context);
     }
@@ -48,7 +48,7 @@ abstract class Controller
      *
      * @return string The translated string
      */
-    protected function trans($id, array $parameters = array(),  $domain = null, $locale = null)
+    protected function trans($id, array $parameters = array(), $domain = null, $locale = null)
     {
         return $this->get('translator')->trans($id, $parameters, $domain, $locale);
     }
