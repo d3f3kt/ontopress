@@ -1,0 +1,20 @@
+ontopress:
+    page_title: STRING PAGE_TITLE
+    menu_title: STRING MENU_TITLE
+    capability: STRING CAPABILITY
+    slug: STRING ontopress
+    icon: dashicons-list-view
+    position: 30
+    sub_sites:
+        dummy1:
+            parent: NULL | PARENT_SLUG
+            page_title: PAGE_TITLE
+            menu_title: MENU_TITLE
+            capability: CAPABILITY
+            slug: SLUG
+        dummy2:
+            parent: NULL | PARENT_SLUG
+            page_title: PAGE_TITLE
+            menu_title: MENU_TITLE
+            capability: CAPABILITY
+            slug: SLUG
