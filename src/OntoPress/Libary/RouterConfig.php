@@ -36,7 +36,9 @@ class RouterConfig implements ConfigurationInterface
                                         ->scalarNode('menu_title')->end()
                                         ->scalarNode('capability')->end()
                                         ->scalarNode('controller')->end()
-                                        ->scalarNode('virtual')->end()
+                                        ->booleanNode('virtual')
+                                            ->defaultFalse()
+                                        ->end()
                                     ->end()
                                 ->end()
                             ->end()
@@ -45,7 +47,7 @@ class RouterConfig implements ConfigurationInterface
                 ->end()
             ->end()
         ;
-        
+
         return $treeBuilder;
     }
 }
