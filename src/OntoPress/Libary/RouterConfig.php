@@ -36,6 +36,7 @@ class RouterConfig implements ConfigurationInterface
                                         ->scalarNode('menu_title')->end()
                                         ->scalarNode('capability')->end()
                                         ->scalarNode('controller')->end()
+                                        ->scalarNode('virtual')->end()
                                     ->end()
                                 ->end()
                             ->end()

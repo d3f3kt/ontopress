@@ -12,18 +12,28 @@ sites:
                 menu_title: Dashboard
                 capability: manage_options
                 controller: Dashboard:showDashboard
+                virtual:    false
             ontology:
                 page_title: Ontologie Verwaltung
                 menu_title: Ontologien
                 capability: manage_options
                 controller: Ontology:showManage
+                virtual:    false
             forms:
                 page_title: Formular Verwaltung
                 menu_title: Formulare
                 capability: manage_options
                 controller: Form:showManage
+                virtual:    false
             add resource:
                 page_title: Ressourcen
                 menu_title: + Ressource
                 capability: manage_options
                 controller: Resource:showAdd
+                virtual:    false
+            delete:
+                page_title: Löschen
+                menu_title: Delete
+                capability: manage_options
+                controller: Ontology:showManage
+                virtual:    true

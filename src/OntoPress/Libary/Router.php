@@ -71,6 +71,7 @@ class Router
             foreach ($site['sub_sites'] as $subSiteName => $subSite) {
                 $subSiteName = preg_replace('/[^A-Za-z0-9 ]/', '', $subSiteName);
                 $subSiteName = $siteName == $subSiteName ? $siteName : $siteName.'_'.$subSiteName;
+                if($subSite['virtual']){ $siteName = null; }
                 add_submenu_page(
                     $siteName,
                     $subSite['page_title'],
