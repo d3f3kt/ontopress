@@ -35,5 +35,5 @@ sites:
                 page_title: Löschen
                 menu_title: Delete
                 capability: manage_options
-                controller: Ontology:showManage
+                controller: Ontology:showDelete
                 virtual:    true

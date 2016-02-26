@@ -9,4 +9,9 @@ class OntologyController extends Controller
     {
         return $this->render('ontology/managePage.html.twig', array());
     }
+
+    public function showDeleteAction()
+    {
+        return $this->render('ontology/delete.html.twig', array());
+    }
 }
