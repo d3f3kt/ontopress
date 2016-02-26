@@ -5,6 +5,7 @@ namespace OntoPress\Libary;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Container;
+use OntoPress\Libary\Twig\RouterExtension;
 use OntoPress\Libary\Exception\InvalidControllerCall;
 use OntoPress\Libary\Exception\NoActionException;
 use OntoPress\Libary\Exception\NoControllerException;
@@ -28,6 +29,9 @@ class Router
     {
         $this->container = $container;
         $this->loadConfig();
+        $this->container->set('ontopress.router', $this);
+
+        $this->addTwigExtension();
     }
 
     /**
@@ -71,11 +75,10 @@ class Router
             foreach ($site['sub_sites'] as $subSiteName => $subSite) {
                 $subSiteName = preg_replace('/[^A-Za-z0-9 ]/', '', $subSiteName);
                 $subSiteName = $siteName == $subSiteName ? $siteName : $siteName.'_'.$subSiteName;
-                if ($subSite['virtual']) {
-                    $siteName = null;
-                }
+                $parent = $subSite['virtual'] ? null : $siteName;
+
                 add_submenu_page(
-                    $siteName,
+                    $parent,
                     $subSite['page_title'],
                     $subSite['menu_title'],
                     $subSite['capability'],
@@ -144,5 +147,14 @@ class Router
         } else {
             throw new NoControllerException($class);
         }
+    }
+
+    /**
+     * Add router extension to twig.
+     */
+    private function addTwigExtension()
+    {
+        $extension = new RouterExtension($this->container);
+        $this->container->get('twig')->addExtension($extension);
     }
 }
