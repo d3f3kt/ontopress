@@ -25,6 +25,12 @@ class AdminInit
     private $container;
 
     /**
+     * Plugin Router
+     * @var Router
+     */
+    private $router;
+
+    /**
      * Create Singleton and execute all hooks.
      *
      * @param Container $container Dependency injection container
@@ -43,6 +49,8 @@ class AdminInit
     private function __construct(Container $container)
     {
         $this->container = $container;
+        $this->router = new Router($this->container);
+
         add_action('admin_menu', array($this, 'adminMenu'));
         add_action('admin_enqueue_scripts', array($this, 'loadResources'));
     }
@@ -52,8 +60,7 @@ class AdminInit
      */
     public function adminMenu()
     {
-        $router = new Router($this->container);
-        $router->setRoutes();
+        $this->router->setRoutes();
     }
 
     /**
