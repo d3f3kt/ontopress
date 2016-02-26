@@ -7,6 +7,6 @@ class ResourceController extends Controller
 {
     public function showAddAction()
     {
-        return 'dummy';
+        return $this->render('resource/resourceAdd.html.twig', array());
     }
 }

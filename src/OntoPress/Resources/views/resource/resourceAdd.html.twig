@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    Ressourcen Hinzufügen
+{% endblock %}
+{% block content %}
+    <p>Ontologie</p>
+    <form method="get">
+        <table class="wp-list-table widefat fixed striped users">
+            <thead>
+            <tr>
+                <td id="cb" class="manage-column column-cb check-column">
+                </td>
+                <th scope="col" id="id" class="manage-column column-id column-primary sortable desc">
+                    <a href="#">
+                        <span>ID</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                <th scope="col" id="name" class="manage-column column-name sortable desc">
+                    <a href="#">
+                        <span>Name</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tbody id="the-list" data-wp-lists="list:ontology">
+            <tr id="ontology-2">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>2</strong><br>
+                </td>
+                <td class="ontology column-ontology" data-colname="Ontology">
+                    <p> Plätze</p>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+
+            <table class="wp-list-table widefat fixed striped users">
+                <thead>
+                <tr>
+                    <td id="cb" class="manage-column column-cb check-column">
+                    </td>
+                    <th scope="col" id="id" class="manage-column column-id column-primary sortable desc">
+                        <a href="#">
+                            <span>ID</span>
+                            <span class="sorting-indicator"></span>
+                        </a>
+                    </th>
+                    <th scope="col" id="name" class="manage-column column-name sortable desc">
+                        <a href="#">
+                            <span>Name</span>
+                            <span class="sorting-indicator"></span>
+                        </a>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <p>Formulare</p>
+            <tr id="form-1">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>1</strong><br>
+                </td>
+                <td class="name column-name" data-colname="Name">
+                    <p>öffentliche Plätze</p>
+                </td>
+            </tr>
+            <tr id="form-2">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>2</strong><br>
+                </td>
+                <td class="name column-name" data-colname="Name">
+                    <p>Festplätze</p>
+                </td>
+            </tr>
+            <tr id="form-3">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>3</strong><br>
+                </td>
+                <td class="name column-name" data-colname="Name">
+                    <p> Parkplätze</p>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td id="cb" class="manage-column column-cb check-column">
+                </td>
+                <th scope="col" id="id" class="manage-column column-id column-primary sortable desc">
+                    <a href="#">
+                        <span>ID</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                <th scope="col" id="name" class="manage-column column-name sortable desc">
+                    <a href="#">
+                        <span>Name</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+        <table class="wp-list-table widefat fixed striped users">
+            <thead>
+            <tr>
+                <td id="cb" class="manage-column column-cb check-column">
+                </td>
+                <th scope="col" id="id" class="manage-column column-id column-primary sortable desc">
+                    <a href="#">
+                        <span>ID</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                <th scope="col" id="name" class="manage-column column-name sortable desc">
+                    <a href="#">
+                        <span>Name</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <p>Ontologie</p>
+            <tbody id="the-list" data-wp-lists="list:ontology">
+            <tr id="ontology-2">
+                <th scope="row" class="check-column">
+                    <label class="screen-reader-text" for="user_1">admin auswählen</label>
+                    <input name="users[]" id="user_1" class="administrator" value="1" type="checkbox">
+                </th>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>3</strong><br>
+                </td>
+                <td class="ontology column-ontology" data-colname="Ontology">
+                    <p> Gebäude</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+{% endblock %}
