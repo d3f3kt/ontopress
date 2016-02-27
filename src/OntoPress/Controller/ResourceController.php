@@ -14,4 +14,9 @@ class ResourceController extends Controller
     {
         return $this->render('resource/resourceAddDetails.html.twig', array());
     }
+
+    public function showManagementAction()
+    {
+        return $this->render('resource/resourceManagement.html.twig', array());
+    }
 }

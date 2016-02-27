@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    Formulare verwalten
+    <a href="#" class="page-title-action">Neu hinzufügen</a>
+{% endblock %}
+{% block content %}
+    <form method="get">
+        <div class="tablenav top">
+             <br class="clear">
+        </div>
+        <table class="wp-list form">
+            <thead>
+            <tr>
+                <th scope="col" id="id" class="manage-column column-ID ">
+                    <a href="#">
+                        <span>ID</span>
+                    </a>
+                </th>
+                <th scope="col" class="manage-column column-Name">
+                    <span>Name</span>
+                </th>
+                <th scope="col" class="manage-column column-Utility">
+                    <span>Utility</span>
+                </th>
+            </thead>
+            <tbody id="the-list" data-wp-lists="list:form">
+            <tr id="Form-1">
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>1</strong><br>
+                </td>
+                <td class="Name column-Name has-row-actions column-primary" data-colname="ID">
+                    <strong>öffentliche Plätze</strong><br>
+                </td>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <div class="row-actions">
+                        <span class="edit"><a href="#">Bearbeiten</a></span>
+                        <span class="delete"><a href="#">Löschen</a></span>
+                    </div>
+                </td>
+            </tr>
+            <tr id="Form-2">
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>2</strong><br>
+                </td>
+                <td class="Name column-Name has-row-actions column-primary" data-colname="ID">
+                    <strong>Schulen</strong><br>
+                </td>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <div class="row-actions">
+                        <span class="edit"><a href="#">Bearbeiten</a></span>
+                        <span class="delete"><a href="#">Löschen</a></span>
+                    </div>
+                </td>
+            </tr>
+            <tr id="Form-3">
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <strong>3</strong><br>
+                </td>
+                <td class="Name column-Name has-row-actions column-primary" data-colname="ID">
+                    <strong>Galerie</strong><br>
+                </td>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                    <div class="row-actions">
+                        <span class="edit"><a href="#">Bearbeiten</a></span>
+                        <span class="delete"><a href="#">Löschen</a></span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

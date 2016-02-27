@@ -28,6 +28,11 @@ sites:
                 menu_title: Formulare
                 capability: manage_options
                 controller: Form:showManage
+            resource:
+                page_title: Ressourcen Verwaltung
+                menu_title: Ressourcen
+                capability: manage_options
+                controller: Resource:showManagement
             resourceAdd:
                 page_title: Ressourcen
                 menu_title: + Ressource
