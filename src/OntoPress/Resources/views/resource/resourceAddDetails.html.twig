@@ -4,38 +4,10 @@
     Ressourcen Hinzufügen
 {% endblock %}
 {% block content %}
-    <div class="wrap">
-        <form method="post" action="options.php" novalidate="novalidate">
-            <table class="form-table">
-                <tbody>
-                <tr>
-                    <th scope="row">
-                        <label for="title">Titel</label>
-                    </th>
-                    <td>
-                        <input name="title" id="title" value="" class="regular-text" type="text"></td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label for="street">Straße</label>
-                    </th>
-                    <td>
-                        <input name="street" id="street" aria-describedby="tagline-description" value="" class="regular-text" type="text">
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label for="plz">PLZ</label>
-                    </th>
-                    <td>
-                        <input name="plz" id="plz" value="" class="regular-text" type="text">
-                    </td>
-                </tr>
-                </tbody></table>
-
-
-            <p class="submit"><input name="submit" id="submit" class="button button-primary" value="Speichern" type="submit"></p></form>
-            <a href="?page=ontopress_resourceAdd" class="page-title-action">Zurück</a>
-            <a href="?page=ontopress_ontology" class="page-title-action">Abbrechen</a>
-    </div>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    
+    <a href="?page=ontopress_resourceAdd" class="page-title-action">Zurück</a>
+    <a href="?page=ontopress_ontology" class="page-title-action">Abbrechen</a>
 {% endblock %}

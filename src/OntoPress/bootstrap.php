@@ -29,7 +29,7 @@ $twig = new Twig_Environment(
 );
 
 // form setup
-$formEngine = new TwigRendererEngine(array('form_div_layout.html.twig'));
+$formEngine = new TwigRendererEngine(array('form/base.html.twig'));
 $formEngine->setEnvironment($twig);
 $formFactory = Forms::createFormFactoryBuilder()->getFormFactory();
 

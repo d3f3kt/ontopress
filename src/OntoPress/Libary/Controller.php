@@ -79,7 +79,7 @@ abstract class Controller
      *
      * @return FormInterface The form named after the type
      */
-    protected function create($type = 'form', $data = null, array $options = array())
+    protected function createForm($type = 'form', $data = null, array $options = array())
     {
         return $this->get('form')->create($type, $data, $options);
     }
