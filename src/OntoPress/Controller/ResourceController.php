@@ -1,7 +1,9 @@
 <?php
+
 namespace OntoPress\Controller;
 
 use OntoPress\Libary\Controller;
+use OntoPress\Form\Resource\AddResourceDetailForm;
 
 class ResourceController extends Controller
 {
@@ -12,6 +14,10 @@ class ResourceController extends Controller
 
     public function showAddDetailsAction()
     {
-        return $this->render('resource/resourceAddDetails.html.twig', array());
+        $form = $this->createForm(new AddResourceDetailForm());
+
+        return $this->render('resource/resourceAddDetails.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }
