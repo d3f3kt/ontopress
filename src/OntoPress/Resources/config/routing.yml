@@ -33,3 +33,9 @@ sites:
                 menu_title: + Ressource
                 capability: manage_options
                 controller: Resource:showAdd
+            resourceAddDetails:
+                page_title: Ressourcen
+                menu_title: + Ressource
+                capability: manage_options
+                controller: Resource:showAddDetails
+                virtual:    true

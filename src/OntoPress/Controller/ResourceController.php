@@ -9,4 +9,9 @@ class ResourceController extends Controller
     {
         return $this->render('resource/resourceAdd.html.twig', array());
     }
+
+    public function showAddDetailsAction()
+    {
+        return $this->render('resource/resourceAddDetails.html.twig', array());
+    }
 }
