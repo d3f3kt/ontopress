@@ -2,7 +2,7 @@
 
 {% block headline %}
        Resource Verwaltung
-    <a href="?page=ontopress_resourceAdd" class="page-title-action">Neu hinzufügen</a>
+    <a href="{{path('ontopress_resourceAdd')}}" class="page-title-action">Neu hinzufügen</a>
 {% endblock %}
 {% block content %}
     <form method="get">
@@ -83,7 +83,7 @@
                 </td>
                 <td class="Utility column-Utility" data-colname="Utility">
                     <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
+                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 2}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="#">Löschen</a></span>
                     </div>
                 </td>
@@ -103,7 +103,7 @@
                 </td>
                 <td class="Utility column-utility" data-colname="Utility">
                     <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
+                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 3}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="#">Löschen</a></span>
                     </div>
                 </td>
