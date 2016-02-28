@@ -2,12 +2,18 @@
 
 {% block headline %}
        Resource Verwaltung
-    <a href="resourceAdd.html.twig" class="page-title-action">Neu hinzufügen</a>
+    <a href="ontopress_resourceAdd" class="page-title-action">Neu hinzufügen</a>
 {% endblock %}
 {% block content %}
     <form method="get">
         <div class="tablenav top">
             <br class="clear">
+            <div align="right">
+                <form action="searchbox">
+                    Suche<input type="text" name="fname">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
         </div>
         <table class="wp-list-resource widefat fixed striped users">
             <thead>
@@ -143,8 +149,8 @@
                         <option value="value4">Oper Leipzig</option>
                     </select>
                 </div>
+            </tr>
             </tfoot>
         </table>
-
     </form>
 {% endblock %}
