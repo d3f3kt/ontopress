@@ -26,7 +26,7 @@ class EditFormType extends AbstractType
             ->add('body', 'textarea', array(
                 'label' => 'Twig Code',
             ))
-            ->add( 'file')
+            ->add('file')
             ->add('submit', 'submit', array(
                 'label' => 'Upload',
                 'attr' => array('class' => 'button button-primary'),
