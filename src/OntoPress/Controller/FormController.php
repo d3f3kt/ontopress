@@ -2,11 +2,29 @@
 namespace OntoPress\Controller;
 
 use OntoPress\Libary\Controller;
+use OntoPress\Form\Form\Type\EditFormType;
 
 class FormController extends Controller
 {
     public function showManageAction()
     {
         return $this->render('form/manageForms.html.twig', array());
+    }
+
+    public function showEditAction()
+    {
+        $form = $this->createForm(new EditFormType());
+
+        return $this->render('form/formEdit.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+    public function showCreateAction()
+    {
+        $form = $this->createForm(new EditFormType());
+
+        return $this->render('form/formCreate.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }

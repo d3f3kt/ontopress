@@ -28,6 +28,18 @@ sites:
                 menu_title: Formulare
                 capability: manage_options
                 controller: Form:showManage
+            formsCreate:
+                page_title: Formular Anlegen
+                menu_title: Formulare
+                capability: manage_options
+                controller: Form:showCreate
+                virtual:    true
+            formsEdit:
+                page_title: Formular Bearbeiten
+                menu_title: Formulare
+                capability: manage_options
+                controller: Form:showEdit
+                virtual:    true
             resource:
                 page_title: Ressourcen Verwaltung
                 menu_title: Ressourcen
