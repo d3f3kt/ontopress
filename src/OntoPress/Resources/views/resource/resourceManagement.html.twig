@@ -86,16 +86,16 @@
                 <td class="id column-id has-row-actions column-primary" data-colname="ID">
                     <strong>3</strong><br>
                 </td>
-                <td class="Titel column-Titel" data-colname="Titel">
+                <td class="Titel column-titel" data-colname="Titel">
                     <p>Oper Leipzig</p>
                 </td>
-                <td class="Autor column-Autor" data-colname="Autor">
+                <td class="Autor column-autor" data-colname="Autor">
                     <p>d3f3kt</p>
                 </td>
-                <td class="Datum column-Datum" data-colname="Datum">
+                <td class="Datum column-datum" data-colname="Datum">
                     <p>22.Jan 2016</p>
                 </td>
-                <td class="Utility column-Utility" data-colname="Utility">
+                <td class="Utility column-utility" data-colname="Utility">
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="#">Löschen</a></span>
@@ -103,6 +103,39 @@
                 </td>
             </tr>
             </tbody>
+            <tfoot>
+            <tr>
+                <th scope="col" id="id" class="manage-column column-primary sortable desc ">
+                    <a href="#">
+                        <span>ID</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                <th scope="col" class="manage-column column-titel sortable desc">
+                    <a href="#">
+                        <span>Titel</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                </th>
+                <th scope="col" class="manage-column column-autor sortable desc">
+                    <a href="#">
+                        <span>Autor</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                </th>
+                <th scope="col" class="manage-column column-datum sortable desc">
+                    <a href="#">
+                        <span>Datum</span>
+                        <span class="sorting-indicator"></span>
+                    </a>
+                </th>
+                </th>
+                <th scope="col" class="manage-column column-utility">
+                    <span>Utility</span>
+                </th>
+            </tfoot>
         </table>
 
     </form>
