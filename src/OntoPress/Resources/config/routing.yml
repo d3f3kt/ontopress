@@ -23,6 +23,12 @@ sites:
                 capability: manage_options
                 controller: Ontology:showDelete
                 virtual:    true
+            ontologyAdd:
+                page_title: Hinzufügen
+                menu_title: Add
+                capability: manage_options
+                controller: Ontology:showAdd
+                virtual:    true
             forms:
                 page_title: Formular Verwaltung
                 menu_title: Formulare

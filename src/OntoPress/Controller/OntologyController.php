@@ -14,4 +14,9 @@ class OntologyController extends Controller
     {
         return $this->render('ontology/delete.html.twig', array());
     }
+
+    public function showAddAction()
+    {
+        return $this->render('ontology/ontologyAdd.html.twig', array());
+    }
 }

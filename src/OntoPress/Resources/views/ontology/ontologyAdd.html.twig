@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    Ontologie hochladen
+{% endblock %}
+{% block content %}
+    <div>
+      <form action="textbox">
+           Ontologiename: <input type="text" name="fname">
+      </form>
+    </div>
+    <br class="clear">
+    <div>
+        <form action="textbox">
+            Ontologie<input type="text" name="fname">
+            <a href="#" class="page-title-action">Upload</a>
+        </form>
+    </div>
+    <br class="clear">
+    <a href="#" class="page-title-action">Speichern</a>
+{% endblock %}
