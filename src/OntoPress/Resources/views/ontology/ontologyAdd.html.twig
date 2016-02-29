@@ -2,8 +2,10 @@
 
 {% block headline %}
     Ontologie hochladen
+
 {% endblock %}
 {% block content %}
+    <br class="clear">
     <div>
       <form action="textbox">
            Ontologiename: <input type="text" name="fname">
@@ -18,4 +20,5 @@
     </div>
     <br class="clear">
     <a href="#" class="page-title-action">Speichern</a>
+    <a href="{{ path('ontopress_ontology') }}" class="page-title-action">Abbruch</a>
 {% endblock %}
