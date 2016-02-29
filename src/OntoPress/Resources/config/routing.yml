@@ -62,3 +62,9 @@ sites:
                 capability: manage_options
                 controller: Resource:showAddDetails
                 virtual:    true
+            resourceDelete:
+                page_title: Ressource Löschen
+                menu_title: Ressourcen
+                capability: manage_options
+                controller: Resource:showDelete
+                virtual:    true

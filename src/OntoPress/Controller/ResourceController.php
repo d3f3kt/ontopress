@@ -25,4 +25,9 @@ class ResourceController extends Controller
     {
         return $this->render('resource/resourceManagement.html.twig', array());
     }
+
+    public function showDeleteAction()
+    {
+        return $this->render('resource/resourceDelete.html.twig', array());
+    }
 }
