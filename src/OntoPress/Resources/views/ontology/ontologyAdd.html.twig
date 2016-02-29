@@ -5,20 +5,35 @@
 
 {% endblock %}
 {% block content %}
+    <head>
+        <style>
+            label{
+                display: inline-block;
+                float: left;
+                clear: left;
+                width: 100px;
+                text-align: left;
+            }
+            input {
+                display: inline-block;
+                float: left;
+            }
+        </style>
+    </head>
     <br class="clear">
-    <div>
-      <form action="textbox">
-           Ontologiename: <input type="text" name="fname">
-      </form>
-    </div>
-    <br class="clear">
-    <div>
-        <form action="textbox">
-            Ontologie<input type="text" name="fname">
-            <a href="#" class="page-title-action">Upload</a>
-        </form>
-    </div>
-    <br class="clear">
+    <tr>
+        <div>
+            <form action="textbox">
+                <label>Ontologiename:</label> <input type="text" class="regular-text">
+                <br class="clear">
+            </form>
+            <form action="textbox">
+                <label>Ontologie </label><input value="Datei..." class="regular-text" type="text">
+                <a href="#" class="page-title-action">Upload</a>
+            </form>
+        </div>
+        <br class="clear">
+    </tr>
     <a href="#" class="page-title-action">Speichern</a>
     <a href="{{ path('ontopress_ontology') }}" class="page-title-action">Abbruch</a>
 {% endblock %}
