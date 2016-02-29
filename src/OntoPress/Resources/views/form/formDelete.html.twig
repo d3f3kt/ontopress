@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    Formular Löschen
+{% endblock %}
+{% block content %}
+    <p>Sie sind dabei das Formular <b>Schulen</b> zu löschen.</p>
+
+
+    <h2>Wirklich löschen?</h2>
+    <a href="#" class="page-title-action">Löschen</a>
+    <a href="{{path('ontopress_forms')}}" class="page-title-action">Abbrechen</a>
+{% endblock %}

@@ -46,6 +46,12 @@ sites:
                 capability: manage_options
                 controller: Form:showEdit
                 virtual:    true
+            formsDelete:
+                page_title: Formular Löschen
+                menu_title: Formulare
+                capability: manage_options
+                controller: Form:showDelete
+                virtual:    true
             resource:
                 page_title: Ressourcen Verwaltung
                 menu_title: Ressourcen

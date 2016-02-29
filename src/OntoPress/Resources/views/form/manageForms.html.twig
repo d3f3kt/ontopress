@@ -2,7 +2,7 @@
 
 {% block headline %}
     Formular Verwaltung
-    <a href="?page=ontopress_formsCreate" class="page-title-action">Neu hinzufügen</a>
+    <a href="{{path('ontopress_formsCreate')}}" class="page-title-action">Neu hinzufügen</a>
 {% endblock %}
 {% block content %}
     <form method="get">
@@ -31,7 +31,7 @@
                     1<br>
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 1}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="#">Löschen</a></span>
+                        <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
                     </div>
                 </td>
                 <td class="Name column-Name has-row-actions column-primary" data-colname="id">
@@ -43,7 +43,7 @@
                     2<br>
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 2}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="#">Löschen</a></span>
+                        <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
                     </div>
                 </td>
                 <td class="Name column-Name has-row-actions column-primary" data-colname="id">
@@ -55,7 +55,7 @@
                     3<br>
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 3}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="#">Löschen</a></span>
+                        <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
                     </div>
                 </td>
                 <td class="Name column-Name has-row-actions column-primary" data-colname="id">

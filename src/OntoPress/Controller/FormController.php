@@ -19,6 +19,7 @@ class FormController extends Controller
             'form' => $form->createView(),
         ));
     }
+
     public function showCreateAction()
     {
         $form = $this->createForm(new EditFormType());
@@ -26,5 +27,10 @@ class FormController extends Controller
         return $this->render('form/formCreate.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    public function showDeleteAction()
+    {
+        return $this->render('form/formDelete.html.twig', array());
     }
 }
