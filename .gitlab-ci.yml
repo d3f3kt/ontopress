@@ -4,7 +4,7 @@ before_script:
 - apt-get update -yqq
 - apt-get install git -yqq
 - curl -sS https://getcomposer.org/installer | php
-- php composer.phar install --no-progress > /dev/null
+- php composer.phar install -q
 
 stages:
     - stylecheck
