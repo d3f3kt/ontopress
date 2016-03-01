@@ -5,4 +5,3 @@ sftp-config.json
 /vendor/
 *.php~
 *.php.save
-composer.lock

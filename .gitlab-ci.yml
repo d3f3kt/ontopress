@@ -1,10 +1,5 @@
 image: php:5.6
 
-cache:
-  untracked: true
-  paths:
-  - vendor/
-
 before_script:
 - apt-get update -yqq
 - apt-get install git -yqq
@@ -12,14 +7,15 @@ before_script:
 - php composer.phar install --no-progress
 
 stages:
-- stylecheck
-- test
-- deploy
+    - stylecheck
+    - test
+    - deploy
 
 stylecheck:php:
     stage: stylecheck
     script:
     - vendor/bin/phpcs --standard=PSR2 -n --report=full src/OntoPress
+
 stylecheck:twig:
     stage: stylecheck
     script:
