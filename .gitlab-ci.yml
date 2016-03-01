@@ -1,15 +1,40 @@
+image: php:5.6
+
+cache:
+  untracked: true
+  paths:
+  - vendor/
+
 before_script:
 - apt-get update -yqq
 - apt-get install git -yqq
 - curl -sS https://getcomposer.org/installer | php
-- php composer.phar install
+- php composer.phar install --no-progress
 
-test:5.6:
-    image: php:5.6
+stages:
+- stylecheck
+- test
+- deploy
+
+stylecheck:php:
+    stage: stylecheck
     script:
     - vendor/bin/phpcs --standard=PSR2 -n --report=full src/OntoPress
-
-test:5.5:
-    image: php:5.5
+stylecheck:twig:
+    stage: stylecheck
     script:
-    - vendor/bin/phpcs --standard=PSR2 -n --report=full src/OntoPress
+    - vendor/bin/twig-lint lint src/OntoPress/Resources/views
+
+
+### Waiting for php unit support
+#test:5.5:
+#    stage: test
+#    image: php:5.5
+#    script:
+#    -
+
+#test:5.6:
+#    stage: test
+#    image: php:5.6
+#    script:
+#    -
