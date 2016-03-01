@@ -17,7 +17,7 @@ use OntoPress\Wordpress\PluginWrapper;
 $ontopressContainer->set('wpdb', $wpdb);
 $ontopressContainer->setParameter('ontopress.plugin_dir', plugin_dir_path(__FILE__));
 $ontopressContainer->setParameter('ontopress.root_dir', plugin_dir_path(__FILE__).'src/OntoPress');
-$ontopressContainer->setParameter('ontopress.plugin_url', plugin_dir_url(__FILE__));
+$ontopressContainer->setParameter('ontopress.plugin_url', plugin_dir_url(__FILE__).'src/OntoPress');
 
 $ontopressPlugin = new PluginWrapper($ontopressContainer);
 

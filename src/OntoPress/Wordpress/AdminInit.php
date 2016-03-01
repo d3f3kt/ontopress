@@ -68,6 +68,6 @@ class AdminInit
      */
     public function loadResources()
     {
-        //TODO: load custom css/js
+        wp_enqueue_style('ontopress_style', $this->container->getParameter('ontopress.plugin_url').'/Resources/assets/css/style.css');
     }
 }
