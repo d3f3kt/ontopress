@@ -1,6 +1,5 @@
 <?php
 
-
 namespace OntoPress\Form\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -8,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * That is an example form
+ * That is an example form.
  */
 class EditFormType extends AbstractType
 {
@@ -23,12 +22,16 @@ class EditFormType extends AbstractType
                 'required' => false,
                 'attr' => array('class' => 'regular-text'),
             ))
-            ->add('body', 'textarea', array(
+            ->add('twig', 'textarea', array(
                 'label' => 'Twig Code',
+                'attr' => array(
+                    'cols' => 45,
+                    'rows' => 15,
+                ),
             ))
-            ->add('file')
+            ->add('twigTheme', 'file')
             ->add('submit', 'submit', array(
-                'label' => 'Upload',
+                'label' => 'Speichern',
                 'attr' => array('class' => 'button button-primary'),
             ));
     }
