@@ -6,6 +6,7 @@
         "symfony/dependency-injection": "v2.8.0",
         "symfony/form": "v2.8.0",
         "symfony/validator": "v2.8.0",
+        "symfony/http-foundation": "v2.8.0",
         "symfony/twig-bridge": "v2.8.0",
         "symfony/translation": "v2.8.0",
         "symfony/config": "v2.8.0"
