@@ -8,9 +8,8 @@ class AddOntology
 
     private $ontologyFile;
 
-
     /**
-     * Get the value of Name
+     * Get the value of Name.
      *
      * @return mixed
      */
@@ -20,7 +19,7 @@ class AddOntology
     }
 
     /**
-     * Set the value of Name
+     * Set the value of Name.
      *
      * @param mixed name
      *
@@ -34,7 +33,7 @@ class AddOntology
     }
 
     /**
-     * Get the value of Ontology File
+     * Get the value of Ontology File.
      *
      * @return mixed
      */
@@ -44,7 +43,7 @@ class AddOntology
     }
 
     /**
-     * Set the value of Ontology File
+     * Set the value of Ontology File.
      *
      * @param mixed ontologyFile
      *
@@ -56,5 +55,4 @@ class AddOntology
 
         return $this;
     }
-
 }
