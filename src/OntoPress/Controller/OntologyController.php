@@ -1,8 +1,9 @@
 <?php
+
 namespace OntoPress\Controller;
 
-use OntoPress\Form\Ontology\AddOntologyForm;
-use OntoPress\Form\Ontology\AddResourceDetailForm;
+use OntoPress\Form\Ontology\Type\AddOntologyForm;
+use OntoPress\Form\Ontology\Model\AddOntology;
 use OntoPress\Libary\Controller;
 
 class OntologyController extends Controller
@@ -19,7 +20,8 @@ class OntologyController extends Controller
 
     public function showAddAction()
     {
-        $form = $this->createForm(new AddOntologyForm());
+        $ontology = new AddOntology();
+        $form = $this->createForm(new AddOntologyForm(), $ontology);
 
         return $this->render('ontology/ontologyAdd.html.twig', array(
             'form' => $form->createView(),
