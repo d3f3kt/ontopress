@@ -2,5 +2,102 @@
 
 {% block headline %}OntoPress Dashboard{% endblock %}
 {% block content %}
-    <p>Hallo ich bin ein ganz normale Zeile</p>
+<div class="wrap">
+    <div id="welcome-panel" class="welcome-panel">
+        <input type="hidden" id="welcomepanelnonce" name="welcomepanelnonce" value="2f6f89aff2" />
+        <div class="welcome-panel-content">
+            <h2>Willkommen bei OntoPress</h2>
+            <p class="about-description">Dieses Plugin ermöglicht Ihnen das Hochladen und Verwalten von Ontologien</p>
+
+            <div class="welcome-panel-column-container">
+                <div class="welcome-panel-column">
+                   <!--Ontologien-->
+                    <div style="background-color:white;
+                            width:130px;
+                            height:130px;
+                            padding: 23px;
+                            margin-left: 25%;
+                            margin-top: 3.2%;
+                            border:3px darkgray solid;">
+                        <ul>
+                            <li style="text-align: center;"><font size="8">12</font> </li>
+                            <li style="text-align: center;">Ontologien</li>
+                            <li style ="text-align: center;">____________________</li>
+                            <li><a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_ontologyAdd" class="welcome-icon welcome-add-page">Hinzufügen</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="welcome-panel-column">
+                    <!--Formulare-->
+                    <div style="background-color:white;
+                            width:130px;
+                            height:130px;
+                            padding: 23px;
+                            margin-left: 15%;
+                            margin-top: 3.5%;
+                            border:3px darkgray solid;">
+                        <ul>
+                            <li style="text-align: center;"><font size="8">21</font> </li>
+                            <li style="text-align: center;">Formulare</li>
+                            <li style ="text-align: center;">____________________</li>
+                            <li><a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_formsCreate" class="welcome-icon welcome-add-page">Hinzufügen</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="welcome-panel-column welcome-panel-last">
+                    <!--Resourcen-->
+                    <div style="background-color:white;
+                            width:130px;
+                            height:130px;
+                            padding: 23px;
+                            margin-left: 15%;
+                            margin-top: 3.5%;
+                            border:3px darkgray solid;">
+                        <ul>
+                            <li style="text-align: center;"><font size="8">222</font> </li>
+                            <li style="text-align: center;">Resourcen</li>
+                            <li style ="text-align: center;">____________________</li>
+                            <li><a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_resourceAdd" class="welcome-icon welcome-add-page">Hinzufügen</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dashboard-widgets-wrap">
+        <div id="dashboard-widgets" class="metabox-holder">
+            <div id="postbox-container-1" class="postbox-container">
+                <div id="normal-sortables" class="meta-box-sortables">
+                    <div id="dashboard_ontology" class="postbox " >
+                        <button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text">Bedienfeld umschalten: Am meisten benutze Ontologien</span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class='hndle'><span>Am meisten benutze Ontologien</span></h2>
+                        <div class="inside">
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="postbox-container-1" class="postbox-container">
+                <div id="normal-sortables" class="meta-box-sortables">
+                    <div id="dashboard_form" class="postbox">
+                       <button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text">Bedienfeld umschalten:</span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class='hndle'><span>Am meisten benutze Formulare</span></h2>
+                        <div class="inside">
+                        
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="closedpostboxesnonce" name="closedpostboxesnonce" value="04fdb69369" /><input type="hidden" id="meta-box-order-nonce" name="meta-box-order-nonce" value="dd0322115d" />
+    </div><!-- dashboard-widgets-wrap -->
+</div>
+
 {% endblock %}
