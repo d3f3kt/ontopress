@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block headline %}
-       Resourcen Verwaltung
+       Ressourcen Verwaltung
     <a href="{{path('ontopress_resourceAdd')}}" class="page-title-action">Neu hinzufügen</a>
 {% endblock %}
 {% block content %}
@@ -42,55 +42,52 @@
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
-                <th scope="col" class="column-Utility">
-                    <span>Utility</span>
-                </th>
             </tr>
             </thead>
             <tbody id="the-list" data-wp-lists="list:resource">
             <tr id="Resource-1">
                 <td class="id column-id has-row-actions column-primary" data-colname="ID">
                     1<br>
-                </td>
-                <td class="Titel column-Titel" data-colname="Titel">
-                    <p>Augustusplatz</p>
-                </td>
-                <td class="Autor column-Autor" data-colname="Autor">
-                    <p>k00ny</p>
-                </td>
-                <td class="Datum column-Datum" data-colname="Datum">
-                    <p>20.Jan 2016</p>
-                </td>
-                <td class="Utility column-Utility" data-colname="Utility">
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 1}) }}">Löschen</a></span>
                     </div>
                 </td>
+                <td class="Titel column-Titel" data-colname="Titel">
+                    <p>Augustusplatz</p>
+                </td>
+                <td class="Autor column-Autor" data-colname="Autor">
+                    <p>k00ni</p>
+                </td>
+                <td class="Datum column-Datum" data-colname="Datum">
+                    <p>20.Jan 2016</p>
+                </td>
             </tr>
             <tr id="Resource-2">
                 <td class="id column-id has-row-actions column-primary" data-colname="ID">
                     2<br>
-                </td>
-                <td class="Titel column-Titel" data-colname="Titel">
-                    <p>Uni Campus</p>
-                </td>
-                <td class="Autor column-Autor" data-colname="Autor">
-                    <p>k00ny</p>
-                </td>
-                <td class="Datum column-Datum" data-colname="Datum">
-                    <p>22.Jan 2016</p>
-                </td>
-                <td class="Utility column-Utility" data-colname="Utility">
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 2}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 2}) }}">Löschen</a></span>
                     </div>
                 </td>
+                <td class="Titel column-Titel" data-colname="Titel">
+                    <p>Uni Campus</p>
+                </td>
+                <td class="Autor column-Autor" data-colname="Autor">
+                    <p>k00ni</p>
+                </td>
+                <td class="Datum column-Datum" data-colname="Datum">
+                    <p>22.Jan 2016</p>
+                </td>
             </tr>
             <tr id="Resource-3">
                 <td class="id column-id has-row-actions column-primary" data-colname="ID">
                     3<br>
+                    <div class="row-actions">
+                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 3}) }}">Bearbeiten</a></span>
+                        <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 3}) }}">Löschen</a></span>
+                    </div>
                 </td>
                 <td class="Titel column-titel" data-colname="Titel">
                     <p>Oper Leipzig</p>
@@ -100,12 +97,6 @@
                 </td>
                 <td class="Datum column-datum" data-colname="Datum">
                     <p>22.Jan 2016</p>
-                </td>
-                <td class="Utility column-utility" data-colname="Utility">
-                    <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 3}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 3}) }}">Löschen</a></span>
-                    </div>
                 </td>
             </tr>
             </tbody>
@@ -137,9 +128,6 @@
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
-                </th>
-                <th scope="col" class="manage-column column-utility">
-                    <span>Utility</span>
                 </th>
                 <div class="dropdown">
                    Ontologie: <select name="Gebäude">
