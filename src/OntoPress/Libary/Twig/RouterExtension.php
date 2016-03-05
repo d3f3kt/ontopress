@@ -39,7 +39,7 @@ class RouterExtension extends \Twig_Extension
      */
     public function pathFunction($siteName, $parameters = array())
     {
-        $this->container->get('ontopress.router')->generate($siteName, $parameters);
+        return $this->container->get('ontopress.router')->generate($siteName, $parameters);
     }
 
     /**
