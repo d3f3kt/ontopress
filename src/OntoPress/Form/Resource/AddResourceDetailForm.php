@@ -46,7 +46,7 @@ class AddResourceDetailForm extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        //$resolver->setRequired('cancel_link');
+        $resolver->setRequired('cancel_link');
         $resolver->setDefaults(array(
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',

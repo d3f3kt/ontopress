@@ -13,7 +13,7 @@ class FormController extends Controller
 
     public function showEditAction()
     {
-        $form = $this->createForm(new EditFormType(), array(
+        $form = $this->createForm(new EditFormType(), null, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
         ));
 
@@ -24,7 +24,7 @@ class FormController extends Controller
 
     public function showCreateAction()
     {
-        $form = $this->createForm(new EditFormType(), array(
+        $form = $this->createForm(new EditFormType(), null, array(
         'cancel_link' => $this->generateRoute('ontopress_forms'),
         ));
 
