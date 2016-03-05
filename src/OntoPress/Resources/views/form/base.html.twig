@@ -4,7 +4,7 @@
     {%- set type = type|default('submit') -%}
     {{ block('button_widget') }}
     <a class="page-title-action button cancel" href="{{ cancel_link }}">
-        {{ translation_domain is same as(false) ? cancel_label : cancel_label|trans({}, translation_domain) }}
+        {{ cancel_label|trans({}, translation_domain|default('messages')) }}
     </a>
 {%- endblock submitCancel_widget -%}
 
