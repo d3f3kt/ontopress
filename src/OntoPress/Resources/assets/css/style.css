@@ -4,11 +4,11 @@
 .ontopressWrap .button.cancel {
     top: 0!important;
 }
-.welcome-panel
+.ontopressWrap .welcome-panel
 {
-    height: 270px /*!important*/ ;
+    padding-bottom: 20px;
 }
-.dashboard-square{
+.ontopressWrap .dashboard-square{
     background-color:white;
     width:130px;
     height:130px;
