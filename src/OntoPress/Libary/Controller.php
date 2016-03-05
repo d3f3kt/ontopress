@@ -85,6 +85,20 @@ abstract class Controller
     }
 
     /**
+     * Generates an url from sitename.
+     *
+     * @param string $siteName   site name
+     * @param array  $parameters parameters
+     *
+     * @return string url
+     */
+    protected function generateRoute($siteName, $parameters = array())
+    {
+        return $this->get('ontopress.router')->generate($siteName, $parameters);
+    }
+
+
+    /**
      * Get a service from Container
      * @param $name Name of service
      *
