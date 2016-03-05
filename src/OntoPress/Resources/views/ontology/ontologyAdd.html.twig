@@ -2,9 +2,15 @@
 
 {% block headline %}
     Ontologie hochladen
-<h2> Nachdem eine Ontologie hochgeladen wurde, kann daraus ein Formular erstellt werden.</h2>
-<h3>Dazu müssen Sie die gewünschten Klassen auswählen, die im Formular angezeigt werden sollen,<br>
-    außerdem wird ein Twig Code generiert, den Sie beliebig verändern können</h3>
+    <div class="infoText">
+        <p>In Ontologien wird eine Menge von Begrifflichkeiten eines gemeinsamen Gegenstandsbereiches<br>
+            sowie deren Beziehungen in einer sprachlichen und formalen Darstellung abgebildet.<br>
+            Zudem enthalten sie Regeln zur Schlussfolgerung und zur Gewährleistung ihrer Gültigkeit.<br>
+            Durch Ontologien wird ein Netzwerk von Informationen mit logischen Relationen dargestellt. </p>
+        <p> Nachdem eine Ontologie hochgeladen wurde, kann daraus ein Formular erstellt werden.</p>
+        <p>Dazu müssen Sie die gewünschten Klassen auswählen, die im Formular angezeigt werden sollen,<br>
+            außerdem wird ein Twig Code generiert, den Sie beliebig verändern können</p>
+    </div>
 {% endblock %}
 {% block content %}
     {{ form_start(form) }}
