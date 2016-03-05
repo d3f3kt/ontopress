@@ -56,6 +56,25 @@ class Router
     }
 
     /**
+     * Generates an url from sitename.
+     *
+     * @param string $siteName   site name
+     * @param array  $parameters parameters
+     *
+     * @return string url
+     */
+    public function generate($siteName, $parameters = array())
+    {
+        //TODO: maybe compare the siteName with the routing tree
+        $url = '?page='.$siteName;
+        foreach ($parameters as $parameter => $value) {
+            $url .= '&'.$parameter.'='.urlencode($value);
+        }
+
+        return $url;
+    }
+
+    /**
      * Creates wordpress admin menu with the help of the config entries.
      */
     public function setRoutes()

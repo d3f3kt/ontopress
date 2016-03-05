@@ -39,13 +39,7 @@ class RouterExtension extends \Twig_Extension
      */
     public function pathFunction($siteName, $parameters = array())
     {
-        //TODO: maybe compare the siteName with the routing tree
-        $url = '?page='.$siteName;
-        foreach ($parameters as $parameter => $value) {
-            $url .= '&'.$parameter.'='.urlencode($value);
-        }
-
-        return $url;
+        $this->container->get('ontopress.router')->generate($siteName, $parameters);
     }
 
     /**
