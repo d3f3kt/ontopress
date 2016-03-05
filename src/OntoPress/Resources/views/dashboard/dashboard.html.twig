@@ -5,58 +5,42 @@
 <div class="wrap">
     <div id="welcome-panel" class="welcome-panel">
         <input type="hidden" id="welcomepanelnonce" name="welcomepanelnonce" value="2f6f89aff2" />
+
         <div class="welcome-panel-content">
             <h2>Willkommen bei OntoPress</h2>
             <p class="about-description">Dieses Plugin ermöglicht Ihnen das Hochladen und Verwalten von Ontologien</p>
 
             <div class="welcome-panel-column-container">
                 <div class="welcome-panel-column">
-                   <!--Ontologien-->
-                    <div style="background-color:white;
-                            width:130px;
-                            height:130px;
-                            padding: 23px;
-                            margin-left: 25%;
-                            margin-top: 3.2%;
-                            border:3px darkgray solid;">
+                   <!--Ontologys-->
+
+                    <div class="dashboard-square">
                         <ul>
-                            <li style="text-align: center;"><font size="8">12</font> </li>
-                            <li style="text-align: center;">Ontologien</li>
-                            <li style ="text-align: center;">____________________</li>
+                            <li class="number">12</li>
+                            <li>Ontologien</li>
+                            <li>____________________</li>
                             <li><a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_ontologyAdd" class="welcome-icon welcome-add-page">Hinzufügen</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="welcome-panel-column">
-                    <!--Formulare-->
-                    <div style="background-color:white;
-                            width:130px;
-                            height:130px;
-                            padding: 23px;
-                            margin-left: 15%;
-                            margin-top: 3.5%;
-                            border:3px darkgray solid;">
+                    <!--Forms-->
+                    <div class="dashboard-square">
                         <ul>
-                            <li style="text-align: center;"><font size="8">21</font> </li>
-                            <li style="text-align: center;">Formulare</li>
-                            <li style ="text-align: center;">____________________</li>
+                            <li class="number">21</li>
+                            <li>Formulare</li>
+                            <li>____________________</li>
                             <li><a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_formsCreate" class="welcome-icon welcome-add-page">Hinzufügen</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="welcome-panel-column welcome-panel-last">
-                    <!--Resourcen-->
-                    <div style="background-color:white;
-                            width:130px;
-                            height:130px;
-                            padding: 23px;
-                            margin-left: 15%;
-                            margin-top: 3.5%;
-                            border:3px darkgray solid;">
+                    <!--Resources-->
+                    <div class="dashboard-square">
                         <ul>
-                            <li style="text-align: center;"><font size="8">222</font> </li>
-                            <li style="text-align: center;">Resourcen</li>
-                            <li style ="text-align: center;">____________________</li>
+                            <li class="number">222</li>
+                            <li>Resourcen</li>
+                            <li>____________________</li>
                             <li><a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_resourceAdd" class="welcome-icon welcome-add-page">Hinzufügen</a></li>
                         </ul>
                     </div>
@@ -65,17 +49,76 @@
         </div>
     </div>
     <div id="dashboard-widgets-wrap">
-        <div id="dashboard-widgets" class="metabox-holder">
+        <div id="dashboard-widgets" class="metabox-holder columns-2">
             <div id="postbox-container-1" class="postbox-container">
                 <div id="normal-sortables" class="meta-box-sortables">
                     <div id="dashboard_ontology" class="postbox " >
-                        <button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text">Bedienfeld umschalten: Am meisten benutze Ontologien</span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class='hndle'><span>Am meisten benutze Ontologien</span></h2>
+                        <h2 class='hndle'><span>Am meisten benutze Ontologien</span></h2>
                         <div class="inside">
-
-
-
-
-
+                            <table class="wp-list-resource widefat fixed striped users">
+                                <!--Table--->
+                                <thead>
+                                <tr>
+                                    <th>
+                                            <span>ID</span>
+                                    </th>
+                                    <th>
+                                            <span>Name</span>
+                                    </th>
+                                    <th>
+                                            <span>Formulare</span>
+                                    </th>
+                                    <th>
+                                            <span>Recourcen</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <!--Testcontent-->
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        1<br>
+                                    </td>
+                                    <td>
+                                        <p>Gebäude</p>
+                                    </td>
+                                    <td>
+                                        <p>10</p>
+                                    </td>
+                                    <td>
+                                        <p>2</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2<br>
+                                    </td>
+                                    <td>
+                                        <p>Plätze</p>
+                                    </td>
+                                    <td >
+                                        <p>5</p>
+                                    </td>
+                                    <td>
+                                        <p>1</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3<br>
+                                    </td>
+                                    <td>
+                                        <p>Kirchen</p>
+                                    </td>
+                                    <td >
+                                        <p>8</p>
+                                    </td>
+                                    <td>
+                                        <p>0</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                           </table>
                         </div>
                     </div>
                 </div>
@@ -83,21 +126,180 @@
             <div id="postbox-container-1" class="postbox-container">
                 <div id="normal-sortables" class="meta-box-sortables">
                     <div id="dashboard_form" class="postbox">
-                       <button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text">Bedienfeld umschalten:</span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class='hndle'><span>Am meisten benutze Formulare</span></h2>
+                       <h2 class='hndle'><span>Am meisten benutze Formulare</span></h2>
                         <div class="inside">
-                        
+                            <table class="wp-list-resource widefat fixed striped users">
+                               <!--Table-->
+                                <thead>
+                                <tr>
+                                    <th>
+                                            <span>ID</span>
+                                    </th>
+                                    <th>
+                                            <span>Ontologie</span>
+                                    </th>
+                                    <th>
+                                            <span>Formularname</span>
+                                    </th>
+                                    <th>
+                                            <span>Neue Recource</span>
+                                    </th>
+                                </tr>
+                                </thead>
 
-
-
-
-
+                                <!--Testcontent-->
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        1<br>
+                                    </td>
+                                    <td>
+                                        <p>Gebäude</p>
+                                    </td>
+                                    <td>
+                                        <p>Schulen</p>
+                                    </td>
+                                    <td>
+                                        <a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_resourceAdd" class="welcome-icon welcome-add-page">Neu</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2<br>
+                                    </td>
+                                    <td>
+                                        <p>Plätze</p>
+                                    </td>
+                                    <td>
+                                        <p>öffentliche Plätze</p>
+                                    </td>
+                                    <td>
+                                        <a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_resourceAdd" class="welcome-icon welcome-add-page">Neu</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3<br>
+                                    </td>
+                                    <td>
+                                        <p>Kirchen</p>
+                                    </td>
+                                    <td >
+                                        <p>öffentliche Plätze</p>
+                                    </td>
+                                    <td>
+                                        <a href="http://scripts4u.net:48005/wp-admin/admin.php?page=ontopress_resourceAdd" class="welcome-icon welcome-add-page">Neu</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <input type="hidden" id="closedpostboxesnonce" name="closedpostboxesnonce" value="04fdb69369" /><input type="hidden" id="meta-box-order-nonce" name="meta-box-order-nonce" value="dd0322115d" />
-    </div><!-- dashboard-widgets-wrap -->
-</div>
+    </div>
+    <div id="dashboard-widgets-wrap">
+        <div id="dashboard-widgets" class="metabox-holder columns-3">
+            <div id="postbox-container-1" class="postbox-container">
+                <div id="normal-sortables" class="meta-box-sortables">
+                    <div id="dashboard_form" class="postbox">
+                        <h2 class='hndle'><span>Neuste Gebäude</span></h2>
+                        <div class="inside">
+                            <table class="wp-list-resource widefat fixed striped users">
+                                <!--Table-->
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <span>ID</span>
+                                    </th>
+                                    <th>
+                                        <span>Titel</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <!--Tablecontent-->
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        Uni Campus
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        Oper Leipzig
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="postbox-container-1" class="postbox-container">
+                <div id="normal-sortables" class="meta-box-sortables">
+                    <div id="dashboard_form" class="postbox">
+                        <h2 class='hndle'><span>Neuste Plätze</span></h2>
+                        <div class="inside">
+                            <table class="wp-list-resource widefat fixed striped users">
+                                <!--Table-->
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <span>ID</span>
+                                    </th>
+                                    <th>
+                                        <span>Titel</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <!--Tablecontent-->
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        Augustusplatz
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="postbox-container-1" class="postbox-container">
+                <div id="normal-sortables" class="meta-box-sortables">
+                    <div id="dashboard_form" class="postbox">
+                        <h2 class='hndle'><span>Neuste Kirchen</span></h2>
+                        <div class="inside">
+                            <table class="wp-list-resource widefat fixed striped users">
+                                <!--Table-->
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <span>ID</span>
+                                    </th>
+                                    <th>
+                                        <span>Titel</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <!--Tablecontent-->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--dashboard widget wrap-->
+</div><!--wrap-->
 
 {% endblock %}
