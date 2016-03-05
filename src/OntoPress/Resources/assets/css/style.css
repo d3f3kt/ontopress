@@ -1,3 +1,6 @@
 .ontopressWrap .row-actions {
     left: 0!important;
 }
+.ontopressWrap .button.cancel {
+    top: 0!important;
+}

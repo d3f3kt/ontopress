@@ -1,5 +1,13 @@
 {% use "form_table_layout.html.twig" %}
 
+{%- block submitCancel_widget -%}
+    {%- set type = type|default('submit') -%}
+    {{ block('button_widget') }}
+    <a class="page-title-action button cancel" href="{{ cancel_link }}">
+        {{ translation_domain is same as(false) ? cancel_label : cancel_label|trans({}, translation_domain) }}
+    </a>
+{%- endblock submitCancel_widget -%}
+
 {%- block button_row -%}
     <tr>
         <td>{{- form_widget(form) -}}</td>
