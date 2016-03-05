@@ -13,7 +13,9 @@ class FormController extends Controller
 
     public function showEditAction()
     {
-        $form = $this->createForm(new EditFormType());
+        $form = $this->createForm(new EditFormType(), array(
+            'cancel_link' => $this->generateRoute('ontopress_forms'),
+        ));
 
         return $this->render('form/formEdit.html.twig', array(
             'form' => $form->createView(),
@@ -22,7 +24,9 @@ class FormController extends Controller
 
     public function showCreateAction()
     {
-        $form = $this->createForm(new EditFormType());
+        $form = $this->createForm(new EditFormType(), array(
+        'cancel_link' => $this->generateRoute('ontopress_forms'),
+        ));
 
         return $this->render('form/formCreate.html.twig', array(
             'form' => $form->createView(),

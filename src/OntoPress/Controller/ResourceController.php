@@ -14,7 +14,9 @@ class ResourceController extends Controller
 
     public function showAddDetailsAction()
     {
-        $form = $this->createForm(new AddResourceDetailForm());
+        $form = $this->createForm(new AddResourceDetailForm(),array(
+            'cancel_link' => $this->generateRoute('ontopress_resource'),
+        ));
 
         return $this->render('resource/resourceAddDetails.html.twig', array(
             'form' => $form->createView(),
