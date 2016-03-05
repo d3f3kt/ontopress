@@ -5,9 +5,10 @@ namespace OntoPress\Form\Ontology\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use OntoPress\Form\Base\SubmitCancelType;
 
 /**
- * That is an example form
+ * That is an example form.
  */
 class AddOntologyForm extends AbstractType
 {
@@ -24,9 +25,11 @@ class AddOntologyForm extends AbstractType
             ->add('ontologyFile', 'file', array(
                 'label' => 'Ontologie',
             ))
-            ->add('submit', 'submit', array(
+            ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
                 'attr' => array('class' => 'button button-primary'),
+                'cancel_link' => $options['cancel_link'],
+                'cancel_label' => $options['cancel_label'],
             ));
     }
 
@@ -35,9 +38,11 @@ class AddOntologyForm extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        $resolver->setRequired('cancel_link');
         $resolver->setDefaults(array(
             'data_class' => 'OntoPress\Form\Ontology\Model\AddOntology',
             'attr' => array('class' => 'form-table'),
+            'cancel_label' => 'Abbrechen',
         ));
     }
 

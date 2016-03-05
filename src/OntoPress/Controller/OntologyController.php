@@ -21,7 +21,9 @@ class OntologyController extends Controller
     public function showAddAction()
     {
         $ontology = new AddOntology();
-        $form = $this->createForm(new AddOntologyForm(), $ontology);
+        $form = $this->createForm(new AddOntologyForm(), $ontology, array(
+            'cancel_link' => $this->generateRoute('ontopress_ontology'),
+        ));
 
         return $this->render('ontology/ontologyAdd.html.twig', array(
             'form' => $form->createView(),
