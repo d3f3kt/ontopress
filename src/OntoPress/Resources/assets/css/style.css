@@ -4,3 +4,25 @@
 .ontopressWrap .button.cancel {
     top: 0!important;
 }
+.welcome-panel
+{
+    height: 270px /*!important*/ ;
+}
+.dashboard-square{
+    background-color:white;
+    width:130px;
+    height:130px;
+    padding: 23px;
+    margin-left: 25%;
+    margin-top: 3.2%;
+    border:1px lightgray solid;
+}
+.dashboard-square ul li{
+    text-align: center;
+}
+.dashboard-square ul li.number{
+    font-size:50px;
+}
+.ontopressWrap .hndle {
+    cursor: default!important;
+}
