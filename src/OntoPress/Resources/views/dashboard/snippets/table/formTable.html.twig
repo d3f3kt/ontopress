@@ -1,0 +1,24 @@
+<table class="wp-list-resource widefat fixed striped users">
+   <!--Table-->
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Ontologie</th>
+        <th>Formularname</th>
+        <th>Neue Ressource</th>
+    </tr>
+    </thead>
+    <!--Testcontent-->
+    <tbody>
+    {% for form in table %}
+        <tr>
+            <td>{{ form.id }}</td>
+            <td>{{ form.ontology }}</td>
+            <td>{{ form.formName }}</td>
+            <td>
+                <a href="{{path('ontopress_resourceAdd')}}">Neu</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
