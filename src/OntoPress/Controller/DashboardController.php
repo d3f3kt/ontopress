@@ -1,4 +1,5 @@
 <?php
+
 namespace OntoPress\Controller;
 
 use OntoPress\Libary\Controller;
@@ -12,7 +13,9 @@ class DashboardController extends Controller
             array('id' => 3, 'title' => 'Oper Leipzig'),
         );
 
-        $resTablePlaces = array(array('id' => 1, 'title' => 'Augustusplatz'));
+        $resTablePlaces = array(
+            array('id' => 1, 'title' => 'Augustusplatz'),
+        );
 
         $dashTableOnto = array(
             array('id' => 1, 'name' => 'Gebäude', 'form' => 10, 'resource' => 2),
@@ -30,7 +33,7 @@ class DashboardController extends Controller
                 'dashTableForm' => $dashTableForm,
                 'dashTableOnto' => $dashTableOnto,
                 'resTablePlaces' => $resTablePlaces,
-                'resTableBuildings' => $resTableBuildings)
-        );
+                'resTableBuildings' => $resTableBuildings,
+        ));
     }
 }
