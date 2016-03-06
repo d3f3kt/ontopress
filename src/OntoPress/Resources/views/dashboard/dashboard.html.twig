@@ -13,7 +13,6 @@
             <div class="welcome-panel-column-container">
                 <div class="welcome-panel-column">
                    <!--Ontologys-->
-
                     <div class="dashboard-square">
                         <ul>
                             <li class="number">12</li>
@@ -75,48 +74,22 @@
                                 </thead>
                                 <!--Testcontent-->
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        1<br>
-                                    </td>
-                                    <td>
-                                        <p>Gebäude</p>
-                                    </td>
-                                    <td>
-                                        <p>10</p>
-                                    </td>
-                                    <td>
-                                        <p>2</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2<br>
-                                    </td>
-                                    <td>
-                                        <p>Plätze</p>
-                                    </td>
-                                    <td >
-                                        <p>5</p>
-                                    </td>
-                                    <td>
-                                        <p>1</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        3<br>
-                                    </td>
-                                    <td>
-                                        <p>Kirchen</p>
-                                    </td>
-                                    <td >
-                                        <p>8</p>
-                                    </td>
-                                    <td>
-                                        <p>0</p>
-                                    </td>
-                                </tr>
+                                {% for onto in dashTableOnto %}
+                                    <tr>
+                                        <td>
+                                            {{onto.id}}
+                                        </td>
+                                        <td>
+                                            {{onto.name}}
+                                        </td>
+                                        <td>
+                                            {{onto.form}}
+                                        </td>
+                                        <td>
+                                            {{onto.resource}}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                            </table>
                         </div>
@@ -146,51 +119,24 @@
                                     </th>
                                 </tr>
                                 </thead>
-
                                 <!--Testcontent-->
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        1<br>
-                                    </td>
-                                    <td>
-                                        <p>Gebäude</p>
-                                    </td>
-                                    <td>
-                                        <p>Schulen</p>
-                                    </td>
-                                    <td>
-                                        <a href="{{path('ontopress_resourceAdd')}}" class="welcome-icon welcome-add-page">Neu</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2<br>
-                                    </td>
-                                    <td>
-                                        <p>Plätze</p>
-                                    </td>
-                                    <td>
-                                        <p>öffentliche Plätze</p>
-                                    </td>
-                                    <td>
-                                        <a href="{{path('ontopress_resourceAdd')}}" class="welcome-icon welcome-add-page">Neu</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        3<br>
-                                    </td>
-                                    <td>
-                                        <p>Kirchen</p>
-                                    </td>
-                                    <td >
-                                        <p>öffentliche Plätze</p>
-                                    </td>
-                                    <td>
-                                        <a href="{{path('ontopress_resourceAdd')}}" class="welcome-icon welcome-add-page">Neu</a>
-                                    </td>
-                                </tr>
+                                {% for form in dashTableForm %}
+                                    <tr>
+                                        <td>
+                                            {{form.id}}
+                                        </td>
+                                        <td>
+                                            {{form.ontology}}
+                                        </td>
+                                        <td>
+                                            {{form.formName}}
+                                        </td>
+                                        <td>
+                                            <a href="{{path('ontopress_resourceAdd')}}">Neu</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -220,22 +166,16 @@
                                 </thead>
                                 <!--Tablecontent-->
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Uni Campus
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        Oper Leipzig
-                                    </td>
-                                </tr>
+                                {% for building in resTableBuildings %}
+                                    <tr>
+                                        <td>
+                                            {{building.id}}
+                                        </td>
+                                        <td>
+                                            {{building.title}}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -261,14 +201,16 @@
                                 </thead>
                                 <!--Tablecontent-->
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Augustusplatz
-                                    </td>
-                                </tr>
+                                {% for place in resTablePlaces %}
+                                    <tr>
+                                        <td>
+                                            {{place.id}}
+                                        </td>
+                                        <td>
+                                            {{place.title}}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
