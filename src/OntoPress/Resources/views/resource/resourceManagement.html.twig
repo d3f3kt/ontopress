@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block headline %}
        Ressourcen Verwaltung
     <a href="{{path('ontopress_resourceAdd')}}" class="page-title-action">Neu hinzufügen</a>
@@ -16,11 +17,19 @@
             </div>
         </div>
         <table class="wp-list-resource widefat fixed striped users">
+            <script language="JavaScript">
+                function toggle(source) {
+                    checkboxes = document.getElementsByName('foo');
+                    for(var i=0, n=checkboxes.length;i<n;i++) {
+                        checkboxes[i].checked = source.checked;
+                    }
+                }
+            </script>
             <thead>
             <tr>
-                <th scope="col" id="id" class="manage-column column-ID sortable desc">
+                <th scope="col" id="id" style="width:90px" class="manage-column column-ID sortable desc" >
                     <a href="#">
-                        <span>ID</span>
+                        <span><input type="checkbox" name="foo" onClick="toggle(this)" /> ID </span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
@@ -47,14 +56,15 @@
             <tbody id="the-list" data-wp-lists="list:resource">
             <tr id="Resource-1">
                 <td class="id column-id has-row-actions column-primary" data-colname="ID">
-                    1<br>
+                    <input type="checkbox" name="foo" >  1<br>
+
+                </td>
+                <td class="Titel column-Titel" data-colname="Titel">
+                    <p>Augustusplatz</p>
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 1}) }}">Löschen</a></span>
                     </div>
-                </td>
-                <td class="Titel column-Titel" data-colname="Titel">
-                    <p>Augustusplatz</p>
                 </td>
                 <td class="Autor column-Autor" data-colname="Autor">
                     <p>k00ni</p>
@@ -65,14 +75,14 @@
             </tr>
             <tr id="Resource-2">
                 <td class="id column-id has-row-actions column-primary" data-colname="ID">
-                    2<br>
+                    <input type="checkbox" name="foo" />  2<br>
+                </td>
+                <td class="Titel column-Titel" data-colname="Titel">
+                    <p>Uni Campus</p>
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 2}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 2}) }}">Löschen</a></span>
                     </div>
-                </td>
-                <td class="Titel column-Titel" data-colname="Titel">
-                    <p>Uni Campus</p>
                 </td>
                 <td class="Autor column-Autor" data-colname="Autor">
                     <p>k00ni</p>
@@ -83,14 +93,14 @@
             </tr>
             <tr id="Resource-3">
                 <td class="id column-id has-row-actions column-primary" data-colname="ID">
-                    3<br>
+                    <input type="checkbox" name="foo" >   3<br>
+                </td>
+                <td class="Titel column-titel" data-colname="Titel">
+                    <p>Oper Leipzig</p>
                     <div class="row-actions">
                         <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 3}) }}">Bearbeiten</a></span>
                         <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 3}) }}">Löschen</a></span>
                     </div>
-                </td>
-                <td class="Titel column-titel" data-colname="Titel">
-                    <p>Oper Leipzig</p>
                 </td>
                 <td class="Autor column-autor" data-colname="Autor">
                     <p>d3f3kt</p>
@@ -104,7 +114,7 @@
             <tr>
                 <th scope="col" id="id" class="manage-column column-primary sortable desc ">
                     <a href="#">
-                        <span>ID</span>
+                        <span><input type="checkbox" name="foo" onClick="toggle(this)" / > ID</span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
@@ -126,13 +136,19 @@
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
-                <div class="dropdown">
-                   Ontologie: <select name="Gebäude">
-                        <option value="value1" selected>Gebäude</option>
-                        <option value="value2">Plätze</option>
-                        <option value="value3">Kirchen</option>
-                    </select>
-                </div>
+                    <div class="dropdown">
+                        <select name="AktionWählen">
+                            <option value="value1" selected>Aktion wählen</option>
+                            <option value="value2">Bearbeiten</option>
+                            <option value="value3">In Papierkorb legen</option>
+                        </select>
+                        <button type="button">Übernehmen</button>
+                        Ontologie: <select name="Gebäude">
+                            <option value="value1" selected>Gebäude</option>
+                            <option value="value2">Plätze</option>
+                            <option value="value3">Kirchen</option>
+                        </select>
+                        <div/>
             </tr>
             </tfoot>
         </table>
