@@ -1,10 +1,10 @@
 <?php
 namespace OntoPress\Controller;
 
-use OntoPress\Libary\Controller;
+use OntoPress\Libary\AbstractController;
 use OntoPress\Form\Form\Type\EditFormType;
 
-class FormController extends Controller
+class FormController extends AbstractController
 {
     public function showManageAction()
     {

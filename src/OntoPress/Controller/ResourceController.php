@@ -2,10 +2,10 @@
 
 namespace OntoPress\Controller;
 
-use OntoPress\Libary\Controller;
+use OntoPress\Libary\AbstractController;
 use OntoPress\Form\Resource\AddResourceDetailForm;
 
-class ResourceController extends Controller
+class ResourceController extends AbstractController
 {
     public function showAddAction()
     {

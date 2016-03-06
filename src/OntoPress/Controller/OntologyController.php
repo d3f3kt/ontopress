@@ -4,9 +4,9 @@ namespace OntoPress\Controller;
 
 use OntoPress\Form\Ontology\Type\AddOntologyForm;
 use OntoPress\Form\Ontology\Model\AddOntology;
-use OntoPress\Libary\Controller;
+use OntoPress\Libary\AbstractController;
 
-class OntologyController extends Controller
+class OntologyController extends AbstractController
 {
     public function showManageAction()
     {

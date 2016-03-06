@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * Abstract Controller.
  */
-abstract class Controller
+abstract class AbstractController
 {
     /**
      * Dependency Injection Container.

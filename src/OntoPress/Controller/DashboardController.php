@@ -2,9 +2,9 @@
 
 namespace OntoPress\Controller;
 
-use OntoPress\Libary\Controller;
+use OntoPress\Libary\AbstractController;
 
-class DashboardController extends Controller
+class DashboardController extends AbstractController
 {
     public function showDashboardAction()
     {
