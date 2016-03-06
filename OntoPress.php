@@ -4,7 +4,7 @@
 Plugin Name: OntoPress
 Plugin URI: http://aksw.org/
 Description: Wordpress Plugin which converts ontologies into HTML forms on the fly.
-Version: 0.0
+Version: 0.1.0
 Author: WPOD16
 Author URI: http://pcai042.informatik.uni-leipzig.de/~wpod16/
 License: ...PENDING...
