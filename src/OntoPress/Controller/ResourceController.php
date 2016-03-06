@@ -3,7 +3,7 @@
 namespace OntoPress\Controller;
 
 use OntoPress\Libary\AbstractController;
-use OntoPress\Form\Resource\AddResourceDetailForm;
+use OntoPress\Form\Resource\Type\AddResourceDetailType;
 
 class ResourceController extends AbstractController
 {
@@ -14,7 +14,7 @@ class ResourceController extends AbstractController
 
     public function showAddDetailsAction()
     {
-        $form = $this->createForm(new AddResourceDetailForm(), null, array(
+        $form = $this->createForm(new AddResourceDetailType(), null, array(
             'cancel_link' => $this->generateRoute('ontopress_resource'),
         ));
 

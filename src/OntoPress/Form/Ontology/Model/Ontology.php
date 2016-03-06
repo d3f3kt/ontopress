@@ -2,7 +2,7 @@
 
 namespace OntoPress\Form\Ontology\Model;
 
-class AddOntology
+class Ontology
 {
     private $name;
 
@@ -21,7 +21,7 @@ class AddOntology
     /**
      * Set the value of Name.
      *
-     * @param mixed name
+     * @param mixed $name name
      *
      * @return self
      */
@@ -45,7 +45,7 @@ class AddOntology
     /**
      * Set the value of Ontology File.
      *
-     * @param mixed ontologyFile
+     * @param mixed $ontologyFile ontologyFile
      *
      * @return self
      */

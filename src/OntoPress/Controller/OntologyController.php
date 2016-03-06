@@ -2,8 +2,8 @@
 
 namespace OntoPress\Controller;
 
-use OntoPress\Form\Ontology\Type\AddOntologyForm;
-use OntoPress\Form\Ontology\Model\AddOntology;
+use OntoPress\Form\Ontology\Type\AddOntologyType;
+use OntoPress\Form\Ontology\Model\Ontology;
 use OntoPress\Libary\AbstractController;
 
 class OntologyController extends AbstractController
@@ -20,8 +20,8 @@ class OntologyController extends AbstractController
 
     public function showAddAction()
     {
-        $ontology = new AddOntology();
-        $form = $this->createForm(new AddOntologyForm(), $ontology, array(
+        $ontology = new Ontology();
+        $form = $this->createForm(new AddOntologyType(), $ontology, array(
             'cancel_link' => $this->generateRoute('ontopress_ontology'),
         ));
 

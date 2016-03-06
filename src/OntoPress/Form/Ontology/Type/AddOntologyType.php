@@ -1,6 +1,6 @@
 <?php
 
-namespace OntoPress\Form\Resource;
+namespace OntoPress\Form\Ontology\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,7 @@ use OntoPress\Form\Base\SubmitCancelType;
 /**
  * That is an example form.
  */
-class AddResourceDetailForm extends AbstractType
+class AddOntologyType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,20 +18,12 @@ class AddResourceDetailForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array(
-                'label' => 'Titel',
-                'required' => false,
+            ->add('name', 'text', array(
+                'label' => 'Ontologiename: ',
                 'attr' => array('class' => 'regular-text'),
             ))
-            ->add('street', 'text', array(
-                'label' => 'Straße',
-                'required' => false,
-                'attr' => array('class' => 'regular-text'),
-            ))
-            ->add('zip', 'text', array(
-                'label' => 'Plz',
-                'required' => false,
-                'attr' => array('class' => 'regular-text'),
+            ->add('ontologyFile', 'file', array(
+                'label' => 'Ontologie',
             ))
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
@@ -48,6 +40,7 @@ class AddResourceDetailForm extends AbstractType
     {
         $resolver->setRequired('cancel_link');
         $resolver->setDefaults(array(
+            'data_class' => 'OntoPress\Form\Ontology\Model\Ontology',
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
         ));
