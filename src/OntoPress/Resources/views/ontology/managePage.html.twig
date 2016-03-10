@@ -32,7 +32,23 @@
         </tr>
         </thead>
         <tbody id="the-list" data-wp-lists="list:ontology">
-        <tr id="ontology-1">
+        {% for ontology in ontologyManageTable %}
+            <tr>
+                <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                   <strong>{{ontology.id}}</strong> <br>
+                </td>
+                <td class="ontology column-ontology" data-colname="Ontology">
+                    <p>{{ontology.ontology}}</p>
+                    {% include 'snippets/table/deleteRowAction.html.twig' with {'path': path('ontopress_ontologyDelete', {'id': 1})} %}
+                </td>
+                <td class="form column-form" data-colname="Form">
+                    <a href = "#">{{ontology.form}}</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+
+<!--        <tr id="ontology-1">
             <td class="id column-id has-row-actions column-primary" data-colname="ID">
                 <strong>1</strong><br>
             </td>
@@ -67,7 +83,7 @@
             <td class="form column-form" data-colname="Form">
                 <a href="#">8</a>
             </td>
-        </tr>
+        </tr> -->
         </tbody>
         <tfoot>
         <tr>
