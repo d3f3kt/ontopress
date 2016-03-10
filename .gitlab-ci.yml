@@ -5,7 +5,7 @@ variables:
 
 before_script:
 - apt-get update -y -qq
-- apt-get install git unzip -y -qq > /dev/null
+- apt-get install git unzip php5-cli -y -qq > /dev/null
 - curl -sS https://getcomposer.org/installer | php
 - php composer.phar install
 
