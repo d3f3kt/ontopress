@@ -3,6 +3,7 @@
     "description": "Wordpress Plugin which converts ontologies into HTML forms on the fly.",
     "require": {
         "twig/twig": "^1.23",
+        "doctrine/orm": "*",
         "symfony/dependency-injection": "v2.8.0",
         "symfony/form": "v2.8.0",
         "symfony/validator": "v2.8.0",
