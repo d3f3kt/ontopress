@@ -38,60 +38,26 @@
                 </th>
             </thead>
             <tbody id="the-list" data-wp-lists="list:form">
-            <tr id="Form-1">
-                <td class="id column-id has-row-actions column-primary" data-colname="id">
-                    <b>1</b><br>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    öffentliche Plätze<br>
-                    <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 1}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
-                    </div>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    k00ni<br>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    20.Jan 2016<br>
-                </td>
-            </tr>
-            <tr id="Form-2">
-                <td class="id column-id has-row-actions column-primary" data-colname="id">
-                    <b>2</b><br>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    Schulen<br>
-                    <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 2}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
-                    </div>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    k00ni<br>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    22.Jan 2016<br>
-                </td>
-            </tr>
-            <tr id="Form-3">
-                <td class="id column-id has-row-actions column-primary" data-colname="id">
-                    <b>3</b><br>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    Galerie<br>
-                    <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 3}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
-                    </div>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    d3f3kt<br>
-                </td>
-                <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                    22.Jan 2016<br>
-                </td>
-            </tr>
+            {% for form in formManageTable %}
+                <tr>
+                    <td class="id column-id has-row-actions column-primary" data-colname="id">
+                        <b>{{ form.id }}</b><br>
+                    </td>
+                    <td class="Name column-Name has-row-actions column-primary" data-colname="id">
+                        {{form.name}}<br>
+                        <div class="row-actions">
+                            <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 1}) }}">Bearbeiten</a></span>
+                            <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
+                        </div>
+                    </td>
+                    <td class="Name column-Name has-row-actions column-primary" data-colname="id">
+                        {{ form.author }}<br>
+                    </td>
+                    <td class="Name column-Name has-row-actions column-primary" data-colname="id">
+                        {{ form.date }}<br>
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
             <tfoot>
             <tr>

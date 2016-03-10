@@ -25,7 +25,15 @@ class ResourceController extends AbstractController
 
     public function showManagementAction()
     {
-        return $this->render('resource/resourceManagement.html.twig', array());
+        $resourceManageTable = array(
+            array('id' => 1, 'title' => 'Augustusplatz', 'author' => 'k00ni', 'date' => '20.Jan 2016'),
+            array('id' => 2, 'title' => 'Uni Campus', 'author' => 'k00ni', 'date' => '22.Jan 2016'),
+            array('id' => 3, 'title' => 'Oper Leipzig', 'author' => 'd3f3ct', 'date' => '22.Jan 2016'),
+        );
+
+        return $this->render('resource/resourceManagement.html.twig', array(
+            'resourceManageTable' => $resourceManageTable
+        ));
     }
 
     public function showDeleteAction()
