@@ -3,7 +3,7 @@
 namespace OntoPress\Controller;
 
 use OntoPress\Form\Ontology\Type\AddOntologyType;
-use OntoPress\Form\Ontology\Model\Ontology;
+use OntoPress\Entity\Ontology;
 use OntoPress\Libary\AbstractController;
 
 class OntologyController extends AbstractController
@@ -16,7 +16,7 @@ class OntologyController extends AbstractController
             array('id' => 3, 'ontology' => 'Kirchen', 'form' => 8),
 
         );
-        
+
         return $this->render('ontology/managePage.html.twig', array(
             'ontologyManageTable' => $ontologyManageTable
         ));

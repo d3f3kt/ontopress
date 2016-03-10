@@ -40,7 +40,7 @@ class AddOntologyType extends AbstractType
     {
         $resolver->setRequired('cancel_link');
         $resolver->setDefaults(array(
-            'data_class' => 'OntoPress\Form\Ontology\Model\Ontology',
+            'data_class' => 'OntoPress\Entity\Ontology',
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
         ));
