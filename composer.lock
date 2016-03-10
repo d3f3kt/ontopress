@@ -4,9 +4,467 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5ca10503740ac1dec921ae51032e33e1",
-    "content-hash": "321a2c79725441171d62b7ae899fc40a",
+    "hash": "5259c88deecd5b331f5cb6ba422295ac",
+    "content-hash": "67dc127164434077acf84479eef9d9b9",
     "packages": [
+        {
+            "name": "aksw/erfurt",
+            "version": "dev-feature/php-composer",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AKSW/Erfurt.git",
+                "reference": "d6e44c6a7e478e3f397d3548474e9b6a6b3ec498"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AKSW/Erfurt/zipball/d6e44c6a7e478e3f397d3548474e9b6a6b3ec498",
+                "reference": "d6e44c6a7e478e3f397d3548474e9b6a6b3ec498",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "semsol/arc2": "*",
+                "zendframework/zendframework1": "1.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.5.*",
+                "squizlabs/php_codesniffer": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "library/antlr/",
+                    "library/Erfurt/",
+                    "tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "AKSW",
+                    "homepage": "http://aksw.org"
+                }
+            ],
+            "keywords": [
+                "Erfurt",
+                "Linked Data",
+                "QueryCache",
+                "RDF",
+                "Semantic Web",
+                "Triple Store",
+                "parser",
+                "serializer"
+            ],
+            "time": "2015-10-24 20:24:36"
+        },
+        {
+            "name": "easyrdf/easyrdf",
+            "version": "0.9.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/njh/easyrdf.git",
+                "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/njh/easyrdf/zipball/acd09dfe0555fbcfa254291e433c45fdd4652566",
+                "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-pcre": "*",
+                "php": ">=5.2.8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.5",
+                "sami/sami": "~1.4",
+                "squizlabs/php_codesniffer": "~1.4.3"
+            },
+            "suggest": {
+                "ml/json-ld": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "EasyRdf_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nicholas Humfrey",
+                    "email": "njh@aelius.com",
+                    "homepage": "http://www.aelius.com/njh/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alexey Zakhlestin",
+                    "email": "indeyets@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "EasyRdf is a PHP library designed to make it easy to consume and produce RDF.",
+            "homepage": "http://www.easyrdf.org/",
+            "keywords": [
+                "Linked Data",
+                "RDF",
+                "Semantic Web",
+                "Turtle",
+                "rdfa",
+                "sparql"
+            ],
+            "time": "2015-02-27 09:45:49"
+        },
+        {
+            "name": "nette/caching",
+            "version": "2.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/caching.git",
+                "reference": "9bcb68939f4387a89dc7be0fb5dcaae98b87976b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/caching/zipball/9bcb68939f4387a89dc7be0fb5dcaae98b87976b",
+                "reference": "9bcb68939f4387a89dc7be0fb5dcaae98b87976b",
+                "shasum": ""
+            },
+            "require": {
+                "nette/finder": "~2.2",
+                "nette/utils": "~2.2",
+                "php": ">=5.4.4"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
+            },
+            "require-dev": {
+                "latte/latte": "~2.3.0",
+                "nette/di": "~2.3",
+                "nette/tester": "~1.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "Nette Caching Component",
+            "homepage": "https://nette.org",
+            "time": "2016-02-22 01:58:50"
+        },
+        {
+            "name": "nette/finder",
+            "version": "2.3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/finder.git",
+                "reference": "c337e1c7f9db128ff4c9e3191888e3ca607f3697"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/finder/zipball/c337e1c7f9db128ff4c9e3191888e3ca607f3697",
+                "reference": "c337e1c7f9db128ff4c9e3191888e3ca607f3697",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "~2.2",
+                "php": ">=5.3.1"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
+            },
+            "require-dev": {
+                "nette/tester": "~1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "Nette Finder: Files Searching",
+            "homepage": "https://nette.org",
+            "time": "2016-02-06 22:09:00"
+        },
+        {
+            "name": "nette/utils",
+            "version": "2.3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/utils.git",
+                "reference": "77d990893a5a8d26be6446981c728e775a700fa0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/utils/zipball/77d990893a5a8d26be6446981c728e775a700fa0",
+                "reference": "77d990893a5a8d26be6446981c728e775a700fa0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "conflict": {
+                "nette/nette": "<2.2"
+            },
+            "require-dev": {
+                "nette/tester": "~1.0"
+            },
+            "suggest": {
+                "ext-gd": "to use Image",
+                "ext-iconv": "to use Strings::webalize() and toAscii()",
+                "ext-intl": "for script transliteration in Strings::webalize() and toAscii()",
+                "ext-mbstring": "to use Strings::lower() etc..."
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "Nette Utility Classes",
+            "homepage": "https://nette.org",
+            "time": "2016-02-23 13:00:21"
+        },
+        {
+            "name": "php-curl-class/php-curl-class",
+            "version": "4.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-curl-class/php-curl-class.git",
+                "reference": "dce9acb7a27f98b5040cfa9b3aa36da4a7ff3004"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/dce9acb7a27f98b5040cfa9b3aa36da4a7ff3004",
+                "reference": "dce9acb7a27f98b5040cfa9b3aa36da4a7ff3004",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Curl\\": "src/Curl/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Unlicense"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Borboa"
+                }
+            ],
+            "description": "PHP Curl Class is an object-oriented wrapper of the PHP cURL extension.",
+            "homepage": "https://github.com/php-curl-class/php-curl-class",
+            "keywords": [
+                "api",
+                "class",
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "json",
+                "php",
+                "requests",
+                "rest",
+                "restful",
+                "web service",
+                "xml"
+            ],
+            "time": "2016-01-31 12:32:31"
+        },
+        {
+            "name": "saft/saft",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SaftIng/Saft.git",
+                "reference": "ed8d2a9e167c7fcf4466e959f265fe188bf3f2b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SaftIng/Saft/zipball/ed8d2a9e167c7fcf4466e959f265fe188bf3f2b7",
+                "reference": "ed8d2a9e167c7fcf4466e959f265fe188bf3f2b7",
+                "shasum": ""
+            },
+            "require": {
+                "aksw/erfurt": "dev-feature/php-composer",
+                "easyrdf/easyrdf": "0.9.*",
+                "ext-odbc": "*",
+                "ext-pdo_odbc": "*",
+                "ext-redland": "*",
+                "nette/caching": "2.4.*",
+                "php": ">=5.3.3",
+                "php-curl-class/php-curl-class": "4.10.*",
+                "semsol/arc2": "2.2.*"
+            },
+            "replace": {
+                "saft/saft-data": "self.version",
+                "saft/saft-querycache": "self.version",
+                "saft/saft-rdf": "self.version",
+                "saft/saft-redland": "self.version",
+                "saft/saft-sparql": "self.version",
+                "saft/saft-store": "self.version",
+                "saft/saft-store-http": "self.version",
+                "saft/saft-store-virtuoso": "self.version"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.5.*",
+                "sami/sami": "3.2.*",
+                "squizlabs/php_codesniffer": "2.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Saft\\": [
+                        "src/Saft/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Natanael Arndt",
+                    "email": "arndtn@gmail.com",
+                    "homepage": "http://aksw.org/NatanaelArndt",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Konrad Abicht",
+                    "email": "hi@inspirito.de",
+                    "homepage": "http://www.inspirito.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Saft library provides tools and an infrastructure to build Semantic Web and Linked Data applications.",
+            "homepage": "https://safting.github.io/",
+            "keywords": [
+                "Linked Data",
+                "QueryCache",
+                "RDF",
+                "Saft",
+                "Semantic Web",
+                "Triple Store",
+                "parser",
+                "serializer"
+            ],
+            "time": "2016-03-07 16:16:28"
+        },
+        {
+            "name": "semsol/arc2",
+            "version": "2.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/semsol/arc2.git",
+                "reference": "75158bd470e264439dd6773b75f023becdeb78c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/semsol/arc2/zipball/75158bd470e264439dd6773b75f023becdeb78c4",
+                "reference": "75158bd470e264439dd6773b75f023becdeb78c4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "./",
+                    "parsers/",
+                    "serializers/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "W3C"
+            ],
+            "authors": [
+                {
+                    "name": "Benji Nowack",
+                    "email": "mail@bnowack.de",
+                    "homepage": "http://bnowack.de/"
+                }
+            ],
+            "description": "Semsol's ARC2 RDF library",
+            "homepage": "https://github.com/semsol/arc2",
+            "keywords": [
+                "RDF",
+                "sparql"
+            ],
+            "time": "2015-11-24 06:22:45"
+        },
         {
             "name": "symfony/config",
             "version": "v2.8.0",
@@ -125,12 +583,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "4dd5df31a28c0f82b41cb1e1599b74b5dcdbdafa"
+                "reference": "807d6df3ce391f4f80c58054fbf4f5a34efa4ef5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4dd5df31a28c0f82b41cb1e1599b74b5dcdbdafa",
-                "reference": "4dd5df31a28c0f82b41cb1e1599b74b5dcdbdafa",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/807d6df3ce391f4f80c58054fbf4f5a34efa4ef5",
+                "reference": "807d6df3ce391f4f80c58054fbf4f5a34efa4ef5",
                 "shasum": ""
             },
             "require": {
@@ -177,7 +635,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-27 05:14:46"
+            "time": "2016-03-04 07:55:57"
         },
         {
             "name": "symfony/filesystem",
@@ -185,12 +643,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "65cb36b6539b1d446527d60457248f30d045464d"
+                "reference": "590829c69e70b61d9670c00c49fbb64b6bb4ec59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/65cb36b6539b1d446527d60457248f30d045464d",
-                "reference": "65cb36b6539b1d446527d60457248f30d045464d",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/590829c69e70b61d9670c00c49fbb64b6bb4ec59",
+                "reference": "590829c69e70b61d9670c00c49fbb64b6bb4ec59",
                 "shasum": ""
             },
             "require": {
@@ -226,7 +684,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-22 15:02:30"
+            "time": "2016-03-08 17:53:24"
         },
         {
             "name": "symfony/form",
@@ -361,12 +819,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/intl.git",
-                "reference": "cafee6f65148dab9058cdb6de5631222aca820d0"
+                "reference": "474748b32cccbf6a4982d21cc2b1be73106797b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/intl/zipball/cafee6f65148dab9058cdb6de5631222aca820d0",
-                "reference": "cafee6f65148dab9058cdb6de5631222aca820d0",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/474748b32cccbf6a4982d21cc2b1be73106797b6",
+                "reference": "474748b32cccbf6a4982d21cc2b1be73106797b6",
                 "shasum": ""
             },
             "require": {
@@ -428,7 +886,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2016-02-23 15:16:06"
+            "time": "2016-03-10 10:34:12"
         },
         {
             "name": "symfony/options-resolver",
@@ -665,12 +1123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "f138bcc0cdaf6a6aba99ecab20d235b394f46eba"
+                "reference": "eae2f079e47f7fd311a33798075fe9bc34ee03a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/f138bcc0cdaf6a6aba99ecab20d235b394f46eba",
-                "reference": "f138bcc0cdaf6a6aba99ecab20d235b394f46eba",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/eae2f079e47f7fd311a33798075fe9bc34ee03a9",
+                "reference": "eae2f079e47f7fd311a33798075fe9bc34ee03a9",
                 "shasum": ""
             },
             "require": {
@@ -717,7 +1175,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2016-02-13 09:23:44"
+            "time": "2016-03-04 07:55:57"
         },
         {
             "name": "symfony/translation",
@@ -996,6 +1454,53 @@
                 "templating"
             ],
             "time": "2016-01-29 10:45:45"
+        },
+        {
+            "name": "zendframework/zendframework1",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zf1.git",
+                "reference": "fccf5d2d0cdbc5e5707159c78442fd1c7723d9e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zf1/zipball/fccf5d2d0cdbc5e5707159c78442fd1c7723d9e9",
+                "reference": "fccf5d2d0cdbc5e5707159c78442fd1c7723d9e9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.11"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "1.3.*",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.12.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Zend_": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "library/"
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Zend Framework 1",
+            "homepage": "http://framework.zend.com/",
+            "keywords": [
+                "ZF1",
+                "framework"
+            ],
+            "time": "2016-02-19 12:05:28"
         }
     ],
     "packages-dev": [
@@ -1056,12 +1561,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blackfireio/php-sdk.git",
-                "reference": "96221ad811d184d0a2412b556864bd8c082ea1bb"
+                "reference": "559e1b507820b01df45988d6f4c2cbc82d0a0dc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blackfireio/php-sdk/zipball/96221ad811d184d0a2412b556864bd8c082ea1bb",
-                "reference": "96221ad811d184d0a2412b556864bd8c082ea1bb",
+                "url": "https://api.github.com/repos/blackfireio/php-sdk/zipball/559e1b507820b01df45988d6f4c2cbc82d0a0dc3",
+                "reference": "559e1b507820b01df45988d6f4c2cbc82d0a0dc3",
                 "shasum": ""
             },
             "require": {
@@ -1102,7 +1607,7 @@
                 "uprofiler",
                 "xhprof"
             ],
-            "time": "2016-02-23 10:20:20"
+            "time": "2016-03-01 11:48:09"
         },
         {
             "name": "doctrine/instantiator",
@@ -1611,12 +2116,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "264188ddf4d3586c80ea615f8ec8eaea34e652a1"
+                "reference": "7718ed2bbb019dc17a802ef035a461eaac9858fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/264188ddf4d3586c80ea615f8ec8eaea34e652a1",
-                "reference": "264188ddf4d3586c80ea615f8ec8eaea34e652a1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7718ed2bbb019dc17a802ef035a461eaac9858fa",
+                "reference": "7718ed2bbb019dc17a802ef035a461eaac9858fa",
                 "shasum": ""
             },
             "require": {
@@ -1675,7 +2180,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-02-23 11:54:56"
+            "time": "2016-03-10 08:29:57"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2216,15 +2721,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "fd4cddc0663f216c4b9d9f3cd5d52bc08ab3e951"
+                "reference": "63fafe07d6cb8588b787475a3cc041f52b05a4ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/fd4cddc0663f216c4b9d9f3cd5d52bc08ab3e951",
-                "reference": "fd4cddc0663f216c4b9d9f3cd5d52bc08ab3e951",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/63fafe07d6cb8588b787475a3cc041f52b05a4ac",
+                "reference": "63fafe07d6cb8588b787475a3cc041f52b05a4ac",
                 "shasum": ""
             },
             "require": {
+                "ext-simplexml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
                 "php": ">=5.1.2"
@@ -2285,7 +2791,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-02-29 23:14:08"
+            "time": "2016-03-04 03:28:24"
         },
         {
             "name": "symfony/console",
@@ -2293,12 +2799,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "56cc5caf051189720b8de974e4746090aaa10d44"
+                "reference": "7223e0768010b189d217d8304e0cca838dec4491"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/56cc5caf051189720b8de974e4746090aaa10d44",
-                "reference": "56cc5caf051189720b8de974e4746090aaa10d44",
+                "url": "https://api.github.com/repos/symfony/console/zipball/7223e0768010b189d217d8304e0cca838dec4491",
+                "reference": "7223e0768010b189d217d8304e0cca838dec4491",
                 "shasum": ""
             },
             "require": {
@@ -2345,7 +2851,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-28 16:20:50"
+            "time": "2016-03-10 10:11:44"
         },
         {
             "name": "symfony/finder",
@@ -2353,12 +2859,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "877bb4b16ea573cc8c024e9590888fcf7eb7e0f7"
+                "reference": "ca24cf2cd4e3826f571e0067e535758e73807aa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/877bb4b16ea573cc8c024e9590888fcf7eb7e0f7",
-                "reference": "877bb4b16ea573cc8c024e9590888fcf7eb7e0f7",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/ca24cf2cd4e3826f571e0067e535758e73807aa1",
+                "reference": "ca24cf2cd4e3826f571e0067e535758e73807aa1",
                 "shasum": ""
             },
             "require": {
@@ -2394,7 +2900,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-22 16:12:45"
+            "time": "2016-03-10 10:53:53"
         },
         {
             "name": "symfony/process",
@@ -2402,12 +2908,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "7dedd5b60550f33dca16dd7e94ef8aca8b67bbfe"
+                "reference": "1364c6fd0e2e8e82a279c55bd448ffcf43538600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/7dedd5b60550f33dca16dd7e94ef8aca8b67bbfe",
-                "reference": "7dedd5b60550f33dca16dd7e94ef8aca8b67bbfe",
+                "url": "https://api.github.com/repos/symfony/process/zipball/1364c6fd0e2e8e82a279c55bd448ffcf43538600",
+                "reference": "1364c6fd0e2e8e82a279c55bd448ffcf43538600",
                 "shasum": ""
             },
             "require": {
@@ -2443,7 +2949,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-02 13:33:15"
+            "time": "2016-03-10 10:11:44"
         },
         {
             "name": "symfony/yaml",
@@ -2451,12 +2957,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "2a4ee40acb880c56f29fb1b8886e7ffe94f3b995"
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/2a4ee40acb880c56f29fb1b8886e7ffe94f3b995",
-                "reference": "2a4ee40acb880c56f29fb1b8886e7ffe94f3b995",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/584e52cb8f788a887553ba82db6caacb1d6260bb",
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb",
                 "shasum": ""
             },
             "require": {
@@ -2492,7 +2998,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-23 07:41:20"
+            "time": "2016-03-04 07:54:35"
         }
     ],
     "aliases": [],
