@@ -16,7 +16,7 @@ class OntologyController extends AbstractController
             array('id' => 3, 'ontology' => 'Kirchen', 'form' => 8),
 
         );
-        
+
         return $this->render('ontology/managePage.html.twig', array(
             'ontologyManageTable' => $ontologyManageTable
         ));
