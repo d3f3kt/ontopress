@@ -20,7 +20,7 @@ class OntologyParser
 
         $statementIterator = $parser->parseStringToIterator($fileContent);
 
-        foreach ($statementIterator as $key => $statement){
+        foreach ($statementIterator as $key => $statement) {
             echo '#' . $key . ' - ' .
                 (string)$statement->getSubject() . ' - ' .
                 (string)$statement->getPredicate() . ' - ' .
