@@ -10,16 +10,7 @@ class OntologyController extends AbstractController
 {
     public function showManageAction()
     {
-        $ontologyManageTable = array(
-            array('id' => 1, 'ontology' => 'Gebäude', 'form' => 10),
-            array('id' => 2, 'ontology' => 'Plätze', 'form' => 5),
-            array('id' => 3, 'ontology' => 'Kirchen', 'form' => 8),
-
-        );
-
-        return $this->render('ontology/managePage.html.twig', array(
-            'ontologyManageTable' => $ontologyManageTable
-        ));
+        return $this->render('ontology/managePage.html.twig', array());
     }
 
     public function showDeleteAction()
