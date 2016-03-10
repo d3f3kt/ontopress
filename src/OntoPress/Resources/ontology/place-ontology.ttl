@@ -1,0 +1,496 @@
+@prefix : <http://localhost/bvl/building-place/> .
+@prefix knok: <http://localhost/k00ni/knorke/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<> a owl:Ontology ;
+    rdfs:label "Gebäude-Ontologie mit Informationen über Barrierefreiheit"@de ;
+    knok:todo "Art der Property (z.B. Angabe in cm oder J/N) noch angeben" .
+
+:Place knok:hasProperty :address-city .
+:address-city rdfs:label "Stadt"@de .
+
+:Place knok:hasProperty :address-houseNumber .
+:address-houseNumber rdfs:label "Hausnummer"@de .
+
+:Place knok:hasProperty :address-street .
+:street a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    rdfs:label "Straße"@de .
+
+:Place knok:hasProperty :address-zipCode .
+:zipCode a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    rdfs:label "Postleitzahl"@de .
+
+:Place knok:hasProperty :dateOfInterview .
+:dateOfInterview a knok:Property ;
+    rdfs:label "Datum des Interviews"@de ;
+    rdfs:comment "Wann wurde das Interview mit dem Ansprechpartner durchgeführt?"@de .
+
+:Place knok:hasProperty :doorDescriptionIfTypeNotAvailable .
+:doorDescriptionIfTypeNotAvailable rdfs:label "Falls Türart nicht vorhanden, bitte Art hier eintragen"@de .
+
+# doorType
+:Place knok:hasProperty :doorType .
+:doorType rdfs:label "Art der Tür (Eingangsbereich)"@de ;
+    knok:restrictionOneOf :automaticDoor ,
+                          knok:notAvailable ,
+                          :revolvingDoor ,
+                          :revolvingSwingDoor ,
+                          :semiAutomaticDoorButton ,
+                          :slideDoor ,
+                          :swingDoor ;
+    knok:isMandatory "true"^^xsd:boolean .
+
+:automaticDoor a knok:RestrictionElement ;
+    rdfs:label "Automatische Tür (mit Lichtschranke)"@de  .
+
+:revolvingDoor a knok:RestrictionElement ;
+    rdfs:label "Drehtür"@de  .
+
+:revolvingSwingDoor a knok:RestrictionElement ;
+    rdfs:label "Drehflügeltür"@de  .
+
+:semiAutomaticDoorButton a knok:RestrictionElement ;
+    rdfs:label "Halb-Automatische Tür (mit Knopfdruck)"@de  .
+
+:slideDoor a knok:RestrictionElement ;
+    rdfs:label "Schiebetür"@de  .
+
+:swingDoor a knok:RestrictionElement ;
+    rdfs:label "Pendeltür"@de  .
+
+:Place knok:hasProperty :emailAdress .
+    :emailAdress rdfs:label "E-Mail-Adresse"@de ;
+    knok:todo "Unterschied zu Ansprechpartner E-Mail?" .
+
+# entrance area - area before the building or place
+:Place knok:hasProperty :entranceArea-bellForEntranceAreaAvailable ,
+                        :entranceArea-bellForEntranceAreaWithIntercommunicationSystemAvailable ,
+                        :entranceArea-alternativeEntranceForWheelchairUsers ,
+                        :entranceArea-firstAndLastStairBranded ,
+                        :entranceArea-handRailByStairsLeft ,
+                        :entranceArea-handRailByStairsRight ,
+                        :entranceArea-heightOfHighestControlButtonOfBellForEntranceArea ,
+                        :entranceArea-heightOfStairsBeforePlace ,
+                        :entranceArea-minimumWidthOfNarrowestEntrance ,
+                        :entranceArea-numberOfStairsBeforePlace ,
+                        :entranceArea-placeOfBellForEntranceArea ,
+                        :entranceArea-placeOfEntranceForWheelchairUsers .
+
+:entranceArea-alternativeEntranceForWheelchairUsers rdfs:label "Klingel im Eingangsbereich vorhanden"@de .
+
+:entranceArea-bellForEntranceAreaWithIntercommunicationSystemAvailable rdfs:label "Klingel für Eingangsbereich mit Wechselsprechanlage"@de .
+
+:entranceArea-alternativeEntranceForWheelchairUsers rdfs:label "Alternativ-Eingang für Rollstuhl-Fahrer"@de .
+
+:entranceArea-firstAndLastStairBranded rdfs:label "Farbliche Markierung der ersten und letzten Stufe"@de .
+
+:entranceArea-handRailByStairsLeft rdfs:label "Handlauf bei Stufen links"@de .
+
+:entranceArea-handRailByStairsRight rdfs:label "Handlauf bei Stufen rechts"@de .
+
+:entranceArea-heightOfHighestControlButtonOfBellForEntranceArea rdfs:label "Höhe oberster Bedienknopf der Klingel für Eingangsbereich (in cm)"@de .
+
+:entranceArea-heightOfStairsBeforePlace rdfs:label "Höhe der Stufen vor der Einrichtung (in cm)"@de .
+
+:entranceArea-minimumWidthOfNarrowestEntrance rdfs:label "Türbreite der schmalsten Eingangstür"@de ;
+    rdfs:comment "Tür die bis zum Erreichen der Einrichtung zu durchqueren ist. Angabe in cm." .
+
+:entranceArea-numberOfStairsBeforePlace rdfs:label "Anzahl der Stufen bis zum Ort (Gebäude, Platz)"@de .
+
+:entranceArea-placeOfBellForEntranceArea rdfs:label "Ort der Klingel für Eingangsbereich (falls vorhanden)"@de .
+
+:entranceArea-placeOfEntranceForWheelchairUsers rdfs:label "Ort des Alternativ-Eingangs für Rollstuhl-Fahrer (falls vorhanden)"@de .
+
+
+:Place knok:hasProperty :fax .
+:phone a knok:Property ;
+    rdfs:label "Fax"@de .
+
+:Place knok:hasProperty :hasStepsBeforePlace .
+:hasStepsBeforePlace a knok:Property ;
+    rdfs:label "Stufen bis zur Einrichtung vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no ;
+    knok:isMandatory "true"^^xsd:boolean .
+
+:Place knok:hasProperty :homepage .
+:homepage rdfs:label "Homepage"@de .
+
+:Place knok:hasProperty :contactperson-emailAddress .
+:contactperson-emailAddress rdfs:label "E-Mail des Ansprechpartners"@de ;
+    knok:restrictionRegex "" .
+
+:Place knok:hasProperty :contactperson-name .
+:contactperson-name rdfs:label "Name des Ansprechpartners"@de ;
+    rdfs:comment "Wer wurde von dem BVL-Mitarbeiter interviewt?"@de.
+
+:Place knok:hasProperty :placeName .
+:placeName a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    rdfs:label "Name des Gebäudes oder Platzes"@de .
+
+:Place knok:hasProperty :parkingLot-available .
+:parkingLot-available a knok:Property ;
+    knok:restrictionOneOf knok:yes, knok:no ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    rdfs:label "Parkplatz verfügbar"@de .
+
+:Place knok:hasProperty :parkingLot-beforePlaceAvailable .
+:parkingLot-beforePlaceAvailable a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    knok:restrictionOneOf knok:yes, knok:no ;
+    rdfs:label "Parkplatz vor Gebäude vorhanden"@de .
+
+:Place knok:hasProperty :parkingLot-hasOwnParkingLot .
+:parkingLot-hasOwnParkingLot a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    knok:restrictionOneOf knok:yes, knok:no ;
+    rdfs:label "Parkplatz gehört zum Gebäude (Hausparkplatz)"@de .
+
+:Place knok:hasProperty :parkingLot-numberOfLotsBeforePlace .
+:parkingLot-numberOfLotsBeforePlace a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    rdfs:label "Anzahl Parkplätze vor dem Gebäude"@de .
+
+:Place knok:hasProperty :parkingLot-numberOfLotsOnOwnLot .
+:parkingLot-numberOfLotsOnOwnLot a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    rdfs:label "Anzahl Parkplätze auf Hausparkplatz"@de .
+
+:Place knok:hasProperty :parkingLot-placeOfOwnParkingLot .
+:parkingLot-placeOfOwnParkingLot a knok:Property ;
+    knok:isMandatory "true"^^xsd:boolean ;
+    rdfs:label "Ort des Hausparkplatzes"@de .
+
+:Place knok:hasProperty :phone .
+:phone a knok:Property ;
+    rdfs:label "Telefon"@de ;
+    knok:todo "Füge REGEX für Telefonnummer Validierung hinzu.".
+
+:Place knok:hasProperty :workingHours .
+:workingHours a knok:Property ;
+    rdfs:label "Öffnungszeiten"@de .
+
+
+# ramp information - its usually in the entrance area of a building to make it
+#                    easier to enter the building
+:Place knok:hasProperty :ramp-available ,
+                        :ramp-length ,
+                        :ramp-height ,
+                        :ramp-width ,
+                        :ramp-handRailLeftAvailable ,
+                        :ramp-handRailRightAvailable ,
+                        :ramp-brandedAtBeginningAndEnd .
+
+:ramp-available a knok:Property ;
+    rdfs:label "Rampe verfügbar"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:ramp-length a knok:Property ;
+    rdfs:label "Länge der Rampe (cm)"@de .
+
+:ramp-height a knok:Property ;
+    rdfs:label "Höhe der Rampe (cm)"@de .
+
+:ramp-width a knok:Property ;
+    rdfs:label "Breite der Rampe (cm)"@de .
+
+:ramp-handRailLeftAvailable a knok:Property ;
+    rdfs:label "Handlauf an Ramp links vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:ramp-handRailRightAvailable a knok:Property ;
+    rdfs:label "Handlauf an Ramp rechts vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:ramp-brandedAtBeginningAndEnd a knok:Property ;
+    rdfs:label "Farbliche Makierung am Anfang und Ende der Rampe"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+
+# lift information - concerning lift(s) for (disabled) people
+:Place knok:hasProperty :lift-available ,
+                        :lift-stepsBeforeLiftAvailable ,
+                        :lift-numberOfStepsBeforeLift ,
+                        :lift-doorWidth ,
+                        :lift-width ,
+                        :lift-depth ,
+                        :lift-distanceUntilHighestControlButtonInside ,
+                        :lift-distanceUntilHighestControlButtonOutside ,
+                        :lift-placeToRequestAssistance .
+
+:lift-available a knok:Property ;
+    rdfs:label "Aufzug verfügbar"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:lift-stepsBeforeLiftAvailable a knok:Property ;
+    rdfs:label "Stufen vor Aufzug vorhanden"@de ;
+    knok:info "Es zählen alle Stufen, welche sich zwischen dem Eingangsbereich und dem Aufzug befinden."@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:lift-numberOfStepsBeforeLift a knok:Property ;
+    rdfs:label "Anzahl der Stufen bis zum Aufzug"@de ;
+    knok:info "Es zählen alle Stufen, welche sich zwischen dem Eingangsbereich und dem Aufzug befinden."@de .
+
+:lift-doorWidth a knok:Property ;
+    rdfs:label "Türbreite des Aufzugs (bei geöffneten Türen)"@de ;
+    knok:info "Im Fall es gibt mehrere Aufzüge, dann wird hier der schmalste Aufzug erfasst."@de .
+
+:lift-width a knok:Property ;
+    rdfs:label "Breite der Aufzugkabine"@de ;
+    knok:info "Im Fall es gibt mehrere Aufzüge, dann wird hier der schmalste Aufzug erfasst."@de .
+
+:lift-depth a knok:Property ;
+    rdfs:label "Tiefe der Aufzugkabine"@de ;
+    knok:info "Im Fall es gibt mehrere Aufzüge, dann wird hier der schmalste Aufzug erfasst."@de .
+
+:lift-distanceUntilHighestControlButtonInside a knok:Property ;
+    rdfs:label "Höhe des obersten Bedienknopfes im Aufzug (vom Boden ausgehend) in cm"@de .
+
+:lift-distanceUntilHighestControlButtonOutside a knok:Property ;
+    rdfs:label "Höhe des obersten Bedienknopfes außerhalb des Aufzugs (vom Boden ausgehend) in cm"@de .
+
+:lift-placeToRequestAssistance a knok:Property ;
+    rdfs:label "Wo kann ein Aufzugsberechtigter angefordert werden, wenn nötig"@de .
+
+
+# assistance - information about availability of assistance (e.g. using devices)
+:Place knok:hasProperty :assistance-generalAssistanceAvailable ,
+                        :specialAssistanceForHearingImpairedPersons ,
+                        :specialAssistanceForBlindOrVisuallyImpairedPersons ,
+                        :descriptionOfAvailableAssistance .
+
+:assistance-generalAssistanceAvailable a knok:Property ;
+    rdfs:label "Allgemeine Hilfen für behinderte Menschen vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:assistance-specialAssistanceForHearingImpairedPersons a knok:Property ;
+    rdfs:label "Besondere Hilfen für Menschen mit Hörbehinderung vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:assistance-specialAssistanceForBlindOrVisuallyImpairedPersons a knok:Property ;
+    rdfs:label "Besondere Hilfen für Blinde und Sehbehinderte vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:assistance-descriptionOfAvailableAssistance a knok:Property ;
+    rdfs:label "Genaue Erläuterungen der speziellen Hilfen"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+
+# toilets - information about toilets and if special toilets for disabled people are available.
+:Place knok:hasProperty :toilets-available ,
+                        :toilets-toiletForDisabledPeopleAvailable ,
+                        :toilets-toiletForDisabledPeopleBrandedWithPictograms ,
+                        :toilets-location-stepsBeforeToiletAvailable ,
+                        :toilets-location-numberOfStepsBeforeToilet ,
+                        :toilets-location-stepHeight ,
+                        :toilets-location-handRailLeftSideUntilToilets ,
+                        :toilets-location-handRailRightSideUntilToilets ,
+                        :toilets-location-firstAndLastStepBranded ,
+                        :toilets-location-doorWidth ,
+                        :toilets-location-doorUnlockableFromOutside ,
+                        :toilets-location-alarmBellAvailable ,
+                        :toilets-location-distanceUntilAlarmBell ,
+                        :toilets-location-supportHandleNextToWCAvailable ,
+                        :toilets-location-supportHandleLeftOfWCFoldable ,
+                        :toilets-location-supportHandleRightOfWCFoldable ,
+                        :toilets-location-widthOfMovementAreaBeforeWC ,
+                        :toilets-location-depthOfMovementAreaBeforeWC ,
+                        :toilets-location-widthOfMovementAreaLeftOfWC ,
+                        :toilets-location-depthOfMovementAreaLeftOfWC ,
+                        :toilets-location-widthOfMovementAreaRightOfWC ,
+                        :toilets-location-depthOfMovementAreaRightOfWC ,
+                        :toilets-location-wcSitHeight ,
+                        :toilets-location-fittingTypeOnBasin .
+
+:toilets-available a knok:Property ;
+    rdfs:label "Besuchertoilette vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-toiletForDisabledPeopleAvailable a knok:Property ;
+    rdfs:label "Behindertentoilette vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-toiletForDisabledPeopleBrandedWithPictograms a knok:Property ;
+    rdfs:label "Ist eine der Toiletten als Behindertentoilette mit Piktogramm gekennzeichnet?"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-location-stepsBeforeToiletAvailable a knok:Property ;
+    rdfs:label "Stufen bis WC vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-location-numberOfStepsBeforeToilet a knok:Property ;
+    rdfs:label "Falls vorhanden, wieviele Stufen bis WC"@de .
+
+:toilets-location-stepHeight a knok:Property ;
+    rdfs:label "Höhe der Stufen (in cm)"@de .
+
+:toilets-location-handRailLeftSideUntilToilets a knok:Property ;
+    rdfs:label "Handlauf linke Seite bis Toiletten vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-location-handRailRightSideUntilToilets a knok:Property ;
+    rdfs:label "Handlauf linke Seite bis Toiletten vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-location-firstAndLastStepBranded a knok:Property ;
+    rdfs:label "Farbliche Markierung erster und letzter Stufe vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-cabin-doorWidth a knok:Property ;
+    rdfs:label "Türbreite der WC-Kabine (in cm)"@de .
+
+:toilets-cabin-doorUnlockableFromOutside a knok:Property ;
+    rdfs:label "Tür der WC-Kabine von außen entriegelbar"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-cabin-alarmBellAvailable a knok:Property ;
+    rdfs:label "Notklingel in WC-Kabine vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-cabin-distanceUntilAlarmBell a knok:Property ;
+    rdfs:label "Abstand der Klingel vom Boden (in cm)"@de .
+
+:toilets-cabin-supportHandleNextToWCAvailable a knok:Property ;
+    rdfs:label "Stützgriff neben dem WC vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-cabin-supportHandleLeftOfWCFoldable a knok:Property ;
+    rdfs:label "Stützgriff links neben dem WC klappbar"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-cabin-supportHandleRightOfWCFoldable a knok:Property ;
+    rdfs:label "Stützgriff links neben dem WC klappbar"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:toilets-cabin-widthOfMovementAreaBeforeWC a knok:Property ;
+    rdfs:label "Breite der Bewegungsfläche vor dem WC (in cm)"@de .
+
+:toilets-cabin-depthOfMovementAreaBeforeWC a knok:Property ;
+    rdfs:label "Tiefe der Bewegungsfläche vor dem WC (in cm)"@de .
+
+:toilets-cabin-widthOfMovementAreaLeftOfWC a knok:Property ;
+    rdfs:label "Breite der Bewegungsfläche links vom WC (in cm)"@de .
+
+:toilets-cabin-depthOfMovementAreaLeftOfWC a knok:Property ;
+    rdfs:label "Tiefe der Bewegungsfläche links vom WC (in cm)"@de .
+
+:toilets-cabin-widthOfMovementAreaRightOfWC a knok:Property ;
+    rdfs:label "Breite der Bewegungsfläche rechts vom WC (in cm)"@de .
+
+:toilets-cabin-depthOfMovementAreaRightOfWC a knok:Property ;
+    rdfs:label "Tiefe der Bewegungsfläche rechts vom WC (in cm)"@de .
+
+:toilets-cabin-wcSitHeight a knok:Property ;
+    rdfs:label "Sitzhöhe der Toilette (in cm)"@de .
+
+:toilets-cabin-fittingTypeOnBasin a knok:Property ;
+    rdfs:label "Armatur am Waschbecken"@de ;
+    knok:restrictionOneOf :phototube ,
+                          :leverArm ,
+                          knok:notAvailable .
+
+:phototube a knok:RestrictionElement ;
+    rdfs:label "Fotozelle (Waschbecken)"@de .
+
+:leverArm a knok:RestrictionElement ;
+    rdfs:label "Hebelarm (Waschbecken)"@de .
+
+
+# restaurant - can you eat or drink something at the scene?
+:Place knok:hasProperty :restaurant-available ,
+                        :restaurant-specialFoodForDiabeticsAvailable ,
+                        :restaurant-specialFoodForPeopleWithMetabolismProblems ,
+                        :restaurant-separateAreaForSmoker ,
+                        :restaurant-fontSizeOnMenuIsInRecommendedSize .
+
+:restaurant-available a knok:Property ;
+    rdfs:label "Gaststätte im/am Gebäude vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:restaurant-specialFoodForDiabeticsAvailable a knok:Property ;
+    rdfs:label "Spezielles Speiseangebot für Diabetiker vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:restaurant-specialFoodForPeopleWithMetabolismProblems a knok:Property ;
+    rdfs:label "Spezielles Speiseangebot für Stoffwechselerkrankte vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:restaurant-separateAreaForSmoker a knok:Property ;
+    rdfs:label "Separater Nichtraucherbereich vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:restaurant-fontSizeOnMenuIsInRecommendedSize a knok:Property ;
+    rdfs:label "Speisekarte in empfohlener Schriftgröße (min. 6 mm)"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+# overnightAccommondations
+:Place knok:hasProperty :overnightAccommondations-available ,
+                        :overnightAccommondations-numberOf1BedRooms ,
+                        :overnightAccommondations-numberOf2BedRooms ,
+                        :overnightAccommondations-numberOfMultiBedRooms ,
+                        :overnightAccommondations-steplessRooms-available ,
+                        :overnightAccommondations-steplessRooms-numberOf1BedRooms ,
+                        :overnightAccommondations-steplessRooms-numberOf2BedRooms ,
+                        :overnightAccommondations-steplessRooms-numberOfMultiBedRooms ,
+                        :overnightAccommondations-handicappedAccessibleRooms-available ,
+                        :overnightAccommondations-handicappedAccessibleRooms-numberOf1BedRooms ,
+                        :overnightAccommondations-handicappedAccessibleRooms-numberOf2BedRooms ,
+                        :overnightAccommondations-handicappedAccessibleRooms-numberOfMultiBedRooms ,
+                        :overnightAccommondations-roomHasPhone ,
+                        :overnightAccommondations-roomHasShowerOrBath ,
+                        :overnightAccommondations-roomHasWC .
+
+:overnightAccommondations-available a knok:Property ;
+    rdfs:label "Übernachtungsmöglichkeiten in Einrichtung vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:overnightAccommondations-numberOf1BedRooms a knok:Property ;
+    rdfs:label "Anzahl der 1-Bettzimmer"@de .
+
+:overnightAccommondations-numberOf2BedRooms a knok:Property ;
+    rdfs:label "Anzahl der 2-Bettzimmer"@de .
+
+:overnightAccommondations-numberOfMultiBedRooms a knok:Property ;
+    rdfs:label "Anzahl der Mehrbett-Zimmer"@de .
+
+:overnightAccommondations-steplessRooms-available a knok:Property ;
+    rdfs:label "Stufenlose Zimmer vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:overnightAccommondations-steplessRooms-numberOf1BedRooms a knok:Property ;
+    rdfs:label "Anzahl der 1-Bettzimmer (stufenlos)"@de .
+
+:overnightAccommondations-steplessRooms-numberOf2BedRooms a knok:Property ;
+    rdfs:label "Anzahl der 2-Bettzimmer (stufenlos)"@de .
+
+:overnightAccommondations-steplessRooms-numberOfMultiBedRooms a knok:Property ;
+    rdfs:label "Anzahl der Mehrbett-Zimmer (stufenlos)"@de .
+
+:overnightAccommondations-handicappedAccessibleRooms-available a knok:Property ;
+    rdfs:label "Behindertengerechte Zimmer vorhanden"@de ;
+    knok:restrictionOneOf knok:yes, knok:no .
+
+:overnightAccommondations-handicappedAccessibleRooms-numberOf1BedRooms a knok:Property ;
+    rdfs:label "Anzahl der 1-Bettzimmer (behindertengerecht)"@de .
+
+:overnightAccommondations-handicappedAccessibleRooms-numberOf2BedRooms a knok:Property ;
+    rdfs:label "Anzahl der 2-Bettzimmer (behindertengerecht)"@de .
+
+:overnightAccommondations-handicappedAccessibleRooms-numberOfMultiBedRooms a knok:Property ;
+    rdfs:label "Anzahl der Mehrbett-Zimmer (behindertengerecht)"@de .
+
+:overnightAccommondations-roomHasPhone a knok:Property ;
+    rdfs:label "Zimmer mit Telefon"@de ;
+    knok:restrictionOneOf knok:all, knok:some .
+
+:overnightAccommondations-roomHasShowerOrBath a knok:Property ;
+    rdfs:label "Zimmer mit Dusche/Bad"@de ;
+    knok:restrictionOneOf knok:all, knok:some .
+
+:overnightAccommondations-roomHasWC a knok:Property ;
+    rdfs:label "Zimmer mit WC"@de ;
+    knok:restrictionOneOf knok:all, knok:some .

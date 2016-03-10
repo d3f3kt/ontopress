@@ -55,72 +55,30 @@
             </tr>
             </thead>
             <tbody id="the-list" data-wp-lists="list:resource">
-            <tr id="Resource-1">
-                <th class="check-column" scope="row">
-                    <label for="resource_1" class="screen-reader-text">Augustusplatz auswählen</label>
-                    <input type="checkbox" value="1" id="resource_1" name="resources[]">
-                </th>
-                <td class="id column-id has-row-actions column-primary" data-colname="ID">
-                    1<br>
-                </td>
-                <td class="Titel column-Titel" data-colname="Titel">
-                    <p>Augustusplatz</p>
-                    <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 1}) }}">Löschen</a></span>
-                    </div>
-                </td>
-                <td class="Autor column-Autor" data-colname="Autor">
-                    <p>k00ni</p>
-                </td>
-                <td class="Datum column-Datum" data-colname="Datum">
-                    <p>20.Jan 2016</p>
-                </td>
-            </tr>
-            <tr id="Resource-2">
-                <th class="check-column" scope="row">
-                    <label for="resource_2" class="screen-reader-text">Uni Campu auswählen</label>
-                    <input type="checkbox" value="2" id="resource_2" name="resources[]">
-                </th>
-                <td class="id column-id has-row-actions column-primary" data-colname="ID">
-                    2<br>
-                </td>
-                <td class="Titel column-Titel" data-colname="Titel">
-                    <p>Uni Campus</p>
-                    <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 2}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 2}) }}">Löschen</a></span>
-                    </div>
-                </td>
-                <td class="Autor column-Autor" data-colname="Autor">
-                    <p>k00ni</p>
-                </td>
-                <td class="Datum column-Datum" data-colname="Datum">
-                    <p>22.Jan 2016</p>
-                </td>
-            </tr>
-            <tr id="Resource-3">
-                <th class="check-column" scope="row">
-                    <label for="resource_3" class="screen-reader-text">Oper Leipzig auswählen</label>
-                    <input type="checkbox" value="3" id="resource_3" name="resources[]">
-                </th>
-                <td class="id column-id has-row-actions column-primary" data-colname="ID">
-                    3<br>
-                </td>
-                <td class="Titel column-titel" data-colname="Titel">
-                    <p>Oper Leipzig</p>
-                    <div class="row-actions">
-                        <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 3}) }}">Bearbeiten</a></span>
-                        <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 3}) }}">Löschen</a></span>
-                    </div>
-                </td>
-                <td class="Autor column-autor" data-colname="Autor">
-                    <p>d3f3kt</p>
-                </td>
-                <td class="Datum column-datum" data-colname="Datum">
-                    <p>22.Jan 2016</p>
-                </td>
-            </tr>
+            {% for resource in resourceManageTable %}
+                <tr>
+                    <th class="check-column" scope="row">
+                        <label for="resource_1" class="screen-reader-text">Augustusplatz auswählen</label>
+                        <input type="checkbox" value="1" id="resource_1" name="resources[]">
+                    </th>
+                    <td class="id column-id has-row-actions column-primary" data-colname="ID">
+                        {{ resource.id }}<br>
+                    </td>
+                    <td class="Titel column-Titel" data-colname="Titel">
+                        <p>{{ resource.title }}</p>
+                        <div class="row-actions">
+                            <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
+                            <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 1}) }}">Löschen</a></span>
+                        </div>
+                    </td>
+                    <td class="Autor column-Autor" data-colname="Autor">
+                        <p>{{ resource.author }}</p>
+                    </td>
+                    <td class="Datum column-Datum" data-colname="Datum">
+                        <p>{{ resource.date }}</p>
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
             <tfoot>
             <tr>
