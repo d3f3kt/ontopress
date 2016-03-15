@@ -10,8 +10,9 @@ class OntologyParser
 
     public function parsing()
     {
-        $fileContent = file_get_contents(__DIR__.'../Resources/ontology/place-ontology.ttl');
-
+        $fileContent1 = file_get_contents(__DIR__.'/../Resources/ontology/knorke.ttl');
+        $fileContent2 = file_get_contents(__DIR__.'/../Resources/ontology/place-ontology.ttl');
+        $fileContent = $fileContent1 . $fileContent2;
         $parser = new ParserEasyRdf(
             new NodeFactoryImpl(),
             new StatementFactoryImpl(),
@@ -20,11 +21,20 @@ class OntologyParser
 
         $statementIterator = $parser->parseStringToIterator($fileContent);
 
+        echo PHP_EOL;
+        //label und restriction in einem array
         foreach ($statementIterator as $key => $statement) {
             echo '#' . $key . ' - ' .
                 (string)$statement->getSubject() . ' - ' .
                 (string)$statement->getPredicate() . ' - ' .
                 (string)$statement->getObject() . PHP_EOL;
+            echo '<br />';
+            /*
+            echo "<pre>";
+            print_r($statement);
+            echo '</pre><br />';
+            */
         }
+
     }
 }
