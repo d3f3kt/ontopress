@@ -24,7 +24,7 @@ class OntologyParser
         //label und restriction in einem array
         foreach ($statementIterator as $key => $predicate) {
             //echo (string)$predicate->getPredicate();
-            if((string)$predicate->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
+            if ((string)$predicate->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                 echo (string)$predicate->getObject();
                 echo '<br />';
             }
