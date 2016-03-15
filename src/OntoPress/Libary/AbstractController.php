@@ -2,8 +2,10 @@
 
 namespace OntoPress\Libary;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * Abstract Controller.
@@ -28,10 +30,10 @@ abstract class AbstractController
     }
 
     /**
-     * Renders a Template
+     * Renders a Template.
      *
-     * @param string $name The template name
-     * @param array $context An array of parameters to pass to the template
+     * @param string $name    The template name
+     * @param array  $context An array of parameters to pass to the template
      *
      * @return string The rendered template
      */
@@ -41,12 +43,12 @@ abstract class AbstractController
     }
 
     /**
-     * Translates the given message
+     * Translates the given message.
      *
-     * @param string $id The message id (may also be an object that can be cast to string)
-     * @param array $parameters An array of parameters for the message
-     * @param string|null $domain The domain for the message or null to use the default
-     * @param string|null $locale The locale or null to use the default
+     * @param string      $id         The message id (may also be an object that can be cast to string)
+     * @param array       $parameters An array of parameters for the message
+     * @param string|null $domain     The domain for the message or null to use the default
+     * @param string|null $locale     The locale or null to use the default
      *
      * @return string The translated string
      */
@@ -56,13 +58,13 @@ abstract class AbstractController
     }
 
     /**
-     * Translates the given choice message by choosing a translation according to a number
+     * Translates the given choice message by choosing a translation according to a number.
      *
-     * @param string $id The message id (may also be an object that can be cast to string)
-     * @param int $number The number to use to find the indice of the message
-     * @param array $parameters An array of parameters for the message
-     * @param string|null $domain The domain for the message or null to use the default
-     * @param string|null $locale The locale or null to use the default
+     * @param string      $id         The message id (may also be an object that can be cast to string)
+     * @param int         $number     The number to use to find the indice of the message
+     * @param array       $parameters An array of parameters for the message
+     * @param string|null $domain     The domain for the message or null to use the default
+     * @param string|null $locale     The locale or null to use the default
      *
      * @return string The translated string
      */
@@ -71,11 +73,11 @@ abstract class AbstractController
         return $this->get('translator')->transChoice($id, $number, $parameters, $domain, $locale);
     }
     /**
-     * Returns a form
+     * Returns a form.
      *
-     * @param string $type The type of the form
-     * @param null $data The initial data
-     * @param array $options The options
+     * @param string $type    The type of the form
+     * @param null   $data    The initial data
+     * @param array  $options The options
      *
      * @return FormInterface The form named after the type
      */
@@ -97,9 +99,34 @@ abstract class AbstractController
         return $this->get('ontopress.router')->generate($siteName, $parameters);
     }
 
+    /**
+     * Get doctrine instance.
+     *
+     * @return EntityManager Doctrine EntityManager
+     */
+    protected function getDoctrine()
+    {
+        return $this->get('doctrine');
+    }
 
     /**
-     * Get a service from Container
+     * Validates a value.
+     *
+     * @param mixed      $value    The value to validate
+     * @param null|array $groups   The validation groups to validate.
+     * @param bool       $traverse Whether to traverse the value if it is traversable.
+     * @param bool       $deep     Whether to traverse nested traversable values recursively.
+     *
+     * @return ConstraintViolationListInterface A list of constraint violations. If the list is empty, validation succeeded.
+     */
+    protected function validate($value, $groups = null, $traverse = false, $deep = false)
+    {
+        return $this->get('validator')->validate($value, $groups, $traverse, $deep);
+    }
+
+    /**
+     * Get a service from Container.
+     *
      * @param $name Name of service
      *
      * @return mixed service
