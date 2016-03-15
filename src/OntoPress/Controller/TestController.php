@@ -10,7 +10,7 @@ class TestController extends AbstractController
     public function showAddAction()
     {
         $testParser = new OntologyParser();
-        echo "Hallo";
+        $testParser->parsing();
         return null;
     }
 }
