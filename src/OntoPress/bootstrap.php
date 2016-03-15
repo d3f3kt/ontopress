@@ -2,6 +2,7 @@
 
 $vendorDir = __DIR__.'/../../vendor';
 $viewsDir = __DIR__.'/Resources/views';
+$configDir = __DIR__.'/Resources/config';
 $entitiesDir = array(__DIR__.'/Entity');
 $loader = require $vendorDir.'/autoload.php';
 
@@ -9,7 +10,9 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Form\Forms;
 use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
@@ -20,6 +23,7 @@ use Symfony\Component\Validator\Validation;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
+
 
 $container = new ContainerBuilder();
 
@@ -75,5 +79,8 @@ $container->set('form', $formFactory);
 $container->set('twig', $twig);
 $container->set('doctrine', $entityManager);
 $container->set('validator', $validator);
+
+$loader = new YamlFileLoader($container, new FileLocator($configDir));
+$loader->load('services.yml');
 
 return $container;
