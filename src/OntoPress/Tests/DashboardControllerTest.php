@@ -1,8 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Enno
- * Date: 15.03.2016
- * Time: 16:40
- */
 
+namespace OntoPress\Tests;
+
+use OntoPress\Controller\DashboardController;
+
+class DashboardControllerTest extends PHPUnit_Framework_TestCase{
+    public function testDashboardController()
+    {
+        $dashboardcontroller = new DashboardController();
+        if (strpos($dashboardcontroller->showDashboardController(), 'wrap ontopressWrap') !== false) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
