@@ -2,8 +2,10 @@
 
 namespace OntoPress\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Form\Ontology\Type\AddOntologyType;
 use OntoPress\Entity\Ontology;
+use OntoPress\Entity\OntologyFile;
 use OntoPress\Libary\AbstractController;
 
 class OntologyController extends AbstractController
@@ -29,37 +31,27 @@ class OntologyController extends AbstractController
 
     public function showAddAction()
     {
+
         $ontology = new Ontology();
+        $ontology->addOntologyFile(new OntologyFile());
+
         $form = $this->createForm(new AddOntologyType(), $ontology, array(
             'cancel_link' => $this->generateRoute('ontopress_ontology'),
         ));
 
-        $form->handleRequest();
-        
+        $form->handleRequest(Request::createFromGlobals());
+
         if ($form->isValid()) {
-            $ontologyName = substr($ontology->getName(), 0, 3);
-            $timestamp = time();
             $author = wp_get_current_user();
-            $date = date('j F Y');
-            $path = 'Resources/ontology/'.(string)$ontologyName.'_'.(string)$timestamp;
-            $ontology->setOntologyFile($path);
             $ontology->setAuthor($author->user_nicename);
-            $ontology->setDate($date);
+            $ontology->setDate(new \DateTime());
+            $ontology->uploadFiles();
+
+            print_r($ontology);
+
             $this->getDoctrine()->persist($ontology);
             $this->getDoctrine()->flush();
 
-          /*  // move takes the target directory and then the
-            // target filename to move to
-            $this->getFile()->move(
-                $this->getUploadRootDir(),
-                $this->getFile()->getClientOriginalName()
-            );
-
-            // set the path property to the filename where you've saved the file
-            $this->path = $this->getFile()->getClientOriginalName();
-
-            // clean up the file property as you won't need it anymore
-            $this->file = null; */
         }
 
         return $this->render('ontology/ontologyAdd.html.twig', array(

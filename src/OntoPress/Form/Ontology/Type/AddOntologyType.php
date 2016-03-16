@@ -22,8 +22,9 @@ class AddOntologyType extends AbstractType
                 'label' => 'Ontologiename: ',
                 'attr' => array('class' => 'regular-text'),
             ))
-            ->add('ontologyFile', 'file', array(
-                'label' => 'Ontologie',
+            ->add('ontologyFiles', 'collection', array(
+                'type' => new OntologyFileType(),
+                'allow_add' => true,
             ))
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
@@ -43,6 +44,7 @@ class AddOntologyType extends AbstractType
             'data_class' => 'OntoPress\Entity\Ontology',
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
+            'cascade_validation' => true,
         ));
     }
 
@@ -51,6 +53,6 @@ class AddOntologyType extends AbstractType
      */
     public function getName()
     {
-        return 'networkMessage';
+        return 'ontologyAddType';
     }
 }
