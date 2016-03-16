@@ -1,0 +1,15 @@
+{% use "form_table_layout.html.twig" %}
+
+{%- block form_row -%}
+    <tr>
+        {% if  form_label(form) %}
+        <th scope="row">
+            {{- form_label(form) -}}
+        </th>
+        {% endif %}
+        <td>
+            {{- form_errors(form) -}}
+            {{- form_widget(form) -}}
+        </td>
+    </tr>
+{%- endblock form_row -%}
