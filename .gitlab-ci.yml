@@ -7,7 +7,7 @@ before_script:
 - apt-get update -y -qq
 - apt-get install git unzip php5-cli php5-curl php5-xdebug -y -qq > /dev/null
 - curl -sS https://getcomposer.org/installer | php
-- php5 composer.phar install
+- php5 composer.phar install -q
 
 stages:
     - stylecheck
@@ -25,15 +25,14 @@ stylecheck:twig:
     - vendor/bin/twig-lint lint src/OntoPress/Resources/views
 
 
-### Waiting for php unit support
-#test:5.5:
-#    stage: test
-#    image: php:5.5
-#    script:
-#    -
+test:5.5:
+    stage: test
+    image: php:5.5
+    script:
+    - vendor/bin/phpunit
 
 test:5.6:
     stage: test
     image: php:5.6
     script:
-    - vendor/bin/phpunit --coverage-text
+    - php5 vendor/bin/phpunit --coverage-text
