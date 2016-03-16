@@ -29,17 +29,16 @@ class OntologyParser
             } elseif ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
                 $commentArray[(string)$statement->getSubject()] = $statement->getObject();
             } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                if ($restrictionArray[(string)$statement->getSubject()] == NULL) {
+                if ($restrictionArray[(string)$statement->getSubject()] == null) {
                     $restrictionArray[(string)$statement->getSubject()] = array($statement->getObject());
-                }
-                else {
+                } else {
                     array_push($restrictionArray[(string)$statement->getSubject()], $statement->getObject());
                 }
             } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
                 $mandatoryArray[(string)$statement->getSubject()] = $statement->getObject();
             }
         }
-        /*
+
         echo "Labels", "<br />";
         foreach ($labelArray as $key => $object) {
             echo $key . ' - ' .
@@ -66,7 +65,7 @@ class OntologyParser
                     (string)$object;
                 echo '<br />';
         }
-        */
+
         $statementArray = array( "Labels" => $labelArray, "Comments" => $commentArray, "Restrictions" => $restrictionArray, "Mandatory" => $mandatoryArray);
 
         return $statementArray;

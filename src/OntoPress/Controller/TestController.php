@@ -3,7 +3,6 @@
 namespace OntoPress\Controller;
 
 use OntoPress\Libary\AbstractController;
-use OntoPress\Service\OntologyParser;
 
 class TestController extends AbstractController
 {
