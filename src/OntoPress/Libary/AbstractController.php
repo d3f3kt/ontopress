@@ -127,12 +127,24 @@ abstract class AbstractController
     /**
      * Get a service from Container.
      *
-     * @param $name Name of service
+     * @param string $name Name of service
      *
      * @return mixed service
      */
     protected function get($name)
     {
         return $this->container->get($name);
+    }
+
+    /**
+     * Get a parameter from Container.
+     *
+     * @param string $name Name of parameter
+     *
+     * @return string parameter
+     */
+    protected function getParameter($name)
+    {
+        return $this->container->getParameter($name);
     }
 }
