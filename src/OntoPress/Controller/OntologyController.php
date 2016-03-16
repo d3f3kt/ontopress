@@ -35,7 +35,6 @@ class OntologyController extends AbstractController
         ));
 
         $form->handleRequest();
-
         if ($form->isValid()){
             $ontologyName = substr($ontology->getName(), 0, 3);
             $timestamp = time();
