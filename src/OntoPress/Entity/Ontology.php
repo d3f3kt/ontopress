@@ -31,12 +31,12 @@ class Ontology
     protected $name;
 
     /**
-     * File path of ontology.
+     * Ontology Files.
      *
-     * @var string
-     * @ORM\Column(name="file_path", type="string", length=255)
+     * @var OntologyFile
+     * @ORM\OneToMany(targetEntity="OntologyFile", mappedBy="ontology", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $ontologyFile;
+    protected $ontologyFiles;
 
     /**
      * Wordpress user who created the ontology.
@@ -89,30 +89,6 @@ class Ontology
     }
 
     /**
-     * Set ontologyFile.
-     *
-     * @param string $ontologyFile
-     *
-     * @return Ontology
-     */
-    public function setOntologyFile($ontologyFile)
-    {
-        $this->ontologyFile = $ontologyFile;
-
-        return $this;
-    }
-
-    /**
-     * Get ontologyFile.
-     *
-     * @return string
-     */
-    public function getOntologyFile()
-    {
-        return $this->ontologyFile;
-    }
-
-    /**
      * Set author.
      *
      * @param string $author
@@ -158,5 +134,56 @@ class Ontology
     public function getDate()
     {
         return $this->date;
+    }
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->ontologyFiles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ontologyFile.
+     *
+     * @param \OntoPress\Entity\OntologyFile $ontologyFile
+     *
+     * @return Ontology
+     */
+    public function addOntologyFile(\OntoPress\Entity\OntologyFile $ontologyFile)
+    {
+        $ontologyFile->setOntology($this);
+        $this->ontologyFiles[] = $ontologyFile;
+
+        return $this;
+    }
+
+    /**
+     * Remove ontologyFile.
+     *
+     * @param \OntoPress\Entity\OntologyFile $ontologyFile
+     *
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeOntologyFile(\OntoPress\Entity\OntologyFile $ontologyFile)
+    {
+        return $this->ontologyFiles->removeElement($ontologyFile);
+    }
+
+    /**
+     * Get ontologyFiles.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOntologyFiles()
+    {
+        return $this->ontologyFiles;
+    }
+
+    public function uploadFiles()
+    {
+        foreach ($this->getOntologyFiles() as $file) {
+            $file->upload();
+        }
     }
 }
