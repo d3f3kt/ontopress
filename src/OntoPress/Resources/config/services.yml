@@ -1,3 +1,15 @@
 services:
-  ontopress.ontology_parser:
-    class:  OntoPress\Service\OntologyParser
+    ontopress.ontology_parser:
+        class:  OntoPress\Service\OntologyParser
+        lazy: true
+
+    ontopress.router:
+        class: OntoPress\Libary\Router
+        arguments: [@service_container]
+
+    ontopress.twig_extension.router:
+        class: OntoPress\Libary\Twig\RouterExtension
+        arguments: [@ontopress.router]
+        public: false
+        tags:
+            - { name: twig.extension }

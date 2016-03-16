@@ -8,7 +8,6 @@ $loader = require $vendorDir.'/autoload.php';
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,16 +22,17 @@ use Symfony\Component\Validator\Validation;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
+use OntoPress\Libary\ContainerCompiler;
 
 $container = new ContainerBuilder();
 
 // doctrine setup
 $dbParams = array(
-    'driver'   => 'pdo_mysql',
-    'user'     => DB_USER,
+    'driver' => 'pdo_mysql',
+    'user' => DB_USER,
     'password' => DB_PASSWORD,
-    'dbname'   => DB_NAME,
-    'host'     => DB_HOST
+    'dbname' => DB_NAME,
+    'host' => DB_HOST,
 );
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
@@ -73,13 +73,23 @@ $formFactory = Forms::createFormFactoryBuilder()
 $twig->addExtension(new FormExtension(new TwigRenderer($formEngine)));
 $twig->addExtension(new TranslationExtension($translator));
 
+// add basic services to container
 $container->set('translator', $translator);
 $container->set('form', $formFactory);
 $container->set('twig', $twig);
 $container->set('doctrine', $entityManager);
 $container->set('validator', $validator);
 
+// add path parameters to container
+$container->setParameter('ontopress.root_dir', __DIR__);
+$container->setParameter('ontopress.plugin_dir', __DIR__.'/../../');
+
+// add dynamic services to container
 $loader = new YamlFileLoader($container, new FileLocator($configDir));
 $loader->load('services.yml');
+
+// compiler container
+$container->addCompilerPass(new ContainerCompiler());
+$container->compile();
 
 return $container;

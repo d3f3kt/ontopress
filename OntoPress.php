@@ -10,14 +10,8 @@ Author URI: http://pcai042.informatik.uni-leipzig.de/~wpod16/
 License: ...PENDING...
 */
 
-$ontopressContainer = require plugin_dir_path(__FILE__).'src/OntoPress/bootstrap.php';
+$ontopressContainer = require __DIR__.'/src/OntoPress/bootstrap.php';
 use OntoPress\Wordpress\PluginWrapper;
-
-// set additional container parameters
-$ontopressContainer->set('wpdb', $wpdb);
-$ontopressContainer->setParameter('ontopress.plugin_dir', plugin_dir_path(__FILE__));
-$ontopressContainer->setParameter('ontopress.root_dir', plugin_dir_path(__FILE__).'src/OntoPress');
-$ontopressContainer->setParameter('ontopress.plugin_url', plugin_dir_url(__FILE__).'src/OntoPress');
 
 $ontopressPlugin = new PluginWrapper($ontopressContainer);
 
