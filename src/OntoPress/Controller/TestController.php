@@ -10,7 +10,7 @@ class TestController extends AbstractController
     public function showAddAction()
     {
         $testParser = new OntologyParser();
-        $testParser->parsing();
+        $testParser->parsing(__DIR__.'/../Resources/ontology/place-ontology.ttl');
         return null;
     }
 }

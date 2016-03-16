@@ -1,0 +1,3 @@
+services:
+  ontopress.ontology_parser:
+    class:  Service\OntologyParser

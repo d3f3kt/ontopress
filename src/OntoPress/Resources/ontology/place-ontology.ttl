@@ -4,7 +4,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://localhost/bvl/building-place/> a owl:Ontology ;
+<> a owl:Ontology ;
     rdfs:label "Gebäude-Ontologie mit Informationen über Barrierefreiheit"@de ;
     knok:todo "Art der Property (z.B. Angabe in cm oder J/N) noch angeben" .
 
