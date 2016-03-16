@@ -3,16 +3,16 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\DashboardController;
+use OntoPress\Libary\OntoPressTestCase;
 
-class DashboardControllerTest extends PHPUnit_Framework_TestCase
+class DashboardControllerTest extends OntoPressTestCase
 {
     public function testDashboardController()
     {
-        $dashboardcontroller = new DashboardController();
-        if (strpos($dashboardcontroller->showDashboardController(), 'wrap ontopressWrap') !== false) {
-            return true;
-        } else {
-            return false;
-        }
+        $container = static::getContainer();
+        $dashboardController = new DashboardController($container);
+        $dashboardOutput = $dashboardController->showDashboardAction();
+
+        $this->assertContains("wrap ontopressWrap", $dashboardOutput);
     }
 }

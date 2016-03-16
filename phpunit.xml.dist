@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         bootstrap="vendor/autoload.php">
+
+    <testsuites>
+        <testsuite name="OntoPress Test Suit">
+            <directory>./src/OntoPress/Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <const name="DB_USER" value="root" />
+        <const name="DB_PASSWORD" value="password" />
+        <const name="DB_NAME" value="ontopress" />
+        <const name="DB_HOST" value="localhost" />
+    </php>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <file>./src/OntoPress/Libary/OntoPressTestCase.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
