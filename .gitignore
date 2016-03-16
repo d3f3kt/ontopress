@@ -3,5 +3,7 @@
 config.codekit
 sftp-config.json
 /vendor/
+/src/OntoPress/Resources/ontology/upload
 *.php~
 *.php.save
+
