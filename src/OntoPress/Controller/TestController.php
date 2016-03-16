@@ -9,8 +9,8 @@ class TestController extends AbstractController
 {
     public function showAddAction()
     {
-        $testParser = new OntologyParser();
-        $testParser->parsing(__DIR__.'/../Resources/ontology/place-ontology.ttl');
+        $ontologyParser = $this->get('ontopress.ontology_parser');
+        $ontologyParser->parsing(__DIR__.'/../Resources/ontology/place-ontology.ttl');
         return null;
     }
 }
