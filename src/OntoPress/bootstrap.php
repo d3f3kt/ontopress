@@ -18,6 +18,7 @@ use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\MessageSelector;
@@ -67,6 +68,7 @@ $formEngine = new TwigRendererEngine(array('form/base.html.twig'));
 $formEngine->setEnvironment($twig);
 $formFactory = Forms::createFormFactoryBuilder()
     ->addExtension(new ValidatorExtension($validator))
+    ->addExtension(new HttpFoundationExtension())
     ->getFormFactory();
 
 // add all twig extensions
