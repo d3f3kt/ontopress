@@ -35,4 +35,4 @@ test:5.6:
     stage: test
     image: php:5.6
     script:
-    - php5 vendor/bin/phpunit --coverage-text
+    - php5 vendor/bin/phpunit --coverage-text --colors=never
