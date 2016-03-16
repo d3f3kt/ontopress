@@ -35,7 +35,8 @@ class OntologyController extends AbstractController
         ));
 
         $form->handleRequest();
-        if ($form->isValid()){
+        
+        if ($form->isValid()) {
             $ontologyName = substr($ontology->getName(), 0, 3);
             $timestamp = time();
             $author = wp_get_current_user();
