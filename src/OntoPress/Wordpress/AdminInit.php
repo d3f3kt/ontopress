@@ -49,7 +49,7 @@ class AdminInit
     private function __construct(Container $container)
     {
         $this->container = $container;
-        $this->router = new Router($this->container);
+        $this->router = $container->get('ontopress.router');
 
         add_action('admin_menu', array($this, 'adminMenu'));
         add_action('admin_enqueue_scripts', array($this, 'loadResources'));

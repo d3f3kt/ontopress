@@ -29,9 +29,6 @@ class Router
     {
         $this->container = $container;
         $this->loadConfig();
-        $this->container->set('ontopress.router', $this);
-
-        $this->addTwigExtension();
     }
 
     /**
@@ -166,14 +163,5 @@ class Router
         } else {
             throw new NoControllerException($class);
         }
-    }
-
-    /**
-     * Add router extension to twig.
-     */
-    private function addTwigExtension()
-    {
-        $extension = new RouterExtension($this->container);
-        $this->container->get('twig')->addExtension($extension);
     }
 }
