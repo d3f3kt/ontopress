@@ -26,20 +26,18 @@ class OntologyParser
         foreach ($statementIterator as $key => $statement) {
             if ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                 $labelArray[(string)$statement->getSubject()] = $statement->getObject();
-            }
-            elseif ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
+            } elseif ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
                 $commentArray[(string)$statement->getSubject()] = $statement->getObject();
-            }
-            elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-               echo (string)$statement, '<br />';
+            } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
+                echo (string)$statement, '<br />';
             }
             /*
             if ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
-                if( (string)$statement->getObject() == "true") {
-
+                if ((string)$statement->getObject() == "true") {
                 }
                 echo '<br />';
-            }*/
+            }
+            */
         }
 
         echo "Labels", "<br />";
