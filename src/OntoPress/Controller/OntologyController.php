@@ -20,7 +20,7 @@ class OntologyController extends AbstractController
         );
 
         return $this->render('ontology/managePage.html.twig', array(
-            'ontologyManageTable' => $ontologyManageTable
+            'ontologyManageTable' => $ontologyManageTable,
         ));
     }
 
@@ -31,7 +31,6 @@ class OntologyController extends AbstractController
 
     public function showAddAction()
     {
-
         $ontology = new Ontology();
         $ontology->addOntologyFile(new OntologyFile());
 
@@ -51,7 +50,6 @@ class OntologyController extends AbstractController
 
             $this->getDoctrine()->persist($ontology);
             $this->getDoctrine()->flush();
-
         }
 
         return $this->render('ontology/ontologyAdd.html.twig', array(
