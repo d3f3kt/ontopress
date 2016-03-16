@@ -2,7 +2,7 @@
 
 namespace OntoPress\Libary\Twig;
 
-use Symfony\Component\DependencyInjection\Container;
+use OntoPress\Libary\Router;
 
 /**
  * Twig function to print urls from site name.
@@ -10,13 +10,20 @@ use Symfony\Component\DependencyInjection\Container;
 class RouterExtension extends \Twig_Extension
 {
     /**
+     * OntoPress ROuter.
+     *
+     * @var Router
+     */
+    private $router;
+
+    /**
      * Initialize Router Extension.
      *
-     * @param Container $container dependency injection container
+     * @param Router $router OntoPress Router
      */
-    public function __construct(Container $container)
+    public function __construct(Router $router)
     {
-        $this->container = $container;
+        $this->router = $router;
     }
 
     /**
@@ -39,7 +46,7 @@ class RouterExtension extends \Twig_Extension
      */
     public function pathFunction($siteName, $parameters = array())
     {
-        return $this->container->get('ontopress.router')->generate($siteName, $parameters);
+        return $this->router->generate($siteName, $parameters);
     }
 
     /**
