@@ -10,13 +10,17 @@ use OntoPress\Libary\AbstractController;
 
 class OntologyController extends AbstractController
 {
+    /**
+     * Creates Tablecontent for Ontology Manage Table.
+     *
+     * @return string Tablecontent
+     */
     public function showManageAction()
     {
         $ontologyManageTable = array(
             array('id' => 1, 'ontology' => 'Gebäude', 'form' => 10),
             array('id' => 2, 'ontology' => 'Plätze', 'form' => 5),
             array('id' => 3, 'ontology' => 'Kirchen', 'form' => 8),
-
         );
 
         return $this->render('ontology/managePage.html.twig', array(
@@ -24,11 +28,21 @@ class OntologyController extends AbstractController
         ));
     }
 
+    /**
+     * Opens the Ontology-delete section as Website.
+     *
+     * @return string url
+     */
     public function showDeleteAction()
     {
         return $this->render('ontology/delete.html.twig', array());
     }
 
+    /**
+     * Adds an Ontology to the Databank and validates it.
+     *
+     * @return string url
+     */
     public function showAddAction()
     {
         $ontology = new Ontology();
