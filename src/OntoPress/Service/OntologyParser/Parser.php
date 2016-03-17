@@ -4,6 +4,8 @@ namespace OntoPress\Service\OntologyParser;
 use Saft\Addition\EasyRdf\Data\ParserEasyRdf;
 use Saft\Rdf\NodeFactoryImpl;
 use Saft\Rdf\StatementFactoryImpl;
+use OntoPress\Service\OntologyParser\OntologyNode;
+use OntoPress\Service\OntologyParser\Restriction;
 
 class Parser
 {
@@ -19,10 +21,54 @@ class Parser
         );
         $statementIterator = $parser->parseStreamToIterator($filepath);
 
+        /*
+        $objectArray = array();
+        $restrictionArray = array();
+        $mandatoryArray = array();
+        foreach ($statementIterator as $key => $statement) {
+            $objectArray[(string)$statement->getSubject()] = new OntologyNode((string)$statement->getSubject(), null, array(), null);
+            if ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
+                $objectArray[(string)$statement->getSubject()]->setLabel((string)$statement->getObject());
+
+            } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
+                if ($restrictionArray[(string)$statement->getSubject()] == null) {
+                    $restrictionArray[(string)$statement->getSubject()] = array($statement->getObject());
+                } else {
+                    array_push($restrictionArray[(string)$statement->getSubject()], $statement->getObject());
+                }
+            } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
+                $mandatoryArray[(string)$statement->getSubject()] = $statement->getObject();
+            } else {
+                $objectArray[(string)$statement->getSubject()]->getType()[(string)$statement->getPredicate()] = (string)$statement->getObject();
+            }
+        }
+
+        foreach ($restrictionArray as $subjectR => $object) {
+            $restrictionArray[$subjectR] = new Restriction(null, $object);
+            foreach ($mandatoryArray as $subjectM => $mandatory) {
+                if($subjectR == $subjectM) {
+                    $object = new Restriction($mandatory, $object);
+                }
+            }
+
+            foreach ($objectArray as $subjectO => $ontoNode) {
+                if ($subjectR == $subjectO) {
+                    $ontoNode->setRestriction($object);
+                }
+            }
+        }
+
+        print_r($objectArray);
+
+        return $objectArray;
+        */
+
         $labelArray = array();
         $commentArray = array();
         $restrictionArray = array();
         $mandatoryArray = array();
+
+
         foreach ($statementIterator as $key => $statement) {
             if ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                 $labelArray[(string)$statement->getSubject()] = $statement->getObject();
@@ -69,5 +115,7 @@ class Parser
         $statementArray = array( "Labels" => $labelArray, "Comments" => $commentArray, "Restrictions" => $restrictionArray, "Mandatory" => $mandatoryArray);
 
         return $statementArray;
+
+
     }
 }

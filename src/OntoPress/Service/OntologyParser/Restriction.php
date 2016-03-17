@@ -4,11 +4,19 @@ namespace OntoPress\Service\OntologyParser;
 
 class Restriction
 {
+    //Pflichtfeld? (true/false)
     protected $mandatory;
 
+    //Antwortmoeglichkeiten
     protected $oneOf;
 
-    protected $type;
+
+    public function __construct($mandatory, $oneOf)
+    {
+        $this->mandatory = $mandatory;
+        $this->oneOf = $oneOf;
+        return $this;
+    }
 
     public function setMandatory($mandatory)
     {

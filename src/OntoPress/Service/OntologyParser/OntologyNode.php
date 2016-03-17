@@ -4,20 +4,25 @@ namespace OntoPress\Service\OntologyParser;
 
 class OntologyNode
 {
-    //Das Subjekt?
+    //Das Subjekt
     protected $name;
 
-    //Das Objekt?
+    //Dessen Label
     protected $label;
 
-    // Text, Kommentar oder Buttons etc.
+    //Weitere Eigenschaften
     protected $type;
 
+    //Verbundene restriction
     protected $restriction;
 
-    public function __construct()
+    public function __construct($name, $label, $type, $restriction)
     {
-
+        $this->name = $name;
+        $this->label = $label;
+        $this->type = $type;
+        $this->restriction = $restriction;
+        return $this;
     }
 
     public function setName($name)
