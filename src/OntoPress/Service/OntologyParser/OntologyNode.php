@@ -13,7 +13,7 @@ class OntologyNode
     // Text, Kommentar oder Buttons etc.
     protected $type;
 
-    protected  $restriction;
+    protected $restriction;
 
     public function __construct()
     {
