@@ -33,5 +33,4 @@ class OntologyControllerTest extends OntoPressTestCase
 
         $this->assertContains("Ontologie hochladen", $ontologyOutput);
     }
-
 }
