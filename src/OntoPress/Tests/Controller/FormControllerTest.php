@@ -7,7 +7,8 @@ use OntoPress\Libary\OntoPressTestCase;
 
 class FormControllerTest extends OntoPressTestCase
 {
-    public function testShowManageAction(){
+    public function testShowManageAction()
+    {
         $container = static::getContainer();
         $formController = new FormController($container);
         $formOutput = $formController->showManageAction();
@@ -15,7 +16,8 @@ class FormControllerTest extends OntoPressTestCase
         $this->assertContains("Formular Verwaltung", $formOutput);
     }
 
-    public function testShowEditAction(){
+    public function testShowEditAction()
+    {
         $container = static::getContainer();
         $formController = new FormController($container);
         $formOutput = $formController->showEditAction();
@@ -23,7 +25,8 @@ class FormControllerTest extends OntoPressTestCase
         $this->assertContains("Formular Bearbeiten", $formOutput);
     }
 
-    public function testShowCreateAction(){
+    public function testShowCreateAction()
+    {
         $container = static::getContainer();
         $formController = new FormController($container);
         $formOutput = $formController->showCreateAction();
@@ -31,7 +34,8 @@ class FormControllerTest extends OntoPressTestCase
         $this->assertContains("Formular Anlegen", $formOutput);
     }
 
-    public function testShowDeleteAction(){
+    public function testShowDeleteAction()
+    {
         $container = static::getContainer();
         $formController = new FormController($container);
         $formOutput = $formController->showDeleteAction();
