@@ -23,6 +23,8 @@ use Symfony\Component\Validator\Validation;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use OntoPress\Libary\ContainerCompiler;
 
 $container = new ContainerBuilder();
@@ -75,12 +77,21 @@ $formFactory = Forms::createFormFactoryBuilder()
 $twig->addExtension(new FormExtension(new TwigRenderer($formEngine)));
 $twig->addExtension(new TranslationExtension($translator));
 
+// session configuration
+if(getenv('ontopress_env') == 'test'){
+    $session = new Session(new MockArraySessionStorage());
+}else{
+    $session = new Session();
+}
+
+
 // add basic services to container
 $container->set('translator', $translator);
 $container->set('form', $formFactory);
 $container->set('twig', $twig);
 $container->set('doctrine', $entityManager);
 $container->set('validator', $validator);
+$container->set('session', $session);
 
 // add path parameters to container
 $container->setParameter('ontopress.root_dir', __DIR__);

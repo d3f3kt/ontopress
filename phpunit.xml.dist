@@ -19,6 +19,7 @@
         <const name="DB_PASSWORD" value="password" />
         <const name="DB_NAME" value="ontopress" />
         <const name="DB_HOST" value="localhost" />
+        <env name="ontopress_env" value="test"/>
     </php>
 
     <filter>
