@@ -16,12 +16,12 @@ class OntologyNode
     //Verbundene restriction
     protected $restriction;
 
-    public function __construct($name, $label, $type, $restriction)
+    public function __construct($name, $label, $type, $mandatory, $oneOf)
     {
         $this->name = $name;
         $this->label = $label;
         $this->type = $type;
-        $this->restriction = $restriction;
+        $this->restriction = new Restriction($mandatory, $oneOf);
         return $this;
     }
 
@@ -60,11 +60,11 @@ class OntologyNode
 
     public function setRestriction($restriction)
     {
-        $this->restriction = $restriction;
+        $this->restriction = $restriction;//new Restriction($mandatory, $oneOf);
         return $this;
     }
 
-    public function getRestrcition()
+    public function getRestriction()
     {
         return $this->restriction;
     }
