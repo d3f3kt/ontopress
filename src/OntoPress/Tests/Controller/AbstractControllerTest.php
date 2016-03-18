@@ -4,39 +4,34 @@ namespace OntoPress\Tests;
 
 use OntoPress\Libary\AbstractController;
 use OntoPress\Libary\OntoPressTestCase;
+use Symfony\Component\DependencyInjection\Container;
 
 class AbstractControllerTest extends OntoPressTestCase
 {
-    /*
+    /**
+     * AbstractController stub
+     * @var AbstractController
+     */
+    private $abstractController;
+
+    public function setUp()
+    {
+        $this->abstractController = $this->getMockForAbstractClass(
+            'OntoPress\Libary\AbstractController',
+            array(static::getContainer())
+        );
+    }
+
+    public function tearDown()
+    {
+        unset($this->abstractController);
+    }
+
     public function testRender()
     {
-        $abstMock = $this->getMockForAbstractClass(
-            "AbstractController",
-            array(), //array($container),
-            "",
-            true,
-            true,
-            true,
-            array()
-        );
-        */
-        /*
-        //$container = static::getContainer();
-        $mock =  $this->getMock(
-            "AbstractController",
-            array(),
-            array(), //array($container),
-            "",
-            true,
-            true,
-            true
-        );
-
-        $result = $mock->render('base.html.twig', array());
+        $result = $this->invokeMethod($this->abstractController, 'render', array('base.html.twig', array()));
         $this->assertContains("wrap ontopressWrap", $result);
-        unset($this->mock);
     }
-    */
 
     /*
     public function testTrans()
