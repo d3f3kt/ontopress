@@ -3,6 +3,8 @@
 
 {% block headline %}
     Ontologie hochladen
+{% endblock %}
+{% block content %}
     <div class="infoText">
         <p>In Ontologien wird eine Menge von Begrifflichkeiten eines gemeinsamen Gegenstandsbereiches<br>
             sowie deren Beziehungen in einer sprachlichen und formalen Darstellung abgebildet.<br>
@@ -12,8 +14,7 @@
         <p>Dazu müssen Sie die gewünschten Klassen auswählen, die im Formular angezeigt werden sollen,<br>
             außerdem wird ein Twig Code generiert, den Sie beliebig verändern können</p>
     </div>
-{% endblock %}
-{% block content %}
+
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
