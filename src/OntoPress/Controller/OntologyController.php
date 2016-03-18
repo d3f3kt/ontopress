@@ -64,6 +64,11 @@ class OntologyController extends AbstractController
 
             $this->getDoctrine()->persist($ontology);
             $this->getDoctrine()->flush();
+
+            $this->addFlashMessage(
+                'success',
+                'Ontologie erfolgreich hochgeladen.'
+            );
         }
 
         return $this->render('ontology/ontologyAdd.html.twig', array(
