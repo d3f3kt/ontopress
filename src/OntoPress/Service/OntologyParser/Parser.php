@@ -33,16 +33,16 @@ class Parser
         $restrictionArray = array();
         $mandatoryArray = array();
         foreach ($statementIterator as $key => $statement) {
-            $objectArray[(string)$statement->getSubject()] = new OntologyNode((string)$statement->getSubject(), null, null, null, null);
-            if ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
-                $objectArray[(string)$statement->getSubject()]->setLabel((string)$statement->getObject());
-                $objectArray[(string)$statement->getSubject()]->setType("Text");
-            } elseif ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
-                $objectArray[(string)$statement->getSubject()]->setLabel((string)$statement->getObject());
-                $objectArray[(string)$statement->getSubject()]->setType("Kommentar");
-            } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                $objectArray[(string)$statement->getSubject()]->setLabel((string)$statement->getObject());
-                $objectArray[(string)$statement->getSubject()]->setType("Checkbox");
+            $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, null, null);
+            if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
+                $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
+                $objectArray[$statement->getSubject()->getUri()]->setType("Text");
+            } elseif ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
+                $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
+                $objectArray[$statement->getSubject()->getUri()]->setType("Kommentar");
+            } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
+                $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getUri());
+                $objectArray[$statement->getSubject()->getUri()]->setType("Checkbox");
                 /*
                 if ($restrictionArray[(string)$statement->getSubject()] == null) {
                     $restrictionArray[(string)$statement->getSubject()] = array($statement->getObject());
