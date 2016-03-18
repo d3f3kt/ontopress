@@ -78,12 +78,11 @@ $twig->addExtension(new FormExtension(new TwigRenderer($formEngine)));
 $twig->addExtension(new TranslationExtension($translator));
 
 // session configuration
-if(getenv('ontopress_env') == 'test'){
+if (getenv('ontopress_env') == 'test') {
     $session = new Session(new MockArraySessionStorage());
-}else{
+} else {
     $session = new Session();
 }
-
 
 // add basic services to container
 $container->set('translator', $translator);
