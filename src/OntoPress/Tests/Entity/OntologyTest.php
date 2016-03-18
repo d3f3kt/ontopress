@@ -14,25 +14,26 @@ class OntologyTest extends OntoPressTestCase
         $this->ontologyTest = new Ontology();
         $this->ontologyTest->setName("TestOntology");
         $this->ontologyTest->setAuthor("TestAuthor");
-        $this->ontologyTest->setDate('2011-01-01');
+        $date = date_create('2011-01-01');
+        $this->ontologyTest->setDate($date);
     }
 
     public function testName()
     {
         $testOntology = $this->ontologyTest->getName();
-        $this->assertTrue($testOntology == "TestOntology");
+        $this->assertEquals($testOntology, "TestOntology");
     }
 
     public function testAuthor()
     {
         $testAuthor = $this->ontologyTest->getAuthor();
-        $this->assertTrue($testAuthor == "TestAuthor");
+        $this->assertEquals($testAuthor, "TestAuthor");
     }
 
     public function testDate()
     {
         $testDate = $this->ontologyTest->getDate();
-        $this->assertTrue($testDate == '2011-01-01');
+        $this->assertEquals($testDate, $date);
     }
 /*
     public function testAddOntologyFile()
