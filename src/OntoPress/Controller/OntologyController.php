@@ -11,9 +11,9 @@ use OntoPress\Libary\AbstractController;
 class OntologyController extends AbstractController
 {
     /**
-     * Creates Tablecontent for Ontology Manage Table.
+     * Show all ontologies.
      *
-     * @return string Tablecontent
+     * @return string rendered twig template
      */
     public function showManageAction()
     {
@@ -29,9 +29,9 @@ class OntologyController extends AbstractController
     }
 
     /**
-     * Opens the Ontology-delete section as Website.
+     * Handle the delete request of one ontology.
      *
-     * @return string url
+     * @return string rendered twig template
      */
     public function showDeleteAction()
     {
@@ -39,9 +39,9 @@ class OntologyController extends AbstractController
     }
 
     /**
-     * Adds an Ontology to the Databank and validates it.
+     * Handle the upload of one or more ontology files and save them in database.
      *
-     * @return string url
+     * @return string rendered twig template
      */
     public function showAddAction()
     {
