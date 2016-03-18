@@ -14,7 +14,7 @@ class OntologyTest extends OntoPressTestCase
         $this->ontologyTest = new Ontology();
         $ontologyTest->setName("TestOntology");
         $ontologyTest->setAuthor("TestAuthor");
-        $ontologyTest->setDate(01.01.2011);
+        $ontologyTest->setDate("01.01.2011");
     }
 
     public function testName()
@@ -32,7 +32,7 @@ class OntologyTest extends OntoPressTestCase
     public function testDate()
     {
         $testDate = $this->ontologyTest->getDate();
-        $this->assertTrue($testDate == 01.01.2011);
+        $this->assertTrue($testDate == "01.01.2011");
     }
 
     public function testAddOntologyFile()
@@ -45,7 +45,7 @@ class OntologyTest extends OntoPressTestCase
 
     }
 
-    public function testGetOntologyFiles(
+    public function testGetOntologyFiles()
     {
 
     }
@@ -54,5 +54,5 @@ class OntologyTest extends OntoPressTestCase
     {
 
     }
-    )
+    
 }
