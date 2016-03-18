@@ -7,9 +7,9 @@ use OntoPress\Libary\OntoPressTestCase;
 
 class AbstractControllerTest extends OntoPressTestCase
 {
+    /*
     public function testRender()
     {
-        /*
         $abstMock = $this->getMockForAbstractClass(
             "AbstractController",
             array(), //array($container),
@@ -37,7 +37,7 @@ class AbstractControllerTest extends OntoPressTestCase
         unset($this->mock);
     }
     */
-        
+
     /*
     public function testTrans()
     {
