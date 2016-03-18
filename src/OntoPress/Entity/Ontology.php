@@ -119,7 +119,7 @@ class Ontology
      *
      * @return Ontology
      */
-    public function setDate($date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
 
