@@ -13,6 +13,9 @@ class OntologyNode
     //Weitere Eigenschaften
     protected $type;
 
+    //Missing Comment
+    protected $mandatory;
+
     //Verbundene restriction
     protected $restriction;
 
@@ -21,7 +24,8 @@ class OntologyNode
         $this->name = $name;
         $this->label = $label;
         $this->type = $type;
-        $this->restriction = new Restriction($mandatory, $oneOf);
+        $this->mandatory = $mandatory;
+        $this->restriction = new Restriction(/*$mandatory,*/ $oneOf);
         return $this;
     }
 
@@ -58,9 +62,20 @@ class OntologyNode
         return $this->type;
     }
 
-    public function setRestriction($restriction)
+    public function setMandatory($mandatory)
     {
-        $this->restriction = $restriction;//new Restriction($mandatory, $oneOf);
+        $this->mandatory = $mandatory;
+        return $this;
+    }
+
+    public function getMandatory()
+    {
+        return $this->mandatory;
+    }
+
+    public function setRestriction($oneOf)
+    {
+        $this->restriction = new Restriction($oneOf);//$restriction;
         return $this;
     }
 

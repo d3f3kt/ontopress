@@ -44,7 +44,7 @@ class Parser
                 $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getUri());
                 $objectArray[$statement->getSubject()->getUri()]->setType("Checkbox");
                 /*
-                if ($restrictionArray[(string)$statement->getSubject()] == null) {
+                if ($restrictionArray[(string)$statement->getSubject()->getUri()] == null) {
                     $restrictionArray[(string)$statement->getSubject()] = array($statement->getObject());
                 } else {
                     array_push($restrictionArray[(string)$statement->getSubject()], $statement->getObject());
