@@ -54,5 +54,4 @@ class OntologyTest extends OntoPressTestCase
     {
 
     }
-    
 }
