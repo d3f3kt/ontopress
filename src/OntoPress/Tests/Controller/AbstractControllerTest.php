@@ -20,7 +20,7 @@ class AbstractControllerTest extends OntoPressTestCase
             array()
         );
         */
-
+        /*
         //$container = static::getContainer();
         $mock =  $this->getMock(
             "AbstractController",
@@ -33,10 +33,11 @@ class AbstractControllerTest extends OntoPressTestCase
         );
 
         $result = $mock->render('base.html.twig', array());
-        //$this->assertContains("wrap ontopressWrap", $result);
+        $this->assertContains("wrap ontopressWrap", $result);
         unset($this->mock);
     }
-
+    */
+        
     /*
     public function testTrans()
     {
