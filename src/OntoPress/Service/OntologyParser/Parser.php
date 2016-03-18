@@ -20,28 +20,44 @@ class Parser
             'turtle' // RDF format of the file to parse later on (ttl => turtle)
         );
         $statementIterator = $parser->parseStreamToIterator($filepath);
-
-
+        /*
+        foreach ($statementIterator as $key => $statement) {
+            echo '#' . $key . ' - ' .
+                (string)$statement->getSubject() . ' - ' .
+                (string)$statement->getPredicate() . ' - ' .
+                (string)$statement->getObject();
+            echo "<br />";
+        }
+           */
         $objectArray = array();
         $restrictionArray = array();
         $mandatoryArray = array();
         foreach ($statementIterator as $key => $statement) {
-            $objectArray[(string)$statement->getSubject()] = new OntologyNode((string)$statement->getSubject(), null, array(), null, null);
+            $objectArray[(string)$statement->getSubject()] = new OntologyNode((string)$statement->getSubject(), null, null, null, null);
             if ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                 $objectArray[(string)$statement->getSubject()]->setLabel((string)$statement->getObject());
+                $objectArray[(string)$statement->getSubject()]->setType("Text");
+            } elseif ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
+                $objectArray[(string)$statement->getSubject()]->setLabel((string)$statement->getObject());
+                $objectArray[(string)$statement->getSubject()]->setType("Kommentar");
             } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
+                $objectArray[(string)$statement->getSubject()]->setLabel((string)$statement->getObject());
+                $objectArray[(string)$statement->getSubject()]->setType("Checkbox");
+                /*
                 if ($restrictionArray[(string)$statement->getSubject()] == null) {
                     $restrictionArray[(string)$statement->getSubject()] = array($statement->getObject());
                 } else {
                     array_push($restrictionArray[(string)$statement->getSubject()], $statement->getObject());
                 }
-            } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
+                */
+            } /*elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
                 $mandatoryArray[(string)$statement->getSubject()] = $statement->getObject();
             } else {
                 $objectArray[(string)$statement->getSubject()]->getType()[(string)$statement->getPredicate()] = (string)$statement->getObject();
             }
+            */
         }
-
+        /*
         foreach ($restrictionArray as $subjectR => $object) {
             $restrictionArray[$subjectR] = new Restriction(null, $object);
             foreach ($mandatoryArray as $subjectM => $mandatory) {
@@ -49,21 +65,18 @@ class Parser
                     $object = new Restriction($mandatory, $object);
                 }
             }
-
             foreach ($objectArray as $subjectO => $ontoNode) {
                 if ($subjectR == $subjectO) {
                     $ontoNode->setRestriction($object);
                 }
             }
         }
-
+        */
         foreach ($objectArray as $key => $object) {
             echo $object->getName() . " - " . $object->getLabel() . " - " . $object->getType() . " - " . $object->getRestriction()->getMandatory() . " - " . $object->getRestriction()->getOneOf();
             echo "<br />";
         }
-
         //print_r($objectArray);
-
         return $objectArray;
 
     /*
@@ -71,7 +84,6 @@ class Parser
         $commentArray = array();
         $restrictionArray = array();
         $mandatoryArray = array();
-
 
         foreach ($statementIterator as $key => $statement) {
             if ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
