@@ -25,7 +25,8 @@ class AdminInit
     private $container;
 
     /**
-     * Plugin Router
+     * Plugin Router.
+     *
      * @var Router
      */
     private $router;
@@ -44,19 +45,43 @@ class AdminInit
 
     /**
      * Add custom methods to Wordpress actions.
+     *
      * @param Container $container [description]
      */
     private function __construct(Container $container)
     {
         $this->container = $container;
         $this->router = $container->get('ontopress.router');
+        $container->get('session')->start();
 
+        add_action('admin_notices', array($this, 'adminNotices'));
         add_action('admin_menu', array($this, 'adminMenu'));
         add_action('admin_enqueue_scripts', array($this, 'loadResources'));
     }
 
     /**
-     * Use Wordpress functions to manipulate admin menu
+     * Get flash messages from session and print them.
+     */
+    public function adminNotices()
+    {
+        $sessionFlash = $this->container->get('session')->getFlashBag();
+        $tags = array('success', 'info', 'warning', 'error');
+
+        foreach ($tags as $tag) {
+            foreach ($sessionFlash->get($tag) as $message) {
+                echo $this->container->get('twig')->render(
+                    'snippets/notice.html.twig',
+                    array(
+                        'tag' => $tag,
+                        'message' => $message,
+                    )
+                );
+            }
+        }
+    }
+
+    /**
+     * Use Wordpress functions to manipulate admin menu.
      */
     public function adminMenu()
     {

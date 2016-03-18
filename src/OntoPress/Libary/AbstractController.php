@@ -147,4 +147,9 @@ abstract class AbstractController
     {
         return $this->container->getParameter($name);
     }
+
+    protected function addFlashMessage($type, $message)
+    {
+        return $this->get('session')->getFlashBag()->add($type, $message);
+    }
 }
