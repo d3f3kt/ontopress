@@ -33,7 +33,7 @@ class OntologyTest extends OntoPressTestCase
     public function testDate()
     {
         $testDate = $this->ontologyTest->getDate();
-        $this->assertEquals($testDate, $date);
+        $this->assertEquals($testDate, $date = date_create('2011-01-01'));
     }
 /*
     public function testAddOntologyFile()
