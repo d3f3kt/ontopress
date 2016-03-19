@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace OntoPress\Tests\Entity;
 
 use OntoPress\Entity\OntologyFile;
@@ -15,9 +15,9 @@ class OntologyFileTest extends OntoPressTestCase
         $this->ontologyFileTest->setPath("TestPath");
     }
 
-    /*public function testPath()
+    public function testPath()
     {
         $testOntologyFile = $this->ontologyFileTest->getPath();
         $this.assertTrue($testOntologyFile == "TestPath");
-    }*/
-}
+    }
+}*/
