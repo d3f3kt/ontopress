@@ -53,8 +53,7 @@ class Parser
             if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
                 if ($statement->getObject()->getValue() == "true") {
                     $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
-                }
-                else {
+                } else {
                     $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
                 }
             }
