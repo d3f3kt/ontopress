@@ -31,7 +31,6 @@ class Parser
            */
         $objectArray = array();
         $restrictionArray = array();
-        $mandatoryArray = array();
         foreach ($statementIterator as $key => $statement) {
             $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, null, null);
             if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
@@ -50,12 +49,15 @@ class Parser
                     array_push($restrictionArray[(string)$statement->getSubject()], $statement->getObject());
                 }
                 */
-            } /*elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
-                $mandatoryArray[(string)$statement->getSubject()] = $statement->getObject();
-            } else {
-                $objectArray[(string)$statement->getSubject()]->getType()[(string)$statement->getPredicate()] = (string)$statement->getObject();
             }
-            */
+            if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
+                if ($statement->getObject()->getValue() == "true") {
+                    $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
+                }
+                else {
+                    $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
+                }
+            }
         }
         /*
         foreach ($restrictionArray as $subjectR => $object) {
@@ -73,7 +75,7 @@ class Parser
         }
         */
         foreach ($objectArray as $key => $object) {
-            echo $object->getName() . " - " . $object->getLabel() . " - " . $object->getType() . " - " . $object->getRestriction()->getMandatory() . " - " . $object->getRestriction()->getOneOf();
+            echo $object->getName() . " - " . $object->getLabel() . " - " . $object->getType() . " - " . $object->getMandatory() . " - " . $object->getRestriction()->getOneOf();
             echo "<br />";
         }
         //print_r($objectArray);

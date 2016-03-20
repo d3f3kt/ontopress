@@ -10,7 +10,6 @@ class Restriction
     //Possible answers
     protected $oneOf;
 
-
     public function __construct(/*$mandatory,*/ $oneOf)
     {
         //$this->mandatory = $mandatory;
@@ -38,16 +37,5 @@ class Restriction
     public function getOneOf()
     {
         return $this->oneOf;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function getType()
-    {
-        return $this->type;
     }
 }
