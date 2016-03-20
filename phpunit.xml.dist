@@ -23,9 +23,10 @@
     </php>
 
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+        <whitelist>
             <directory suffix=".php">./src</directory>
             <exclude>
+                <directory suffix="Test.php">./src/OntoPress/Tests</directory>
                 <file>./src/OntoPress/Libary/OntoPressTestCase.php</file>
             </exclude>
         </whitelist>
