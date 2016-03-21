@@ -116,6 +116,10 @@ class OntologyFile
         return $this->file;
     }
 
+    /**
+     * Move the existing File to '/Resources/ontology/upload/$timestamp$authorname',
+     * and set the existing Path to the new Path, where the File has been moved to.
+     */
     public function upload()
     {
         if ($this->getFile() === null) {
@@ -131,6 +135,12 @@ class OntologyFile
         $this->path = $newFileName;
     }
 
+    /**
+     * Get the absolute Path if it exists.
+     * The Path looks like '/Resources/ontology/upload/$path'
+     *
+     * @return null|string AbsolutePath
+     */
     public function getAbsolutePath()
     {
         return $this->path === null
@@ -138,11 +148,21 @@ class OntologyFile
             : $this->getUploadRootDir().'/'.$this->path;
     }
 
+    /**
+     * Get the Upload direction including the Root
+     *
+     * @return string Upload root direction
+     */
     protected function getUploadRootDir()
     {
         return __DIR__.'/../Resources/'.$this->getUploadDir();
     }
 
+    /**
+     * Get the Upload direction, which looks like 'ontology/upload'.
+     *
+     * @return string Upload direction
+     */
     protected function getUploadDir()
     {
         return 'ontology/upload';
