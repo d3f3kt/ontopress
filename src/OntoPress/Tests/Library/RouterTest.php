@@ -29,5 +29,4 @@ class RouterTest extends OntoPressTestCase
         $result = $this->invokeMethod($this->router, 'generate', array("ontopress", array()));
         $this->assertContains("?page=ontopress", $result);
     }
-
 }
