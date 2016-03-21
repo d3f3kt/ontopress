@@ -94,5 +94,6 @@ class AdminInit
     public function loadResources()
     {
         wp_enqueue_style('ontopress_style', $this->container->getParameter('ontopress.plugin_url').'/Resources/assets/css/style.css');
+        wp_enqueue_script('ontopress_script', $this->container->getParameter('ontopress.plugin_url').'/Resources/assets/js/main.js');
     }
 }
