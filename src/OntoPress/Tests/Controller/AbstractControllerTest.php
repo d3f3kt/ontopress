@@ -5,6 +5,7 @@ namespace OntoPress\Tests;
 use OntoPress\Libary\AbstractController;
 use OntoPress\Libary\OntoPressTestCase;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\Definition;
 
 class AbstractControllerTest extends OntoPressTestCase
 {
@@ -33,15 +34,61 @@ class AbstractControllerTest extends OntoPressTestCase
         $this->assertContains("wrap ontopressWrap", $result);
     }
 
-    /*
+
     public function testTrans()
     {
-
+        $result = $this->invokeMethod($this->abstractController, 'trans', array('idTest1', array(), null, null));
+        $this->assertContains("idTest1", $result);
     }
 
     public function testTransChoice()
     {
+        $result = $this->invokeMethod($this->abstractController, 'transChoice', array('idTest2', 0, array(), null, null));
+        $this->assertContains("idTest2", $result);
+    }
 
+    public function testCreateForm()
+    {
+        $result = $this->invokeMethod($this->abstractController, 'createForm', array('form', null, array()));
+        $this->assertEquals("form", $result->getName());
+    }
+
+    public function testGenerateRoute()
+    {
+        $result = $this->invokeMethod($this->abstractController, 'generateRoute', array('ontopress', array()));
+        $this->assertContains("?page=ontopress", $result);
+    }
+    /*
+    public function testGetDoctrine()
+    {
+        $result = $this->invokeMethod($this->abstractController, 'getDoctrine', array());
+        $this->assertFileEquals("doctrine.php", $result);
+    }
+
+    public function testValidate()
+    {
+        $testVali = new Entity();
+        $errors = $this->invokeMethod($this->abstractController, 'validate', array($testVali, null, false, false));
+        $this->assertEquals(0, $errors);
+    }
+    */
+    public function testGet()
+    {
+        $result = $this->invokeMethod($this->abstractController, 'get', array('service_container'));
+        $this->assertEquals(static::getContainer(), $result);
+    }
+    /*
+    public function testGetParameter()
+    {
+        $this->abstractController->container->setParameter('test.HelloWorld', 'HelloWorld');
+        $result = $this->invokeMethod($this->abstractController, 'getParameter', array('test.HelloWorld'));
+        $this->assertEquals('HelloWorld', $result);
+    }
+
+    public function testAddFlashMessage()
+    {
+        $this->invokeMethod($this->abstractController, 'addFlashMessage', array('TextType', 'HelloWorld'));
+        $this->assertContains('HelloWorld', $this->abstractController->get('session')->getFlashBag());
     }
     */
 }
