@@ -180,6 +180,9 @@ class Ontology
         return $this->ontologyFiles;
     }
 
+    /**
+     *Upload every Ontology File
+     */
     public function uploadFiles()
     {
         foreach ($this->getOntologyFiles() as $file) {
