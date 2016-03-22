@@ -132,7 +132,7 @@ class OntologyFile
             $newFileName
         );
 
-        $this->path = $newFileName;
+        $this->setPath($newFileName);
     }
 
     /**
