@@ -189,4 +189,9 @@ class Ontology
             $file->upload();
         }
     }
+
+    public function getOntologieFile()
+    {
+        return $this->ontologyFiles;
+    }
 }
