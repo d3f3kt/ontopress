@@ -59,7 +59,7 @@ class AbstractControllerTest extends OntoPressTestCase
         $result = $this->invokeMethod($this->abstractController, 'generateRoute', array('ontopress', array()));
         $this->assertContains("?page=ontopress", $result);
     }
-
+    /*
     public function testGetDoctrine()
     {
         $result = $this->invokeMethod($this->abstractController, 'getDoctrine', array());
@@ -72,7 +72,7 @@ class AbstractControllerTest extends OntoPressTestCase
         $errors = $this->invokeMethod($this->abstractController, 'validate', array($testVali, null, false, false));
         $this->assertEquals(0, $errors);
     }
-
+    */
     public function testGet()
     {
         $result = $this->invokeMethod($this->abstractController, 'get', array('service_container'));
