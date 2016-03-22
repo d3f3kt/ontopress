@@ -2,15 +2,13 @@
 var $addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontology hochladen</a>');
 var $newLinkLi = $addTagLink;
 
-jQuery(document).ready(function()
-{
+jQuery(document).ready(function () {
     // Get the ul that holds the collection of tags
     var $collectionHolder = jQuery('#ontologyAddType_ontologyFiles');
 
     $collectionHolder.append($newLinkLi);
 
-    $addTagLink.on('click', function(e)
-    {
+    $addTagLink.on('click', function (e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
@@ -40,8 +38,7 @@ function addTagForm($collectionHolder, $newLinkLi)
     $newLinkLi.before($newFormLi);
 
     // handle the removal
-    jQuery('.remove-tag').click(function(e)
-    {
+    jQuery('.remove-tag').click(function (e) {
         e.preventDefault();
 
         jQuery(this).parent().remove();
