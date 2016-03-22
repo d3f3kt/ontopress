@@ -32,15 +32,14 @@ class Parser
         $objectArray = array();
         $restrictionArray = array();
         foreach ($statementIterator as $key => $statement) {
-            if(!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
-                $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(),
-                    null, null, null, null, null);
+            if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
+                $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, null, null, null);
             }
             if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                 $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                 $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_TEXT);
             } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                if($objectArray[$statement->getSubject()->getUri()]->getRestriction() == null) {
+                if ($objectArray[$statement->getSubject()->getUri()]->getRestriction() == null) {
                     $objectArray[$statement->getSubject()->getUri()]->setRestriction(new Restriction($statement->getObject()->getUri()));
                 } else {
                     $objectArray[$statement->getSubject()->getUri()]->getRestriction()->addOneOf($statement->getObject()->getUri());
