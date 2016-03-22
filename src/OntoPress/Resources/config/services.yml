@@ -6,11 +6,11 @@ services:
         lazy: true
 
     ontopress.router:
-        class: OntoPress\Libary\Router
+        class: OntoPress\Library\Router
         arguments: [@service_container]
 
     ontopress.twig_extension.router:
-        class: OntoPress\Libary\Twig\RouterExtension
+        class: OntoPress\Library\Twig\RouterExtension
         arguments: [@ontopress.router]
         public: false
         tags:

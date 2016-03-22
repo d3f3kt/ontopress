@@ -3,7 +3,7 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\FormController;
-use OntoPress\Libary\OntoPressTestCase;
+use OntoPress\Library\OntoPressTestCase;
 
 class FormControllerTest extends OntoPressTestCase
 {

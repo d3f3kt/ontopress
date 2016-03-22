@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Form\Ontology\Type\AddOntologyType;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
-use OntoPress\Libary\AbstractController;
+use OntoPress\Library\AbstractController;
 
 class OntologyController extends AbstractController
 {

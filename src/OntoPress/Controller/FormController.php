@@ -1,7 +1,7 @@
 <?php
 namespace OntoPress\Controller;
 
-use OntoPress\Libary\AbstractController;
+use OntoPress\Library\AbstractController;
 use OntoPress\Form\Form\Type\EditFormType;
 
 class FormController extends AbstractController

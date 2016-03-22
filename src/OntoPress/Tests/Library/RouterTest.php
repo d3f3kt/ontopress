@@ -2,8 +2,8 @@
 
 namespace OntoPress\Tests\Library;
 
-use OntoPress\Libary\Router;
-use OntoPress\Libary\OntoPressTestCase;
+use OntoPress\Library\Router;
+use OntoPress\Library\OntoPressTestCase;
 
 class RouterTest extends OntoPressTestCase
 {

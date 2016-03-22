@@ -2,7 +2,7 @@
 
 namespace OntoPress\Controller;
 
-use OntoPress\Libary\AbstractController;
+use OntoPress\Library\AbstractController;
 use OntoPress\Form\Resource\Type\AddResourceDetailType;
 
 class ResourceController extends AbstractController

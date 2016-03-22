@@ -5,7 +5,7 @@ namespace OntoPress\Tests\Entity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
-use OntoPress\Libary\OntoPressTestCase;
+use OntoPress\Library\OntoPressTestCase;
 
 class OntologyTest extends OntoPressTestCase
 {

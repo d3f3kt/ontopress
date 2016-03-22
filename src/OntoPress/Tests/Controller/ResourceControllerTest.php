@@ -3,7 +3,7 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\ResourceController;
-use OntoPress\Libary\OntoPressTestCase;
+use OntoPress\Library\OntoPressTestCase;
 
 class ResourceControllerTest extends OntoPressTestCase
 {

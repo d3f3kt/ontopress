@@ -1,6 +1,6 @@
 <?php
 
-namespace OntoPress\Libary\Exception;
+namespace OntoPress\Library\Exception;
 
 /**
  * Invalid controller call exception.

@@ -1,6 +1,6 @@
 <?php
 
-namespace OntoPress\Libary;
+namespace OntoPress\Library;
 
 use Symfony\Component\DependencyInjection\Container;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace OntoPress\Libary;
+namespace OntoPress\Library;
 
 use Brain\Monkey;
 

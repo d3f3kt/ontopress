@@ -1,14 +1,14 @@
 <?php
 
-namespace OntoPress\Libary;
+namespace OntoPress\Library;
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Container;
-use OntoPress\Libary\Twig\RouterExtension;
-use OntoPress\Libary\Exception\InvalidControllerCall;
-use OntoPress\Libary\Exception\NoActionException;
-use OntoPress\Libary\Exception\NoControllerException;
+use OntoPress\Library\Twig\RouterExtension;
+use OntoPress\Library\Exception\InvalidControllerCall;
+use OntoPress\Library\Exception\NoActionException;
+use OntoPress\Library\Exception\NoControllerException;
 
 /**
  * Main router of this plugin which creates from a config file the wordpress

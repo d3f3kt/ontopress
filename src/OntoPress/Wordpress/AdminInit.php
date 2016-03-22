@@ -3,7 +3,7 @@
 namespace OntoPress\Wordpress;
 
 use Symfony\Component\DependencyInjection\Container;
-use OntoPress\Libary\Router;
+use OntoPress\Library\Router;
 
 /**
  * WP Admin init hooks.

@@ -4,7 +4,7 @@ namespace OntoPress\Tests;
 
 use Brain\Monkey\Functions;
 use OntoPress\Controller\OntologyController;
-use OntoPress\Libary\OntoPressWPTestCase;
+use OntoPress\Library\OntoPressWPTestCase;
 
 class OntologyControllerTest extends OntoPressWPTestCase
 {

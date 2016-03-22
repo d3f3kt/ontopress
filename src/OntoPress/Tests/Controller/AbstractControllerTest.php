@@ -2,8 +2,8 @@
 
 namespace OntoPress\Tests;
 
-use OntoPress\Libary\AbstractController;
-use OntoPress\Libary\OntoPressTestCase;
+use OntoPress\Library\AbstractController;
+use OntoPress\Library\OntoPressTestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\Definition;
 use OntoPress\Entity\Ontology;
@@ -19,7 +19,7 @@ class AbstractControllerTest extends OntoPressTestCase
     public function setUp()
     {
         $this->abstractController = $this->getMockForAbstractClass(
-            'OntoPress\Libary\AbstractController',
+            'OntoPress\Library\AbstractController',
             array(static::getContainer())
         );
     }

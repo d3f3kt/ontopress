@@ -1,8 +1,8 @@
 <?php
 
-namespace OntoPress\Libary\Twig;
+namespace OntoPress\Library\Twig;
 
-use OntoPress\Libary\Router;
+use OntoPress\Library\Router;
 
 /**
  * Twig function to print urls from site name.

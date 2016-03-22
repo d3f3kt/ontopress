@@ -2,7 +2,7 @@
 
 namespace OntoPress\Controller;
 
-use OntoPress\Libary\AbstractController;
+use OntoPress\Library\AbstractController;
 
 class TestController extends AbstractController
 {

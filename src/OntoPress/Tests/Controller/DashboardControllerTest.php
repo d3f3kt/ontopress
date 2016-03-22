@@ -3,7 +3,7 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\DashboardController;
-use OntoPress\Libary\OntoPressTestCase;
+use OntoPress\Library\OntoPressTestCase;
 
 class DashboardControllerTest extends OntoPressTestCase
 {

@@ -25,7 +25,7 @@ use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
-use OntoPress\Libary\ContainerCompiler;
+use OntoPress\Library\ContainerCompiler;
 
 $container = new ContainerBuilder();
 
