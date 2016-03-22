@@ -32,23 +32,30 @@ class Parser
         $objectArray = array();
         $restrictionArray = array();
         foreach ($statementIterator as $key => $statement) {
-            $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, null, null);
+            if(!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
+                $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(),
+                    null, null, null, null, null);
+            }
             if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                 $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
-                $objectArray[$statement->getSubject()->getUri()]->setType("Text");
-            } elseif ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
-                $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
-                $objectArray[$statement->getSubject()->getUri()]->setType("Kommentar");
+                $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_TEXT);
             } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getUri());
-                $objectArray[$statement->getSubject()->getUri()]->setType("Checkbox");
-                /*
-                if ($restrictionArray[(string)$statement->getSubject()->getUri()] == null) {
-                    $restrictionArray[(string)$statement->getSubject()] = array($statement->getObject());
+                if($objectArray[$statement->getSubject()->getUri()]->getRestriction() == null) {
+                    $objectArray[$statement->getSubject()->getUri()]->setRestriction(new Restriction($statement->getObject()->getUri()));
                 } else {
-                    array_push($restrictionArray[(string)$statement->getSubject()], $statement->getObject());
+                    $objectArray[$statement->getSubject()->getUri()]->getRestriction()->addOneOf($statement->getObject()->getUri());
+                }
+                $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_BUTTON);
+                /*
+                if ($restrictionArray[$statement->getSubject()->getUri()] == null) {
+                    $restrictionArray[($statement->getSubject()->getUri()] = array($statement->getObject()->getUri());
+                } else {
+                    array_push($restrictionArray[$statement->getSubject()->getUri()], $statement->getObject()->getUri());
                 }
                 */
+            }
+            if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
+                $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
             }
             if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
                 if ($statement->getObject()->getValue() == "true") {
@@ -58,81 +65,15 @@ class Parser
                 }
             }
         }
-        /*
-        foreach ($restrictionArray as $subjectR => $object) {
-            $restrictionArray[$subjectR] = new Restriction(null, $object);
-            foreach ($mandatoryArray as $subjectM => $mandatory) {
-                if ($subjectR == $subjectM) {
-                    $object = new Restriction($mandatory, $object);
-                }
-            }
-            foreach ($objectArray as $subjectO => $ontoNode) {
-                if ($subjectR == $subjectO) {
-                    $ontoNode->setRestriction($object);
-                }
-            }
-        }
-        */
         foreach ($objectArray as $key => $object) {
-            echo $object->getName() . " - " . $object->getLabel() . " - " . $object->getType() . " - " . $object->getMandatory() . " - " . $object->getRestriction()->getOneOf();
+            echo $object->getName() . " - " . $object->getLabel() . " - " .
+                $object->getComment() . " - " . $object->getType() . " - " .
+                $object->getMandatory() . " - ";
+            if ($object->getRestriction() != null) {
+                print_r($object->getRestriction());
+            }
             echo "<br />";
         }
-        //print_r($objectArray);
         return $objectArray;
-
-    /*
-        $labelArray = array();
-        $commentArray = array();
-        $restrictionArray = array();
-        $mandatoryArray = array();
-
-        foreach ($statementIterator as $key => $statement) {
-            if ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
-                $labelArray[(string)$statement->getSubject()] = $statement->getObject();
-            } elseif ((string)$statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
-                $commentArray[(string)$statement->getSubject()] = $statement->getObject();
-            } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                if ($restrictionArray[(string)$statement->getSubject()] == null) {
-                    $restrictionArray[(string)$statement->getSubject()] = array($statement->getObject());
-                } else {
-                    array_push($restrictionArray[(string)$statement->getSubject()], $statement->getObject());
-                }
-            } elseif ((string)$statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
-                $mandatoryArray[(string)$statement->getSubject()] = $statement->getObject();
-            }
-        }
-
-        echo "Labels", "<br />";
-        foreach ($labelArray as $key => $object) {
-            echo $key . ' - ' .
-                (string)$object;
-            echo '<br />';
-        }
-        echo "Comments" , "<br />";
-        foreach ($commentArray as $key => $object) {
-            echo $key . ' - ' .
-                (string)$object;
-            echo '<br />';
-        }
-        echo "Restrictions" , "<br />";
-        foreach ($restrictionArray as $key1 => $object) {
-            foreach ($object as $key2 => $restriction) {
-                echo $key1 . ' - ' .
-                    (string)$restriction;
-                echo '<br />';
-            }
-        }
-        echo "Mandatory" , "<br />";
-        foreach ($mandatoryArray as $key => $object) {
-                echo $key . ' - ' .
-                    (string)$object;
-                echo '<br />';
-        }
-
-        $statementArray = array( "Labels" => $labelArray, "Comments" => $commentArray, "Restrictions" => $restrictionArray, "Mandatory" => $mandatoryArray);
-
-        return $statementArray;
-*/
-
     }
 }

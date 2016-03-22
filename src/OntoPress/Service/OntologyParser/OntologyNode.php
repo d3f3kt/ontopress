@@ -4,28 +4,38 @@ namespace OntoPress\Service\OntologyParser;
 
 class OntologyNode
 {
-    //Das Subjekt
+    //URI of subject
     protected $name;
 
-    //Dessen Label
+    //label of this subject
     protected $label;
 
-    //Weitere Eigenschaften
+    //object of comment-relation
+    protected $comment;
+
+    //further objects
     protected $type;
+
+    const TYPE_TEXT = "Text";
+
+    const TYPE_BUTTON = "Radio-Button";
+
+    const TYPE_BOX = "Checkbox";
 
     //Missing Comment
     protected $mandatory;
 
-    //Verbundene restriction
+    //Connected restriction
     protected $restriction;
 
-    public function __construct($name, $label, $type, $mandatory, $oneOf)
+    public function __construct($name, $label, $comment, $type, $mandatory, $oneOf)
     {
         $this->name = $name;
         $this->label = $label;
+        $this->comment = $comment;
         $this->type = $type;
         $this->mandatory = $mandatory;
-        $this->restriction = new Restriction(/*$mandatory,*/ $oneOf);
+        $this->oneof = $oneOf;
         return $this;
     }
 
@@ -51,6 +61,16 @@ class OntologyNode
         return $this->label;
     }
 
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
     public function setType($type)
     {
         $this->type = $type;
@@ -75,7 +95,7 @@ class OntologyNode
 
     public function setRestriction($oneOf)
     {
-        $this->restriction = new Restriction($oneOf);//$restriction;
+        $this->restriction = $oneOf;
         return $this;
     }
 

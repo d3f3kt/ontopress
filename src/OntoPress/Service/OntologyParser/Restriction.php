@@ -4,33 +4,19 @@ namespace OntoPress\Service\OntologyParser;
 
 class Restriction
 {
-    //Mandatory Property? (true/false)
-    //protected $mandatory;
-
     //Possible answers
     protected $oneOf;
 
-    public function __construct(/*$mandatory,*/ $oneOf)
+    public function __construct($choice)
     {
-        //$this->mandatory = $mandatory;
-        $this->oneOf = $oneOf;
-        return $this;
-    }
-    /*
-    public function setMandatory($mandatory)
-    {
-        $this->mandatory = $mandatory;
+        $this->oneOf = array($choice);
+        //$this->addOneOf($choice);
         return $this;
     }
 
-    public function getMandatory()
+    public function addOneOf($choice)
     {
-        return $this->mandatory;
-    }
-    */
-    public function setOneOf($oneOf)
-    {
-        $this->oneOf = $oneOf;
+        array_push($this->oneOf, $choice);
         return $this;
     }
 
