@@ -2,35 +2,54 @@
 
 namespace OntoPress\Tests;
 
+use Brain\Monkey\Functions;
 use OntoPress\Controller\OntologyController;
-use OntoPress\Libary\OntoPressTestCase;
+use OntoPress\Libary\OntoPressWPTestCase;
 
-class OntologyControllerTest extends OntoPressTestCase
+class OntologyControllerTest extends OntoPressWPTestCase
 {
-    public function testShowManageAction()
-    {
-        $container = static::getContainer();
-        $ontologyController = new OntologyController($container);
-        $ontologyOutput = $ontologyController->showManageAction();
+    /**
+     * @var OntologyController
+     */
+    private $ontologyController;
 
-        $this->assertContains("Ontologie Verwaltung", $ontologyOutput);
+    public function setUp()
+    {
+        parent::setUp();
+        $this->ontologyController = new OntologyController(static::getContainer());
     }
 
-    public function testShowDeleteAction()
+    public function tearDown()
     {
-        $container = static::getContainer();
-        $ontologyController = new OntologyController($container);
-        $ontologyOutput = $ontologyController->showDeleteAction();
-
-        $this->assertContains("Ontologie Löschen", $ontologyOutput);
+        unset($this->ontologyController);
+        parent::tearDown();
     }
 
-    public function testShowAddAction()
+    public function testOntologyPages()
     {
-        $container = static::getContainer();
-        $ontologyController = new OntologyController($container);
-        $ontologyOutput = $ontologyController->showAddAction();
+        Functions::when('wp_get_current_user')->alias(array($this, 'emulateWPUser'));
 
-        $this->assertContains("Ontologie hochladen", $ontologyOutput);
+        $manageOutput = $this->ontologyController->showManageAction();
+        $addOutput = $this->ontologyController->showAddAction();
+        $deleteOutput = $this->ontologyController->showDeleteAction();
+
+        $this->assertContains('Ontologie Verwaltung', $manageOutput);
+        $this->assertContains('Ontologie hochladen', $addOutput);
+        $this->assertContains('Ontologie Löschen', $deleteOutput);
+    }
+
+    public function emulateWPUser()
+    {
+        $testUser = (object) array(
+            'ID' => 2,
+            'user_login' => 'TestUser',
+            'user_email' => 'testUser@example.com',
+            'user_firstname' => 'John',
+            'user_lastname' => 'Doe',
+            'user_nicename' => 'Johni',
+            'display_name' => 'Johni',
+        );
+
+        return $testUser;
     }
 }
