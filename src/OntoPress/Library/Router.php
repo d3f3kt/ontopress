@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Container;
 use OntoPress\Library\Twig\RouterExtension;
-use OntoPress\Library\Exception\InvalidControllerCall;
+use OntoPress\Library\Exception\InvalidControllerCallException;
 use OntoPress\Library\Exception\NoActionException;
 use OntoPress\Library\Exception\NoControllerException;
 
@@ -146,7 +146,7 @@ class Router
     private function callController($controllerCall)
     {
         if (strpos($controllerCall, ':') === false) {
-            throw new InvalidControllerCall($controllerCall);
+            throw new InvalidControllerCallException($controllerCall);
         }
 
         list($class, $method) = explode(':', $controllerCall);
