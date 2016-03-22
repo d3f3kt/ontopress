@@ -45,8 +45,12 @@ class OntologyController extends AbstractController
      */
     public function showAddAction()
     {
+        $author = wp_get_current_user();
+
         $ontology = new Ontology();
-        $ontology->addOntologyFile(new OntologyFile());
+        $ontology->setAuthor($author->user_nicename)
+            ->setDate(new \DateTime())
+            ->addOntologyFile(new OntologyFile());
 
         $form = $this->createForm(new AddOntologyType(), $ontology, array(
             'cancel_link' => $this->generateRoute('ontopress_ontology'),
@@ -55,12 +59,7 @@ class OntologyController extends AbstractController
         $form->handleRequest(Request::createFromGlobals());
 
         if ($form->isValid()) {
-            $author = wp_get_current_user();
-            $ontology->setAuthor($author->user_nicename);
-            $ontology->setDate(new \DateTime());
             $ontology->uploadFiles();
-
-            print_r($ontology);
 
             $this->getDoctrine()->persist($ontology);
             $this->getDoctrine()->flush();

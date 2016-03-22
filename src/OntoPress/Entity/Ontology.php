@@ -3,6 +3,7 @@
 namespace OntoPress\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ontology.
@@ -27,6 +28,8 @@ class Ontology
      *
      * @var string
      * @ORM\Column(name="name", type="string", length=64)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      */
     protected $name;
 
@@ -43,6 +46,7 @@ class Ontology
      *
      * @var string
      * @ORM\Column(name="author", type="string", length=32)
+     * @Assert\NotBlank()
      */
     protected $author;
 
@@ -51,6 +55,7 @@ class Ontology
      *
      * @var DateTime
      * @ORM\Column(name="upload_date", type="datetime")
+     * @Assert\NotBlank()
      */
     protected $date;
 
