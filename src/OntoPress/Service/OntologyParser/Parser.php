@@ -11,26 +11,13 @@ class Parser
 {
     public function parsing($filepath)
     {
-        // $fileContent1 = file_get_contents(__DIR__.'/../Resources/ontology/knorke.ttl');
-        // $fileContent = file_get_contents(__DIR__.'/../Resources/ontology/place-ontology.ttl');
-        //$fileContent = $fileContent1 . $fileContent2;
         $parser = new ParserEasyRdf(
             new NodeFactoryImpl(),
             new StatementFactoryImpl(),
             'turtle' // RDF format of the file to parse later on (ttl => turtle)
         );
         $statementIterator = $parser->parseStreamToIterator($filepath);
-        /*
-        foreach ($statementIterator as $key => $statement) {
-            echo '#' . $key . ' - ' .
-                (string)$statement->getSubject() . ' - ' .
-                (string)$statement->getPredicate() . ' - ' .
-                (string)$statement->getObject();
-            echo "<br />";
-        }
-           */
         $objectArray = array();
-        $restrictionArray = array();
         foreach ($statementIterator as $key => $statement) {
             if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
                 $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, null, null, null);
@@ -45,13 +32,6 @@ class Parser
                     $objectArray[$statement->getSubject()->getUri()]->getRestriction()->addOneOf($statement->getObject()->getUri());
                 }
                 $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_BUTTON);
-                /*
-                if ($restrictionArray[$statement->getSubject()->getUri()] == null) {
-                    $restrictionArray[($statement->getSubject()->getUri()] = array($statement->getObject()->getUri());
-                } else {
-                    array_push($restrictionArray[$statement->getSubject()->getUri()], $statement->getObject()->getUri());
-                }
-                */
             }
             if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
                 $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
