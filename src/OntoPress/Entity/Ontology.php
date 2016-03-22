@@ -190,8 +190,4 @@ class Ontology
         }
     }
 
-    public function getOntologieFile()
-    {
-        return $this->ontologyFiles;
-    }
 }
