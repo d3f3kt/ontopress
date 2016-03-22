@@ -11,14 +11,9 @@ class RouterTest extends OntoPressTestCase
 
     public function setUp()
     {
-        //$this->router = $this->getMockBuilder('Router')->getMock();
         $this->router = new Router(static::getContainer());
     }
-    /*
-     * 'OntoPress\Libary\Router',
-     * array(),
-     * array(static::getContainer())
-     * */
+
     public function tearDown()
     {
         unset($this->router);
