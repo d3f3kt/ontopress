@@ -189,5 +189,4 @@ class Ontology
             $file->upload();
         }
     }
-
 }
