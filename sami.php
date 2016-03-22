@@ -1,12 +1,19 @@
 <?php
 
 use Sami\Sami;
-use Sami\Parser\Filter\TrueFilter;
+use Symfony\Component\Finder\Finder;
 
-$sami = new Sami('src/OntoPress/');
-// document all methods and properties
-$sami['filter'] = function () {
-    return new TrueFilter();
-};
+$iterator = Finder::create()
+    ->files()
+    ->name('*.php')
+    ->exclude('Resources')
+    ->exclude('Tests')
+    ->in('src/OntoPress');
+
+$sami = new Sami($iterator, array(
+    'title' => 'OntoPress API',
+    'build_dir' => __DIR__.'/doc/api',
+    'cache_dir' => __DIR__.'/cache',
+));
 
 return $sami;
