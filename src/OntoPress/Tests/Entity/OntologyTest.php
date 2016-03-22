@@ -2,67 +2,123 @@
 
 namespace OntoPress\Tests\Entity;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Libary\OntoPressTestCase;
 
 class OntologyTest extends OntoPressTestCase
 {
-    public $ontologyTest;
-    public $ontologyFileTest;
+    /**
+     * Ontology Entity.
+     *
+     * @var Ontology
+     */
+    private $ontology;
+
+    /**
+     * Dummy Date.
+     *
+     * @var \DateTime
+     */
+    private $dummyDate;
+
+    /**
+     * Ontology File entity.
+     *
+     * @var OntologyFile
+     */
+    private $ontologyFile;
 
     public function setUp()
     {
-        $this->ontologyTest = new Ontology();
-        $this->ontologyTest->setName("TestOntology");
-        $this->ontologyTest->setAuthor("TestAuthor");
-        $date = date_create('2011-01-01');
-        $this->ontologyTest->setDate($date);
-        $this->ontologyFileTest = new OntologyFile();
-        $this->ontologyFileTest->setPath("TestPath");
-        $this->ontologyFileTest->setOntology(null);
-        $this->ontologyFileTest->setFile(null);
+        $this->dummyDate = new \DateTime();
+
+        $this->ontology = new Ontology();
+        $this->ontology->setName('TestOntology')
+            ->setAuthor('TestAuthor')
+            ->setDate($this->dummyDate);
+
+        $this->ontologyFile = new OntologyFile();
     }
 
-    public function testName()
+    public function tearDown()
     {
-        $testOntology = $this->ontologyTest->getName();
-        $this->assertEquals($testOntology, "TestOntology");
+        unset($this->ontology);
+        unset($this->ontologyFile);
     }
 
-    public function testAuthor()
+    /**
+     * Test Basic setter and getter.
+     */
+    public function testOntologyBasic()
     {
-        $testAuthor = $this->ontologyTest->getAuthor();
-        $this->assertEquals($testAuthor, "TestAuthor");
+        $this->assertEquals($this->ontology->getName(), 'TestOntology');
+        $this->assertEquals($this->ontology->getAuthor(), 'TestAuthor');
+        $this->assertEquals($this->ontology->getDate(), $this->dummyDate);
     }
 
-    public function testDate()
+    /**
+     * Test the upload of an ontology file.
+     */
+    public function testOntologyFileUpload()
     {
-        $testDate = $this->ontologyTest->getDate();
-        $this->assertEquals($testDate, $date = date_create('2011-01-01'));
+        $testFile = $this->createTmpFile();
+        $this->ontologyFile->setFile($testFile);
+
+        $this->ontology->addOntologyFile($this->ontologyFile);
+        $this->assertEquals($this->ontology->getOntologyFiles()->count(), 1);
+        $this->ontology->removeOntologyFile($this->ontologyFile);
+        $this->assertEquals($this->ontology->getOntologyFiles()->count(), 0);
+        $this->ontology->addOntologyFile($this->ontologyFile);
+
+        $this->ontology->uploadFiles();
+        $this->assertEquals($this->ontology->getId(), null);
+
+        return $this->ontology;
     }
 
-    public function testAddOntologyFile()
+    /**
+     * Test what happens if the upload method is called with not file set before.
+     */
+    public function testOntologyFile()
     {
-        $this->ontologyTest->addOntologyFile($this->ontologyFileTest);
-        $this->assertContains($this->ontologyFileTest, $this->ontologyTest->getOntologyFiles());
+        $this->ontologyFile->upload();
+        $this->assertEquals($this->ontologyFile->getPath(), null);
     }
 
-/*    public function testGetOntologyFiles()
+    /**
+     * @depends testOntologyFileUpload
+     */
+    public function testOntologyFileCombined(Ontology $ontology)
     {
-        $this->assertEquals($this->ontologyFileTest, $this->ontologyTest->getOntologyFiles());
-    }
-*/
-    public function testRemoveOntologyFile()
-    {
-        $this->ontologyTest->addOntologyFile($this->ontologyFileTest);
-        $this->ontologyTest->removeOntologyFile($this->ontologyFileTest);
-        // assert ... ?
-    }
-/*
-    public function testUploadFiles()
-    {
+        $ontologyFile = $ontology->getOntologyFiles()->first();
 
+        $this->assertContains('place', $ontologyFile->getPath());
+        $this->assertEquals($ontology, $ontologyFile->getOntology());
+        $this->assertEquals($ontologyFile->getId(), null);
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\File\UploadedFile', $ontologyFile->getFile());
+        $this->assertFileExists($ontologyFile->getAbsolutePath());
     }
-*/
+
+    /**
+     * Create temporary ttl file for ontology upload.
+     */
+    private function createTmpFile()
+    {
+        $rootDir = static::getContainer()->getParameter('ontopress.root_dir');
+        $tmpFileName = tempnam(sys_get_temp_dir(), 'OntoPress_');
+        copy($rootDir.'/Tests/TestFiles/place-ontology.ttl', $tmpFileName);
+
+        $uploadFile = new UploadedFile(
+            $tmpFileName,
+            'place-ontology.ttl',
+            'text/turtle',
+            null,
+            null,
+            true
+        );
+
+        return $uploadFile;
+    }
 }
