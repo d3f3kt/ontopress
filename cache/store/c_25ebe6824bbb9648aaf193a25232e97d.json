@@ -1,0 +1,60 @@
+{
+    "name": "OntoPress\\Controller\\TestController",
+    "line": 7,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Controller",
+    "file": "src\/OntoPress\/\/Controller\/TestController.php",
+    "relative_file": null,
+    "hash": "bc64eedc223e7ac45833f29249aa004488cbc228",
+    "parent": "OntoPress\\Libary\\AbstractController",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "AbstractController": "OntoPress\\Libary\\AbstractController"
+    },
+    "errors": [
+
+    ],
+    "interfaces": [
+
+    ],
+    "traits": [
+
+    ],
+    "properties": [
+
+    ],
+    "methods": {
+        "showAddAction": {
+            "name": "showAddAction",
+            "line": 9,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        }
+    },
+    "constants": [
+
+    ]
+}

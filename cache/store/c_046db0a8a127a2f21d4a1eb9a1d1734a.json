@@ -1,0 +1,105 @@
+{
+    "name": "OntoPress\\Tests\\OntologyControllerTest",
+    "line": 8,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Tests",
+    "file": "src\/OntoPress\/\/Tests\/Controller\/OntologyControllerTest.php",
+    "relative_file": null,
+    "hash": "87fd46d3791aa7af8b43168c2d3c9746b90a5bea",
+    "parent": "OntoPress\\Libary\\OntoPressTestCase",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "OntologyController": "OntoPress\\Controller\\OntologyController",
+        "OntoPressTestCase": "OntoPress\\Libary\\OntoPressTestCase"
+    },
+    "errors": [
+
+    ],
+    "interfaces": [
+
+    ],
+    "traits": [
+
+    ],
+    "properties": [
+
+    ],
+    "methods": {
+        "testShowManageAction": {
+            "name": "testShowManageAction",
+            "line": 10,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        },
+        "testShowDeleteAction": {
+            "name": "testShowDeleteAction",
+            "line": 19,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        },
+        "testShowAddAction": {
+            "name": "testShowAddAction",
+            "line": 28,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        }
+    },
+    "constants": [
+
+    ]
+}

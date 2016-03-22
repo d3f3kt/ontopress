@@ -1,0 +1,76 @@
+{
+    "name": "OntoPress\\Service\\OntologyParser\\Parser",
+    "line": 10,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Service\\OntologyParser",
+    "file": "src\/OntoPress\/\/Service\/OntologyParser\/Parser.php",
+    "relative_file": null,
+    "hash": "d80414624761de2833ac1d71a31149422c25541f",
+    "parent": null,
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "ParserEasyRdf": "Saft\\Addition\\EasyRdf\\Data\\ParserEasyRdf",
+        "NodeFactoryImpl": "Saft\\Rdf\\NodeFactoryImpl",
+        "StatementFactoryImpl": "Saft\\Rdf\\StatementFactoryImpl",
+        "OntologyNode": "OntoPress\\Service\\OntologyParser\\OntologyNode",
+        "Restriction": "OntoPress\\Service\\OntologyParser\\Restriction"
+    },
+    "errors": [
+
+    ],
+    "interfaces": [
+
+    ],
+    "traits": [
+
+    ],
+    "properties": [
+
+    ],
+    "methods": {
+        "parsing": {
+            "name": "parsing",
+            "line": 12,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": {
+                "filepath": {
+                    "name": "filepath",
+                    "line": 12,
+                    "short_desc": null,
+                    "long_desc": null,
+                    "hint": null,
+                    "tags": [
+
+                    ],
+                    "modifiers": "",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        }
+    },
+    "constants": [
+
+    ]
+}

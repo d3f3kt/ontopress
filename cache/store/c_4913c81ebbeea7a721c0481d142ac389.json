@@ -1,0 +1,321 @@
+{
+    "name": "OntoPress\\Libary\\Router",
+    "line": 18,
+    "short_desc": "Main router of this plugin which creates from a config file the wordpress\nadmin navigation. Furthermore all requests gets handles by a magic function which\ncatch all function calls.",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Libary",
+    "file": "src\/OntoPress\/\/Libary\/Router.php",
+    "relative_file": null,
+    "hash": "f5bf66033bd3759ca02a5044d60eefc3cf38800e",
+    "parent": null,
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "Yaml": "Symfony\\Component\\Yaml\\Yaml",
+        "Processor": "Symfony\\Component\\Config\\Definition\\Processor",
+        "Container": "Symfony\\Component\\DependencyInjection\\Container",
+        "RouterExtension": "OntoPress\\Libary\\Twig\\RouterExtension",
+        "InvalidControllerCall": "OntoPress\\Libary\\Exception\\InvalidControllerCall",
+        "NoActionException": "OntoPress\\Libary\\Exception\\NoActionException",
+        "NoControllerException": "OntoPress\\Libary\\Exception\\NoControllerException"
+    },
+    "errors": [
+
+    ],
+    "interfaces": [
+
+    ],
+    "traits": [
+
+    ],
+    "properties": {
+        "container": {
+            "name": "container",
+            "line": 20,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": 4,
+            "default": null,
+            "errors": [
+
+            ]
+        },
+        "config": {
+            "name": "config",
+            "line": 21,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": 4,
+            "default": null,
+            "errors": [
+
+            ]
+        }
+    },
+    "methods": {
+        "__construct": {
+            "name": "__construct",
+            "line": 28,
+            "short_desc": "Initialize router and load config.",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": {
+                "container": {
+                    "name": "container",
+                    "line": 28,
+                    "short_desc": "dependency injection container",
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "\\Symfony\\Component\\DependencyInjection\\Container",
+                            false
+                        ]
+                    ],
+                    "tags": [
+
+                    ],
+                    "modifiers": "Symfony\\Component\\DependencyInjection\\Container",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        },
+        "loadConfig": {
+            "name": "loadConfig",
+            "line": 37,
+            "short_desc": "Load config from file and process it with the RouterConfig definition.",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "4",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        },
+        "generate": {
+            "name": "generate",
+            "line": 63,
+            "short_desc": "Generates an url from sitename.",
+            "long_desc": "",
+            "hint": [
+                [
+                    "string",
+                    false
+                ]
+            ],
+            "hint_desc": "url",
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": {
+                "siteName": {
+                    "name": "siteName",
+                    "line": 63,
+                    "short_desc": "site name",
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "string",
+                            false
+                        ]
+                    ],
+                    "tags": [
+
+                    ],
+                    "modifiers": "",
+                    "default": null,
+                    "is_by_ref": false
+                },
+                "parameters": {
+                    "name": "parameters",
+                    "line": 63,
+                    "short_desc": "parameters",
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "array",
+                            false
+                        ]
+                    ],
+                    "tags": [
+
+                    ],
+                    "modifiers": "",
+                    "default": "array()",
+                    "is_by_ref": false
+                }
+            }
+        },
+        "setRoutes": {
+            "name": "setRoutes",
+            "line": 77,
+            "short_desc": "Creates wordpress admin menu with the help of the config entries.",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        },
+        "__call": {
+            "name": "__call",
+            "line": 116,
+            "short_desc": "Catch wordpress page request and call the defined controller.",
+            "long_desc": "The response of the controller is only printed on the screen and won't\nreturned by this function.",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": {
+                "method": {
+                    "name": "method",
+                    "line": 116,
+                    "short_desc": "method name which is called",
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "string",
+                            false
+                        ]
+                    ],
+                    "tags": [
+
+                    ],
+                    "modifiers": "",
+                    "default": null,
+                    "is_by_ref": false
+                },
+                "arguments": {
+                    "name": "arguments",
+                    "line": 116,
+                    "short_desc": "arguments of method",
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "string",
+                            false
+                        ]
+                    ],
+                    "tags": [
+
+                    ],
+                    "modifiers": "",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        },
+        "callController": {
+            "name": "callController",
+            "line": 146,
+            "short_desc": "Converts the controller call string into an function call.",
+            "long_desc": "",
+            "hint": [
+                [
+                    "string",
+                    false
+                ]
+            ],
+            "hint_desc": "response of action method",
+            "tags": [
+
+            ],
+            "modifiers": "4",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": {
+                "controllerCall": {
+                    "name": "controllerCall",
+                    "line": 146,
+                    "short_desc": "Controller call in 'controller:action' format",
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "string",
+                            false
+                        ]
+                    ],
+                    "tags": [
+
+                    ],
+                    "modifiers": "",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        }
+    },
+    "constants": [
+
+    ]
+}

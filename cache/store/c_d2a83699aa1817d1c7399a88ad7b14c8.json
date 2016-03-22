@@ -1,0 +1,60 @@
+{
+    "name": "OntoPress\\Controller\\DashboardController",
+    "line": 7,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Controller",
+    "file": "src\/OntoPress\/\/Controller\/DashboardController.php",
+    "relative_file": null,
+    "hash": "ddc091b31a4d98d29bb4c712fdf99c6dbf1c0d43",
+    "parent": "OntoPress\\Libary\\AbstractController",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "AbstractController": "OntoPress\\Libary\\AbstractController"
+    },
+    "errors": [
+
+    ],
+    "interfaces": [
+
+    ],
+    "traits": [
+
+    ],
+    "properties": [
+
+    ],
+    "methods": {
+        "showDashboardAction": {
+            "name": "showDashboardAction",
+            "line": 9,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        }
+    },
+    "constants": [
+
+    ]
+}

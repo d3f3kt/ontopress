@@ -1,0 +1,61 @@
+{
+    "name": "OntoPress\\Libary\\RouterConfig",
+    "line": 11,
+    "short_desc": "RouterConfig used by the Router Class and defines a configuration tree to handle the router configuration",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Libary",
+    "file": "src\/OntoPress\/\/Libary\/RouterConfig.php",
+    "relative_file": null,
+    "hash": "05a91f71bc7dcd4b2292c1953abb0f9958274e9a",
+    "parent": null,
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "ConfigurationInterface": "Symfony\\Component\\Config\\Definition\\ConfigurationInterface",
+        "TreeBuilder": "Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder"
+    },
+    "errors": [
+
+    ],
+    "interfaces": {
+        "Symfony\\Component\\Config\\Definition\\ConfigurationInterface": "Symfony\\Component\\Config\\Definition\\ConfigurationInterface"
+    },
+    "traits": [
+
+    ],
+    "properties": [
+
+    ],
+    "methods": {
+        "getConfigTreeBuilder": {
+            "name": "getConfigTreeBuilder",
+            "line": 16,
+            "short_desc": "{@inheritdoc}",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        }
+    },
+    "constants": [
+
+    ]
+}

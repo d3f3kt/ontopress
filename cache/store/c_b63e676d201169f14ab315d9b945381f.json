@@ -1,0 +1,120 @@
+{
+    "name": "OntoPress\\Tests\\Library\\RouterTest",
+    "line": 8,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Tests\\Library",
+    "file": "src\/OntoPress\/\/Tests\/Library\/RouterTest.php",
+    "relative_file": null,
+    "hash": "2e779a0e7bf210755ac1f0d4babaa61af0a33076",
+    "parent": "OntoPress\\Libary\\OntoPressTestCase",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "Router": "OntoPress\\Libary\\Router",
+        "OntoPressTestCase": "OntoPress\\Libary\\OntoPressTestCase"
+    },
+    "errors": [
+
+    ],
+    "interfaces": [
+
+    ],
+    "traits": [
+
+    ],
+    "properties": {
+        "router": {
+            "name": "router",
+            "line": 10,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": 4,
+            "default": null,
+            "errors": [
+
+            ]
+        }
+    },
+    "methods": {
+        "setUp": {
+            "name": "setUp",
+            "line": 12,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        },
+        "tearDown": {
+            "name": "tearDown",
+            "line": 17,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        },
+        "testGenerate": {
+            "name": "testGenerate",
+            "line": 22,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": [
+
+            ]
+        }
+    },
+    "constants": [
+
+    ]
+}

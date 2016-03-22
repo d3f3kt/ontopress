@@ -1,0 +1,78 @@
+{
+    "name": "OntoPress\\Libary\\ContainerCompiler",
+    "line": 8,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Libary",
+    "file": "src\/OntoPress\/\/Libary\/ContainerCompiler.php",
+    "relative_file": null,
+    "hash": "56fa2dd976912a38efed703d1a1ea62ad20c24f0",
+    "parent": null,
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "CompilerPassInterface": "Symfony\\Component\\DependencyInjection\\Compiler\\CompilerPassInterface",
+        "ContainerBuilder": "Symfony\\Component\\DependencyInjection\\ContainerBuilder"
+    },
+    "errors": [
+
+    ],
+    "interfaces": {
+        "Symfony\\Component\\DependencyInjection\\Compiler\\CompilerPassInterface": "Symfony\\Component\\DependencyInjection\\Compiler\\CompilerPassInterface"
+    },
+    "traits": [
+
+    ],
+    "properties": [
+
+    ],
+    "methods": {
+        "process": {
+            "name": "process",
+            "line": 10,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": {
+                "container": {
+                    "name": "container",
+                    "line": 10,
+                    "short_desc": null,
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "\\Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+                            false
+                        ]
+                    ],
+                    "tags": [
+
+                    ],
+                    "modifiers": "Symfony\\Component\\DependencyInjection\\ContainerBuilder",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        }
+    },
+    "constants": [
+
+    ]
+}

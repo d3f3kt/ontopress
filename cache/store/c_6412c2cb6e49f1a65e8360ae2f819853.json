@@ -1,0 +1,72 @@
+{
+    "name": "OntoPress\\Libary\\Exception\\InvalidControllerCallException",
+    "line": 8,
+    "short_desc": "Invalid controller call exception.",
+    "long_desc": "",
+    "hint": null,
+    "tags": [
+
+    ],
+    "namespace": "OntoPress\\Libary\\Exception",
+    "file": "src\/OntoPress\/\/Libary\/Exception\/InvalidControllerCallException.php",
+    "relative_file": null,
+    "hash": "e7c83b413ad06e45f8ba99aa334797aff459bd76",
+    "parent": "Exception",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": [
+
+    ],
+    "errors": [
+
+    ],
+    "interfaces": [
+
+    ],
+    "traits": [
+
+    ],
+    "properties": [
+
+    ],
+    "methods": {
+        "__construct": {
+            "name": "__construct",
+            "line": 13,
+            "short_desc": "{@inheritdoc}",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [
+
+            ],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [
+
+            ],
+            "errors": [
+
+            ],
+            "parameters": {
+                "controllerCall": {
+                    "name": "controllerCall",
+                    "line": 13,
+                    "short_desc": null,
+                    "long_desc": null,
+                    "hint": null,
+                    "tags": [
+
+                    ],
+                    "modifiers": "",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        }
+    },
+    "constants": [
+
+    ]
+}
