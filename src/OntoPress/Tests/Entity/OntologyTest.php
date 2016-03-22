@@ -42,22 +42,24 @@ class OntologyTest extends OntoPressTestCase
         $this->assertEquals($testDate, $date = date_create('2011-01-01'));
     }
 
-/*  public function testAddOntologyFile() //ontolgyFiles protected, no access error mit getOntologyFile() probieren
+    public function testAddOntologyFile()
     {
         $this->ontologyTest->addOntologyFile($this->ontologyFileTest);
-        $this->assertContains($this->ontologyFileTest, $this->ontologyTest->ontologyFiles);
+        $this->assertContains($this->ontologyFileTest, $this->ontologyTest->getOntologyFiles());
     }
 
+/*    public function testGetOntologyFiles()
+    {
+        $this->assertEquals($this->ontologyFileTest, $this->ontologyTest->getOntologyFiles());
+    }
+*/
     public function testRemoveOntologyFile()
     {
-
+        $this->ontologyTest->addOntologyFile($this->ontologyFileTest);
+        $this->ontologyTest->removeOntologyFile($this->ontologyFileTest);
+        // assert ... ?
     }
-
-    public function testGetOntologyFiles()
-    {
-
-    }
-
+/*
     public function testUploadFiles()
     {
 
