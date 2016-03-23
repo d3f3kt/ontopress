@@ -18,9 +18,13 @@ class OntologyController extends AbstractController
     public function showManageAction()
     {
         $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
-        $ontologyManageTable = $repository->findAll();
-        //print_r($ontologyManageTable);
+        $ontologys = $repository->findAll();
+        $ontologyManageTable = array();
 
+        foreach ($ontologys as $onto) {
+            array_push($ontologyManageTable, array('id' => $onto->getID(), 'name' => $onto->getName(), 'form' => 10));
+        }
+        //print_r($ontologyManageTable);
         return $this->render('ontology/managePage.html.twig', array(
             'ontologyManageTable' => $ontologyManageTable,
         ));
