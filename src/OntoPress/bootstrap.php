@@ -8,6 +8,7 @@ $loader = require $vendorDir.'/autoload.php';
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -30,17 +31,30 @@ use OntoPress\Library\ContainerCompiler;
 $container = new ContainerBuilder();
 
 // doctrine setup
-$dbParams = array(
-    'driver' => 'pdo_mysql',
-    'user' => DB_USER,
-    'password' => DB_PASSWORD,
-    'dbname' => DB_NAME,
-    'host' => DB_HOST,
-);
+if (getenv('ontopress_env') == 'test') {
+    $dbParams = array(
+        'driver' => 'pdo_sqlite',
+        'memory' => true,
+    );
+} else {
+    $dbParams = array(
+        'driver' => 'pdo_mysql',
+        'user' => DB_USER,
+        'password' => DB_PASSWORD,
+        'dbname' => DB_NAME,
+        'host' => DB_HOST,
+    );
+}
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 $doctrineConfig = Setup::createAnnotationMetadataConfiguration($entitiesDir, false, null, null, false);
 $entityManager = EntityManager::create($dbParams, $doctrineConfig);
+
+if (getenv('ontopress_env') == 'test') {
+    $metadatas = $entityManager->getMetadataFactory()->getAllMetadata();
+    $schemaTool = new SchemaTool($entityManager);
+    $schemaTool->updateSchema($metadatas);
+}
 
 // translator setup
 $translator = new Translator('de', new MessageSelector());
