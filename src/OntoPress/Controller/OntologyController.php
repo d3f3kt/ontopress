@@ -17,11 +17,9 @@ class OntologyController extends AbstractController
      */
     public function showManageAction()
     {
-        $ontologyManageTable = array(
-            array('id' => 1, 'ontology' => 'Gebäude', 'form' => 10),
-            array('id' => 2, 'ontology' => 'Plätze', 'form' => 5),
-            array('id' => 3, 'ontology' => 'Kirchen', 'form' => 8),
-        );
+        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
+        $ontologyManageTable = $repository->findAll();
+        //print_r($ontologyManageTable);
 
         return $this->render('ontology/managePage.html.twig', array(
             'ontologyManageTable' => $ontologyManageTable,
@@ -35,6 +33,7 @@ class OntologyController extends AbstractController
      */
     public function showDeleteAction()
     {
+
         return $this->render('ontology/delete.html.twig', array());
     }
 
