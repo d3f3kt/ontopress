@@ -46,11 +46,6 @@ class Parser
                 }
             }
         }
-        foreach ($statementIterator as $key => $statement) {
-            if (($statement->getPredicate() == "http://localhost/k00ni/knorke/hasProperty") && (array_key_exists($statement->getObject()->getUri(), $objectArray))) {
-                $objectArray[$statement->getObject()->getUri()]->setType(TYPE_CHECK);
-            }
-        }
         foreach ($restrictionArray as $subject => $restriction) {
             $restrictionObject = new Restriction();
             foreach ($restriction->getOneOf() as $key => $choice) {
