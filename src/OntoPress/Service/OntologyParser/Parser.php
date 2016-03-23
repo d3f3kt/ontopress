@@ -45,7 +45,6 @@ class Parser
                     $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
                 }
             }
-
         }
         foreach ($statementIterator as $key => $statement) {
             if (($statement->getPredicate() == "http://localhost/k00ni/knorke/hasProperty") && (array_key_exists($statement->getObject()->getUri(), $objectArray))) {
