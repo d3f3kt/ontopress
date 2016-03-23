@@ -18,6 +18,7 @@ class Parser
         );
         $statementIterator = $parser->parseStreamToIterator($filepath);
         $objectArray = array();
+        $restrictionArray = array();
         foreach ($statementIterator as $key => $statement) {
             if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
                 $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, null, null, null);
@@ -26,10 +27,11 @@ class Parser
                 $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                 $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_TEXT);
             } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                if ($objectArray[$statement->getSubject()->getUri()]->getRestriction() == null) {
-                    $objectArray[$statement->getSubject()->getUri()]->setRestriction(new Restriction($statement->getObject()->getUri()));
+                if ($restrictionArray[$statement->getSubject()->getUri()] == null) {
+                    $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
+                    $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
                 } else {
-                    $objectArray[$statement->getSubject()->getUri()]->getRestriction()->addOneOf($statement->getObject()->getUri());
+                    $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
                 }
                 $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_BUTTON);
             }
@@ -37,19 +39,28 @@ class Parser
                 $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
             }
             if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
-                if ($statement->getObject()->getValue() == "true") {
+                if ($statement->getObject()->getValue()) {
                     $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
                 } else {
                     $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
                 }
             }
         }
+        foreach ($restrictionArray as $subject => $restriction) {
+            $restrictionObject = new Restriction();
+            foreach ($restriction->getOneOf() as $key => $choice) {
+                $restrictionObject->addOneOf($objectArray[$choice]);
+            }
+            $objectArray[$subject]->setRestriction($restrictionObject);
+        }
+        //Test-output
         foreach ($objectArray as $key => $object) {
             echo $object->getName() . " - " . $object->getLabel() . " - " .
                 $object->getComment() . " - " . $object->getType() . " - " .
                 $object->getMandatory() . " - ";
             if ($object->getRestriction() != null) {
                 print_r($object->getRestriction());
+                echo "<br />";
             }
             echo "<br />";
         }

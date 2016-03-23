@@ -7,10 +7,9 @@ class Restriction
     //Possible answers
     protected $oneOf;
 
-    public function __construct($choice)
+    public function __construct()
     {
-        $this->oneOf = array($choice);
-        //$this->addOneOf($choice);
+        $this->oneOf = array();
         return $this;
     }
 
