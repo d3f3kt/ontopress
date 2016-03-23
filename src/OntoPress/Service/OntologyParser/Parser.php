@@ -33,7 +33,7 @@ class Parser
                 } else {
                     $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
                 }
-                $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_BUTTON);
+                $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_RADIO);
             }
             if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
                 $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
@@ -45,10 +45,19 @@ class Parser
                     $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
                 }
             }
+
+        }
+        foreach ($statementIterator as $key => $statement) {
+            if (($statement->getPredicate() == "http://localhost/k00ni/knorke/hasProperty") && (array_key_exists($statement->getObject()->getUri(), $objectArray))) {
+                $objectArray[$statement->getObject()->getUri()]->setType(TYPE_CHECK);
+            }
         }
         foreach ($restrictionArray as $subject => $restriction) {
             $restrictionObject = new Restriction();
             foreach ($restriction->getOneOf() as $key => $choice) {
+                if ($objectArray[$choice] != null) {
+                    $objectArray[$choice]->setType(TYPE_CHOICE);
+                }
                 $restrictionObject->addOneOf($objectArray[$choice]);
             }
             $objectArray[$subject]->setRestriction($restrictionObject);

@@ -18,9 +18,11 @@ class OntologyNode
 
     const TYPE_TEXT = "Text";
 
-    const TYPE_BUTTON = "Radio-Button";
+    const TYPE_RADIO= "Radio-Button";
 
-    const TYPE_BOX = "Checkbox";
+    const TYPE_CHECK = "Checkbox";
+
+    const TYPE_CHOICE = "Restriction-Choice";
 
     //Missing Comment
     protected $mandatory;
