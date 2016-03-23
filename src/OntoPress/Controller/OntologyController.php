@@ -22,7 +22,7 @@ class OntologyController extends AbstractController
         $ontologyManageTable = array();
 
         foreach ($ontologys as $onto) {
-        array_push($ontologyManageTable, array('id' => $onto->getID(), 'name' => $onto->getName(), 'form' => 10));
+            array_push($ontologyManageTable, array('id' => $onto->getID(), 'name' => $onto->getName(), 'form' => 10));
         }
         //print_r($ontologyManageTable);
         return $this->render('ontology/managePage.html.twig', array(
