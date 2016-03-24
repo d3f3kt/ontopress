@@ -21,11 +21,11 @@ class Parser
         $restrictionArray = array();
         foreach ($statementIterator as $key => $statement) {
             if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
-                $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, null, null, null);
+                $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri());
             }
             if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                 $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
-                $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_TEXT);
+                $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_TEXT);
             } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
                 if ($restrictionArray[$statement->getSubject()->getUri()] == null) {
                     $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
@@ -33,7 +33,7 @@ class Parser
                 } else {
                     $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
                 }
-                $objectArray[$statement->getSubject()->getUri()]->setType(TYPE_RADIO);
+                $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
             }
             if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
                 $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
@@ -50,23 +50,13 @@ class Parser
             $restrictionObject = new Restriction();
             foreach ($restriction->getOneOf() as $key => $choice) {
                 if ($objectArray[$choice] != null) {
-                    $objectArray[$choice]->setType(TYPE_CHOICE);
+                    $objectArray[$choice]->setType(OntologyNode::TYPE_CHOICE);
                 }
                 $restrictionObject->addOneOf($objectArray[$choice]);
             }
             $objectArray[$subject]->setRestriction($restrictionObject);
         }
-        //Test-output
-        foreach ($objectArray as $key => $object) {
-            echo $object->getName() . " - " . $object->getLabel() . " - " .
-                $object->getComment() . " - " . $object->getType() . " - " .
-                $object->getMandatory() . " - ";
-            if ($object->getRestriction() != null) {
-                print_r($object->getRestriction());
-                echo "<br />";
-            }
-            echo "<br />";
-        }
+        
         return $objectArray;
     }
 }
