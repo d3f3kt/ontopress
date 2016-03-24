@@ -117,6 +117,7 @@ class OntologyNode
         $this->label = $label;
         return $this;
     }
+    
     /**
      * Get the label.
      *
@@ -134,21 +135,21 @@ class OntologyNode
      *
      * @return this object
      */
-        public function setComment($comment)
-        {
-            $this->comment = $comment;
-            return $this;
-        }
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+        return $this;
+    }
     
     /**
      * Get the comment.
      *
      * @return string comment
      */
-        public function getComment()
-        {
-            return $this->comment;
-        }
+    public function getComment()
+    {
+        return $this->comment;
+    }
     
     /**
      * Set the type.
@@ -157,21 +158,21 @@ class OntologyNode
      *
      * @return this object
      */
-        public function setType($type)
-        {
-            $this->type = $type;
-            return $this;
-        }
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
     
     /**
      * Get the type.
      *
      * @return string type
      */
-        public function getType()
-        {
-            return $this->type;
-        }
+    public function getType()
+    {
+        return $this->type;
+    }
     
     /**
      * Set the mandatory property.
@@ -180,21 +181,21 @@ class OntologyNode
      *
      * @return this object
      */
-        public function setMandatory($mandatory)
-        {
-            $this->mandatory = $mandatory;
-            return $this;
-        }
+    public function setMandatory($mandatory)
+    {
+        $this->mandatory = $mandatory;
+        return $this;
+    }
     
     /**
      * Get mandatory.
      *
      * @return boolean mandatory
      */
-        public function getMandatory()
-        {
-            return $this->mandatory;
-        }
+    public function getMandatory()
+    {
+        return $this->mandatory;
+    }
     
     /**
      * Set the restriction.
@@ -203,11 +204,11 @@ class OntologyNode
      *
      * @return this object
      */
-        public function setRestriction($oneOf)
-        {
-            $this->restriction = $oneOf;
-            return $this;
-        }
+    public function setRestriction($oneOf)
+    {
+        $this->restriction = $oneOf;
+        return $this;
+    }
     
     /**
      * Get the restriction.
