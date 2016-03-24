@@ -4,7 +4,7 @@
     Ontologie Löschen
 {% endblock %}
 {% block content %}
-    <p>Sie sind dabei die Ontologie <b>Plätze</b> zu löschen. Dazu werden auch alle verknüpften Formulare gelöscht.</p>
+    <p>Sie sind dabei die Ontologie <b>{{ontologyDelete.name}}</b> zu löschen. Dazu werden auch alle verknüpften Formulare gelöscht.</p>
 
     <form method="get">
         <div class="tablenav top">
@@ -65,6 +65,9 @@
     </form>
 
     <h2>Wirklich löschen?</h2>
-    <a href="#" class="page-title-action">Löschen</a>
-    <a href="{{path('ontopress_ontology')}}" class="page-title-action">Abbrechen</a>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+  <!--  <a href="#" class="page-title-action">Löschen</a>
+    <a href=" //path('ontopress_ontology')}}" class="page-title-action">Abbrechen</a> -->
 {% endblock %}
