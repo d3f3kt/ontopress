@@ -4,8 +4,16 @@ namespace OntoPress\Controller;
 
 use OntoPress\Library\AbstractController;
 
+/**
+ * Dashboard Controller.
+ */
 class DashboardController extends AbstractController
 {
+    /**
+     * Show dashboard.
+     *
+     * @return string rendered twig template
+     */
     public function showDashboardAction()
     {
         $resTableBuildings = array(

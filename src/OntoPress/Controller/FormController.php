@@ -4,8 +4,16 @@ namespace OntoPress\Controller;
 use OntoPress\Library\AbstractController;
 use OntoPress\Form\Form\Type\EditFormType;
 
+/**
+ * Form Controller.
+ */
 class FormController extends AbstractController
 {
+    /**
+     * Show all forms.
+     *
+     * @return string rendered twig template
+     */
     public function showManageAction()
     {
         $formManageTable = array(
@@ -19,6 +27,11 @@ class FormController extends AbstractController
         ));
     }
 
+    /**
+     * Handle the edit request of a form.
+     *
+     * @return string rendered twig template
+     */
     public function showEditAction()
     {
         $form = $this->createForm(new EditFormType(), null, array(
@@ -30,6 +43,11 @@ class FormController extends AbstractController
         ));
     }
 
+    /**
+     * Handle the add request of a form.
+     *
+     * @return string rendered twig template
+     */
     public function showCreateAction()
     {
         $form = $this->createForm(new EditFormType(), null, array(
@@ -41,6 +59,11 @@ class FormController extends AbstractController
         ));
     }
 
+    /**
+     * Handle the delete request of a form.
+     *
+     * @return string rendered twig template
+     */
     public function showDeleteAction()
     {
         return $this->render('form/formDelete.html.twig', array());

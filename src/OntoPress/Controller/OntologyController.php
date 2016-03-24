@@ -8,6 +8,9 @@ use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Library\AbstractController;
 
+/**
+ * Ontology Controller.
+ */
 class OntologyController extends AbstractController
 {
     /**
