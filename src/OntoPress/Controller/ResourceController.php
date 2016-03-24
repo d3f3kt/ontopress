@@ -4,6 +4,7 @@ namespace OntoPress\Controller;
 
 use OntoPress\Library\AbstractController;
 use OntoPress\Form\Resource\Type\AddResourceDetailType;
+
 /**
  * Resource Controller.
  */
