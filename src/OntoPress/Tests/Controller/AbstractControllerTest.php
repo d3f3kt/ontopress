@@ -59,41 +59,35 @@ class AbstractControllerTest extends OntoPressTestCase
         $result = $this->invokeMethod($this->abstractController, 'generateRoute', array('ontopress', array()));
         $this->assertContains("?page=ontopress", $result);
     }
-    /*
+
     public function testGetDoctrine()
     {
         $result = $this->invokeMethod($this->abstractController, 'getDoctrine', array());
-        $this->assertFileEquals("doctrine", $result);
+        $this->assertInstanceOf("Doctrine\ORM\EntityManager", $result);
     }
 
     public function testValidate()
     {
         $testVali = new Ontology();
-        $errors = $this->invokeMethod($this->abstractController, 'validate', array($testVali, null, false, false));
-        $this->assertEquals(0, $errors);
+        $errors = $this->invokeMethod($this->abstractController, 'validate', array($testVali));
+        $this->assertGreaterThan(0, $errors->count());
     }
-    */
+
     public function testGet()
     {
         $result = $this->invokeMethod($this->abstractController, 'get', array('service_container'));
         $this->assertEquals(static::getContainer(), $result);
     }
-    /*
+
     public function testGetParameter()
     {
-        //$this->abstractController->getContainer() = static::getContainer();
-        // needs getContainer, da private
-        $this->abstractController->getContainer()->setParameter('test.HelloWorld', 'HelloWorld');
-        $result = $this->invokeMethod($this->abstractController, 'getParameter', array('test.HelloWorld'));
-        $this->assertEquals('HelloWorld', $result);
+        $result = $this->invokeMethod($this->abstractController, 'getParameter', array('ontopress.root_dir'));
+        $this->assertContains($result, __DIR__);
     }
 
     public function testAddFlashMessage()
     {
-        //need typ to make a FlashMessage
-        $this->invokeMethod($this->abstractController, 'addFlashMessage', array('INFO', 'HelloWorld'));
-        $this->assertContains('HelloWorld',
-            $this->invokeMethod($this->abstractController, 'get', array('session'))->getFlashBag());
+        $this->invokeMethod($this->abstractController, 'addFlashMessage', array('info', 'HelloWorld'));
+        $this->assertContains('HelloWorld', static::getContainer()->get('session')->getFlashBag()->get('info'));
     }
-    */
 }
