@@ -29,6 +29,18 @@
                     <span class="sorting-indicator"></span>
                 </a>
             </th>
+            <th scope="col" id="author" class="manage-column column-form sorted asc">
+                <a href="#">
+                    <span>Autor</span>
+                    <span class="sorting-indicator"></span>
+                </a>
+            </th>
+            <th scope="col" id="date" class="manage-column column-form sorted asc">
+                <a href="#">
+                    <span>Datum</span>
+                    <span class="sorting-indicator"></span>
+                </a>
+            </th>
         </tr>
         </thead>
         <tbody id="the-list" data-wp-lists="list:ontology">
@@ -42,7 +54,13 @@
                     {% include 'snippets/table/deleteRowAction.html.twig' with {'path': path('ontopress_ontologyDelete', {'id': 1})} %}
                 </td>
                 <td class="form column-form" data-colname="Form">
-                    <a href = "#">{{ontology.form}}</a>
+                    <a href = "#">10</a>
+                </td>
+                <td class="author column-author" data-colname="Author">
+                    <a href = "#">{{ontology.author}}</a>
+                </td>
+                <td class="date column-date" data-colname="Date">
+                    <a href = "#">{{ date(ontology.date).format('r') }}</a>
                 </td>
             </tr>
         {% endfor %}
@@ -64,6 +82,18 @@
             <th scope="col" id="form" class="manage-column column-form sorted asc">
                 <a href="#">
                     <span>Formular Anz.</span>
+                    <span class="sorting-indicator"></span>
+                </a>
+            </th>
+            <th scope="col" id="author" class="manage-column column-form sorted asc">
+                <a href="#">
+                    <span>Autor</span>
+                    <span class="sorting-indicator"></span>
+                </a>
+            </th>
+            <th scope="col" id="date" class="manage-column column-form sorted asc">
+                <a href="#">
+                    <span>Datum</span>
                     <span class="sorting-indicator"></span>
                 </a>
             </th>
