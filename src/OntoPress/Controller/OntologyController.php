@@ -4,6 +4,7 @@ namespace OntoPress\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Form\Ontology\Type\AddOntologyType;
+use OntoPress\Form\Ontology\Type\DeleteOntologyType;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Library\AbstractController;
@@ -35,8 +36,37 @@ class OntologyController extends AbstractController
      */
     public function showDeleteAction()
     {
+        $id = $_GET['id'];
 
-        return $this->render('ontology/delete.html.twig', array());
+        $ontologyDelete = $this->getDoctrine()
+            ->getRepository('OntoPress\Entity\Ontology')
+            ->find($id);
+
+        if (!$ontologyDelete) {
+            throw $this->createNotFoundException(
+                'Die Ontologie die sie löschen möchten wurde nicht gefunden '
+            );
+        }
+
+        $form = $this->createForm(new DeleteOntologyType(), $ontologyDelete, array(
+        'cancel_link' => $this->generateRoute('ontopress_ontology'),
+        ));
+
+        $form->handleRequest(Request::createFromGlobals());
+
+        if ($form->isValid()) {
+            $this->getDoctrine()->remove($ontologyDelete);
+            $this->getDoctrine()->flush();
+            $this->addFlashMessage(
+                'success',
+                'Ontologie erfolgreich gelöscht.'
+            );
+        }
+
+        return $this->render('ontology/delete.html.twig', array(
+            'ontologyDelete' => $ontologyDelete,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
