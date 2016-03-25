@@ -104,7 +104,7 @@ class OntologyTest extends OntoPressTestCase
     /**
      * Create temporary ttl file for ontology upload.
      */
-    static public function createTmpFile($fileName)
+    public static function createTmpFile($fileName)
     {
         $rootDir = static::getContainer()->getParameter('ontopress.root_dir');
         $tmpFileName = tempnam(sys_get_temp_dir(), 'OntoPress_');
