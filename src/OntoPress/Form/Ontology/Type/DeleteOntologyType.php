@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
 
 /**
- * That is an example form.
+ * Simple delete form.
  */
 class DeleteOntologyType extends AbstractType
 {
@@ -33,10 +33,8 @@ class DeleteOntologyType extends AbstractType
     {
         $resolver->setRequired('cancel_link');
         $resolver->setDefaults(array(
-            'data_class' => 'OntoPress\Entity\Ontology',
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
-            'cascade_validation' => true,
         ));
     }
 
@@ -45,6 +43,6 @@ class DeleteOntologyType extends AbstractType
      */
     public function getName()
     {
-        return 'ontologyAddType';
+        return 'ontologyDeleteType';
     }
 }
