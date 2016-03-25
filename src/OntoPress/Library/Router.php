@@ -5,6 +5,7 @@ namespace OntoPress\Library;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Library\Twig\RouterExtension;
 use OntoPress\Library\Exception\InvalidControllerCallException;
 use OntoPress\Library\Exception\NoActionException;
@@ -156,7 +157,9 @@ class Router
         if (class_exists($class)) {
             $controller = new $class($this->container);
             if (method_exists($controller, $method.'Action')) {
-                return call_user_func(array($controller, $method.'Action'));
+                $request = Request::createFromGlobals();
+
+                return call_user_func(array($controller, $method.'Action'), $request);
             } else {
                 throw new NoActionException($class, $method);
             }
