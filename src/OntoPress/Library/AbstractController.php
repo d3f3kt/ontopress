@@ -43,6 +43,21 @@ abstract class AbstractController
     }
 
     /**
+     * Redirect to a route
+     *
+     * @param string $siteName   site name
+     * @param array  $parameters parameters
+     *
+     * @return string url
+     */
+    protected function redirectToRoute($siteName, $parameters = array())
+    {
+        // TODO: hook into wordpress and make a clean 301 redirect
+        return $this->render('snippets/redirect.html.twig', array(
+            'link' => $this->generateRoute($siteName, $parameters),
+        ));
+    }
+    /**
      * Translates the given message.
      *
      * @param string      $id         The message id (may also be an object that can be cast to string)
