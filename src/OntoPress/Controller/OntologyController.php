@@ -38,7 +38,7 @@ class OntologyController extends AbstractController
      */
     public function showDeleteAction(Request $request)
     {
-        $id = $request->get('id');
+        $id = $request->get('id', 0);
 
         $ontologyDelete = $this->getDoctrine()
             ->getRepository('OntoPress\Entity\Ontology')
@@ -94,7 +94,6 @@ class OntologyController extends AbstractController
         ));
 
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $ontology->uploadFiles();
 
@@ -105,6 +104,8 @@ class OntologyController extends AbstractController
                 'success',
                 'Ontologie erfolgreich hochgeladen.'
             );
+
+            return $this->redirectToRoute('ontopress_ontology');
         }
 
         return $this->render('ontology/ontologyAdd.html.twig', array(
