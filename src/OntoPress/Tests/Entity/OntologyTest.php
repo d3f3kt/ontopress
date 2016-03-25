@@ -63,7 +63,7 @@ class OntologyTest extends OntoPressTestCase
      */
     public function testOntologyFileUpload()
     {
-        $testFile = $this->createTmpFile();
+        $testFile = self::createTmpFile('place-ontology.ttl');
         $this->ontologyFile->setFile($testFile);
 
         $this->ontology->addOntologyFile($this->ontologyFile);
@@ -104,15 +104,15 @@ class OntologyTest extends OntoPressTestCase
     /**
      * Create temporary ttl file for ontology upload.
      */
-    private function createTmpFile()
+    static public function createTmpFile($fileName)
     {
         $rootDir = static::getContainer()->getParameter('ontopress.root_dir');
         $tmpFileName = tempnam(sys_get_temp_dir(), 'OntoPress_');
-        copy($rootDir.'/Tests/TestFiles/place-ontology.ttl', $tmpFileName);
+        copy($rootDir.'/Tests/TestFiles/'.$fileName, $tmpFileName);
 
         $uploadFile = new UploadedFile(
             $tmpFileName,
-            'place-ontology.ttl',
+            $fileName,
             'text/turtle',
             null,
             null,
