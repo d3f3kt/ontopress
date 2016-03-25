@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    Ontologie Löschen
+{% endblock %}
+{% block content %}
+    <p>Es wurde keine Ontologie mit der ID {{ id }} gefunden.</p>
+    <a href="{{ path('ontopress_ontology') }}">
+        Zurück zur Übersicht
+    </a>
+{% endblock %}

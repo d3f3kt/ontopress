@@ -32,27 +32,29 @@ class OntologyController extends AbstractController
     /**
      * Handle the delete request of one ontology.
      *
+     * @param Request $request HTTP Request
+     *
      * @return string rendered twig template
      */
-    public function showDeleteAction()
+    public function showDeleteAction(Request $request)
     {
-        $id = $_GET['id'];
+        $id = $request->get('id');
 
         $ontologyDelete = $this->getDoctrine()
             ->getRepository('OntoPress\Entity\Ontology')
             ->find($id);
 
         if (!$ontologyDelete) {
-            throw $this->createNotFoundException(
-                'Die Ontologie die sie löschen möchten wurde nicht gefunden '
-            );
+            return $this->render('ontology/notFound.html.twig', array(
+                'id' => $id,
+            ));
         }
 
         $form = $this->createForm(new DeleteOntologyType(), $ontologyDelete, array(
-        'cancel_link' => $this->generateRoute('ontopress_ontology'),
+            'cancel_link' => $this->generateRoute('ontopress_ontology'),
         ));
 
-        $form->handleRequest(Request::createFromGlobals());
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $this->getDoctrine()->remove($ontologyDelete);
@@ -61,6 +63,8 @@ class OntologyController extends AbstractController
                 'success',
                 'Ontologie erfolgreich gelöscht.'
             );
+
+            return $this->redirectToRoute('ontopress_ontology');
         }
 
         return $this->render('ontology/delete.html.twig', array(
@@ -72,9 +76,11 @@ class OntologyController extends AbstractController
     /**
      * Handle the upload of one or more ontology files and save them in database.
      *
+     * @param Request $request HTTP Request
+     *
      * @return string rendered twig template
      */
-    public function showAddAction()
+    public function showAddAction(Request $request)
     {
         $author = wp_get_current_user();
 
@@ -87,7 +93,7 @@ class OntologyController extends AbstractController
             'cancel_link' => $this->generateRoute('ontopress_ontology'),
         ));
 
-        $form->handleRequest(Request::createFromGlobals());
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $ontology->uploadFiles();

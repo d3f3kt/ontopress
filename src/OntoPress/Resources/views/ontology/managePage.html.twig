@@ -57,10 +57,10 @@
                     <a href = "#">10</a>
                 </td>
                 <td class="author column-author" data-colname="Author">
-                    <a href = "#">{{ontology.author}}</a>
+                    {{ontology.author}}
                 </td>
                 <td class="date column-date" data-colname="Date">
-                    <a href = "#">{{ date(ontology.date).format('r') }}</a>
+                    {{ date(ontology.date).format('d.m.Y') }}
                 </td>
             </tr>
         {% endfor %}
