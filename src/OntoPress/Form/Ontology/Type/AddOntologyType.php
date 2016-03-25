@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
 
 /**
- * That is an example form.
+ * Ontology Add Form. 
  */
 class AddOntologyType extends AbstractType
 {
@@ -25,6 +25,7 @@ class AddOntologyType extends AbstractType
             ->add('ontologyFiles', 'collection', array(
                 'type' => new OntologyFileType(),
                 'allow_add' => true,
+                'by_reference' => false,
             ))
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
