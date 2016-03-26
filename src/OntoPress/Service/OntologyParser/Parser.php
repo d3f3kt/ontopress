@@ -9,40 +9,44 @@ use OntoPress\Service\OntologyParser\Restriction;
 
 class Parser
 {
-    public function parsing($filepath)
+    public function parsing($ontology)
     {
         $parser = new ParserEasyRdf(
             new NodeFactoryImpl(),
             new StatementFactoryImpl(),
             'turtle' // RDF format of the file to parse later on (ttl => turtle)
         );
-        $statementIterator = $parser->parseStreamToIterator($filepath);
+        $ontologyArray = $ontology->getOntologyFiles();
+        //$statementIterator = $parser->parseStreamToIterator($ontology);
         $objectArray = array();
         $restrictionArray = array();
-        foreach ($statementIterator as $key => $statement) {
-            if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
-                $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri());
-            }
-            if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
-                $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
-                $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_TEXT);
-            } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                if ($restrictionArray[$statement->getSubject()->getUri()] == null) {
-                    $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
-                    $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
-                } else {
-                    $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
+        foreach ($ontologyArray as $index => $ontologyFile) {
+            $statementIterator = $parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
+            foreach ($statementIterator as $key => $statement) {
+                if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
+                    $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri());
                 }
-                $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
-            }
-            if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
-                $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
-            }
-            if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
-                if ($statement->getObject()->getValue()) {
-                    $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
-                } else {
-                    $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
+                if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
+                    $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
+                    $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_TEXT);
+                } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
+                    if ($restrictionArray[$statement->getSubject()->getUri()] == null) {
+                        $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
+                        $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
+                    } else {
+                        $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
+                    }
+                    $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
+                }
+                if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
+                    $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
+                }
+                if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
+                    if ($statement->getObject()->getValue()) {
+                        $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
+                    } else {
+                        $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
+                    }
                 }
             }
         }

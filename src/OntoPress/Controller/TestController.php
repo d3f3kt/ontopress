@@ -2,14 +2,23 @@
 
 namespace OntoPress\Controller;
 
-use OntoPress\Libary\AbstractController;
+use OntoPress\Entity\Ontology;
+use OntoPress\Entity\OntologyFile;
+use OntoPress\Library\AbstractController;
 
 class TestController extends AbstractController
 {
     public function showAddAction()
     {
+        $ontologyFile = new OntologyFile();
+        $ontologyFile->setPath('/../../../Tests/TestFiles/place-ontology.ttl');
+        
+        $ontologyObj = new Ontology();
+        $ontologyObj->setName("Place");
+        $ontologyObj->addOntologyFile($ontologyFile);
+        
         $ontologyParser = $this->get('ontopress.ontology_parser');
-        $output = $ontologyParser->parsing(__DIR__.'/../Resources/ontology/place-ontology.ttl');
+        $output = $ontologyParser->parsing($ontologyObj);
         
         foreach ($output as $key => $object) {
             echo $object->getName() . " - " . $object->getLabel() . " - " .
