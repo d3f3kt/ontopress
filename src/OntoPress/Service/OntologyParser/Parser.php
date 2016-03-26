@@ -30,7 +30,7 @@ class Parser
                     $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                     $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_TEXT);
                 } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                    if ($restrictionArray[$statement->getSubject()->getUri()] == null) {
+                    if (!(isset($restrictionArray[$statement->getSubject()->getUri()]))) {
                         $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
                         $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
                     } else {
@@ -53,10 +53,10 @@ class Parser
         foreach ($restrictionArray as $subject => $restriction) {
             $restrictionObject = new Restriction();
             foreach ($restriction->getOneOf() as $key => $choice) {
-                if ($objectArray[$choice] != null) {
+                if (isset($objectArray[$choice])) {
                     $objectArray[$choice]->setType(OntologyNode::TYPE_CHOICE);
+                    $restrictionObject->addOneOf($objectArray[$choice]);
                 }
-                $restrictionObject->addOneOf($objectArray[$choice]);
             }
             $objectArray[$subject]->setRestriction($restrictionObject);
         }
