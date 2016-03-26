@@ -200,7 +200,7 @@ class OntologyNode
     /**
      * Set the restriction.
      *
-     * @param Restriction $restriction Restriction
+     * @param Restriction $oneOf Restriction
      *
      * @return this object
      */

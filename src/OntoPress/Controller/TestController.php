@@ -14,8 +14,8 @@ class TestController extends AbstractController
         $ontologyFile->setPath('/../../../Tests/TestFiles/place-ontology.ttl');
         
         $ontologyObj = new Ontology();
-        $ontologyObj->setName("Place");
-        $ontologyObj->addOntologyFile($ontologyFile);
+        $ontologyObj->setName("Place")
+            ->addOntologyFile($ontologyFile);
         
         $ontologyParser = $this->get('ontopress.ontology_parser');
         $output = $ontologyParser->parsing($ontologyObj);
