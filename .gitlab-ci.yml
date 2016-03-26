@@ -36,3 +36,17 @@ test:5.6:
     image: php:5.6
     script:
     - php5 vendor/bin/phpunit --coverage-text --colors=never
+
+releaseBuild:
+    stage: deploy
+    image: php:5.6
+    script:
+        - vendor/bin/sami.php update sami.php
+        - vendor/bin/phpunit --coverage-html doc/tests
+        - php5 composer.phar install --no-dev
+        - rm -Rf cli-config.php composer.* cache .git* phpunit.xml.dist sami.php composer.phar src/OntoPress/Tests/
+        - find ./vendor -name ".git" -exec rm -rf {} \;
+        - mkdir OntoPressPlugin
+        - mv * OntoPressPlugin
+        - tar cfvz OntoPress-$CI_BUILD_TAG.tar.gz OntoPressPlugin
+        - mv *.tar.gz /release/
