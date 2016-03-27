@@ -45,8 +45,8 @@ releaseBuild:
         - php5 vendor/bin/phpunit --coverage-html doc/tests
         - php5 composer.phar install --no-dev
         - rm -Rf cli-config.php composer.* cache .git* phpunit.xml.dist sami.php composer.phar src/OntoPress/Tests/
-        - find ./vendor -name ".git" -exec rm -rf {} \;
+        - find vendor/ | grep .git | xargs rm -rf
         - mkdir OntoPressPlugin
-        - mv * OntoPressPlugin
+        - mv `ls -A | grep -v OntoPressPlugin` ./OntoPressPlugin
         - tar cfvz OntoPress-$CI_BUILD_TAG.tar.gz OntoPressPlugin
         - mv *.tar.gz /release/
