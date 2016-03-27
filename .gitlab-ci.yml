@@ -50,3 +50,5 @@ releaseBuild:
         - mv `ls -A | grep -v OntoPressPlugin` ./OntoPressPlugin
         - tar cfvz OntoPress-$CI_BUILD_TAG.tar.gz OntoPressPlugin
         - mv *.tar.gz /release/
+    only:
+        - tags
