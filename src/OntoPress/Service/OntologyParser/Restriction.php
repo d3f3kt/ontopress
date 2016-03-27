@@ -10,14 +10,12 @@ class Restriction
 {
     /**
      * Array, that contains the possible choices for this property/restriction
-     * 
      * @var array
      */
     protected $oneOf;
 
     /**
      * Restriction constructor.
-     * 
      * @return Restriction this restriction-object
      */
     public function __construct()
@@ -28,7 +26,6 @@ class Restriction
 
     /**
      * Add a choice to $oneOf
-     * 
      * @param OntologyNode $choice
      * @return Restriction $this
      */
@@ -40,7 +37,6 @@ class Restriction
 
     /**
      * Get choice-array
-     * 
      * @return array $oneOf
      */
     public function getOneOf()

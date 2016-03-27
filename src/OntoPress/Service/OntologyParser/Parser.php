@@ -16,9 +16,8 @@ class Parser
 {
 
     /**
-     * Parsing-method, to parse an Ontology-object to OntologyNodes
-     * 
-     * @param Ontology $ontology 
+     * Parsing-method, to parse an Ontology-object to OntologyNode
+     * @param Ontology
      * @return array Array of OntologyNodes
      * @throws \Exception
      */
