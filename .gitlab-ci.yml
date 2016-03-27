@@ -7,7 +7,7 @@ before_script:
 - apt-get update -y -qq
 - apt-get install git unzip php5-cli php5-curl php5-xdebug php5-sqlite -y -qq > /dev/null
 - curl -sS https://getcomposer.org/installer | php
-- php5 composer.phar install -q
+- php5 composer.phar install --prefer-dist -q
 
 stages:
     - stylecheck
