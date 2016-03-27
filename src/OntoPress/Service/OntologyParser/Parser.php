@@ -1,14 +1,27 @@
 <?php
 namespace OntoPress\Service\OntologyParser;
 
+use OntoPress\Entity\Ontology;
 use Saft\Addition\EasyRdf\Data\ParserEasyRdf;
 use Saft\Rdf\NodeFactoryImpl;
 use Saft\Rdf\StatementFactoryImpl;
 use OntoPress\Service\OntologyParser\OntologyNode;
 use OntoPress\Service\OntologyParser\Restriction;
 
+/**
+ * Class Parser
+ * @package OntoPress\Service\OntologyParser
+ */
 class Parser
 {
+
+    /**
+     * Parsing-method, to parse an Ontology-object to OntologyNodes
+     * 
+     * @param Ontology $ontology 
+     * @return array Array of OntologyNodes
+     * @throws \Exception
+     */
     public function parsing($ontology)
     {
         $parser = new ParserEasyRdf(
@@ -16,12 +29,14 @@ class Parser
             new StatementFactoryImpl(),
             'turtle' // RDF format of the file to parse later on (ttl => turtle)
         );
+        
         $ontologyArray = $ontology->getOntologyFiles();
-        //$statementIterator = $parser->parseStreamToIterator($ontology);
         $objectArray = array();
         $restrictionArray = array();
+        
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
+            
             foreach ($statementIterator as $key => $statement) {
                 if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
                     $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri());
@@ -50,6 +65,7 @@ class Parser
                 }
             }
         }
+        
         foreach ($restrictionArray as $subject => $restriction) {
             $restrictionObject = new Restriction();
             foreach ($restriction->getOneOf() as $key => $choice) {
