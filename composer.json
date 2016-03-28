@@ -37,17 +37,14 @@
         },
         {
             "name": "Christofer Meinecke",
-            "email": "christofer.m@gmx.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Dominik Michael",
             "role": "Developer"
         },
         {
             "name": "Lukas Rosenkranz",
-            "email": "lukas.rosenkranz@gmx.de",
-            "role": "Developer"
-        },
-        {
-            "name": "Lukas Janik",
-            "email": "lord-kroak1@web.de",
             "role": "Developer"
         }
     ],
