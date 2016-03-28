@@ -61,7 +61,10 @@ class ParserTest extends OntoPressTestCase
         $this->assertTrue($this->ontologyNode->getMandatory());
         $this->assertEquals($this->ontologyNode->getRestriction(), $this->restriction);
     }
-    
+
+    /**
+     * Test Parsing-method
+     */
     public function testParsing()
     {
         $ontologyFile = new OntologyFile();

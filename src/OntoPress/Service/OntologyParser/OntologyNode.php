@@ -12,28 +12,28 @@ class OntologyNode
     /**
      * The name of the OntologyNode and the URI of the subject at the same time.
      *
-     * @var Name
+     * @var String name
      */
     protected $name;
 
     /**
      * The label and a object of label-relation of the subject.
      *
-     * @var Label
+     * @var String label
      */
     protected $label;
 
     /**
      * Object of comment-relation of the subject.
      *
-     * @var Comment
+     * @var String comment
      */
     protected $comment;
 
     /**
      * Type of the input.
      *
-     * @var Type
+     * @var String type
      */
     protected $type;
 
@@ -41,21 +41,19 @@ class OntologyNode
 
     const TYPE_RADIO= "Radio-Button";
 
-    const TYPE_CHECK = "Checkbox";
-
     const TYPE_CHOICE = "Restriction-Choice";
 
     /**
      * Mandatory property.
      *
-     * @var Mandatory
+     * @var bool mandatory
      */
     protected $mandatory;
 
     /**
      * Connected restriction.
      *
-     * @var Restriction
+     * @var Restriction restriction
      */
     protected $restriction;
 
@@ -69,7 +67,7 @@ class OntologyNode
      * @param boolean $mandatory Mandatory Property
      * @param array   $oneOf     Array of Restrictions
      *
-     * @return this object.
+     * @return OntologyNode this object.
      */
     public function __construct($name, $label = null, $comment = null, $type = null, $mandatory = null, $oneOf = null)
     {
@@ -87,7 +85,7 @@ class OntologyNode
      *
      * @param string $name Name
      *
-     * @return this object
+     * @return OntologyNode this object
      */
     public function setName($name)
     {
@@ -110,7 +108,7 @@ class OntologyNode
      *
      * @param string $label Label
      *
-     * @return this object
+     * @return OntologyNode this object
      */
     public function setLabel($label)
     {
@@ -133,7 +131,7 @@ class OntologyNode
      *
      * @param string $comment Comment
      *
-     * @return this object
+     * @return OntologyNode this object
      */
     public function setComment($comment)
     {
@@ -156,7 +154,7 @@ class OntologyNode
      *
      * @param string $type Type
      *
-     * @return this object
+     * @return OntologyNode this object
      */
     public function setType($type)
     {
@@ -179,7 +177,7 @@ class OntologyNode
      *
      * @param boolean $mandatory Mandatory
      *
-     * @return this object
+     * @return OntologyNode this object
      */
     public function setMandatory($mandatory)
     {
@@ -188,7 +186,7 @@ class OntologyNode
     }
     
     /**
-     * Get mandatory.
+     * Get the mandatory property.
      *
      * @return boolean mandatory
      */
@@ -202,7 +200,7 @@ class OntologyNode
      *
      * @param Restriction $oneOf Restriction
      *
-     * @return this object
+     * @return OntologyNode this object
      */
     public function setRestriction($oneOf)
     {
