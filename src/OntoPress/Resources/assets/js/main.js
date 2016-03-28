@@ -1,47 +1,42 @@
 // setup an "Weitere Ontologie hochladen" link
-var $addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontology hochladen</a>');
-var $newLinkLi = $addTagLink;
+var addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontology hochladen</a>');
 
 jQuery(document).ready(function () {
     // Get the ul that holds the collection of tags
-    var $collectionHolder = jQuery('#ontologyAddType_ontologyFiles');
+    var collectionHolder = jQuery('#ontologyAddType_ontologyFiles');
 
-    $collectionHolder.append($newLinkLi);
+    collectionHolder.append(addTagLink);
 
-    $addTagLink.on('click', function (e) {
+    addTagLink.on('click', function (e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
         // add a new tag form
-        addTagForm($collectionHolder, $newLinkLi);
+        addTagForm(collectionHolder, addTagLink);
     });
 
 
 });
 
-function addTagForm($collectionHolder, $newLinkLi)
+function addTagForm(collectionHolder, addTagLink)
 {
     // Get the data-prototype
-    var prototype = $collectionHolder.data('prototype');
+    var prototype = collectionHolder.data('prototype');
 
     // Set '$$name$$' in the prototype's HTML to Null
     var newForm = prototype.replace(/__name__/g, "");
-    var newForm = newForm.replace("label__", "");
-    //var newForm = newForm.deleteTHead();
+    newForm = newForm.replace("label__", "");
+    newForm = jQuery(newForm);
+    newForm.find("th").remove();
+    newForm.find("#ontologyAddType_ontologyFiles__file").after('<a href="#" class="remove-tag">[X]</a>');
 
-    var $newFormLi = jQuery('<tr></tr>').append(newForm);
-
-    // also add a remove button
-    $newFormLi.append('<a href="#" class="remove-tag">x</a>');
-
-    //Set the new "Duchsuchen" Button above the "Weitere Ontologie hochladen" Button
-    $newLinkLi.before($newFormLi);
+    collectionHolder.children('tbody').append(newForm);
 
     // handle the removal
     jQuery('.remove-tag').click(function (e) {
         e.preventDefault();
 
-        jQuery(this).parent().remove();
+        jQuery(this).parent().parent().parent().parent().parent().parent().remove();
 
         return false;
     });
