@@ -9,6 +9,10 @@ use OntoPress\Controller\OntologyController;
 use OntoPress\Library\OntoPressWPTestCase;
 use OntoPress\Tests\Entity\OntologyTest;
 
+/**
+ * Class OntologyControllerTest
+ * Creates an OntologyController and tests it.
+ */
 class OntologyControllerTest extends OntoPressWPTestCase
 {
     /**

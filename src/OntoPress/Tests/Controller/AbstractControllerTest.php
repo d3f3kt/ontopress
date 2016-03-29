@@ -8,6 +8,10 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\Definition;
 use OntoPress\Entity\Ontology;
 
+/**
+ * Class AbstractControllerTest
+ * Creates a mock of the AbstractController class and tests it.
+ */
 class AbstractControllerTest extends OntoPressTestCase
 {
     /**

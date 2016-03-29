@@ -5,8 +5,15 @@ namespace OntoPress\Tests;
 use OntoPress\Controller\DashboardController;
 use OntoPress\Library\OntoPressTestCase;
 
+/**
+ * Class DashboardControllerTest
+ * Creates a DashboardController and tests it.
+ */
 class DashboardControllerTest extends OntoPressTestCase
 {
+    /**
+     * Tests showDashboardAction, which should return a rendered twig template for the dashboard.
+     */
     public function testDashboardController()
     {
         $container = static::getContainer();
