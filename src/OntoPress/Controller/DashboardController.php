@@ -31,6 +31,13 @@ class DashboardController extends AbstractController
             ->getQuery()
             ->getSingleScalarResult();
 
+        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
+
+        $count_form = $query = $repository->createQueryBuilder('p')
+            ->select('count(p)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
 
         $resTableBuildings = array(
             array('id' => 2, 'title' => 'Uni Campus'),
@@ -78,6 +85,7 @@ class DashboardController extends AbstractController
                 'resTablePlaces' => $resTablePlaces,
                 'resTableBuildings' => $resTableBuildings,
                 'count_ontology' => $count_ontology,
+                'count_form' => $count_form,
         ));
     }
 }
