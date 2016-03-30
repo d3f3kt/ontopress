@@ -42,6 +42,14 @@ class Ontology
     protected $ontologyFiles;
 
     /**
+     * Ontology Forms.
+     *
+     * @var Form
+     * @ORM\OneToMany(targetEntity="Form", mappedBy="ontology", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $ontologyForms;
+
+    /**
      * Wordpress user who created the ontology.
      *
      * @var string
@@ -140,12 +148,14 @@ class Ontology
     {
         return $this->date;
     }
+
     /**
      * Constructor.
      */
     public function __construct()
     {
         $this->ontologyFiles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ontologyForms = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -183,6 +193,43 @@ class Ontology
     public function getOntologyFiles()
     {
         return $this->ontologyFiles;
+    }
+
+    /**
+     * Add ontologyForms.
+     *
+     * @param \OntoPress\Entity\Form $ontologyForm
+     *
+     * @return Ontology
+     */
+    public function addOntologyForm(\OntoPress\Entity\Form $ontologyForm)
+    {
+        $ontologyForm->setOntology($this);
+        $this->ontologyForms[] = $ontologyForm;
+
+        return $this;
+    }
+
+    /**
+     * Remove ontologyForm.
+     *
+     * @param \OntoPress\Entity\Form $ontologyForm
+     *
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeOntologyForm(\OntoPress\Entity\Form $ontologyForm)
+    {
+        return $this->ontologyForms->removeElement($ontologyForm);
+    }
+
+    /**
+     * Get ontologyForms.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOntologyForms()
+    {
+        return $this->ontologyForms;
     }
 
     /**
