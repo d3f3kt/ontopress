@@ -1,6 +1,8 @@
 <?php
+
 namespace OntoPress\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Library\AbstractController;
 use OntoPress\Entity\Form;
 use OntoPress\Form\Form\Type\EditFormType;
@@ -63,8 +65,41 @@ class FormController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showDeleteAction()
+    public function showDeleteAction(Request $request)
     {
-        return $this->render('form/formDelete.html.twig', array());
+        $id = $request->get('id', 0);
+
+        $formDelete = $this->getDoctrine()
+            ->getRepository('OntoPress\Entity\Form')
+            ->find($id);
+
+        if (!$formDelete) {
+            return $this->render('ontology/notFound.html.twig', array(
+                'id' => $id,
+            ));
+        }
+
+        $form = $this->createForm(new DeleteFormType(), $formDelete, array(
+            'cancel_link' => $this->generateRoute('ontopress_forms'),
+        ));
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $this->getDoctrine()->remove($formDelete);
+            $this->getDoctrine()->flush();
+            $this->addFlashMessage(
+                'success',
+                'Formular erfolgreich gelöscht.'
+            );
+
+
+            return $this->redirectToRoute('ontopress_ontology');
+        }
+
+        return $this->render('form/formDelete.html.twig', array(
+            'ontologyDelete' => $formDelete,
+            'form' => $form->createView(),
+        ));
     }
 }
