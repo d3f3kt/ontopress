@@ -12,6 +12,7 @@
         "symfony/translation": "v2.8.0",
         "symfony/config": "v2.8.0",
         "symfony/yaml": "v2.8.0",
+	"symfony/doctrine-bridge": "v2.8.0",
         "saft/saft": "0.1"
     },
     "require-dev": {
