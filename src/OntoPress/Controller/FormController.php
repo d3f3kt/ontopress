@@ -6,7 +6,6 @@ use OntoPress\Entity\Form;
 use OntoPress\Form\Form\Type\EditFormType;
 use OntoPress\Form\Form\Type\CreateFormType;
 use Symfony\Component\DependencyInjection\Container;
-use OntoPress\Entity\Form;
 
 /**
  * Form Controller.
