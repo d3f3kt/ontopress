@@ -58,6 +58,24 @@ class Form
     protected $twigCode;
 
     /**
+     * Wordpress user who created the Form.
+     *
+     * @var string
+     * @ORM\Column(name="author", type="string", length=32)
+     * @Assert\NotBlank()
+     */
+    protected $author;
+
+    /**
+     * Upload date.
+     *
+     * @var DateTime
+     * @ORM\Column(name="upload_date", type="datetime")
+     * @Assert\NotBlank()
+     */
+    protected $date;
+
+    /**
      * Get id.
      *
      * @return int
@@ -137,6 +155,54 @@ class Form
     public function getTwigCode()
     {
         return $this->twigCode;
+    }
+
+    /**
+     * Set author.
+     *
+     * @param string $author
+     *
+     * @return Form
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author.
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set date.
+     *
+     * @param \DateTime $date
+     *
+     * @return Form
+     */
+    public function setDate(\DateTime $date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date.
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
     /**
