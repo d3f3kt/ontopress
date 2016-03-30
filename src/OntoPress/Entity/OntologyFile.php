@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Ontology File.
  *
- * @ORM\Table(name="wp_ontology_file")
+ * @ORM\Table(name="ontopress_ontology_file")
  * @ORM\Entity()
  */
 class OntologyFile
