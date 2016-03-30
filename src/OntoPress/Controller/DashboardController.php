@@ -36,14 +36,24 @@ class DashboardController extends AbstractController
         );
 
 
+        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
+
+        $query = $repository->createQueryBuilder('p')
+            ->where('p.id < :id')
+            ->setParameter('id', '4')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery();
+
+        $dashTableOnto = $query->getResult();
 
 
-        $dashTableOnto = $ontology = $this->getDoctrine()
-            ->getRepository('OntoPress\Entity\Ontology')
-            ->findBy(array(), array('id' => 'ASC'));
+
+
+
+
         //array('id' => 2, 'name' => 'Plätze', 'form' => 5, 'resource' => 1),
         //array('id' => 3, 'name' => 'Kirchen', 'form' => 8, 'resource' => 0)
-   // );
+        // );
 
 
        /* $dashTableForm = $this->getDoctrine()
@@ -52,7 +62,8 @@ class DashboardController extends AbstractController
 
 
 
-          $dashTableForm= array(
+
+        $dashTableForm= array(
             array('id' => 1, 'ontology' => 'Gebäude', 'formName' => 'Schulen'),
             array('id' => 2, 'ontology' => 'Plätze', 'formName' => 'öffentliche Plätze'),
             array('id' => 3, 'ontology' => 'Kirchen', 'formName' => 'öffentliche Plätze'),
