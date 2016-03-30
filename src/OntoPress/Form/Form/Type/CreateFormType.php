@@ -41,7 +41,7 @@ class CreateFormType extends AbstractType
     {
         $resolver->setRequired(array(
             'cancel_link',
-		    'doctrineManager',
+            'doctrineManager',
             ));
         $resolver->setDefaults(array(
             'data_class' => 'OntoPress\Entity\Form',

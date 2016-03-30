@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManager;
 class DoctrineManager implements ManagerRegistry
 {
 
-    protected  $doctrine;
+    protected $doctrine;
 
     public function __construct(EntityManager $doctrine)
     {
@@ -32,7 +32,8 @@ class DoctrineManager implements ManagerRegistry
      *
      * @return \Doctrine\Common\Persistence\ObjectManager
      */
-    public function getManager($name = null){
+    public function getManager($name = null)
+    {
         return $this->doctrine;
     }
     /**
@@ -40,7 +41,8 @@ class DoctrineManager implements ManagerRegistry
      *
      * @return \Doctrine\Common\Persistence\ObjectManager[] An array of ObjectManager instances
      */
-    public function getManagers(){
+    public function getManagers()
+    {
         return array($this->doctrine);
     }
     /**

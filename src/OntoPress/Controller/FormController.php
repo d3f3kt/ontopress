@@ -60,8 +60,8 @@ class FormController extends AbstractController
          */
 
         $form = $this->createForm(new CreateFormType(), null, array(
-        'cancel_link' => $this->generateRoute('ontopress_forms'),
-	    'doctrineManager' => $this->get('ontopress.doctrine_manager'),
+            'cancel_link' => $this->generateRoute('ontopress_forms'),
+            'doctrineManager' => $this->get('ontopress.doctrine_manager'),
         ));
 
         return $this->render('form/formCreate.html.twig', array(
