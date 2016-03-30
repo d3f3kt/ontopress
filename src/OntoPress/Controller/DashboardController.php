@@ -24,6 +24,12 @@ class DashboardController extends AbstractController
 
     public function showDashboardAction()
     {
+        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
+
+        $count_ontology = $query = $repository->createQueryBuilder('p')
+            ->select('count(p)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
 
         $resTableBuildings = array(
@@ -45,9 +51,6 @@ class DashboardController extends AbstractController
             ->getQuery();
 
         $dashTableOnto = $query->getResult();
-
-
-
 
 
 
@@ -74,6 +77,7 @@ class DashboardController extends AbstractController
                 'dashTableOnto' => $dashTableOnto,
                 'resTablePlaces' => $resTablePlaces,
                 'resTableBuildings' => $resTableBuildings,
+                'count_ontology' => $count_ontology,
         ));
     }
 }
