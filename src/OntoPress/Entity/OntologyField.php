@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="ontopress_ontologyField")
  * @ORM\Entity()
  */
-class OntologyNode
+class OntologyField
 {
     /**
      * @var Ontology
