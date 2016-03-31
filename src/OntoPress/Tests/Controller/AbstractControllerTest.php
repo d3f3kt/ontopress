@@ -4,11 +4,7 @@ namespace OntoPress\Tests;
 
 use OntoPress\Library\AbstractController;
 use OntoPress\Library\OntoPressTestCase;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\Definition;
 use OntoPress\Entity\Ontology;
-use Symfony\Component\HttpFoundation\Request;
-
 
 /**
  * Class AbstractControllerTest
