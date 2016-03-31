@@ -29,7 +29,7 @@ class OntologyNode
     /**
      * @var int
      * @ORM\Id
-     * @ORM\Colum(type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Assert\NotBlank()
      */
