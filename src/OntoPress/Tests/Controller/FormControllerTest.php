@@ -4,6 +4,7 @@ namespace OntoPress\Tests;
 
 use OntoPress\Controller\FormController;
 use OntoPress\Library\OntoPressTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class FormControllerTest
@@ -16,9 +17,10 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowManageAction()
     {
+        $testRequest = new Request();
         $container = static::getContainer();
         $formController = new FormController($container);
-        $formOutput = $formController->showManageAction();
+        $formOutput = $formController->showManageAction( $testRequest);
 
         $this->assertContains("Formular Verwaltung", $formOutput);
     }
