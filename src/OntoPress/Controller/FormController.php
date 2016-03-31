@@ -22,25 +22,23 @@ class FormController extends AbstractController
     {
         $id = $request->get('id', 0);
 
-        $ontologyID = $this->getDoctrine()
+        $ontology = $this->getDoctrine()
             ->getRepository('OntoPress\Entity\Ontology')
             ->find($id);
 
-        if (!$ontologyID) {
+        if (!$ontology) {
             $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
             $formManageTable = $repository->findAll();
             return $this->render('form/manageForms.html.twig', array(
                 'formManageTable' => $formManageTable
             ));
+        }else{
+            $formManageTable = $ontology->getOntologyForm();
+            return $this->render('form/manageForms.html.twig', array(
+                'formManageTable' => $formManageTable
+            ));
         }
-
-        $repository= $this.$this->getDoctrine()->getRepository;
-
-        $forms = $repository.find($id);
-        return $this->render('ontology/manageForms.html.twig', array(
-            'formManageTable' => $forms,
-        ));
-
+        
     }
 
     /**
