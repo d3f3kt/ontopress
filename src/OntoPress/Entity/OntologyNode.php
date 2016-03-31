@@ -159,5 +159,4 @@ class OntologyNode
         $newRestriction->setOntologyNode($this);
         $this->restrictions[] = $newRestriction;
     }
-
 }
