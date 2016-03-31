@@ -12,15 +12,27 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class FormControllerTest extends OntoPressTestCase
 {
+
+    private $testRequest;
+
+    public function setUp()
+    {
+        $this->testRequest = new Request();
+    }
+
+    public function tearDow()
+    {
+        unset($this->testRequest);
+    }
+
     /**
      * Tests showManageAction function, which should create a rendered twig template about form management.
      */
     public function testShowManageAction()
     {
-        $testRequest = new Request();
         $container = static::getContainer();
         $formController = new FormController($container);
-        $formOutput = $formController->showManageAction($testRequest);
+        $formOutput = $formController->showManageAction($this->testRequest);
 
         $this->assertContains("Formular Verwaltung", $formOutput);
     }
@@ -56,8 +68,8 @@ class FormControllerTest extends OntoPressTestCase
     {
         $container = static::getContainer();
         $formController = new FormController($container);
-        $formOutput = $formController->showDeleteAction();
+        $formOutput = $formController->showDeleteAction($this->testRequest);
 
-        $this->assertContains("Formular Löschen", $formOutput);
+        $this->assertContains("Ontologie Löschen", $formOutput);
     }
 }
