@@ -115,7 +115,7 @@ class OntologyField
      *
      * @param string $name
      *
-     * @return OntologyNode
+     * @return OntologyField
      */
     public function setName($name)
     {
@@ -139,7 +139,7 @@ class OntologyField
      *
      * @param string $label
      *
-     * @return OntologyNode
+     * @return OntologyField
      */
     public function setLabel($label)
     {
@@ -163,7 +163,7 @@ class OntologyField
      *
      * @param string $comment
      *
-     * @return OntologyNode
+     * @return OntologyField
      */
     public function setComment($comment)
     {
@@ -187,7 +187,7 @@ class OntologyField
      *
      * @param bool $mandatory
      *
-     * @return OntologyNode
+     * @return OntologyField
      */
     public function setMandatory($mandatory)
     {
@@ -211,7 +211,7 @@ class OntologyField
      *
      * @param string $type
      *
-     * @return OntologyNode
+     * @return OntologyField
      */
     public function setType($type)
     {
@@ -245,7 +245,7 @@ class OntologyField
      *
      * @param \OntoPress\Entity\Ontology $ontology
      *
-     * @return OntologyNode
+     * @return OntologyField
      */
     public function setOntology(\OntoPress\Entity\Ontology $ontology = null)
     {
