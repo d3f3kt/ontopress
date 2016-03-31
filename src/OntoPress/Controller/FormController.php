@@ -29,16 +29,14 @@ class FormController extends AbstractController
         if (!$ontology) {
             $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
             $formManageTable = $repository->findAll();
-            return $this->render('form/manageForms.html.twig', array(
-                'formManageTable' => $formManageTable
-            ));
         }else{
             $formManageTable = $ontology->getOntologyForm();
-            return $this->render('form/manageForms.html.twig', array(
-                'formManageTable' => $formManageTable
-            ));
         }
-        
+
+        return $this->render('form/manageForms.html.twig', array(
+            'formManageTable' => $formManageTable
+        ));
+
     }
 
     /**
