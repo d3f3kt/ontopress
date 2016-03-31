@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Ontology.
  *
- * @ORM\Table(name="wp_ontology")
+ * @ORM\Table(name="ontopress_ontology")
  * @ORM\Entity()
  */
 class Ontology

@@ -15,3 +15,7 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+
+    ontopress.doctrine_manager:
+        class: OntoPress\Service\DoctrineManager
+        arguments: [@doctrine]

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Form.
  *
- * @ORM\Table(name="wp_form")
+ * @ORM\Table(name="ontopress_form")
  * @ORM\Entity()
  */
 class Form
