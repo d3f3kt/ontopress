@@ -6,8 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Library\AbstractController;
 use OntoPress\Entity\Form;
 use OntoPress\Form\Form\Type\EditFormType;
-use OntoPress\Form\Form\Type\CreateFormType;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Form Controller.
@@ -19,15 +17,29 @@ class FormController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showManageAction()
+    public function showManageAction(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
-        $formManageTable = $repository->findAll();
+        $id = $request->get('id', 0);
 
+        $ontologyID = $this->getDoctrine()
+            ->getRepository('OntoPress\Entity\Ontology')
+            ->find($id);
 
-        return $this->render('form/manageForms.html.twig', array(
-            'formManageTable' => $formManageTable
+        if (!$ontologyID) {
+            $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
+            $formManageTable = $repository->findAll();
+            return $this->render('form/manageForms.html.twig', array(
+                'formManageTable' => $formManageTable
+            ));
+        }
+
+        $repository= $this.$this->getDoctrine()->getRepository;
+
+        $forms = $repository.find($id);
+        return $this->render('ontology/manageForms.html.twig', array(
+            'formManageTable' => $forms,
         ));
+
     }
 
     /**
@@ -53,17 +65,8 @@ class FormController extends AbstractController
      */
     public function showCreateAction()
     {
-        /*
-        $author = wp_get_current_user();
-        $ontoForm = new Form();
-
-        $ontoForm->setAuthor($author->user_nicename)
-            ->setDate(new \DateTime());
-         */
-
-        $form = $this->createForm(new CreateFormType(), null, array(
-            'cancel_link' => $this->generateRoute('ontopress_forms'),
-            'doctrineManager' => $this->get('ontopress.doctrine_manager'),
+        $form = $this->createForm(new EditFormType(), null, array(
+        'cancel_link' => $this->generateRoute('ontopress_forms'),
         ));
 
         return $this->render('form/formCreate.html.twig', array(
