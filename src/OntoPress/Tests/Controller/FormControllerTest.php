@@ -20,7 +20,7 @@ class FormControllerTest extends OntoPressTestCase
         $testRequest = new Request();
         $container = static::getContainer();
         $formController = new FormController($container);
-        $formOutput = $formController->showManageAction( $testRequest);
+        $formOutput = $formController->showManageAction($testRequest);
 
         $this->assertContains("Formular Verwaltung", $formOutput);
     }
