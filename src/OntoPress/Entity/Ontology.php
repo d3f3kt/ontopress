@@ -50,6 +50,12 @@ class Ontology
     protected $ontologyForms;
 
     /**
+     * @var OntologyNode
+     * @ORM\OneToMany(targetEntity="OntologyNode", mappedBy="ontology", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $ontologyNodes;
+
+    /**
      * Wordpress user who created the ontology.
      *
      * @var string
@@ -156,6 +162,7 @@ class Ontology
     {
         $this->ontologyFiles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ontologyForms = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ontologyNodes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -232,6 +239,19 @@ class Ontology
         return $this->ontologyForms;
     }
 
+    public function addOntologyNode(\OntoPress\Entity\OntologyNode $newOntologyNode)
+    {
+        $newOntologyNode->setOntology($this);
+        $this->ontologyNodes[] = $newOntologyNode;
+
+        return $this;
+    }
+
+    public function removeOntologyNode(\OntoPress\Entity\OntologyNode $ontologyNode)
+    {
+        return $this->ontologyNodes->removeElement($ontologyNode);
+    }
+
     /**
      *Upload every Ontology File
      */
@@ -240,5 +260,15 @@ class Ontology
         foreach ($this->getOntologyFiles() as $file) {
             $file->upload();
         }
+    }
+
+    /**
+     * Get ontologyNodes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOntologyNodes()
+    {
+        return $this->ontologyNodes;
     }
 }

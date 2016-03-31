@@ -15,12 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class OntologyFile
 {
     /**
-     * @var OntologyNode
-     * @ORM\OneToMany(targetEntity="OntologyNode", mappedBy="ontologyFile", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $ontologyNodes;
-
-    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -44,11 +38,6 @@ class OntologyFile
      * @Assert\File(mimeTypes={"text/turtle", "text/plain"})
      */
     private $file;
-
-    public function __construct()
-    {
-        $this->ontologyNodes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id.
@@ -177,28 +166,5 @@ class OntologyFile
     protected function getUploadDir()
     {
         return 'ontology/upload';
-    }
-
-    public function addOntologyNode(\OntoPress\Entity\OntologyNode $newOntologyNode)
-    {
-        $newOntologyNode->setOntology($this);
-        $this->ontologyNodes[] = $newOntologyNode;
-
-        return $this;
-    }
-
-    public function removeOntologyNode(\OntoPress\Entity\OntologyNode $ontologyNode)
-    {
-        return $this->ontologyNodes->removeElement($ontologyNode);
-    }
-
-    /**
-     * Get ontologyNodes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOntologyNodes()
-    {
-        return $this->ontologyNodes;
     }
 }

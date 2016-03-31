@@ -15,10 +15,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class OntologyNode
 {
     /**
-     * @var OntologyFile
-     * @ORM\ManyToOne(targetEntity="OntologyFile", inversedBy="ontologyNodes")
+     * @var Ontology
+     * @ORM\ManyToOne(targetEntity="Ontology", inversedBy="ontologyNodes")
      */
-    protected $ontologyFile;
+    protected $ontology;
 
     /**
      * @var string
@@ -91,30 +91,6 @@ class OntologyNode
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set ontologyFile
-     *
-     * @param \OntoPress\Entity\OntologyFile $ontologyFile
-     *
-     * @return OntologyNode
-     */
-    public function setOntologyFile(\OntoPress\Entity\OntologyFile $ontologyFile = null)
-    {
-        $this->ontologyFile = $ontologyFile;
-
-        return $this;
-    }
-
-    /**
-     * Get ontologyFile
-     *
-     * @return \OntoPress\Entity\OntologyFile
-     */
-    public function getOntologyFile()
-    {
-        return $this->ontologyFile;
     }
 
     /**
@@ -245,5 +221,29 @@ class OntologyNode
     public function getRestrictions()
     {
         return $this->restrictions;
+    }
+
+    /**
+     * Set ontology
+     *
+     * @param \OntoPress\Entity\Ontology $ontology
+     *
+     * @return OntologyNode
+     */
+    public function setOntology(\OntoPress\Entity\Ontology $ontology = null)
+    {
+        $this->ontology = $ontology;
+
+        return $this;
+    }
+
+    /**
+     * Get ontology
+     *
+     * @return \OntoPress\Entity\Ontology
+     */
+    public function getOntology()
+    {
+        return $this->ontology;
     }
 }
