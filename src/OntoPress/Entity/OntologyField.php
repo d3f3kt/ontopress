@@ -96,7 +96,7 @@ class OntologyField
      */
     public function addRestriction(\OntoPress\Entity\Restriction $newRestriction)
     {
-        $newRestriction->setOntologyNode($this);
+        $newRestriction->setOntologyField($this);
         $this->restrictions[] = $newRestriction;
     }
 
