@@ -2,7 +2,10 @@
 namespace OntoPress\Controller;
 
 use OntoPress\Library\AbstractController;
+use OntoPress\Entity\Form;
 use OntoPress\Form\Form\Type\EditFormType;
+use OntoPress\Form\Form\Type\CreateFormType;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Form Controller.
@@ -16,11 +19,9 @@ class FormController extends AbstractController
      */
     public function showManageAction()
     {
-        $formManageTable = array(
-            array('id' => 1, 'name' => 'öffentliche Plätze', 'author' => 'k00ni', 'date' => '20.Jan 2016'),
-            array('id' => 2, 'name' => 'Schulen', 'author' => 'k00ni', 'date' => '20.Jan 2016'),
-            array('id' => 3, 'name' => 'Galerie', 'author' => 'd3f3ct', 'date' => '20.Jan 2016'),
-        );
+        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
+        $formManageTable = $repository->findAll();
+
 
         return $this->render('form/manageForms.html.twig', array(
             'formManageTable' => $formManageTable
@@ -50,8 +51,17 @@ class FormController extends AbstractController
      */
     public function showCreateAction()
     {
-        $form = $this->createForm(new EditFormType(), null, array(
-        'cancel_link' => $this->generateRoute('ontopress_forms'),
+        /*
+        $author = wp_get_current_user();
+        $ontoForm = new Form();
+
+        $ontoForm->setAuthor($author->user_nicename)
+            ->setDate(new \DateTime());
+         */
+
+        $form = $this->createForm(new CreateFormType(), null, array(
+            'cancel_link' => $this->generateRoute('ontopress_forms'),
+            'doctrineManager' => $this->get('ontopress.doctrine_manager'),
         ));
 
         return $this->render('form/formCreate.html.twig', array(
