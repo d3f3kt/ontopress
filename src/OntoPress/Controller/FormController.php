@@ -29,7 +29,7 @@ class FormController extends AbstractController
         if (!$ontology) {
             $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
             $formManageTable = $repository->findAll();
-        }else{
+        } else {
             $formManageTable = $ontology->getOntologyForm();
         }
 
