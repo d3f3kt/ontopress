@@ -275,4 +275,14 @@ class Ontology
             $file->upload();
         }
     }
+
+    /**
+     * Get ontologyFields
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOntologyFields()
+    {
+        return $this->ontologyFields;
+    }
 }

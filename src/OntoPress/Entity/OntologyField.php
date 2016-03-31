@@ -63,7 +63,7 @@ class OntologyField
 
     /**
      * @var Restriction
-     * @ORM\OneToMany(targetEntity="Restriction", mappedBy="ontologyNode", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Restriction", mappedBy="ontologyField", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $restrictions;
 

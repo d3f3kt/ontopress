@@ -23,12 +23,12 @@ class Restriction
      */
     protected $id;
     /**
-     * @var OntologyNode
-     * @ORM\ManyToOne(targetEntity="OntologyNode", inversedBy="restriction")
+     * @var OntologyField
+     * @ORM\ManyToOne(targetEntity="OntologyField", inversedBy="restriction")
      * @ORM\JoinColumn(name="ontologyNode_id", referencedColumnName="id")
      * @Assert\NotBlank()
      */
-    protected $ontologyNode;
+    protected $ontologyField;
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=32)
@@ -43,27 +43,6 @@ class Restriction
     public function getId()
     {
         return $this->id;
-    }
-    /**
-     * Set ontologyNode.
-     *
-     * @param OntologyNode $ontologyNode
-     *
-     * @return Restriction
-     */
-    public function setOntologyNode(\OntoPress\Entity\OntologyNode $ontologyNode = null)
-    {
-        $this->ontologyNode = $ontologyNode;
-        return $this;
-    }
-    /**
-     * Get ontologyNode.
-     *
-     * @return OntologyNode
-     */
-    public function getOntologyNode()
-    {
-        return $this->ontologyNode;
     }
     /**
      * Set name.
@@ -85,5 +64,29 @@ class Restriction
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set ontologyField
+     *
+     * @param \OntoPress\Entity\OntologyField $ontologyField
+     *
+     * @return Restriction
+     */
+    public function setOntologyField(\OntoPress\Entity\OntologyField $ontologyField = null)
+    {
+        $this->ontologyField = $ontologyField;
+
+        return $this;
+    }
+
+    /**
+     * Get ontologyField
+     *
+     * @return \OntoPress\Entity\OntologyField
+     */
+    public function getOntologyField()
+    {
+        return $this->ontologyField;
     }
 }
