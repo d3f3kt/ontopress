@@ -61,10 +61,6 @@ class DashboardController extends AbstractController
 
 
 
-        //array('id' => 2, 'name' => 'Plätze', 'form' => 5, 'resource' => 1),
-        //array('id' => 3, 'name' => 'Kirchen', 'form' => 8, 'resource' => 0)
-        // );
-
 
        /* $dashTableForm = $this->getDoctrine()
             ->getRepository('OntoPress\Entity\Form')
