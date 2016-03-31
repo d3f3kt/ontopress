@@ -99,7 +99,7 @@ class FormController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isValid()) {
+        if ($form->isValid()) {
             $this->getDoctrine()->remove($formDelete);
             $this->getDoctrine()->flush();
             $this->addFlashMessage(
