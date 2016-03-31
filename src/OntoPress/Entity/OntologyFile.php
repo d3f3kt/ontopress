@@ -191,4 +191,14 @@ class OntologyFile
     {
         return $this->ontologyNodes->removeElement($ontologyNode);
     }
+
+    /**
+     * Get ontologyNodes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOntologyNodes()
+    {
+        return $this->ontologyNodes;
+    }
 }

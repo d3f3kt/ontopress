@@ -6,6 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * OntologyNode
+ *
+ * @ORM\Table(name="ontopress_ontologyNode")
+ * @ORM\Entity()
+ */
 class OntologyNode
 {
     /**
@@ -58,97 +64,7 @@ class OntologyNode
     {
         $this->restrictions = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-    //////////////////////
-    //      Getter      //
-    /////////////////////
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getOntologyFiles()
-    {
-        return $this->ontologyFile;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    public function getMandatory()
-    {
-        return $this->mandatory;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function getRestrictions()
-    {
-        return $this->restriction;
-    }
-
-    //////////////////////
-    //      Setter      //
-    /////////////////////
-
-    public function setLabel($newLabel)
-    {
-        $this->label = $newLabel;
-
-        return $this;
-    }
-
-    public function setName($newName)
-    {
-        $this->name = $newName;
-
-        return $this;
-    }
-
-    public function setComment($newComment)
-    {
-        $this->comment = $newComment;
-
-        return $this;
-    }
-
-    public function setMandatory($bool)
-    {
-        $this->mandatory = $bool;
-
-        return $this;
-    }
-
-    public function setType($newType)
-    {
-        $this->type = $newType;
-
-        return $this;
-    }
-
-    public function setRestriction(\OntoPress\Entity\Restriction $newRestrictionObj = null)
-    {
-        $this->restriction = $newRestrictionObj;
-
-        return $this;
-    }
-
+    
     public function removeRestriction(\OntoPress\Entity\Restriction $restriction)
     {
         return $this->restrictions->removeElement($restriction);
