@@ -50,10 +50,10 @@ class Ontology
     protected $ontologyForms;
 
     /**
-     * @var OntologyNode
-     * @ORM\OneToMany(targetEntity="OntologyNode", mappedBy="ontology", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var OntologyField
+     * @ORM\OneToMany(targetEntity="OntologyField", mappedBy="ontology", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $ontologyNodes;
+    protected $ontologyFields;
 
     /**
      * Wordpress user who created the ontology.
@@ -162,7 +162,7 @@ class Ontology
     {
         $this->ontologyFiles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ontologyForms = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->ontologyNodes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ontologyFields = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -239,17 +239,31 @@ class Ontology
         return $this->ontologyForms;
     }
 
-    public function addOntologyNode(\OntoPress\Entity\OntologyNode $newOntologyNode)
+    /**
+     * Add ontologyField.
+     *
+     * @param \OntoPress\Entity\OntologyField $newOntologyField
+     *
+     * @return Ontology
+     */
+    public function addOntologyField(\OntoPress\Entity\OntologyField $newOntologyField)
     {
-        $newOntologyNode->setOntology($this);
-        $this->ontologyNodes[] = $newOntologyNode;
+        $newOntologyField->setOntology($this);
+        $this->ontologyFields[] = $newOntologyField;
 
         return $this;
     }
 
-    public function removeOntologyNode(\OntoPress\Entity\OntologyNode $ontologyNode)
+    /**
+     * Remove ontologyField.
+     *
+     * @param \OntoPress\Entity\OntologyField $ontologyField
+     *
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeOntologyField(\OntoPress\Entity\OntologyField $ontologyField)
     {
-        return $this->ontologyNodes->removeElement($ontologyNode);
+        return $this->ontologyFields->removeElement($ontologyField);
     }
 
     /**
@@ -260,15 +274,5 @@ class Ontology
         foreach ($this->getOntologyFiles() as $file) {
             $file->upload();
         }
-    }
-
-    /**
-     * Get ontologyNodes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOntologyNodes()
-    {
-        return $this->ontologyNodes;
     }
 }

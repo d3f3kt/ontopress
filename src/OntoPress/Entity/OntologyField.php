@@ -9,14 +9,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * OntologyNode
  *
- * @ORM\Table(name="ontopress_ontologyNode")
+ * @ORM\Table(name="ontopress_ontologyField")
  * @ORM\Entity()
  */
 class OntologyNode
 {
     /**
      * @var Ontology
-     * @ORM\ManyToOne(targetEntity="Ontology", inversedBy="ontologyNodes")
+     * @ORM\ManyToOne(targetEntity="Ontology", inversedBy="ontologyFields")
      */
     protected $ontology;
 
@@ -67,16 +67,33 @@ class OntologyNode
      */
     protected $restrictions;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->restrictions = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
+    /**
+     * Remove restriction.
+     *
+     * @param \OntoPress\Entity\Restriction $restriction
+     *
+     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     */
     public function removeRestriction(\OntoPress\Entity\Restriction $restriction)
     {
         return $this->restrictions->removeElement($restriction);
     }
 
+    /**
+     * Add restriction.
+     *
+     * @param \OntoPress\Entity\Restriction $newRestriction
+     *
+     * @return Ontology
+     */
     public function addRestriction(\OntoPress\Entity\Restriction $newRestriction)
     {
         $newRestriction->setOntologyNode($this);
