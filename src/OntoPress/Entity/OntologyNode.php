@@ -75,4 +75,38 @@ class OntologyNode
         $newRestriction->setOntologyNode($this);
         $this->restrictions[] = $newRestriction;
     }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set ontologyFile
+     *
+     * @param \OntoPress\Entity\OntologyFile $ontologyFile
+     *
+     * @return OntologyNode
+     */
+    public function setOntologyFile(\OntoPress\Entity\OntologyFile $ontologyFile = null)
+    {
+        $this->ontologyFile = $ontologyFile;
+
+        return $this;
+    }
+
+    /**
+     * Get ontologyFile
+     *
+     * @return \OntoPress\Entity\OntologyFile
+     */
+    public function getOntologyFile()
+    {
+        return $this->ontologyFile;
+    }
 }
