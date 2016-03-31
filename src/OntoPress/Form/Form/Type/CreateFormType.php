@@ -18,14 +18,6 @@ class CreateFormType extends AbstractType
                     'class' => 'OntoPress\Entity\Ontology',
                     'choice_label' => 'name',
                 ))
-            /*
-            ->add('Ontologie', ChoiceType::class, array(
-                'choices'  => array(
-                    'id1' => 'Ontologie1',
-                    'id2' => 'Ontologie2',
-                    'id3' => 'Ontologie3',
-            )))
-            */
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
                 'attr' => array('class' => 'button button-primary'),
