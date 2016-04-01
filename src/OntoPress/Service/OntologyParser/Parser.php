@@ -72,8 +72,7 @@ class Parser
                 if (isset($objectArray[$choice])) {
                     $objectArray[$choice]->setType(OntologyNode::TYPE_CHOICE);
                     $restrictionObject->addOneOf($objectArray[$choice]->getName());
-                }
-                else {
+                } else {
                     $restrictionObject->addOneOf($choice);
                 }
             }
