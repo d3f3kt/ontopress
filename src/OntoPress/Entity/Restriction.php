@@ -25,7 +25,7 @@ class Restriction
     /**
      * @var OntologyField
      * @ORM\ManyToOne(targetEntity="OntologyField", inversedBy="restriction")
-     * @ORM\JoinColumn(name="ontology_field_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="ontologyField_id", referencedColumnName="id")
      * @Assert\NotBlank()
      */
     protected $ontologyField;
