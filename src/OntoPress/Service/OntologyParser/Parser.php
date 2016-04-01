@@ -82,8 +82,7 @@ class Parser
         }
 
         if ($writeData) {
-            foreach ($objectArray as $key => $object)
-            {
+            foreach ($objectArray as $key => $object) {
                 $newNode = new OntologyField();
                 $newNode->setName($object->getName());
                 $newNode->setLabel($object->getLabel());
@@ -91,8 +90,7 @@ class Parser
                 $newNode->setType($object->getType());
                 $newNode->setMandatory($object->getMandatory());
 
-                if (!empty($object->getRestriction()))
-                {
+                if (!empty($object->getRestriction())) {
                     /*
                     $resArray = new \Doctrine\Common\Collections\ArrayCollection($object->getRestriction()->getOneOf());
                     */
@@ -105,7 +103,6 @@ class Parser
                 $ontology->getOntologyFields()->add($newNode);
             }
             return true;
-
         }
         return $objectArray;
     }
