@@ -41,7 +41,7 @@ class Parser
             
             foreach ($statementIterator as $key => $statement) {
                 if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
-                    $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(),null, null, OntologyNode::TYPE_TEXT);
+                    $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
                 }
                 if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                     $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
