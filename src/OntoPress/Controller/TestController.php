@@ -18,8 +18,11 @@ class TestController extends AbstractController
             ->addOntologyFile($ontologyFile);
         
         $ontologyParser = $this->get('ontopress.ontology_parser');
+        $ontologyParser->parsing($ontologyObj, true);
+
+        //print_r($this->getDoctrine()->getRepository('OntoPress\Entity\OntologyField'));
+
         $output = $ontologyParser->parsing($ontologyObj);
-        
         foreach ($output as $key => $object) {
             echo $object->getName() . " - " . $object->getLabel() . " - " .
                 $object->getComment() . " - " . $object->getType() . " - " .
@@ -30,6 +33,7 @@ class TestController extends AbstractController
             }
             echo "<br />";
         }
+
         return null;
     }
 }

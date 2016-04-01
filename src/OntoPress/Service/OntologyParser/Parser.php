@@ -8,6 +8,7 @@ use Saft\Rdf\StatementFactoryImpl;
 use OntoPress\Service\OntologyParser\OntologyNode;
 use OntoPress\Service\OntologyParser\Restriction;
 use OntoPress\Entity\OntologyField;
+use OntoPress\Entity\Restriction as RestrictionEntity;
 
 /**
  * Class Parser
@@ -80,7 +81,7 @@ class Parser
             }
             $objectArray[$subject]->setRestriction($restrictionObject);
         }
-        /*
+
         if ($writeData) {
             foreach ($objectArray as $key => $object) {
                 $newNode = new OntologyField();
@@ -91,20 +92,18 @@ class Parser
                 $newNode->setMandatory($object->getMandatory());
 
                 if (!empty($object->getRestriction())) {
-
-                    //$resArray = new \Doctrine\Common\Collections\ArrayCollection($object->getRestriction()->getOneOf());
-                    
                     foreach ($object->getRestriction()->getOneOf() as $resKey => $resObject) {
-                        $newNode->addRestriction($resObject);
+                        $newRestriction = new RestrictionEntity();
+                        $newNode->addRestriction($newRestriction->setName($resObject));
                     }
                 }
                 // Gefahr besteht, dass immer das selbe OntologieField überschrieben wird
                 // TODO testen --> OntologyController
-                $ontology->getOntologyFields()->add($newNode);
+                $ontology->addOntologyField($newNode);
             }
             return true;
         }
-        */
+
         return $objectArray;
     }
 }
