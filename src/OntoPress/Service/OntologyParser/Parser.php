@@ -7,6 +7,7 @@ use Saft\Rdf\NodeFactoryImpl;
 use Saft\Rdf\StatementFactoryImpl;
 use OntoPress\Service\OntologyParser\OntologyNode;
 use OntoPress\Service\OntologyParser\Restriction;
+use OntoPress\Entity\OntologyField;
 
 /**
  * Class Parser
@@ -14,14 +15,15 @@ use OntoPress\Service\OntologyParser\Restriction;
  */
 class Parser
 {
-
     /**
      * Parsing-method, to parse an Ontology-object to OntologyNode
      * @param Ontology
+     * @param boolean
      * @return array Array of OntologyNodes
+     * @return boolean
      * @throws \Exception
      */
-    public function parsing($ontology)
+    public function parsing($ontology, $writeData = false)
     {
         $parser = new ParserEasyRdf(
             new NodeFactoryImpl(),
@@ -78,6 +80,36 @@ class Parser
             }
             $objectArray[$subject]->setRestriction($restrictionObject);
         }
+
+        if($writeData)
+        {
+            foreach ($objectArray as $key => $object)
+            {
+                $newNode = new OntologyField();
+                $newNode->setName($object->getName());
+                $newNode->setLabel($object->getLabel());
+                $newNode->setComment($object->getComment());
+                $newNode->setType($object->getType());
+                $newNode->setMandatory($object->getMandatory());
+
+                if(!empty($object->getRestriction()))
+                {
+                    /*
+                    $resArray = new \Doctrine\Common\Collections\ArrayCollection($object->getRestriction()->getOneOf());
+                    */
+                    foreach($object->getRestriction()->getOneOf() as $resKey => $resObject)
+                    {
+                        $newNode->addRestriction($resObject);
+                    }
+                }
+                // Gefahr besteht, dass immer das selbe OntologieField überschrieben wird
+                // TODO testen --> OntologyController
+                $ontology->getOntologyFields()->add($newNode);
+            }
+            return true;
+
+        }
+
         return $objectArray;
     }
 }
