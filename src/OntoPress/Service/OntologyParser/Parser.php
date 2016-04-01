@@ -43,7 +43,8 @@ class Parser
                 if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
                     $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                     $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_TEXT);
-                } elseif ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
+                }
+                if ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
                     if (!(isset($restrictionArray[$statement->getSubject()->getUri()]))) {
                         $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
                         $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
@@ -64,18 +65,20 @@ class Parser
                 }
             }
         }
-        
+
         foreach ($restrictionArray as $subject => $restriction) {
             $restrictionObject = new Restriction();
             foreach ($restriction->getOneOf() as $key => $choice) {
                 if (isset($objectArray[$choice])) {
                     $objectArray[$choice]->setType(OntologyNode::TYPE_CHOICE);
-                    $restrictionObject->addOneOf($objectArray[$choice]);
+                    $restrictionObject->addOneOf($objectArray[$choice]->getName());
+                }
+                else {
+                    $restrictionObject->addOneOf($choice);
                 }
             }
             $objectArray[$subject]->setRestriction($restrictionObject);
         }
-        
         return $objectArray;
     }
 }

@@ -60,12 +60,12 @@ class OntologyNode
     /**
      * Initialize OntologyNode.
      *
-     * @param string  $name      The name of the OntologyNode
-     * @param string  $label     The label of the subject
-     * @param string  $comment   Object of comment-relation
-     * @param string  $type      Type of the input
-     * @param boolean $mandatory Mandatory Property
-     * @param array   $oneOf     Array of Restrictions
+     * @param string    $name      The name of the OntologyNode
+     * @param string    $label     The label of the subject
+     * @param string    $comment   Object of comment-relation
+     * @param string    $type      Type of the input
+     * @param boolean   $mandatory Mandatory Property
+     * @param Restriction $oneOf   Restriction Object
      *
      * @return OntologyNode this object.
      */
