@@ -69,7 +69,7 @@ class OntologyNode
      *
      * @return OntologyNode this object.
      */
-    public function __construct($name, $label = null, $comment = null, $type = null, $mandatory = null, $oneOf = null)
+    public function __construct($name, $label = null, $comment = null, $type = null, $mandatory = false, $oneOf = null)
     {
         $this->name = $name;
         $this->label = $label;
