@@ -84,7 +84,7 @@ class FormController extends AbstractController
 
     /**
      * Handle the delete request of a form.
-     * 
+     *
      * @param Request $request HTTP Request
      *
      * @return string rendered twig template
