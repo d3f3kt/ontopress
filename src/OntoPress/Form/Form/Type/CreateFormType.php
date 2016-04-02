@@ -28,7 +28,7 @@ class CreateFormType extends AbstractType
                         return $er->createQueryBuilder('u')
                             ->where('u.label is not NULL')
                             ->orderBy('u.label', 'ASC');
-                        }
+                    }
             ))
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
