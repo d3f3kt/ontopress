@@ -57,6 +57,7 @@ class AdminInit
         add_action('admin_notices', array($this, 'adminNotices'));
         add_action('admin_menu', array($this, 'adminMenu'));
         add_action('admin_enqueue_scripts', array($this, 'loadResources'));
+        remove_action('admin_print_scripts', 'print_emoji_detection_script');
     }
 
     /**
