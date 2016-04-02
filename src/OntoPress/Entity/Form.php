@@ -34,7 +34,7 @@ class Form
     protected $name;
 
     /**
-     * @var Stream
+     * @var Ontology
      * @ORM\ManyToOne(targetEntity="Ontology", inversedBy="ontologyForms")
      * @ORM\JoinColumn(name="ontology_id", referencedColumnName="id")
      * @Assert\NotBlank()
@@ -42,12 +42,16 @@ class Form
     protected $ontology;
 
     /**
-     * Form Fields.
+     * Ontology Fields.
      *
-     * @var FormField
-     * @ORM\OneToMany(targetEntity="FormField", mappedBy="formId", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var OntologyField
+     * @ORM\ManyToMany(targetEntity="OntologyField")
+     * @JoinTable(name="form_field",
+     *      joinColumns={@JoinColumn(name="form_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="ontology_field_id", referencedColumnName="id")}
+     *      )
      */
-    protected $formFields;
+    protected $ontologyFields;
 
     /**
      * Twig Code.
@@ -210,43 +214,33 @@ class Form
      */
     public function __construct()
     {
-        $this->formFields = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ontologyFields = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add formField.
+     * Add Ontology Field.
      *
-     * @param \OntoPress\Entity\FormField $formField
+     * @param \OntoPress\Entity\OntologyField $ontologyField
      *
      * @return Form
      */
-    public function addformField(\OntoPress\Entity\FormField $formField)
+    public function addOntologyField(\OntoPress\Entity\OntologyField $ontologyField)
     {
-        $formField->setForm($this);
-        $this->formFields[] = $formField;
+        $ontologyField->setForm($this);
+        $this->ontologyFields[] = $ontologyField;
 
         return $this;
     }
 
     /**
-     * Remove formField.
+     * Remove Ontology Field.
      *
-     * @param \OntoPress\Entity\FormField $formField
+     * @param \OntoPress\Entity\OntologyField $ontologyField
      *
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeformField(\OntoPress\Entity\FormField $formField)
+    public function removeOntologyField(\OntoPress\Entity\OntologyField $ontologyField)
     {
-        return $this->formFields->removeElement($formField);
-    }
-
-    /**
-     * Get formFields.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFormFields()
-    {
-        return $this->formFields;
+        return $this->ontologyFields->removeElement($ontologyField);
     }
 }
