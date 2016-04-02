@@ -47,23 +47,15 @@ class Parser
                     $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                 }
                 if ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                    if (!(isset($restrictionArray[$statement->getSubject()->getUri()]))) {
-                        $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
-                        $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
-                    } else {
-                        $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
-                    }
+                    $restrictionArray = $this->restrictionHandler($statement, $restrictionArray);
                     $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
+
                 }
                 if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
                     $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
                 }
                 if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
-                    if ($statement->getObject()->getValue()) {
-                        $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
-                    } else {
-                        $objectArray[$statement->getSubject()->getUri()]->setMandatory(false);
-                    }
+                    $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
                 }
             }
         }
@@ -104,5 +96,16 @@ class Parser
         }
 
         return $objectArray;
+    }
+
+    public function restrictionHandler($statement, $restrictionArray)
+    {
+        if (!(isset($restrictionArray[$statement->getSubject()->getUri()]))) {
+            $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
+            $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
+        } else {
+            $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
+        }
+        return $restrictionArray;
     }
 }
