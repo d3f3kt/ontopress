@@ -49,7 +49,6 @@ class Parser
                 if ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
                     $restrictionArray = $this->restrictionHandler($statement, $restrictionArray);
                     $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
-
                 }
                 if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
                     $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
