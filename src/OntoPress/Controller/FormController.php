@@ -81,7 +81,7 @@ class FormController extends AbstractController
         ));
         $form->handleRequest($request);
 
-        if($form->isValid()){
+        if ($form->isValid()) {
             $formData = $form->getData();
             $ontology = $formData['ontology'];
             return $this->redirectToRoute(
