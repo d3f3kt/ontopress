@@ -14,6 +14,7 @@ class FormControllerTest extends OntoPressTestCase
 {
 
     private $formController;
+    private $testRequest;
 
     public function setUp()
     {
@@ -32,7 +33,7 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowManageAction()
     {
-        $formOutput = $this->formController->showManageAction();
+        $formOutput = $this->formController->showManageAction(new Request());
 
         $this->assertContains("Formular Verwaltung", $formOutput);
     }
@@ -66,9 +67,7 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
-        $container = static::getContainer();
-        $formController = new FormController($container);
-        $formOutput = $formController->showDeleteAction($this->testRequest);
+        $formOutput = $this->formController->showDeleteAction(new Request());
 
         $this->assertContains("Ontologie Löschen", $formOutput);
     }

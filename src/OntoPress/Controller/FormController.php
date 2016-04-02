@@ -16,6 +16,8 @@ class FormController extends AbstractController
     /**
      * Show all forms.
      *
+     * @param Request $request HTTP Request
+     *
      * @return string rendered twig template
      */
     public function showManageAction(Request $request)
@@ -82,6 +84,8 @@ class FormController extends AbstractController
 
     /**
      * Handle the delete request of a form.
+     *
+     * @param Request $request HTTP Request
      *
      * @return string rendered twig template
      */
