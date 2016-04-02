@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
+use Doctrine\ORM\EntityRepository;
 
 class CreateFormType extends AbstractType
 {
@@ -18,6 +19,17 @@ class CreateFormType extends AbstractType
                     'class' => 'OntoPress\Entity\Ontology',
                     'choice_label' => 'name',
                 ))
+            ->add('ontology_field', new EntityType($options['doctrineManager']), array(
+                    'class' => 'OntoPress\Entity\OntologyField',
+                    'choice_label' => 'label',
+                    'expanded' => true,
+                    'multiple' => true,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->where('u.label is not NULL')
+                            ->orderBy('u.label', 'ASC');
+                        }
+            ))
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
                 'attr' => array('class' => 'button button-primary'),
