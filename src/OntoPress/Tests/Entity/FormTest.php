@@ -30,6 +30,9 @@ class FormTest extends OntoPressTestCase
         $this->form->setName('TestForm')
             ->setAuthor('TestAuthor')
             ->setDate($this->dummyDate);
+        /*$this->form->setOntology();
+        ontologie definieren und werte zuweisen und die attribute dann testen
+        $this->form->setTwigCode('TestTwig');*/
     }
 
     public function tearDown()
