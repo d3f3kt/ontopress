@@ -46,9 +46,9 @@ class Form
      *
      * @var OntologyField
      * @ORM\ManyToMany(targetEntity="OntologyField")
-     * @JoinTable(name="form_field",
-     *      joinColumns={@JoinColumn(name="form_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="ontology_field_id", referencedColumnName="id")}
+     * @ORM\JoinTable(name="form_field",
+     *      joinColumns={@ORM\JoinColumn(name="form_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ontology_field_id", referencedColumnName="id")}
      *      )
      */
     protected $ontologyFields;
@@ -242,5 +242,15 @@ class Form
     public function removeOntologyField(\OntoPress\Entity\OntologyField $ontologyField)
     {
         return $this->ontologyFields->removeElement($ontologyField);
+    }
+
+    /**
+     * Get ontologyFields
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOntologyFields()
+    {
+        return $this->ontologyFields;
     }
 }
