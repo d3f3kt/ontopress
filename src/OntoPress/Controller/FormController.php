@@ -102,14 +102,13 @@ class FormController extends AbstractController
         $ontoForm = new Form();
         $ontoForm->setAuthor($author->user_nicename)
             ->setDate(new \DateTime())
-            ->setTwigCode('REPLACE_ME')
-            ->addFormField(new FormField());
+            ->setTwigCode('REPLACE_ME');
 
-        $form = $this->createForm(new SelectFormType(), null, array(
+        $form = $this->createForm(new SelectFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
         ));
-
+        dump($ontoForm);
         $form->handleRequest($request);
         if ($form->isValid()) {
             /*

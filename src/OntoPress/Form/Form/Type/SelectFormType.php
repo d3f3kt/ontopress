@@ -14,7 +14,7 @@ class SelectFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ontology_field', new EntityType($options['doctrineManager']), array(
+            ->add('ontologyFields', new EntityType($options['doctrineManager']), array(
                 'class' => 'OntoPress\Entity\OntologyField',
                 'choice_label' => 'label',
                 'expanded' => true,
