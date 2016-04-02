@@ -75,7 +75,7 @@ class FormControllerTest extends OntoPressTestCase
     {
         $container = static::getContainer();
         $formController = new FormController($container);
-        $formOutput = $formController->showCreateAction();
+        $formOutput = $formController->showCreateAction(new Request());
 
         $this->assertContains("Formular Anlegen", $formOutput);
     }
@@ -92,7 +92,7 @@ class FormControllerTest extends OntoPressTestCase
             ->setDate(new \DateTime());
         static::getContainer()->get('doctrine')->persist($testOntology);
         static::getContainer()->get('doctrine')->flush();
-        
+
         // create test form
         $testForm = new Form();
         $testForm->setName('TestForm')
@@ -102,11 +102,11 @@ class FormControllerTest extends OntoPressTestCase
             ->setOntology($testOntology);
         static::getContainer()->get('doctrine')->persist($testForm);
         static::getContainer()->get('doctrine')->flush();
-        
+
         //test without id
         $withOutId = $this->formController->showDeleteAction(new Request());
         $this->assertContains("kein Formular", $withOutId);
-        
+
         //test with wrong id
         $wrongId = $this->formController->showDeleteAction(
             new Request(array(
@@ -122,7 +122,7 @@ class FormControllerTest extends OntoPressTestCase
             ))
         );
         $this->assertContains('Formular', $withCorrectId);
-        
+
         // test whole deletion process
         $deleted = $this->formController->showDeleteAction(
             new Request(
@@ -136,7 +136,7 @@ class FormControllerTest extends OntoPressTestCase
                 array('REQUEST_METHOD' => 'POST')
             )
         );
-        echo $deleted;
+
         $this->assertContains('window.location', $deleted);
         $this->assertEquals($testForm->getId(), null);
 
