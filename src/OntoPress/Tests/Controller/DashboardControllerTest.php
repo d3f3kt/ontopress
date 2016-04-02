@@ -12,14 +12,30 @@ use OntoPress\Library\OntoPressTestCase;
 class DashboardControllerTest extends OntoPressTestCase
 {
     /**
+     * @var DashboardController
+     */
+    private $dashboardController;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->dashboardController = new DashboardController(static::getContainer());
+    }
+
+    public function tearDown()
+    {
+        unset($this->dashboardController);
+        parent::tearDown();
+    }
+
+    /**
      * Tests showDashboardAction, which should return a rendered twig template for the dashboard.
      */
     public function testDashboardController()
     {
-        $container = static::getContainer();
-        $dashboardController = new DashboardController($container);
-        $dashboardOutput = $dashboardController->showDashboardAction();
 
-        $this->assertContains("wrap ontopressWrap", $dashboardOutput);
+        $dashboardOutput = $this->dashboardController->showDashboardAction();
+
+        $this->assertContains("Dashboard", $dashboardOutput);
     }
 }

@@ -13,16 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 class FormControllerTest extends OntoPressTestCase
 {
 
-    private $testRequest;
+    private $formController;
 
     public function setUp()
     {
-        $this->testRequest = new Request();
+        parent::setUp();
+        $this->formController = new FormController(static::getContainer());
     }
 
     public function tearDow()
     {
-        unset($this->testRequest);
+        unset($this->formController);
+        parent::tearDown();
     }
 
     /**
@@ -30,9 +32,7 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowManageAction()
     {
-        $container = static::getContainer();
-        $formController = new FormController($container);
-        $formOutput = $formController->showManageAction($this->testRequest);
+        $formOutput = $this->formController->showManageAction();
 
         $this->assertContains("Formular Verwaltung", $formOutput);
     }
