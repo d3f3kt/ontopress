@@ -31,4 +31,17 @@ class FormTest extends OntoPressTestCase
             ->setAuthor('TestAuthor')
             ->setDate($this->dummyDate);
     }
+
+    public function tearDown()
+    {
+        unset($this->form);
+    }
+
+    // noch getOntology, getTwigCode usw hier auch testen? alle getter und setter?
+    public function testFormBasics()
+    {
+        $this->assertEquals($this->form->getName(), 'TestForm');
+        $this->assertEquals($this->form->getAuthor(), 'TestAuthor');
+        $this->assertEquals($this->form->getDate(), $this->dummyDate);
+    }
 }
