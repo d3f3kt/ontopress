@@ -79,7 +79,7 @@ class OntologyTest extends OntoPressTestCase
     }
 
     /**
-     * Test what happens if the upload method is called with not file set before.
+     * Test what happens if the upload method is called with no file set before.
      */
     public function testOntologyFile()
     {

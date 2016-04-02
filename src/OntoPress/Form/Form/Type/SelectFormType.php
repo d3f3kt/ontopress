@@ -1,5 +1,4 @@
 <?php
-
 namespace OntoPress\Form\Form\Type;
 
 use OntoPress\Service\DoctrineManager;
@@ -10,15 +9,22 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
 use Doctrine\ORM\EntityRepository;
 
-class CreateFormType extends AbstractType
+class SelectFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ontology', new EntityType($options['doctrineManager']), array(
-                    'class' => 'OntoPress\Entity\Ontology',
-                    'choice_label' => 'name',
-                ))
+            ->add('ontologyFields', new EntityType($options['doctrineManager']), array(
+                'class' => 'OntoPress\Entity\OntologyField',
+                'choice_label' => 'label',
+                'expanded' => true,
+                'multiple' => true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.label is not NULL')//type Restriction Choice excluden
+                        ->orderBy('u.label', 'ASC');
+                }
+            ))
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Weiter',
                 'attr' => array('class' => 'button button-primary'),
@@ -35,8 +41,9 @@ class CreateFormType extends AbstractType
         $resolver->setRequired(array(
             'cancel_link',
             'doctrineManager',
-            ));
+        ));
         $resolver->setDefaults(array(
+            'data_class' => 'OntoPress\Entity\Form',
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
         ));

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fce01f329d79aa2dca3516652ed58707",
-    "content-hash": "87aa916f2d4140a9291cd3832f1f7c88",
+    "hash": "a0f3495b675477ac9f61b0f90198187a",
+    "content-hash": "e9007221584d291a81f7d5ae2990e852",
     "packages": [
         {
             "name": "aksw/erfurt",
@@ -203,12 +203,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "392b8dd9e04c073e832fcda99270ec5a8f5e30cd"
+                "reference": "9f89fd349fd2b537be8a0a0c41f87f2f640dfc8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/392b8dd9e04c073e832fcda99270ec5a8f5e30cd",
-                "reference": "392b8dd9e04c073e832fcda99270ec5a8f5e30cd",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/9f89fd349fd2b537be8a0a0c41f87f2f640dfc8a",
+                "reference": "9f89fd349fd2b537be8a0a0c41f87f2f640dfc8a",
                 "shasum": ""
             },
             "require": {
@@ -261,7 +261,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2016-03-27 19:22:52"
+            "time": "2016-03-31 10:10:15"
         },
         {
             "name": "doctrine/common",
@@ -480,12 +480,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
+                "reference": "416fb8ad1d095a87f1d21bc40711843cd122fd4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/416fb8ad1d095a87f1d21bc40711843cd122fd4a",
+                "reference": "416fb8ad1d095a87f1d21bc40711843cd122fd4a",
                 "shasum": ""
             },
             "require": {
@@ -526,7 +526,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14 21:17:01"
+            "time": "2016-03-31 10:24:22"
         },
         {
             "name": "doctrine/lexer",
@@ -725,16 +725,16 @@
         },
         {
             "name": "nette/caching",
-            "version": "2.4.x-dev",
+            "version": "v2.4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/caching.git",
-                "reference": "9bcb68939f4387a89dc7be0fb5dcaae98b87976b"
+                "reference": "a78f943baf43dec43afe8f9ca5647c5ec7e599e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/caching/zipball/9bcb68939f4387a89dc7be0fb5dcaae98b87976b",
-                "reference": "9bcb68939f4387a89dc7be0fb5dcaae98b87976b",
+                "url": "https://api.github.com/repos/nette/caching/zipball/a78f943baf43dec43afe8f9ca5647c5ec7e599e3",
+                "reference": "a78f943baf43dec43afe8f9ca5647c5ec7e599e3",
                 "shasum": ""
             },
             "require": {
@@ -779,7 +779,7 @@
             ],
             "description": "Nette Caching Component",
             "homepage": "https://nette.org",
-            "time": "2016-02-22 01:58:50"
+            "time": "2016-04-01 15:24:58"
         },
         {
             "name": "nette/finder",
@@ -1553,12 +1553,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/intl.git",
-                "reference": "020a5dcd764e426013dacc2814e7ce4ac09ac2b3"
+                "reference": "a602fe5a36cfc6367c5495b38a88c443570e75da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/intl/zipball/020a5dcd764e426013dacc2814e7ce4ac09ac2b3",
-                "reference": "020a5dcd764e426013dacc2814e7ce4ac09ac2b3",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/a602fe5a36cfc6367c5495b38a88c443570e75da",
+                "reference": "a602fe5a36cfc6367c5495b38a88c443570e75da",
                 "shasum": ""
             },
             "require": {
@@ -1620,7 +1620,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2016-03-23 13:23:25"
+            "time": "2016-04-01 06:34:33"
         },
         {
             "name": "symfony/options-resolver",
@@ -2129,6 +2129,69 @@
             "time": "2015-11-20 14:39:26"
         },
         {
+            "name": "symfony/var-dumper",
+            "version": "v2.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "e6f3855005f2bfad7d7e72431d374a6478893fe3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e6f3855005f2bfad7d7e72431d374a6478893fe3",
+                "reference": "e6f3855005f2bfad7d7e72431d374a6478893fe3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "require-dev": {
+                "twig/twig": "~1.20|~2.0"
+            },
+            "suggest": {
+                "ext-symfony_debug": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Resources/functions/dump.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Component\\VarDumper\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony mechanism for exploring and dumping PHP variables",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "debug",
+                "dump"
+            ],
+            "time": "2015-11-18 13:45:00"
+        },
+        {
             "name": "symfony/yaml",
             "version": "v2.8.0",
             "source": {
@@ -2183,12 +2246,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "f0a4fa678465491947554f6687c5fca5e482f8ec"
+                "reference": "3d0afc03892719b7eaa5f2b8d93260a79f8c578e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/f0a4fa678465491947554f6687c5fca5e482f8ec",
-                "reference": "f0a4fa678465491947554f6687c5fca5e482f8ec",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3d0afc03892719b7eaa5f2b8d93260a79f8c578e",
+                "reference": "3d0afc03892719b7eaa5f2b8d93260a79f8c578e",
                 "shasum": ""
             },
             "require": {
@@ -2236,7 +2299,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-29 10:45:45"
+            "time": "2016-04-01 06:54:57"
         },
         {
             "name": "zendframework/zendframework1",
@@ -2599,12 +2662,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "64d0c313c5fa6db3c113f577b47da45a0591ef4e"
+                "reference": "f9c911059ec3d9216758fbaa6b8983a71e07a64e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/64d0c313c5fa6db3c113f577b47da45a0591ef4e",
-                "reference": "64d0c313c5fa6db3c113f577b47da45a0591ef4e",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/f9c911059ec3d9216758fbaa6b8983a71e07a64e",
+                "reference": "f9c911059ec3d9216758fbaa6b8983a71e07a64e",
                 "shasum": ""
             },
             "require": {
@@ -2656,7 +2719,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2016-03-29 06:34:50"
+            "time": "2016-04-01 13:59:40"
         },
         {
             "name": "nikic/php-parser",
@@ -2966,7 +3029,7 @@
         },
         {
             "name": "phpunit/php-timer",
-            "version": "dev-master",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
@@ -3060,12 +3123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1a1b63266c046e1856fd03812a4e0ac2b51aa2d5"
+                "reference": "612e505765b0d1e75308e300272771dad844692f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1a1b63266c046e1856fd03812a4e0ac2b51aa2d5",
-                "reference": "1a1b63266c046e1856fd03812a4e0ac2b51aa2d5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/612e505765b0d1e75308e300272771dad844692f",
+                "reference": "612e505765b0d1e75308e300272771dad844692f",
                 "shasum": ""
             },
             "require": {
@@ -3079,7 +3142,7 @@
                 "phpunit/php-code-coverage": "~2.1",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
-                "phpunit/php-timer": ">=1.0.6",
+                "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "~2.3",
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "~1.2",
@@ -3124,7 +3187,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-03-14 15:10:21"
+            "time": "2016-04-02 17:25:36"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3792,12 +3855,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "6b955afad3f6b56aefdf999082b9abdaa360cce8"
+                "reference": "82bf0bab583be0078da296ad83cdf04ede2cbc97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/6b955afad3f6b56aefdf999082b9abdaa360cce8",
-                "reference": "6b955afad3f6b56aefdf999082b9abdaa360cce8",
+                "url": "https://api.github.com/repos/symfony/process/zipball/82bf0bab583be0078da296ad83cdf04ede2cbc97",
+                "reference": "82bf0bab583be0078da296ad83cdf04ede2cbc97",
                 "shasum": ""
             },
             "require": {
@@ -3833,7 +3896,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-30 10:37:34"
+            "time": "2016-04-02 07:57:47"
         }
     ],
     "aliases": [],

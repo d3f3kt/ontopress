@@ -26,3 +26,13 @@
 .ontopressWrap .hndle {
     cursor: default!important;
 }
+
+#formCreateType_ontologyFields input{
+    position: relative;
+    float: left;
+    margin: 1px;
+}
+#formCreateType_ontologyFields label{
+    display: block;
+    margin-left: 10px;
+}
