@@ -39,25 +39,25 @@ class OntologyField
 
     /**
      * @var string
-     * @ORM\Column(name="label", type="string", length=128)
+     * @ORM\Column(name="label", type="string", length=128, nullable=true)
      */
     protected $label;
 
     /**
      * @var string
-     * @ORM\Column(name="comment", type="string", length=128)
+     * @ORM\Column(name="comment", type="string", length=128, nullable=true)
      */
     protected $comment;
 
     /**
      * @var boolean
-     * @ORM\Column(name="mandatory", type="boolean")
+     * @ORM\Column(name="mandatory", type="boolean", nullable=true)
      */
     protected $mandatory;
 
     /**
      * @var string
-     * @ORM\Column(name="type", type="string", length=32)
+     * @ORM\Column(name="type", type="string", length=32, nullable=true)
      */
     protected $type;
 
