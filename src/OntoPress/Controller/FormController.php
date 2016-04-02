@@ -2,9 +2,11 @@
 
 namespace OntoPress\Controller;
 
+use OntoPress\Form\Form\Type\SelectFormType;
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Library\AbstractController;
 use OntoPress\Entity\Form;
+use OntoPress\Entity\FormField;
 use OntoPress\Form\Form\Type\EditFormType;
 use OntoPress\Form\Form\Type\CreateFormType;
 use OntoPress\Form\Form\Type\DeleteFormType;
@@ -63,25 +65,68 @@ class FormController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showCreateAction()
+    public function showCreateAction(Request $request)
     {
-        /*
-        $author = wp_get_current_user();
-        $ontoForm = new Form();
+        if ($request->get('ontologyId')) {
+            return $this->showCreateFormAction($request);
+        } else {
+            return $this->showSelectOntologyAction($request);
+        }
+    }
 
-        $ontoForm->setAuthor($author->user_nicename)
-            ->setDate(new \DateTime());
-        */
+    public function showSelectOntologyAction(Request $request)
+    {
         $form = $this->createForm(new CreateFormType(), null, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
         ));
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $formData = $form->getData();
+            $ontology = $formData['ontology'];
+            return $this->redirectToRoute(
+                'ontopress_formsCreate',
+                array('ontologyId' => $ontology->getId())
+            );
+        }
+
         return $this->render('form/formCreate.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
+    public function showCreateFormAction(Request $request)
+    {
+        $author = wp_get_current_user();
 
+        $ontoForm = new Form();
+        $ontoForm->setAuthor($author->user_nicename)
+            ->setDate(new \DateTime())
+            ->setTwigCode('REPLACE_ME');
+
+        $form = $this->createForm(new SelectFormType(), $ontoForm, array(
+            'cancel_link' => $this->generateRoute('ontopress_forms'),
+            'doctrineManager' => $this->get('ontopress.doctrine_manager'),
+        ));
+        dump($ontoForm);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            /*
+            $this->getDoctrine()->persist($ontForm);
+            $this->getDoctrine()->flush();
+
+            $this->addFlashMessage(
+                'success',
+                'Formular, erflogreich erstellt.'
+            );
+            return $this->redirectToRoute('ontopress_forms');
+            */
+        }
+        return $this->render('form/formCreate.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 
     /**
      * Handle the delete request of a form.
@@ -109,7 +154,7 @@ class FormController extends AbstractController
         ));
 
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $this->getDoctrine()->remove($formDelete);
             $this->getDoctrine()->flush();
