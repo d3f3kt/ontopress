@@ -19,19 +19,8 @@ class CreateFormType extends AbstractType
                     'class' => 'OntoPress\Entity\Ontology',
                     'choice_label' => 'name',
                 ))
-            ->add('ontology_field', new EntityType($options['doctrineManager']), array(
-                    'class' => 'OntoPress\Entity\OntologyField',
-                    'choice_label' => 'label',
-                    'expanded' => true,
-                    'multiple' => true,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->where('u.label is not NULL')
-                            ->orderBy('u.label', 'ASC');
-                    }
-            ))
             ->add('submit', new SubmitCancelType(), array(
-                'label' => 'Speichern',
+                'label' => 'Weiter',
                 'attr' => array('class' => 'button button-primary'),
                 'cancel_link' => $options['cancel_link'],
                 'cancel_label' => $options['cancel_label'],
@@ -48,7 +37,6 @@ class CreateFormType extends AbstractType
             'doctrineManager',
             ));
         $resolver->setDefaults(array(
-            'data_class' => 'OntoPress\Entity\Form',
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
         ));
