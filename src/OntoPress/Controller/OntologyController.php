@@ -97,8 +97,8 @@ class OntologyController extends AbstractController
         if ($form->isValid()) {
             $ontology->uploadFiles();
 
-            //$ontologyParser = $this->get('ontopress.ontology_parser');
-            //$ontologyParser->parsing($ontology, true);
+            $ontologyParser = $this->get('ontopress.ontology_parser');
+            $ontologyParser->parsing($ontology, true);
 
             $this->getDoctrine()->persist($ontology);
             $this->getDoctrine()->flush();

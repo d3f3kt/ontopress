@@ -13,16 +13,19 @@ use Symfony\Component\HttpFoundation\Request;
 class FormControllerTest extends OntoPressTestCase
 {
 
+    private $formController;
     private $testRequest;
 
     public function setUp()
     {
-        $this->testRequest = new Request();
+        parent::setUp();
+        $this->formController = new FormController(static::getContainer());
     }
 
     public function tearDow()
     {
-        unset($this->testRequest);
+        unset($this->formController);
+        parent::tearDown();
     }
 
     /**
@@ -30,9 +33,7 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowManageAction()
     {
-        $container = static::getContainer();
-        $formController = new FormController($container);
-        $formOutput = $formController->showManageAction($this->testRequest);
+        $formOutput = $this->formController->showManageAction(new Request());
 
         $this->assertContains("Formular Verwaltung", $formOutput);
     }
@@ -66,9 +67,7 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
-        $container = static::getContainer();
-        $formController = new FormController($container);
-        $formOutput = $formController->showDeleteAction($this->testRequest);
+        $formOutput = $this->formController->showDeleteAction(new Request());
 
         $this->assertContains("Ontologie Löschen", $formOutput);
     }
