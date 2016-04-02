@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    Formular Löschen
+{% endblock %}
+{% block content %}
+    <p>Es wurde kein Formular mit der ID {{ id }} gefunden.</p>
+    <a href="{{ path('ontopress_form') }}">
+        Zurück zur Übersicht
+    </a>
+{% endblock %}

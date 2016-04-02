@@ -85,10 +85,21 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
+        // create test ontology
+        $testOntology = new Ontology();
+        $testOntology->setName('TestOntoloy')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime());
+        static::getContainer()->get('doctrine')->persist($testOntology);
+        static::getContainer()->get('doctrine')->flush();
+        
         // create test form
         $testForm = new Form();
         $testForm->setName('TestForm')
-            ->setTwigCode('testTwigCode');
+            ->setTwigCode('testTwigCode')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime())
+            ->setOntology($testOntology);
         static::getContainer()->get('doctrine')->persist($testForm);
         static::getContainer()->get('doctrine')->flush();
         
@@ -126,8 +137,8 @@ class FormControllerTest extends OntoPressTestCase
             )
         );
         echo $deleted;
-        $this->assertContains('löschen', $deleted);
-        $this->assertEquals($testForm->getId(), 1);
+        $this->assertContains('window.location', $deleted);
+        $this->assertEquals($testForm->getId(), null);
 
     }
 }
