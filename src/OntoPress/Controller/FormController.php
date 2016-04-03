@@ -105,6 +105,7 @@ class FormController extends AbstractController
             ->setDate(new \DateTime())
             ->setTwigCode('REPLACE_ME');
 
+
         $form = $this->createForm(new SelectFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
@@ -113,7 +114,7 @@ class FormController extends AbstractController
         $form->handleRequest($request);
         if ($form->isValid()) {
             /*
-            $this->getDoctrine()->persist($ontForm);
+            $this->getDoctrine()->persist($ontoForm);
             $this->getDoctrine()->flush();
 
             $this->addFlashMessage(
