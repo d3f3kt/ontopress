@@ -75,48 +75,22 @@ class OntologyField
         $this->restrictions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Remove restriction.
-     *
-     * @param \OntoPress\Entity\Restriction $restriction
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
-     */
     public function removeRestriction(\OntoPress\Entity\Restriction $restriction)
     {
         return $this->restrictions->removeElement($restriction);
     }
 
-    /**
-     * Add restriction.
-     *
-     * @param \OntoPress\Entity\Restriction $newRestriction
-     *
-     * @return Ontology
-     */
     public function addRestriction(\OntoPress\Entity\Restriction $newRestriction)
     {
         $newRestriction->setOntologyField($this);
         $this->restrictions[] = $newRestriction;
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return OntologyField
-     */
     public function setName($name)
     {
         $this->name = $name;
@@ -124,23 +98,11 @@ class OntologyField
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Set label
-     *
-     * @param string $label
-     *
-     * @return OntologyField
-     */
     public function setLabel($label)
     {
         $this->label = $label;
@@ -148,23 +110,11 @@ class OntologyField
         return $this;
     }
 
-    /**
-     * Get label
-     *
-     * @return string
-     */
     public function getLabel()
     {
         return $this->label;
     }
 
-    /**
-     * Set comment
-     *
-     * @param string $comment
-     *
-     * @return OntologyField
-     */
     public function setComment($comment)
     {
         $this->comment = $comment;
@@ -172,23 +122,11 @@ class OntologyField
         return $this;
     }
 
-    /**
-     * Get comment
-     *
-     * @return string
-     */
     public function getComment()
     {
         return $this->comment;
     }
 
-    /**
-     * Set mandatory
-     *
-     * @param bool $mandatory
-     *
-     * @return OntologyField
-     */
     public function setMandatory($mandatory)
     {
         $this->mandatory = $mandatory;
@@ -196,23 +134,11 @@ class OntologyField
         return $this;
     }
 
-    /**
-     * Get mandatory
-     *
-     * @return bool
-     */
     public function getMandatory()
     {
         return $this->mandatory;
     }
 
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return OntologyField
-     */
     public function setType($type)
     {
         $this->type = $type;
@@ -220,47 +146,27 @@ class OntologyField
         return $this;
     }
 
-    /**
-     * Get type
-     *
-     * @return string
-     */
     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * Get restrictions
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
     public function getRestrictions()
     {
         return $this->restrictions;
     }
 
-    /**
-     * Set ontology
-     *
-     * @param \OntoPress\Entity\Ontology $ontology
-     *
-     * @return OntologyField
-     */
-    public function setOntology(\OntoPress\Entity\Ontology $ontology = null)
+    public function setDataOntology(\OntoPress\Entity\Ontology $dataOntology = null)
     {
-        $this->ontology = $ontology;
+        $this->dataOntology = $dataOntology;
 
         return $this;
     }
 
-    /**
-     * Get ontology
-     *
-     * @return \OntoPress\Entity\Ontology
-     */
-    public function getOntology()
+    public function getDataOntology()
     {
-        return $this->ontology;
+        return $this->dataOntology;
     }
+
+
 }
