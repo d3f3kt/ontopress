@@ -15,10 +15,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class OntologyField
 {
     /**
-     * @var Ontology
-     * @ORM\ManyToOne(targetEntity="Ontology", inversedBy="ontologyFields")
+     * @var DataOntology
+     * @ORM\ManyToOne(targetEntity="DataOntology", inversedBy="ontologyFields")
      */
-    protected $ontology;
+    protected $dataOntology;
 
     /**
      * @var string
