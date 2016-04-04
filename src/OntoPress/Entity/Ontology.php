@@ -50,10 +50,10 @@ class Ontology
     protected $ontologyForms;
 
     /**
-     * @var OntologyField
-     * @ORM\OneToMany(targetEntity="OntologyField", mappedBy="ontology", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var DataOntology
+     * @ORM\OneToMany(targetEntity="DataOntology", mappedBy="ontology", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $ontologyFields;
+    protected $dataOntologies;
 
     /**
      * Wordpress user who created the ontology.
@@ -162,7 +162,7 @@ class Ontology
     {
         $this->ontologyFiles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ontologyForms = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->ontologyFields = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dataOntologies = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
