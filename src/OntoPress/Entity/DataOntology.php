@@ -39,5 +39,4 @@ class DataOntology
     {
         $this->ontologyFields = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 }
