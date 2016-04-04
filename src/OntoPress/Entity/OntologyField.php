@@ -22,7 +22,7 @@ class OntologyField
 
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=32)
+     * @ORM\Column(name="name", type="string", length=128)
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
      */
@@ -76,10 +76,8 @@ class OntologyField
     }
 
     /**
-     * Remove restriction.
-     *
-     * @param \OntoPress\Entity\Restriction $restriction
-     *
+     * Removes a restriction from $restrictions.
+     * @param Restriction $restriction
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
     public function removeRestriction(\OntoPress\Entity\Restriction $restriction)
@@ -88,22 +86,21 @@ class OntologyField
     }
 
     /**
-     * Add restriction.
-     *
-     * @param \OntoPress\Entity\Restriction $newRestriction
-     *
-     * @return Ontology
+     * Adds a restriction to $restrictions.
+     * @param Restriction $newRestriction
+     * @return OntologyField
      */
     public function addRestriction(\OntoPress\Entity\Restriction $newRestriction)
     {
         $newRestriction->setOntologyField($this);
         $this->restrictions[] = $newRestriction;
+
+        return $this;
     }
 
     /**
-     * Get id
-     *
-     * @return int
+     * Getter id.
+     * @return int $id
      */
     public function getId()
     {
@@ -111,10 +108,8 @@ class OntologyField
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
+     * Setter name.
+     * @param String $name
      * @return OntologyField
      */
     public function setName($name)
@@ -125,9 +120,8 @@ class OntologyField
     }
 
     /**
-     * Get name
-     *
-     * @return string
+     * Getter name.
+     * @return string $name
      */
     public function getName()
     {
@@ -135,10 +129,8 @@ class OntologyField
     }
 
     /**
-     * Set label
-     *
-     * @param string $label
-     *
+     * Setter label
+     * @param String $label
      * @return OntologyField
      */
     public function setLabel($label)
@@ -149,9 +141,8 @@ class OntologyField
     }
 
     /**
-     * Get label
-     *
-     * @return string
+     * Getter label.
+     * @return string $label
      */
     public function getLabel()
     {
@@ -159,10 +150,8 @@ class OntologyField
     }
 
     /**
-     * Set comment
-     *
-     * @param string $comment
-     *
+     * Setter comment.
+     * @param String $comment
      * @return OntologyField
      */
     public function setComment($comment)
@@ -173,9 +162,8 @@ class OntologyField
     }
 
     /**
-     * Get comment
-     *
-     * @return string
+     * Getter comment.
+     * @return string $comment
      */
     public function getComment()
     {
@@ -183,10 +171,8 @@ class OntologyField
     }
 
     /**
-     * Set mandatory
-     *
-     * @param bool $mandatory
-     *
+     * Setter mandatory.
+     * @param boolean $mandatory
      * @return OntologyField
      */
     public function setMandatory($mandatory)
@@ -197,8 +183,7 @@ class OntologyField
     }
 
     /**
-     * Get mandatory
-     *
+     * Getter mandatory.
      * @return bool
      */
     public function getMandatory()
@@ -207,10 +192,8 @@ class OntologyField
     }
 
     /**
-     * Set type
-     *
+     * Getter type.
      * @param string $type
-     *
      * @return OntologyField
      */
     public function setType($type)
@@ -221,9 +204,8 @@ class OntologyField
     }
 
     /**
-     * Get type
-     *
-     * @return string
+     * Getter type.
+     * @return string $type
      */
     public function getType()
     {
@@ -231,9 +213,8 @@ class OntologyField
     }
 
     /**
-     * Get restrictions
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * Getter restrictions.
+     * @return \Doctrine\Common\Collections\ArrayCollection|Restriction
      */
     public function getRestrictions()
     {
@@ -241,26 +222,23 @@ class OntologyField
     }
 
     /**
-     * Set ontology
-     *
-     * @param \OntoPress\Entity\Ontology $ontology
-     *
+     * Setter dataOntology.
+     * @param Ontology|null $dataOntology
      * @return OntologyField
      */
-    public function setOntology(\OntoPress\Entity\Ontology $ontology = null)
+    public function setDataOntology(\OntoPress\Entity\DataOntology $dataOntology = null)
     {
-        $this->ontology = $ontology;
+        $this->dataOntology = $dataOntology;
 
         return $this;
     }
 
     /**
-     * Get ontology
-     *
-     * @return \OntoPress\Entity\Ontology
+     * Getter dataOntology.
+     * @return DataOntology
      */
-    public function getOntology()
+    public function getDataOntology()
     {
-        return $this->ontology;
+        return $this->dataOntology;
     }
 }

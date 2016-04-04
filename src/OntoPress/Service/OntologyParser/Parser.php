@@ -1,6 +1,7 @@
 <?php
 namespace OntoPress\Service\OntologyParser;
 
+use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\Ontology;
 use Saft\Addition\EasyRdf\Data\ParserEasyRdf;
 use Saft\Rdf\NodeFactoryImpl;
@@ -72,25 +73,8 @@ class Parser
             }
             $objectArray[$subject]->setRestriction($restrictionObject);
         }
-
         if ($writeData) {
-            foreach ($objectArray as $key => $object) {
-                $newNode = new OntologyField();
-                $newNode->setName($object->getName());
-                $newNode->setLabel($object->getLabel());
-                $newNode->setComment($object->getComment());
-                $newNode->setType($object->getType());
-                $newNode->setMandatory($object->getMandatory());
-
-                if (!empty($object->getRestriction())) {
-                    foreach ($object->getRestriction()->getOneOf() as $resKey => $resObject) {
-                        $newRestriction = new RestrictionEntity();
-                        $newNode->addRestriction($newRestriction->setName($resObject));
-                    }
-                }
-                $ontology->addOntologyField($newNode);
-            }
-            return true;
+            $this->writeDataHandler($ontology, $objectArray);
         }
         return $objectArray;
     }
@@ -126,7 +110,8 @@ class Parser
                     break;
                 case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
                     if (($statement->getObject() == "http://localhost/k00ni/knorke/RestrictionElement") ||
-                        $statement->getObject() == "http://localhost/k00ni/knorke/Property"){
+                        $statement->getObject() == "http://localhost/k00ni/knorke/Property"
+                    ) {
                         $objectArray[$statement->getSubject()->getUri()]->setPossessed(true);
                     }
                     break;
@@ -134,10 +119,54 @@ class Parser
         }
         foreach ($statementIterator as $key => $statement) {
             if (isset($objectArray[$statement->getSubject()->getUri()]) &&
-                (!($objectArray[$statement->getSubject()->getUri()]->getPossessed()))) {
+                (!($objectArray[$statement->getSubject()->getUri()]->getPossessed()))
+            ) {
                 unset($objectArray[$statement->getSubject()->getUri()]);
             }
         }
         return $objectArray;
+    }
+
+    public function writeDataHandler($ontology, $objectArray)
+    {
+        foreach ($objectArray as $key => $object) {
+            $newNode = new OntologyField();
+            $newNode->setName($object->getName());
+            $newNode->setLabel($object->getLabel());
+            $newNode->setComment($object->getComment());
+            $newNode->setType($object->getType());
+            $newNode->setMandatory($object->getMandatory());
+
+            if (!empty($object->getRestriction())) {
+                foreach ($object->getRestriction()->getOneOf() as $resKey => $resObject) {
+                    $newRestriction = new RestrictionEntity();
+                    $newNode->addRestriction($newRestriction->setName($resObject));
+                }
+            }
+            $dataOntologyArray = $ontology->getDataOntologies();
+            $newDataOntology = true;
+
+            foreach ($dataOntologyArray as $arrayKey => $dataOntology) {
+                if ($dataOntology->getName() == $this->parseNodeName($object->getName())) {
+                    $dataOntology->addOntologyField($newNode);
+                    $newDataOntology = false;
+                }
+            }
+            if ($newDataOntology) {
+                $newData = new DataOntology();
+                $newData->setName($this->parseNodeName($object->getName()));
+                $ontology->addDataOntology($newData);
+            }
+            // (altes Ende bzw. schreiben in Datenbank:)
+        }
+        return true;
+    }
+    //draft/test
+    public function parseNodeName($ontologyNodeName)
+    {
+        $pos = strrpos($ontologyNodeName, "/");
+        $pos = (strlen($ontologyNodeName) - $pos) * -1;
+        $parsedName = substr($ontologyNodeName, 0, $pos);
+        return $parsedName;
     }
 }
