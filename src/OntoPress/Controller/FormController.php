@@ -9,6 +9,7 @@ use OntoPress\Entity\Form;
 use OntoPress\Entity\FormField;
 use OntoPress\Form\Form\Type\EditFormType;
 use OntoPress\Form\Form\Type\CreateFormType;
+use OntoPress\Form\Form\Type\DeleteFormType;
 
 /**
  * Form Controller.
@@ -31,10 +32,10 @@ class FormController extends AbstractController
             ->find($id);
 
         if (!$ontology) {
-            $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
+            $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
             $formManageTable = $repository->findAll();
         } else {
-            $formManageTable = $ontology->getOntologyForm();
+            $formManageTable = $ontology->getOntologyForms();
         }
 
         return $this->render('form/manageForms.html.twig', array(
@@ -81,7 +82,7 @@ class FormController extends AbstractController
         ));
         $form->handleRequest($request);
 
-        if($form->isValid()){
+        if ($form->isValid()) {
             $formData = $form->getData();
             $ontology = $formData['ontology'];
             return $this->redirectToRoute(
@@ -102,18 +103,18 @@ class FormController extends AbstractController
         $ontoForm = new Form();
         $ontoForm->setAuthor($author->user_nicename)
             ->setDate(new \DateTime())
-            ->setTwigCode('REPLACE_ME')
-            ->addFormField(new FormField());
+            ->setTwigCode('REPLACE_ME');
 
-        $form = $this->createForm(new SelectFormType(), null, array(
+
+        $form = $this->createForm(new SelectFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
         ));
-
+        dump($ontoForm);
         $form->handleRequest($request);
         if ($form->isValid()) {
             /*
-            $this->getDoctrine()->persist($ontForm);
+            $this->getDoctrine()->persist($ontoForm);
             $this->getDoctrine()->flush();
 
             $this->addFlashMessage(
@@ -144,7 +145,7 @@ class FormController extends AbstractController
             ->find($id);
 
         if (!$formDelete) {
-            return $this->render('ontology/notFound.html.twig', array(
+            return $this->render('form/formNotFound.html.twig', array(
                 'id' => $id,
             ));
         }
@@ -164,7 +165,7 @@ class FormController extends AbstractController
             );
 
 
-            return $this->redirectToRoute('ontopress_ontology');
+            return $this->redirectToRoute('ontopress_forms');
         }
 
         return $this->render('form/formDelete.html.twig', array(

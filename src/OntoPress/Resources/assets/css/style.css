@@ -27,12 +27,12 @@
     cursor: default!important;
 }
 
-#formCreateType_ontology_field input{
+#formCreateType_ontologyFields input{
     position: relative;
     float: left;
     margin: 1px;
 }
-#formCreateType_ontology_field label{
+#formCreateType_ontologyFields label{
     display: block;
     margin-left: 10px;
 }

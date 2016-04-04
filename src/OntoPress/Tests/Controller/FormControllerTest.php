@@ -3,6 +3,8 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\FormController;
+use OntoPress\Entity\Form;
+use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +16,6 @@ class FormControllerTest extends OntoPressTestCase
 {
 
     private $formController;
-    private $testRequest;
 
     public function setUp()
     {
@@ -33,9 +34,26 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowManageAction()
     {
-        $formOutput = $this->formController->showManageAction(new Request());
+        // create test form
+        $testOntology = new Ontology();
+        $testOntology->setName('TestOntoloy')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime());
+        static::getContainer()->get('doctrine')->persist($testOntology);
+        static::getContainer()->get('doctrine')->flush();
 
-        $this->assertContains("Formular Verwaltung", $formOutput);
+        //test with valid id
+        $validId = $this->formController->showManageAction(
+            new Request(array(
+                'id' => $testOntology->getId(),
+            ))
+        );
+        $this->assertContains("Formular Verwaltung", $validId);
+
+        //test without id
+        $withOutId = $this->formController->showManageAction(new Request());
+
+        $this->assertContains("Formular Verwaltung", $withOutId);
     }
 
     /**
@@ -57,7 +75,7 @@ class FormControllerTest extends OntoPressTestCase
     {
         $container = static::getContainer();
         $formController = new FormController($container);
-        $formOutput = $formController->showCreateAction();
+        $formOutput = $formController->showCreateAction(new Request());
 
         $this->assertContains("Formular Anlegen", $formOutput);
     }
@@ -67,8 +85,60 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
-        $formOutput = $this->formController->showDeleteAction(new Request());
+        // create test ontology
+        $testOntology = new Ontology();
+        $testOntology->setName('TestOntoloy')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime());
+        static::getContainer()->get('doctrine')->persist($testOntology);
+        static::getContainer()->get('doctrine')->flush();
 
-        $this->assertContains("Ontologie Löschen", $formOutput);
+        // create test form
+        $testForm = new Form();
+        $testForm->setName('TestForm')
+            ->setTwigCode('testTwigCode')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime())
+            ->setOntology($testOntology);
+        static::getContainer()->get('doctrine')->persist($testForm);
+        static::getContainer()->get('doctrine')->flush();
+
+        //test without id
+        $withOutId = $this->formController->showDeleteAction(new Request());
+        $this->assertContains("kein Formular", $withOutId);
+
+        //test with wrong id
+        $wrongId = $this->formController->showDeleteAction(
+            new Request(array(
+                'id' => 1337,
+            ))
+        );
+        $this->assertContains("kein Formular ", $wrongId);
+
+        // test with correct id
+        $withCorrectId = $this->formController->showDeleteAction(
+            new Request(array(
+                'id' => $testForm->getId(),
+            ))
+        );
+        $this->assertContains('Formular', $withCorrectId);
+
+        // test whole deletion process
+        $deleted = $this->formController->showDeleteAction(
+            new Request(
+                array('id' => $testForm->getId()),
+                array('formDeleteType' => array(
+                    'submit' => '',
+                )),
+                array(),
+                array(),
+                array(),
+                array('REQUEST_METHOD' => 'POST')
+            )
+        );
+
+        $this->assertContains('window.location', $deleted);
+        $this->assertEquals($testForm->getId(), null);
+
     }
 }

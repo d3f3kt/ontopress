@@ -54,7 +54,7 @@
                         {{ form.author }}<br>
                     </td>
                     <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                        {{ form.date }}<br>
+                        {{ date(form.date).format('d.m.Y') }}<br>
                     </td>
                 </tr>
             {% endfor %}

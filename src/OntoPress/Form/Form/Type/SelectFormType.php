@@ -14,14 +14,20 @@ class SelectFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ontology_field', new EntityType($options['doctrineManager']), array(
+            ->add('name', 'text', array(
+                'label' => 'Formularname: ',
+                'attr' => array('class' => 'regular-text'),
+            ))
+            ->add('ontologyFields', new EntityType($options['doctrineManager']), array(
                 'class' => 'OntoPress\Entity\OntologyField',
                 'choice_label' => 'label',
                 'expanded' => true,
                 'multiple' => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                        ->where('u.label is not NULL')//type Restriction Choice excluden
+                        ->where('u.label is not NULL')
+                        ->andWhere('u.type not LIKE :type')
+                        ->setParameter('type', 'Restriction-Choice')
                         ->orderBy('u.label', 'ASC');
                 }
             ))
