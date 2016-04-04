@@ -285,6 +285,4 @@ class Ontology
     {
         return $this->dataOntologies;
     }
-
-
 }
