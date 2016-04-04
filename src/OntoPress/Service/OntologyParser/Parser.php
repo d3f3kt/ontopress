@@ -91,13 +91,13 @@ class Parser
                 $dataOntologyArray = $ontology->getDataOntologies();
                 $newDataOntology = true;
 
-                foreach($dataOntologyArray as $arrayKey => $dataOntology) {
-                    if($dataOntology->getName() == $this->parseNodeName($object->getName())) {
+                foreach ($dataOntologyArray as $arrayKey => $dataOntology) {
+                    if ($dataOntology->getName() == $this->parseNodeName($object->getName())) {
                         // speichere Node in diese dataOntology
                         $newDataOntology = false;
                     }
                 }
-                if($newDataOntology) {
+                if ($newDataOntology) {
                     // neue DataOntology erstellen und da rein speichern
                     // neue DataOntology muss parseNodeName() als namen kriegen
                 }
