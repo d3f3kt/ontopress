@@ -255,13 +255,13 @@ class Ontology
     }
 
     /**
-     * Remove DataOntology.
+     * Remove dataOntology
      *
      * @param \OntoPress\Entity\DataOntology $dataOntology
      *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeOntologyField(\OntoPress\Entity\OntologyField $dataOntology)
+    public function removeDataOntology(\OntoPress\Entity\DataOntology $dataOntology)
     {
         return $this->dataOntologies->removeElement($dataOntology);
     }
@@ -286,15 +286,5 @@ class Ontology
         return $this->dataOntologies;
     }
 
-    /**
-     * Remove dataOntology
-     *
-     * @param \OntoPress\Entity\DataOntology $dataOntology
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeDataOntology(\OntoPress\Entity\DataOntology $dataOntology)
-    {
-        return $this->dataOntologies->removeElement($dataOntology);
-    }
+
 }
