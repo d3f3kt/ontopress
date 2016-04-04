@@ -1,6 +1,7 @@
 <?php
 namespace OntoPress\Service\OntologyParser;
 
+use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\Ontology;
 use Saft\Addition\EasyRdf\Data\ParserEasyRdf;
 use Saft\Rdf\NodeFactoryImpl;
@@ -93,13 +94,14 @@ class Parser
 
                 foreach ($dataOntologyArray as $arrayKey => $dataOntology) {
                     if ($dataOntology->getName() == $this->parseNodeName($object->getName())) {
-                        // speichere Node in diese dataOntology
+                        $dataOntology->addOntologyField($newNode);
                         $newDataOntology = false;
                     }
                 }
                 if ($newDataOntology) {
-                    // neue DataOntology erstellen und da rein speichern
-                    // neue DataOntology muss parseNodeName() als namen kriegen
+                    $newData = new DataOntology();
+                    $newData->setName($this->parseNodeName($object->getName()));
+                    $ontology->addDataOntology($newData);
                 }
                 // (altes Ende bzw. schreiben in Datenbank:)
                 // $ontology->addOntologyField($newNode);
@@ -123,8 +125,9 @@ class Parser
 
     public function parseNodeName($ontologyNodeName)
     {
-        $parsedName = $ontologyNodeName;
-        // schau den namen an, und suche String der immer gleich ausfallen würde
+        $pos = strrpos($ontologyNodeName, "/");
+        $pos = (strlen($ontologyNodeName) - $pos) * -1;
+        $parsedName = substr($ontologyNodeName, 0, $pos);
         return $parsedName;
     }
 }
