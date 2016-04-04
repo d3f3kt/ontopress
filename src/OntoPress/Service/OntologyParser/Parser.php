@@ -95,16 +95,14 @@ class Parser
         foreach ($statementIterator as $key => $statement) {
             if ($statement->getPredicate() == "http://localhost/k00ni/knorke/hasProperty") {
                 if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
-                    $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(),
-                        null, null, OntologyNode::TYPE_TEXT);
+                    $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
                 }
                 $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
             }
             switch ($statement->getPredicate()) {
                 case "http://localhost/k00ni/knorke/hasProperty":
                     if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
-                        $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(),
-                            null, null, OntologyNode::TYPE_TEXT);
+                        $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
                     }
                     $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
                     break;
