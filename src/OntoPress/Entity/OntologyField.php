@@ -22,7 +22,7 @@ class OntologyField
 
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=32)
+     * @ORM\Column(name="name", type="string", length=128)
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
      */
@@ -226,7 +226,7 @@ class OntologyField
      * @param Ontology|null $dataOntology
      * @return OntologyField
      */
-    public function setDataOntology(\OntoPress\Entity\Ontology $dataOntology = null)
+    public function setDataOntology(\OntoPress\Entity\DataOntology $dataOntology = null)
     {
         $this->dataOntology = $dataOntology;
 
