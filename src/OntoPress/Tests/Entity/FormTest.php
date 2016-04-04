@@ -3,7 +3,6 @@
 namespace OntoPress\Tests\Entity;
 
 use OntoPress\Entity\Form;
-use OntoPress\Entity\FormField;
 use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 
@@ -50,8 +49,6 @@ class FormTest extends OntoPressTestCase
 
         $this->ontology = null;
         $this->form->setOntology($this->ontology);
-
-        $this->formField = new FormField();
     }
 
     public function tearDown()
