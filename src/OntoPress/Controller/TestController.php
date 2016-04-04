@@ -26,7 +26,7 @@ class TestController extends AbstractController
         foreach ($output as $key => $object) {
             echo $object->getName() . " - " . $object->getLabel() . " - " .
                 $object->getComment() . " - " . $object->getType() . " - " .
-                $object->getMandatory() . " - ";
+                $object->getPossessed() . " - " .$object->getMandatory() . " - ";
             if ($object->getRestriction() != null) {
                 print_r($object->getRestriction());
                 echo "<br />";

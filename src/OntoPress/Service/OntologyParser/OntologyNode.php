@@ -43,6 +43,9 @@ class OntologyNode
 
     const TYPE_CHOICE = "Restriction-Choice";
 
+    protected $possessed;
+
+
     /**
      * Mandatory property.
      *
@@ -64,17 +67,19 @@ class OntologyNode
      * @param string    $label     The label of the subject
      * @param string    $comment   Object of comment-relation
      * @param string    $type      Type of the input
+     * @param boolean   $possesssed
      * @param boolean   $mandatory Mandatory Property
      * @param Restriction $oneOf   Restriction Object
      *
      * @return OntologyNode this object.
      */
-    public function __construct($name, $label = null, $comment = null, $type = null, $mandatory = false, $oneOf = null)
+    public function __construct($name, $label = null, $comment = null, $type = null, $possesssed = false, $mandatory = false, $oneOf = null)
     {
         $this->name = $name;
         $this->label = $label;
         $this->comment = $comment;
         $this->type = $type;
+        $this->possessed = $possesssed;
         $this->mandatory = $mandatory;
         $this->oneof = $oneOf;
         return $this;
@@ -171,7 +176,17 @@ class OntologyNode
     {
         return $this->type;
     }
-    
+
+    public function setPossessed($possessed)
+    {
+        $this->possessed = $possessed;
+        return $this;
+    }
+
+    public function getPossessed()
+    {
+        return $this->possessed;
+    }
     /**
      * Set the mandatory property.
      *

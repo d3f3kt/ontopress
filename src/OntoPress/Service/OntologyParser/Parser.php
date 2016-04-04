@@ -31,33 +31,34 @@ class Parser
             new StatementFactoryImpl(),
             'turtle' // RDF format of the file to parse later on (ttl => turtle)
         );
-        
         $ontologyArray = $ontology->getOntologyFiles();
         $objectArray = array();
         $restrictionArray = array();
         
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
-            
             foreach ($statementIterator as $key => $statement) {
                 if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
                     $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
                 }
-                if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#label") {
-                    $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
-                }
-                if ($statement->getPredicate() == "http://localhost/k00ni/knorke/restrictionOneOf") {
-                    $restrictionArray = $this->restrictionHandler($statement, $restrictionArray);
-                    $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
-                }
-                if ($statement->getPredicate() == "http://www.w3.org/2000/01/rdf-schema#comment") {
-                    $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
-                }
-                if ($statement->getPredicate() == "http://localhost/k00ni/knorke/isMandatory") {
-                    $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
+                switch ($statement->getPredicate()) {
+                    case "http://www.w3.org/2000/01/rdf-schema#label":
+                        $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
+                        break;
+                    case "http://localhost/k00ni/knorke/restrictionOneOf":
+                        $restrictionArray = $this->restrictionHandler($statement, $restrictionArray);
+                        $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
+                        break;
+                    case "http://www.w3.org/2000/01/rdf-schema#comment":
+                        $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
+                        break;
+                    case "http://localhost/k00ni/knorke/isMandatory":
+                        $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
+                        break;
                 }
             }
         }
+        $objectArray = $this->propertyHandler($statementIterator, $objectArray);
 
         foreach ($restrictionArray as $subject => $restriction) {
             $restrictionObject = new Restriction();
@@ -87,13 +88,10 @@ class Parser
                         $newNode->addRestriction($newRestriction->setName($resObject));
                     }
                 }
-                // Gefahr besteht, dass immer das selbe OntologieField überschrieben wird
-                // TODO testen --> OntologyController
                 $ontology->addOntologyField($newNode);
             }
             return true;
         }
-
         return $objectArray;
     }
 
@@ -106,5 +104,40 @@ class Parser
             $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
         }
         return $restrictionArray;
+    }
+
+    public function propertyHandler($statementIterator, $objectArray)
+    {
+        foreach ($statementIterator as $key => $statement) {
+            if ($statement->getPredicate() == "http://localhost/k00ni/knorke/hasProperty") {
+                if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
+                    $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(),
+                        null, null, OntologyNode::TYPE_TEXT);
+                }
+                $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
+            }
+            switch ($statement->getPredicate()) {
+                case "http://localhost/k00ni/knorke/hasProperty":
+                    if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
+                        $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(),
+                            null, null, OntologyNode::TYPE_TEXT);
+                    }
+                    $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
+                    break;
+                case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+                    if (($statement->getObject() == "http://localhost/k00ni/knorke/RestrictionElement") ||
+                        $statement->getObject() == "http://localhost/k00ni/knorke/Property"){
+                        $objectArray[$statement->getSubject()->getUri()]->setPossessed(true);
+                    }
+                    break;
+            }
+        }
+        foreach ($statementIterator as $key => $statement) {
+            if (isset($objectArray[$statement->getSubject()->getUri()]) &&
+                (!($objectArray[$statement->getSubject()->getUri()]->getPossessed()))) {
+                unset($objectArray[$statement->getSubject()->getUri()]);
+            }
+        }
+        return $objectArray;
     }
 }
