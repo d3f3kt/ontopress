@@ -88,15 +88,21 @@ class Parser
                     }
                 }
 
-                $dataOntologyName = $object->getName();
-                //$ontology->addOntologyField($newNode);
+                $dataOntologyArray = $ontology->getDataOntologies();
+                $newDataOntology = true;
 
-                
-                /*
-                * TODO:
-                * knorke und place (oder andere) trennen und in verschiedene ontologyData speichern
-                * vergleich der Namen(url)?
-                */
+                foreach($dataOntologyArray as $arrayKey => $dataOntology) {
+                    if($dataOntology->getName() == $this->parseNodeName($object->getName())) {
+                        // speichere Node in diese dataOntology
+                        $newDataOntology = false;
+                    }
+                }
+                if($newDataOntology) {
+                    // neue DataOntology erstellen und da rein speichern
+                    // neue DataOntology muss parseNodeName() als namen kriegen
+                }
+                // (altes Ende bzw. schreiben in Datenbank:)
+                // $ontology->addOntologyField($newNode);
             }
             return true;
         }
@@ -113,5 +119,12 @@ class Parser
             $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
         }
         return $restrictionArray;
+    }
+
+    public function parseNodeName($ontologyNodeName)
+    {
+        $parsedName = $ontologyNodeName;
+        // schau den namen an, und suche String der immer gleich ausfallen würde
+        return $parsedName;
     }
 }
