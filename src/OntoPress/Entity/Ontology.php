@@ -246,7 +246,7 @@ class Ontology
      *
      * @return Ontology
      */
-    public function addOntologyField(\OntoPress\Entity\DataOntology $newDataOntology)
+    public function addDataOntology(\OntoPress\Entity\DataOntology $newDataOntology)
     {
         $newDataOntology->setOntology($this);
         $this->dataOntologies[] = $newDataOntology;
