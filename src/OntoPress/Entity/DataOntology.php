@@ -34,9 +34,44 @@ class DataOntology
      */
     protected $ontology;
 
-
+    /**
+     * DataOntology constructor.
+     */
     public function __construct()
     {
         $this->ontologyFields = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setOntology(\OntoPress\Entity\Ontology $ontology = null)
+    {
+        $this->ontology = $ontology;
+
+        return $this;
+    }
+
+    public function getOntology()
+    {
+        return $this->ontology;
+    }
+
+    public function getOntologyFields()
+    {
+        return $this->ontologyFields;
+    }
+
+    public function addOntologyField(\OntoPress\Entity\OntologyField $newOntologyField)
+    {
+        $newOntologyField->setDataOntology($this);
+        $this->ontologyFields[] = $newOntologyField;
+    }
+
+    public function removeOntologyField(\OntoPress\Entity\OntologyField $ontologyField)
+    {
+        return $this->ontologyFields->removeElement($ontologyField);
     }
 }
