@@ -3,7 +3,8 @@
 namespace OntoPress\Tests\Entity;
 
 use OntoPress\Entity\Form;
-//use OntoPress\Entity\FormField;
+use OntoPress\Entity\FormField;
+use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 
 class FormTest extends OntoPressTestCase
@@ -16,11 +17,26 @@ class FormTest extends OntoPressTestCase
     private $form;
 
     /**
+     * FormField Entity.
+     *
+     * @var FormField
+     */
+    private $formField;
+
+    /**
+     * Ontology Entity.
+     *
+     * @var Ontology
+     */
+    private $ontology;
+
+    /**
      * Dummy Date.
      *
      * @var \DateTime
      */
     private $dummyDate;
+
 
     public function setUp()
     {
@@ -30,9 +46,12 @@ class FormTest extends OntoPressTestCase
         $this->form->setName('TestForm')
             ->setAuthor('TestAuthor')
             ->setDate($this->dummyDate);
-        /*$this->form->setOntology();
-        ontologie definieren und werte zuweisen und die attribute dann testen
-        $this->form->setTwigCode('TestTwig');*/
+        $this->form->setTwigCode('TestTwig');
+
+        $this->ontology = null;
+        $this->form->setOntology($this->ontology);
+
+        $this->formField = new FormField();
     }
 
     public function tearDown()
@@ -40,11 +59,22 @@ class FormTest extends OntoPressTestCase
         unset($this->form);
     }
 
-    // noch getOntology, getTwigCode usw hier auch testen? alle getter und setter?
     public function testFormBasics()
     {
         $this->assertEquals($this->form->getName(), 'TestForm');
         $this->assertEquals($this->form->getAuthor(), 'TestAuthor');
         $this->assertEquals($this->form->getDate(), $this->dummyDate);
+        $this->assertEquals($this->form->getTwigCode(), 'TestTwig');
+        $this->assertNull($this->form->getOntology(), '');
     }
+    // for add/removeFormField create Formfield object and give it to the functions
+    /*public function testAddRemoveFormField()
+    {
+        $this->form->addformField($formField);
+        // test add
+        $this->form->removeformField($formField);
+        // test remove
+
+        //test getFormFields()
+    }*/
 }
