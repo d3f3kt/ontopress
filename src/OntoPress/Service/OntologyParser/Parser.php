@@ -87,9 +87,16 @@ class Parser
                         $newNode->addRestriction($newRestriction->setName($resObject));
                     }
                 }
-                // Gefahr besteht, dass immer das selbe OntologieField überschrieben wird
-                // TODO testen --> OntologyController
-                $ontology->addOntologyField($newNode);
+
+                $dataOntologyName = $object->getName();
+                //$ontology->addOntologyField($newNode);
+
+                
+                /*
+                * TODO:
+                * knorke und place (oder andere) trennen und in verschiedene ontologyData speichern
+                * vergleich der Namen(url)?
+                */
             }
             return true;
         }
