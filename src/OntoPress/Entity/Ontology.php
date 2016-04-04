@@ -240,30 +240,30 @@ class Ontology
     }
 
     /**
-     * Add ontologyField.
+     * Add DataOntology.
      *
-     * @param \OntoPress\Entity\OntologyField $newOntologyField
+     * @param \OntoPress\Entity\DataOntology $newDataOntology
      *
      * @return Ontology
      */
-    public function addOntologyField(\OntoPress\Entity\OntologyField $newOntologyField)
+    public function addOntologyField(\OntoPress\Entity\DataOntology $newDataOntology)
     {
-        $newOntologyField->setOntology($this);
-        $this->ontologyFields[] = $newOntologyField;
+        $newDataOntology->setOntology($this);
+        $this->dataOntologies[] = $newDataOntology;
 
         return $this;
     }
 
     /**
-     * Remove ontologyField.
+     * Remove DataOntology.
      *
-     * @param \OntoPress\Entity\OntologyField $ontologyField
+     * @param \OntoPress\Entity\DataOntology $dataOntology
      *
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeOntologyField(\OntoPress\Entity\OntologyField $ontologyField)
+    public function removeOntologyField(\OntoPress\Entity\OntologyField $dataOntology)
     {
-        return $this->ontologyFields->removeElement($ontologyField);
+        return $this->dataOntologies->removeElement($dataOntology);
     }
 
     /**
@@ -277,12 +277,12 @@ class Ontology
     }
 
     /**
-     * Get ontologyFields
+     * Get DataOntologies
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getOntologyFields()
+    public function getDataOntologies()
     {
-        return $this->ontologyFields;
+        return $this->dataOntologies;
     }
 }
