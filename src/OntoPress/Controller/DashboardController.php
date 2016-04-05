@@ -26,14 +26,14 @@ class DashboardController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
 
-        $count_ontology = $query = $repository->createQueryBuilder('p')
+        $count_ontology = $repository->createQueryBuilder('p')
             ->select('count(p)')
             ->getQuery()
             ->getSingleScalarResult();
 
         $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
 
-        $count_form = $query = $repository->createQueryBuilder('p')
+        $count_form = $repository->createQueryBuilder('p')
             ->select('count(p)')
             ->getQuery()
             ->getSingleScalarResult();
@@ -52,28 +52,20 @@ class DashboardController extends AbstractController
         $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
 
         $query = $repository->createQueryBuilder('p')
-            ->where('p.id < :id')
-            ->setParameter('id', '4')
-            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(5)
+            ->orderBy('count(p.ontologyForms)','DESC')
             ->getQuery();
 
         $dashTableOnto = $query->getResult();
 
 
-
-
-       /* $dashTableForm = $this->getDoctrine()
-            ->getRepository('OntoPress\Entity\Form')
-            ->findAll(); */
-
-
-
-
-        $dashTableForm= array(
-            array('id' => 1, 'ontology' => 'Gebäude', 'formName' => 'Schulen'),
-            array('id' => 2, 'ontology' => 'Plätze', 'formName' => 'öffentliche Plätze'),
-            array('id' => 3, 'ontology' => 'Kirchen', 'formName' => 'öffentliche Plätze'),
-        );
+        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
+        
+        $dashTableForm = $repository->createQueryBuilder('p')
+            ->setMaxResults(5)
+            ->orderBy('p.id','DESC')
+            ->getQuery()
+            ->getResult();
 
         return $this->render('dashboard/dashboard.html.twig', array(
                 'dashTableForm' => $dashTableForm,
