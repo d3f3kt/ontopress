@@ -44,10 +44,22 @@
                         <b>{{ form.id }}</b><br>
                     </td>
                     <td class="Name column-Name has-row-actions column-primary" data-colname="id">
-                        {{form.name}}<br>
+                        {% spaceless %}
+                        <span style="color:silver">{{ form.ontology.name }}\</span>
+                        <span>{{ form.name }}</span><br>
+                        {% endspaceless %}
+
                         <div class="row-actions">
-                            <span class="edit"><a href="{{ path('ontopress_formsEdit',{'id': 1}) }}">Bearbeiten</a></span>
-                            <span class="delete"><a href="{{path('ontopress_formsDelete')}}">Löschen</a></span>
+                            <span class="edit">
+                                <a href="{{ path('ontopress_formsEdit', {'id': form.id}) }}">
+                                    Bearbeiten
+                                </a>
+                            </span>
+                            <span class="delete">
+                                <a href="{{ path('ontopress_formsDelete', {'id': form.id}) }}">
+                                    Löschen
+                                </a>
+                            </span>
                         </div>
                     </td>
                     <td class="Name column-Name has-row-actions column-primary" data-colname="id">

@@ -6,7 +6,6 @@ use OntoPress\Form\Form\Type\SelectFormType;
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Library\AbstractController;
 use OntoPress\Entity\Form;
-use OntoPress\Entity\FormField;
 use OntoPress\Form\Form\Type\EditFormType;
 use OntoPress\Form\Form\Type\CreateFormType;
 use OntoPress\Form\Form\Type\DeleteFormType;
@@ -32,16 +31,16 @@ class FormController extends AbstractController
             ->find($id);
 
         if (!$ontology) {
-            $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
-            $formManageTable = $repository->findAll();
+            $formManageTable = $this->getDoctrine()
+                ->getRepository('OntoPress\Entity\Form')
+                ->findAll();
         } else {
             $formManageTable = $ontology->getOntologyForms();
         }
 
         return $this->render('form/manageForms.html.twig', array(
-            'formManageTable' => $formManageTable
+            'formManageTable' => $formManageTable,
         ));
-
     }
 
     /**
@@ -85,6 +84,7 @@ class FormController extends AbstractController
         if ($form->isValid()) {
             $formData = $form->getData();
             $ontology = $formData['ontology'];
+
             return $this->redirectToRoute(
                 'ontopress_formsCreate',
                 array('ontologyId' => $ontology->getId())
@@ -100,11 +100,11 @@ class FormController extends AbstractController
     {
         $author = wp_get_current_user();
 
-        if($ontoId = $request->get('ontologyId')){
+        if ($ontoId = $request->get('ontologyId')) {
             $ontoRepo = $this->getDoctrine()
                 ->getRepository('OntoPress\Entity\Ontology');
 
-            if(!$ontology = $ontoRepo->findOneById($ontoId)){
+            if (!$ontology = $ontoRepo->findOneById($ontoId)) {
                 throw new Exception('No Ontology found');
             }
         }
@@ -115,7 +115,6 @@ class FormController extends AbstractController
             ->setTwigCode('REPLACE_ME')
             ->setOntology($ontology);
 
-
         $form = $this->createForm(new SelectFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
@@ -123,7 +122,6 @@ class FormController extends AbstractController
 
         $form->handleRequest($request);
 
-        dump($ontoForm);
         if ($form->isValid()) {
             $ontoForm->setTwigCode(
                 $this->get('ontopress.twig_generator')->generate($ontoForm)
@@ -136,9 +134,10 @@ class FormController extends AbstractController
                 'success',
                 'Formular, erflogreich erstellt.'
             );
-            
+
             return $this->redirectToRoute('ontopress_forms');
         }
+
         return $this->render('form/formCreate.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -178,7 +177,6 @@ class FormController extends AbstractController
                 'success',
                 'Formular erfolgreich gelöscht.'
             );
-
 
             return $this->redirectToRoute('ontopress_forms');
         }
