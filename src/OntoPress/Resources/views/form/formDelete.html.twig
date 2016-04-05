@@ -8,6 +8,7 @@
 
 
     <h2>Wirklich löschen?</h2>
-    <a href="#" class="page-title-action">Löschen</a>
-    <a href="{{path('ontopress_forms')}}" class="page-title-action">Abbrechen</a>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 {% endblock %}
