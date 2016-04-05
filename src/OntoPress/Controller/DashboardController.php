@@ -31,7 +31,7 @@ class DashboardController extends AbstractController
             array('id' => 1, 'title' => 'Augustusplatz'),
         );
 
-        $dashTableOnto = $ontologyRepo > getMostUsedOntologies();
+        $dashTableOnto = $ontologyRepo->getMostUsedOntologies();
 
         $dashTableForm = $formRepo->createQueryBuilder('p')
             ->setMaxResults(5)
