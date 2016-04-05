@@ -46,7 +46,7 @@ class Form
      *
      * @var OntologyField
      * @ORM\ManyToMany(targetEntity="OntologyField")
-     * @ORM\JoinTable(name="form_field",
+     * @ORM\JoinTable(name="ontopress_form_field",
      *      joinColumns={@ORM\JoinColumn(name="form_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="ontology_field_id", referencedColumnName="id")}
      *      )
