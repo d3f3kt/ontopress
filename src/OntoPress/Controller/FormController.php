@@ -182,7 +182,7 @@ class FormController extends AbstractController
         }
 
         return $this->render('form/formDelete.html.twig', array(
-            'ontologyDelete' => $formDelete,
+            'formDelete' => $formDelete,
             'form' => $form->createView(),
         ));
     }
