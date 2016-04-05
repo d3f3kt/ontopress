@@ -54,7 +54,9 @@
                     {% include 'snippets/table/deleteRowAction.html.twig' with {'path': path('ontopress_ontologyDelete', {'id': ontology.id})} %}
                 </td>
                 <td class="form column-form" data-colname="Form">
-                    <a href = "#">10</a>
+                    <a href="{{ path('ontopress_forms', {'id': ontology.id}) }}">
+                        {{ ontology.ontologyForms.count }}
+                    </a>
                 </td>
                 <td class="author column-author" data-colname="Author">
                     {{ontology.author}}
