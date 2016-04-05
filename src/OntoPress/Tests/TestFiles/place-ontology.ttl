@@ -107,7 +107,7 @@
 
 
 :Place knok:hasProperty :fax .
-:phone a knok:Property ;
+:fax a knok:Property ;
     rdfs:label "Fax"@de .
 
 :Place knok:hasProperty :hasStepsBeforePlace .
