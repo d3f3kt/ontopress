@@ -49,7 +49,8 @@ class OntologyController extends AbstractController
                 'id' => $id,
             ));
         }
-
+        $ontologyForms = $ontologyDelete->getOntologyForms();
+        
         $form = $this->createForm(new DeleteOntologyType(), $ontologyDelete, array(
             'cancel_link' => $this->generateRoute('ontopress_ontology'),
         ));
@@ -66,9 +67,10 @@ class OntologyController extends AbstractController
 
             return $this->redirectToRoute('ontopress_ontology');
         }
-
+        
         return $this->render('ontology/delete.html.twig', array(
             'ontologyDelete' => $ontologyDelete,
+            'ontologyForms' => $ontologyForms,
             'form' => $form->createView(),
         ));
     }
