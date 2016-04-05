@@ -7,6 +7,7 @@ services:
 
     ontopress.twig_generator:
         class: OntoPress\Service\TwigGenerator
+        arguments: [@ontopress.ontology_parser]
         lazy: true
 
     ontopress.router:

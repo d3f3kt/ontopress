@@ -4,6 +4,7 @@ namespace OntoPress\Service;
 
 use OntoPress\Entity\Form;
 use OntoPress\Entity\OntologyField;
+use OntoPress\Service\OntologyParser\Parser;
 
 /**
  * To make it more comfortable to customize forms, this class generates a base Twig
@@ -11,6 +12,23 @@ use OntoPress\Entity\OntologyField;
  */
 class TwigGenerator
 {
+    /**
+     * Ontology Parser.
+     *
+     * @var Parser
+     */
+    private $parser;
+
+    /**
+     * Inject dependencies.
+     *
+     * @param Parser $parser OntologyParser
+     */
+    public function __construct(Parser $parser)
+    {
+        $this->parser = $parser;
+    }
+
     /**
      * Generate a Twig structure of an OntoPressForm and return it as string.
      *
@@ -41,8 +59,8 @@ class TwigGenerator
      */
     private function createFieldName($formField)
     {
-        $name = $formField->getDataOntology()->getOntology()->getName()
+        return str_replace(" ", "", $formField->getDataOntology()->getOntology()->getName())
             .'_'
-            .$formField->getName();
+            .$this->parser->getUriFile($formField->getName());
     }
 }

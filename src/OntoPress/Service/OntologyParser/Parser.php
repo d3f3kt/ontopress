@@ -1,4 +1,5 @@
 <?php
+
 namespace OntoPress\Service\OntologyParser;
 
 use OntoPress\Entity\DataOntology;
@@ -6,23 +7,23 @@ use OntoPress\Entity\Ontology;
 use Saft\Addition\EasyRdf\Data\ParserEasyRdf;
 use Saft\Rdf\NodeFactoryImpl;
 use Saft\Rdf\StatementFactoryImpl;
-use OntoPress\Service\OntologyParser\OntologyNode;
-use OntoPress\Service\OntologyParser\Restriction;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Entity\Restriction as RestrictionEntity;
 
 /**
- * Class Parser
- * @package OntoPress\Service\OntologyParser
+ * Class Parser.
  */
 class Parser
 {
     /**
-     * Parsing-method, to parse an Ontology-object to OntologyNode
+     * Parsing-method, to parse an Ontology-object to OntologyNode.
+     *
      * @param Ontology
-     * @param boolean
+     * @param bool
+     *
      * @return array Array of OntologyNodes
-     * @return boolean
+     * @return bool
+     *
      * @throws \Exception
      */
     public function parsing($ontology, $writeData = false)
@@ -35,7 +36,7 @@ class Parser
         $ontologyArray = $ontology->getOntologyFiles();
         $objectArray = array();
         $restrictionArray = array();
-        
+
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
             foreach ($statementIterator as $key => $statement) {
@@ -43,17 +44,17 @@ class Parser
                     $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
                 }
                 switch ($statement->getPredicate()) {
-                    case "http://www.w3.org/2000/01/rdf-schema#label":
+                    case 'http://www.w3.org/2000/01/rdf-schema#label':
                         $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                         break;
-                    case "http://localhost/k00ni/knorke/restrictionOneOf":
+                    case 'http://localhost/k00ni/knorke/restrictionOneOf':
                         $restrictionArray = $this->restrictionHandler($statement, $restrictionArray);
                         $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
                         break;
-                    case "http://www.w3.org/2000/01/rdf-schema#comment":
+                    case 'http://www.w3.org/2000/01/rdf-schema#comment':
                         $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
                         break;
-                    case "http://localhost/k00ni/knorke/isMandatory":
+                    case 'http://localhost/k00ni/knorke/isMandatory':
                         $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
                         break;
                 }
@@ -76,6 +77,7 @@ class Parser
         if ($writeData) {
             $this->writeDataHandler($ontology, $objectArray);
         }
+
         return $objectArray;
     }
 
@@ -87,28 +89,29 @@ class Parser
         } else {
             $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
         }
+
         return $restrictionArray;
     }
 
     public function propertyHandler($statementIterator, $objectArray)
     {
         foreach ($statementIterator as $key => $statement) {
-            if ($statement->getPredicate() == "http://localhost/k00ni/knorke/hasProperty") {
+            if ($statement->getPredicate() == 'http://localhost/k00ni/knorke/hasProperty') {
                 if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
                     $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
                 }
                 $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
             }
             switch ($statement->getPredicate()) {
-                case "http://localhost/k00ni/knorke/hasProperty":
+                case 'http://localhost/k00ni/knorke/hasProperty':
                     if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
                         $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
                     }
                     $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
                     break;
-                case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
-                    if (($statement->getObject() == "http://localhost/k00ni/knorke/RestrictionElement") ||
-                        $statement->getObject() == "http://localhost/k00ni/knorke/Property"
+                case 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type':
+                    if (($statement->getObject() == 'http://localhost/k00ni/knorke/RestrictionElement') ||
+                        $statement->getObject() == 'http://localhost/k00ni/knorke/Property'
                     ) {
                         $objectArray[$statement->getSubject()->getUri()]->setPossessed(true);
                     }
@@ -122,6 +125,7 @@ class Parser
                 unset($objectArray[$statement->getSubject()->getUri()]);
             }
         }
+
         return $objectArray;
     }
 
@@ -145,26 +149,34 @@ class Parser
             $newDataOntology = true;
 
             foreach ($dataOntologyArray as $arrayKey => $dataOntology) {
-                if ($dataOntology->getName() == $this->parseNodeName($object->getName())) {
+                if ($dataOntology->getName() == $this->getUriFile($object->getName())) {
                     $dataOntology->addOntologyField($newNode);
                     $newDataOntology = false;
                 }
             }
             if ($newDataOntology) {
                 $newData = new DataOntology();
-                $newData->setName($this->parseNodeName($object->getName()));
+                $newData->setName($this->getUriFile($object->getName()));
                 $ontology->addDataOntology($newData);
             }
             // (altes Ende bzw. schreiben in Datenbank:)
         }
+
         return true;
     }
-    //draft/test
-    public function parseNodeName($ontologyNodeName)
+
+    /**
+     * Get last part of an Uri.
+     *
+     * @param string $uri Uri e.g. of an ontology node
+     *
+     * @return string last part of the Uri
+     */
+    public function getUriFile($uri)
     {
-        $pos = strrpos($ontologyNodeName, "/");
-        $pos = (strlen($ontologyNodeName) - $pos) * -1;
-        $parsedName = substr($ontologyNodeName, 0, $pos);
-        return $parsedName;
+        $parts = explode('/', $uri);
+        $revParts = array_reverse($parts);
+
+        return $revParts[0];
     }
 }
