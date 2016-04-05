@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Form.
  *
  * @ORM\Table(name="ontopress_form")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="OntoPress\Repository\FormRepository")
  */
 class Form
 {
