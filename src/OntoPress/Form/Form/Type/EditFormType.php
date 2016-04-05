@@ -23,14 +23,13 @@ class EditFormType extends AbstractType
                 'required' => false,
                 'attr' => array('class' => 'regular-text'),
             ))
-            ->add('twig', 'textarea', array(
+            ->add('twigCode', 'textarea', array(
                 'label' => 'Twig Code',
                 'attr' => array(
-                    'cols' => 45,
+                    'style' => 'width: 90%',
                     'rows' => 15,
                 ),
             ))
-            ->add('twigTheme', 'file')
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
                 'attr' => array('class' => 'button button-primary'),

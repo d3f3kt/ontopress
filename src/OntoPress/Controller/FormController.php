@@ -48,11 +48,33 @@ class FormController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showEditAction()
+    public function showEditAction(Request $request)
     {
-        $form = $this->createForm(new EditFormType(), null, array(
+        if ($formId = $request->get('formId')) {
+            $ontoForm = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
+                ->findOneById($formId);
+            if (!$ontoForm) {
+                throw new Exception('No form found');
+            }
+        }
+
+        $form = $this->createForm(new EditFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
         ));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->getDoctrine()->persist($ontoForm);
+            $this->getDoctrine()->flush();
+            
+            $this->addFlashMessage(
+                'success',
+                'Formular erfolgreich bearbeitet'
+            );
+
+            return $this->redirectToRoute('ontopress_forms');
+        }
 
         return $this->render('form/formEdit.html.twig', array(
             'form' => $form->createView(),
@@ -135,7 +157,10 @@ class FormController extends AbstractController
                 'Formular, erflogreich erstellt.'
             );
 
-            return $this->redirectToRoute('ontopress_forms');
+            return $this->redirectToRoute(
+                'ontopress_formsEdit',
+                array('formId' => $ontoForm->getId())
+            );
         }
 
         return $this->render('form/formCreate.html.twig', array(
