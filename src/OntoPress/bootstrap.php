@@ -47,7 +47,7 @@ if (getenv('ontopress_env') == 'test') {
 }
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-$doctrineConfig = Setup::createAnnotationMetadataConfiguration($entitiesDir, false, null, null, false);
+$doctrineConfig = Setup::createAnnotationMetadataConfiguration($entitiesDir, true, null, null, false);
 $entityManager = EntityManager::create($dbParams, $doctrineConfig);
 
 if (getenv('ontopress_env') == 'test') {
