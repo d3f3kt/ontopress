@@ -22,7 +22,6 @@ class Parser
      * @param bool
      *
      * @return array Array of OntologyNodes
-     * @return bool
      *
      * @throws \Exception
      */
@@ -81,6 +80,14 @@ class Parser
         return $objectArray;
     }
 
+    /**
+     * A parsing-helper function, which handles the Restrictions
+     *
+     * @param $statement
+     * @param array $restrictionArray An array with Restrictions
+     * @return array
+     *
+     */
     public function restrictionHandler($statement, $restrictionArray)
     {
         if (!(isset($restrictionArray[$statement->getSubject()->getUri()]))) {
@@ -93,6 +100,13 @@ class Parser
         return $restrictionArray;
     }
 
+    /**
+     * A parsing-helper function which handles the Property, hasProperty and the RestrictionElement Ontology relations
+     *
+     * @param $statementIterator
+     * @param array $objectArray
+     * @return array $objectArray
+     */
     public function propertyHandler($statementIterator, $objectArray)
     {
         foreach ($statementIterator as $key => $statement) {
@@ -129,6 +143,13 @@ class Parser
         return $objectArray;
     }
 
+    /**
+     * A parsing-helper function which handles the database interaction to save every property and restriction
+     *
+     * @param Ontology $ontology
+     * @param array $objectArray
+     * @return bool
+     */
     public function writeDataHandler($ontology, $objectArray)
     {
         foreach ($objectArray as $key => $object) {
@@ -149,17 +170,16 @@ class Parser
             $newDataOntology = true;
 
             foreach ($dataOntologyArray as $arrayKey => $dataOntology) {
-                if ($dataOntology->getName() == $this->getUriFile($object->getName())) {
+                if ($dataOntology->getName() == $this->groupOntologies($object->getName())) {
                     $dataOntology->addOntologyField($newNode);
                     $newDataOntology = false;
                 }
             }
             if ($newDataOntology) {
                 $newData = new DataOntology();
-                $newData->setName($this->getUriFile($object->getName()));
+                $newData->setName($this->groupOntologies($object->getName()));
                 $ontology->addDataOntology($newData);
             }
-            // (altes Ende bzw. schreiben in Datenbank:)
         }
 
         return true;
@@ -176,7 +196,20 @@ class Parser
     {
         $parts = explode('/', $uri);
         $revParts = array_reverse($parts);
-
         return $revParts[0];
+    }
+
+    /**
+     * Cut the last part of an Uri
+     *
+     * @param string $ontologyNodeName Uri e.g. of an ontology node
+     * @return string The Uri without the last part
+     */
+    public function groupOntologies($ontologyNodeName)
+    {
+        $pos = strrpos($ontologyNodeName, "/");
+        $pos = (strlen($ontologyNodeName) - $pos) * -1;
+        $parsedName = substr($ontologyNodeName, 0, $pos);
+        return $parsedName;
     }
 }
