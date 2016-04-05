@@ -100,20 +100,35 @@ class FormController extends AbstractController
     {
         $author = wp_get_current_user();
 
+        if($ontoId = $request->get('ontologyId')){
+            $ontoRepo = $this->getDoctrine()
+                ->getRepository('OntoPress\Entity\Ontology');
+
+            if(!$ontology = $ontoRepo->findOneById($ontoId)){
+                throw new Exception('No Ontology found');
+            }
+        }
+
         $ontoForm = new Form();
         $ontoForm->setAuthor($author->user_nicename)
             ->setDate(new \DateTime())
-            ->setTwigCode('REPLACE_ME');
+            ->setTwigCode('REPLACE_ME')
+            ->setOntology($ontology);
 
 
         $form = $this->createForm(new SelectFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
         ));
-        dump($ontoForm);
+
         $form->handleRequest($request);
+
+        dump($ontoForm);
         if ($form->isValid()) {
-            /*
+            $ontoForm->setTwigCode(
+                $this->get('ontopress.twig_generator')->generate($ontoForm)
+            );
+
             $this->getDoctrine()->persist($ontoForm);
             $this->getDoctrine()->flush();
 
@@ -121,8 +136,8 @@ class FormController extends AbstractController
                 'success',
                 'Formular, erflogreich erstellt.'
             );
+            
             return $this->redirectToRoute('ontopress_forms');
-            */
         }
         return $this->render('form/formCreate.html.twig', array(
             'form' => $form->createView(),
