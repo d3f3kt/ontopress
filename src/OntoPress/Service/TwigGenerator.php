@@ -2,7 +2,7 @@
 
 namespace OntoPress\Service;
 
-use OntoPressEntity\Form;
+use OntoPress\Entity\Form;
 use OntoPress\Entity\OntologyField;
 
 /**
@@ -18,12 +18,12 @@ class TwigGenerator
      *
      * @return string
      */
-    public function creation(Form $form)
+    public function generate(Form $form)
     {
         $twigCode = '';
-        $formFields = $form->getFormFields();
+        $formFields = $form->getOntologyFields();
         foreach ($formFields as $formField) {
-            $fieldName = createFieldName($formField);
+            $fieldName = $this->createFieldName($formField);
             $twigCode .= '{{form_label(form.'.$fieldName.")}}\n"
                 .'{{form_errors(form.'.$fieldName.")}}\n"
                 .'{{form_widget(form.'.$fieldName.")}}\n\n";
@@ -41,6 +41,8 @@ class TwigGenerator
      */
     private function createFieldName($formField)
     {
-        return $formField->getForm()->getOntology()->getName().'_'.$formField->getFieldUri();
+        $name = $formField->getDataOntology()->getOntology()->getName()
+            .'_'
+            .$formField->getName();
     }
 }
