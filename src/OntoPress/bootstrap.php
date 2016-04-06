@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Form\Forms;
 use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
+use Symfony\Bridge\Twig\Extension\DumpExtension;
 use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
@@ -78,6 +79,7 @@ $twig = new Twig_Environment(
         )
     )
 );
+$twig->enableDebug();
 
 // form setup
 $formEngine = new TwigRendererEngine(array('form/base.html.twig'));
@@ -90,6 +92,7 @@ $formFactory = Forms::createFormFactoryBuilder()
 // add all twig extensions
 $twig->addExtension(new FormExtension(new TwigRenderer($formEngine)));
 $twig->addExtension(new TranslationExtension($translator));
+$twig->addExtension(new DumpExtension(new Symfony\Component\VarDumper\Cloner\VarCloner()));
 
 // session configuration
 if (getenv('ontopress_env') == 'test') {
