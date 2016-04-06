@@ -17,6 +17,7 @@ class AddResourceDetailType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /*
         $formFields = $options['data']->getOntologyFields();
         foreach ($formFields as $field) {
             $builder
@@ -25,7 +26,7 @@ class AddResourceDetailType extends AbstractType
                     'required' => $field->getMandatory(),
                     'attr' => calculateAttribute($field),
                 ));
-        }
+        }*/
 
         $builder
             ->add('submit', new SubmitCancelType(), array(
@@ -55,7 +56,7 @@ class AddResourceDetailType extends AbstractType
     {
         return 'networkMessage';
     }
-
+/*
     private function checkType($field)
     {
         $type = $field->getType();
@@ -84,5 +85,5 @@ class AddResourceDetailType extends AbstractType
     private function calculateChoices()
     {
 
-    }
+    }*/
 }
