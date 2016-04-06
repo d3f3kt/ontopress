@@ -18,7 +18,7 @@ class AddResourceDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $formFields = $options['data']->getOntologyFields();
-        foreach($formFields as $field) {
+        foreach ($formFields as $field) {
             $builder
                 -> add($field->getFieldUri(), checkType($field), array(
                     'label' => $field->getName(),
@@ -59,11 +59,9 @@ class AddResourceDetailType extends AbstractType
     private function checkType($field)
     {
         $type = $field->getType();
-        if($type == OntologyNode::TYPE_TEXT){
+        if ($type == OntologyNode::TYPE_TEXT) {
             return 'text';
-        }
-
-        else if($type == OntologyNode::TYPE_RADIO){
+        } else if ($type == OntologyNode::TYPE_RADIO) {
             return ChoiceType::class;
         }
 
@@ -74,14 +72,11 @@ class AddResourceDetailType extends AbstractType
     private function calculateAttribute($field)
     {
         $type = $field->getType();
-        if($type == OntologyNode::TYPE_TEXT){
+        if ($type == OntologyNode::TYPE_TEXT) {
             return 'regular-text';
-        }
-
-        else if($type == OntologyNode::TYPE_RADIO){
+        } else if ($type == OntologyNode::TYPE_RADIO) {
             return  array('choices' => array($field->calculateChoices() => true, $field->calculateChoices() => false));
         }
-
         //default return value
         return 'error';
     }
