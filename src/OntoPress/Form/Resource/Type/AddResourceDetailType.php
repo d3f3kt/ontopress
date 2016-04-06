@@ -17,22 +17,17 @@ class AddResourceDetailType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $formFields = $options['data']->getOntologyFields();
+        foreach($formFields as $field) {
+            $builder
+                -> add($field->getFieldUri(), checkType($field), array(
+                    'label' => $field->getName(),
+                    'required' => $field->getMandatory(),
+                    'attr' => calculateAttribute($field),
+                ));
+        }
+
         $builder
-            ->add('title', 'text', array(
-                'label' => 'Titel',
-                'required' => false,
-                'attr' => array('class' => 'regular-text'),
-            ))
-            ->add('street', 'text', array(
-                'label' => 'Straße',
-                'required' => false,
-                'attr' => array('class' => 'regular-text'),
-            ))
-            ->add('zip', 'text', array(
-                'label' => 'Plz',
-                'required' => false,
-                'attr' => array('class' => 'regular-text'),
-            ))
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Speichern',
                 'attr' => array('class' => 'button button-primary'),
@@ -59,5 +54,40 @@ class AddResourceDetailType extends AbstractType
     public function getName()
     {
         return 'networkMessage';
+    }
+
+    private function checkType($field)
+    {
+        $type = $field->getType();
+        if($type == OntologyNode::TYPE_TEXT){
+            return 'text';
+        }
+
+        else if($type == OntologyNode::TYPE_RADIO){
+            return ChoiceType::class;
+        }
+
+        //default return value
+        return 'error';
+    }
+
+    private function calculateAttribute($field)
+    {
+        $type = $field->getType();
+        if($type == OntologyNode::TYPE_TEXT){
+            return 'regular-text';
+        }
+
+        else if($type == OntologyNode::TYPE_RADIO){
+            return  array('choices' => array($field->calculateChoices() => true, $field->calculateChoices() => false));
+        }
+
+        //default return value
+        return 'error';
+    }
+
+    private function calculateChoices()
+    {
+
     }
 }
