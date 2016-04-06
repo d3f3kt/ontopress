@@ -55,6 +55,6 @@ class EditFormType extends AbstractType
      */
     public function getName()
     {
-        return 'networkMessage';
+        return 'formEditType';
     }
 }
