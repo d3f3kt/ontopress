@@ -186,20 +186,6 @@ class Parser
     }
 
     /**
-     * Get last part of an Uri.
-     *
-     * @param string $uri Uri e.g. of an ontology node
-     *
-     * @return string last part of the Uri
-     */
-    public function getUriFile($uri)
-    {
-        $parts = explode('/', $uri);
-        $revParts = array_reverse($parts);
-        return $revParts[0];
-    }
-
-    /**
      * Cut the last part of an Uri
      *
      * @param string $ontologyNodeName Uri e.g. of an ontology node

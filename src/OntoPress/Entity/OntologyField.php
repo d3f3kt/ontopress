@@ -3,17 +3,20 @@
 namespace OntoPress\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * OntologyNode
+ * OntologyNode.
  *
  * @ORM\Table(name="ontopress_ontology_field")
  * @ORM\Entity()
  */
 class OntologyField
 {
+    const TYPE_TEXT = 'Text';
+    const TYPE_RADIO = 'Radio-Button';
+    const TYPE_CHOICE = 'Restriction-Choice';
+
     /**
      * @var DataOntology
      * @ORM\ManyToOne(targetEntity="DataOntology", inversedBy="ontologyFields")
@@ -50,7 +53,7 @@ class OntologyField
     protected $comment;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(name="mandatory", type="boolean", nullable=true)
      */
     protected $mandatory;
@@ -76,8 +79,35 @@ class OntologyField
     }
 
     /**
+     * Get last part of an Uri.
+     *
+     * @return string last part of the Uri
+     */
+    public function getUriFile()
+    {
+        $parts = explode('/', $this->getName());
+        $revParts = array_reverse($parts);
+
+        return $revParts[0];
+    }
+
+    /**
+     * Helper function to generate unique name from ontology field object.
+     *
+     * @return string
+     */
+    public function getFormFieldName()
+    {
+        return str_replace(' ', '', $this->getDataOntology()->getOntology()->getName())
+            .'_'
+            .preg_replace("/[^A-Za-z0-9 ]/", '_', $this->getUriFile());
+    }
+
+    /**
      * Removes a restriction from $restrictions.
+     *
      * @param Restriction $restriction
+     *
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
     public function removeRestriction(\OntoPress\Entity\Restriction $restriction)
@@ -87,7 +117,9 @@ class OntologyField
 
     /**
      * Adds a restriction to $restrictions.
+     *
      * @param Restriction $newRestriction
+     *
      * @return OntologyField
      */
     public function addRestriction(\OntoPress\Entity\Restriction $newRestriction)
@@ -100,6 +132,7 @@ class OntologyField
 
     /**
      * Getter id.
+     *
      * @return int $id
      */
     public function getId()
@@ -109,7 +142,9 @@ class OntologyField
 
     /**
      * Setter name.
+     *
      * @param String $name
+     *
      * @return OntologyField
      */
     public function setName($name)
@@ -121,6 +156,7 @@ class OntologyField
 
     /**
      * Getter name.
+     *
      * @return string $name
      */
     public function getName()
@@ -129,8 +165,10 @@ class OntologyField
     }
 
     /**
-     * Setter label
+     * Setter label.
+     *
      * @param String $label
+     *
      * @return OntologyField
      */
     public function setLabel($label)
@@ -142,6 +180,7 @@ class OntologyField
 
     /**
      * Getter label.
+     *
      * @return string $label
      */
     public function getLabel()
@@ -151,7 +190,9 @@ class OntologyField
 
     /**
      * Setter comment.
+     *
      * @param String $comment
+     *
      * @return OntologyField
      */
     public function setComment($comment)
@@ -163,6 +204,7 @@ class OntologyField
 
     /**
      * Getter comment.
+     *
      * @return string $comment
      */
     public function getComment()
@@ -172,7 +214,9 @@ class OntologyField
 
     /**
      * Setter mandatory.
-     * @param boolean $mandatory
+     *
+     * @param bool $mandatory
+     *
      * @return OntologyField
      */
     public function setMandatory($mandatory)
@@ -184,6 +228,7 @@ class OntologyField
 
     /**
      * Getter mandatory.
+     *
      * @return bool
      */
     public function getMandatory()
@@ -193,7 +238,9 @@ class OntologyField
 
     /**
      * Getter type.
+     *
      * @param string $type
+     *
      * @return OntologyField
      */
     public function setType($type)
@@ -205,6 +252,7 @@ class OntologyField
 
     /**
      * Getter type.
+     *
      * @return string $type
      */
     public function getType()
@@ -214,6 +262,7 @@ class OntologyField
 
     /**
      * Getter restrictions.
+     *
      * @return \Doctrine\Common\Collections\ArrayCollection|Restriction
      */
     public function getRestrictions()
@@ -223,7 +272,9 @@ class OntologyField
 
     /**
      * Setter dataOntology.
+     *
      * @param Ontology|null $dataOntology
+     *
      * @return OntologyField
      */
     public function setDataOntology(\OntoPress\Entity\DataOntology $dataOntology = null)
@@ -235,6 +286,7 @@ class OntologyField
 
     /**
      * Getter dataOntology.
+     *
      * @return DataOntology
      */
     public function getDataOntology()
