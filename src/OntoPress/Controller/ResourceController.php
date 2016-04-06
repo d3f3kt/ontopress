@@ -5,7 +5,7 @@ namespace OntoPress\Controller;
 use OntoPress\Library\AbstractController;
 use OntoPress\Form\Resource\Type\AddResourceDetailType;
 use Symfony\Component\HttpFoundation\Request;
-use OntoPress\Service\FormGeneratorType;
+
 /**
  * Resource Controller.
  */
@@ -28,7 +28,7 @@ class ResourceController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showAddDetailsAction(/*Request $request*/)
+    public function showAddDetailsAction()//Request $request)
     {
         //get formId
         //$id = $request->get('id');
@@ -40,10 +40,6 @@ class ResourceController extends AbstractController
             ->find($id);
 
         //create Formgenerator and hand over form
-       /* $form = $this->createForm(new FormGeneratorType(), $formEntity, array(
-            'data' => $formEntity,
-            'cancel_link' => $this->generateRoute('ontopress_ontology'),
-        )); */
 
         $form = $this->createForm(new AddResourceDetailType(), null, array(
             'data' => $formEntity,

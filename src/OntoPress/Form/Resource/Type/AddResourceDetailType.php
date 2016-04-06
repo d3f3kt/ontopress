@@ -20,13 +20,14 @@ class AddResourceDetailType extends AbstractType
     {
         /*
         $formFields = $options['data']->getOntologyFields();
-        foreach($formFields as $field) {
+        foreach ($formFields as $field) {
             $builder
                 -> add($field->getId(), $this->checkType($field), array(
                     'label' => $field->getName(),
                     'required' => $field->getMandatory(),
                     'attr' => array('class' => $this->calculateAttribute($field)),
                 ));
+
         }
         */
         $builder
@@ -61,11 +62,9 @@ class AddResourceDetailType extends AbstractType
     private function checkType($field)
     {
         $type = $field->getType();
-        if($type == 'Text') {//OntologyNode::TYPE_TEXT){
+        if ($type == 'Text') {//OntologyNode::TYPE_TEXT) {
             return 'text';
-        }
-
-        else if($type == 'Radio-Button') {//OntologyNode::TYPE_RADIO){
+        } else if ($type == 'Radio-Button') {//OntologyNode::TYPE_RADIO) {
             return ChoiceType::class;
         }
 
@@ -76,14 +75,11 @@ class AddResourceDetailType extends AbstractType
     private function calculateAttribute($field)
     {
         $type = $field->getType();
-        if($type == 'Text') {//OntologyNode::TYPE_TEXT){
+        if ($type == 'Text') {//OntologyNode::TYPE_TEXT) {
             return 'regular-text';
+        } /*else if ($type == 'Radio-Button') {//OntologyNode::TYPE_RADIO) {
+            return array('choices' => array($field->calculateChoices() => true, $field->calculateChoices() => false));
         }
-        /*
-        else if($type == 'Radio-Button') {//OntologyNode::TYPE_RADIO){
-            return  array('choices' => array($field->calculateChoices() => true, $field->calculateChoices() => false));
-        }
-
         //default return value
         return 'error';
         */
