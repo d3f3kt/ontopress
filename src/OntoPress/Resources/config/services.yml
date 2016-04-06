@@ -10,6 +10,11 @@ services:
         arguments: [@ontopress.ontology_parser]
         lazy: true
 
+    ontopress.form_creation:
+        class: OntoPress\Service\FormCreation
+        arguments: [@form]
+        lazy: true
+
     ontopress.router:
         class: OntoPress\Library\Router
         arguments: [@service_container]
