@@ -18,6 +18,12 @@ class SelectFormType extends AbstractType
                 'label' => 'Formularname: ',
                 'attr' => array('class' => 'regular-text'),
             ))
+            /*
+            ->add("dataOntologies", new EntityType($options['doctrineManager']), array(
+                'class' => 'OntoPress\Entity\DataOntology',
+                'choice_label' => 'name',
+            ))
+            */
             ->add('ontologyFields', new EntityType($options['doctrineManager']), array(
                 'class' => 'OntoPress\Entity\OntologyField',
                 'choice_label' => 'label',
