@@ -75,4 +75,23 @@ class ParserTest extends OntoPressTestCase
             ->addOntologyFile($ontologyFile);
         $this->parser->parsing($ontologyObj);
     }
+
+    /**
+     * Test groupOntologies method, which should return a string identical to the given one, except cut off at the last '/'
+     */
+    public function testGroupOntologies()
+    {
+        $this->assertEquals($this->parser->groupOntologies("test/testing/rootzone"), "test/testing");
+        $this->assertEquals($this->parser->groupOntologies(""), "");
+    }
+
+    /**
+     * Test writeDataHandler method, which should save OntologyNodes in the database, based on the Ontology they come from
+     */
+    public function testWriteDataHandler()
+    {
+        // maybe needed:
+        // getConnection()
+        // getDataSet()
+    }
 }
