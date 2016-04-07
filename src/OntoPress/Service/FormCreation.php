@@ -72,8 +72,8 @@ class FormCreation
         return $builder->add($field->getFormFieldName(), 'choice', array(
             'label' => $field->getLabel(),
             'required' => $field->getMandatory(),
-            'multiple' => true,
-            'expanded' => false,
+            'multiple' => false,
+            'expanded' => true,
             'choices' => array(), //TODO: get choices of radio button field
         ));
     }
@@ -96,6 +96,8 @@ class FormCreation
      */
     private function getBuilder()
     {
-        return $this->formFactory->createBuilder();
+        return $this->formFactory->createNamedBuilder('OntoPressForm', 'form', null, array(
+            'block_name' => 'OntoPressForm',
+        ));
     }
 }
