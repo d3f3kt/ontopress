@@ -39,10 +39,12 @@ class TwigGenerator
     public function generate(Form $form)
     {
         $twigCode = $this->generateFormStart();
+        $twigCode .= "<table class='form-table' id='OntoPressForm'>\n";
 
-        $ontologyFields = $form->getOntologyFields();
-        foreach ($ontologyFields as $ontologyField) {
+        foreach ($form->getOntologyFields() as $ontologyField) {
+            $twigCode .= "\t<tr>\n";
             $twigCode .= $this->generateFormField($ontologyField);
+            $twigCode .= "\t</tr>\n";
         }
 
         $twigCode .= $this->generateFormEnd();
@@ -64,10 +66,8 @@ class TwigGenerator
 
     private function generateTextField(OntologyField $ontologyField)
     {
-        //TODO
-        $fieldName = $ontologyField->getFormFieldName();
-        $twigCode .= '{{form_label(form.'.$ontologyField->getFormFieldName().")}}\n";
-        //    .'{{form_errors(form.'.$ontologyField->getFormFieldName().")}}\n";
+        $twigCode = $this->generateLabel($ontologyField);
+        $twigCode .= '{{form_errors(form.'.$ontologyField->getFormFieldName().")}}\n";
         $twigCode .= "<input type='text' "
             .$this->generateFieldValue($ontologyField).' '
             .$this->generateFieldAttributes($ontologyField)
@@ -79,10 +79,9 @@ class TwigGenerator
     private function generateRadioField(OntologyField $ontologyField)
     {
         //TODO
-        $fieldName = $formField->getFormFieldName();
-        $twigCode .= '{{form_label(form.'.$fieldName.")}}\n"
-            .'{{form_errors(form.'.$fieldName.")}}\n"
-            .'{{form_widget(form.'.$fieldName.")}}\n\n";
+        $twigCode = $this->generateLabel($ontologyField)."\n";
+        $twigCode .= '{{form_errors(form.'.$ontologyField->getFormFieldName().")}}\n"
+            .'{{form_widget(form.'.$ontologyField->getFormFieldName().")}}\n\n";
 
         return $twigCode;
     }
@@ -90,24 +89,47 @@ class TwigGenerator
     private function generateChoiceField(OntologyField $ontologyField)
     {
         //TODO
-        $fieldName = $this->createFieldName($formField);
-        $twigCode .= '{{form_label(form.'.$fieldName.")}}\n"
-            .'{{form_errors(form.'.$fieldName.")}}\n"
-            .'{{form_widget(form.'.$fieldName.")}}\n\n";
+        $twigCode .= '{{form_label(form.'.$ontologyField->getFormFieldName().")}}\n"
+            .'{{form_errors(form.'.$ontologyField->getFormFieldName().")}}\n"
+            .'{{form_widget(form.'.$ontologyField->getFormFieldName().")}}\n\n";
 
         return $twigCode;
+    }
+
+    private function generateLabel(OntologyField $ontologyField)
+    {
+        $twigCode = "\t\t<th scope='row'>\n"
+            ."\t\t\t<label%s%s>%s</label>\n"
+            ."\t\t</th>";
+
+        switch ($ontologyField->getType()) {
+            case OntologyField::TYPE_TEXT:
+                return sprintf(
+                    $twigCode,
+                    " for='OntoPressForm_".$ontologyField->getFormFieldName()."'",
+                    $ontologyField->getMandatory() ? ' class="required"' : '',
+                    $ontologyField->getLabel()
+                );
+            default:
+                return sprintf(
+                    $twigCode,
+                    '',
+                    $ontologyField->getMandatory() ? ' class="required"' : '',
+                    $ontologyField->getLabel()
+                );
+        }
     }
 
     private function generateFieldValue(OntologyField $ontologyField)
     {
         return '{{ '.$this->createFieldVarName($ontologyField).'.value is not empty ? '
-            ."'value=\"' ~ ".$this->createFieldVarName($ontologyField).' }}';
+            ."'value=\"' ~ ".$this->createFieldVarName($ontologyField).'.value }}';
     }
 
     private function generateFieldAttributes(OntologyField $ontologyField)
     {
-        return 'id="{{ '.$this->createFieldVarName($ontologyField).'.id }}" '.
-            'name="{{ '.$this->createFieldVarName($ontologyField).'.name }}"';
+        return 'id="OntoPressForm_'.$ontologyField->getFormFieldName().'" '.
+            'name="OntoPressForm['.$ontologyField->getFormFieldName().']"';
     }
 
     /**
@@ -121,7 +143,7 @@ class TwigGenerator
             ." name='{{ form.vars.name }}'"
             ." method='{{ form.vars.method }}'"
             ." action='{{ form.vars.action }}'"
-            ." enctype='multipart/form-data'> \n\n";
+            ." enctype='multipart/form-data'>\n";
     }
 
     /**
