@@ -56,7 +56,7 @@ class FormCreation
             case OntologyField::TYPE_RADIO:
                 return $this->addRadioField($field, $builder);
             case OntologyField::TYPE_CHOICE:
-                return $this->generateChoiceField($field, $builder);
+                return $this->addChoiceField($field, $builder);
         }
     }
 
@@ -75,7 +75,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => true,
-            'choices' => array(), //TODO: get choices of radio button field
+            'choices' => $this->getChoiceArray($field) //array(), //TODO: get choices of radio button field
         ));
     }
 
@@ -86,7 +86,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => false,
-            'choices' => array(), //TODO. get choices of choice field
+            'choices' => $this->getChoiceArray($field) //array(), //TODO. get choices of choice field
         ));
     }
 
@@ -116,7 +116,7 @@ class FormCreation
                 ->from('OntologyField')
                 ->where('u.name = :name')
                 ->setParameter('name', $choice->getName());
-            $choiceArray[$choice->getName()] = $pushChoice;
+            $choiceArray[$choice->getLabel()] = $pushChoice;
         }
         return $choiceArray;
     }
