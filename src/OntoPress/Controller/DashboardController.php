@@ -6,11 +6,16 @@ use OntoPress\Library\AbstractController;
 
 /**
  * Dashboard Controller.
+ * The Dashboard Controller is creating the dynamic Page Content for the Dashboard view.
+ * It fetches the specific Data from the Database and renders a twig template.
  */
 class DashboardController extends AbstractController
 {
     /**
-     * Show dashboard.
+     * Show Dashboard.
+     * Creates the dynamic Table content for the Dashboard view.
+     * It fetches the Data out of the Database and determines for example
+     * the 4 most used Ontologies and renders the twig template.
      *
      * @return string rendered twig template
      */
