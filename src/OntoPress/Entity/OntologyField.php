@@ -322,4 +322,5 @@ class OntologyField
     {
         return $this->possessed;
     }
+    
 }

@@ -2,6 +2,7 @@
 
 namespace OntoPress\Service;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Symfony\Component\Form\Form as SymForm;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -99,5 +100,24 @@ class FormCreation
         return $this->formFactory->createNamedBuilder('OntoPressForm', 'form', null, array(
             'block_name' => 'OntoPressForm',
         ));
+    }
+
+    /**
+     * @param OntologyField $field
+     * @return array
+     */
+    private function getChoiceArray(OntologyField $field)
+    {
+        $choiceArray = array();
+        $entityManager = $this->get('ontopress.doctrine_manager');
+        $qb = $entityManager->createQueryBuilder();
+        foreach($field->getRestrictions()->toArray() as $key => $choice) {
+            $pushChoice = $qb->select('u')
+                ->from('OntologyField')
+                ->where('u.name = :name')
+                ->setParameter('name', $choice->getName());
+            $choiceArray[$choice->getName()] = $pushChoice;
+        }
+        return $choiceArray;
     }
 }

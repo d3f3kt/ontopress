@@ -64,9 +64,7 @@ class Parser
             }
         }
         $objectArray = $this->propertyHandler($statementIterator, $objectArray);
-
         $this->dataOntologyHandler($ontology, $objectArray);
-
         return $objectArray;
     }
 
@@ -74,7 +72,7 @@ class Parser
      * A parsing-helper function, which handles the Restrictions
      *
      * @param $statement
-     * @param array $restrictionArray An array with Restrictions
+     * @param $ontologyField 
      * @return array
      *
      */
