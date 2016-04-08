@@ -11,19 +11,24 @@ use OntoPress\Library\AbstractController;
 
 /**
  * Ontology Controller.
+ * The Ontology Controller is creating the dynamic Page Content for the Ontology view.
+ * It connects to the Database and renders the specific twig template for the different views.
  */
 class OntologyController extends AbstractController
 {
     /**
-     * Show all ontologies.
+     * Creates the dynamic Table content for the Ontology manage view.
+     * It fetches all Ontologys from the Database and and renders the twig template.
      *
      * @return string rendered twig template
      */
     public function showManageAction()
     {
+        //fetch all Ontologies from the Database
         $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
         $ontologyManageTable = $repository->findAll();
 
+        //render twig template
         return $this->render('ontology/managePage.html.twig', array(
             'ontologyManageTable' => $ontologyManageTable,
         ));
@@ -31,6 +36,8 @@ class OntologyController extends AbstractController
 
     /**
      * Handle the delete request of one ontology.
+     * It fetches the selected Ontology from the Database, renders a twig template and removes the Ontology if
+     * the submit button is enabled.
      *
      * @param Request $request HTTP Request
      *
@@ -67,7 +74,7 @@ class OntologyController extends AbstractController
 
             return $this->redirectToRoute('ontopress_ontology');
         }
-        
+
         return $this->render('ontology/delete.html.twig', array(
             'ontologyDelete' => $ontologyDelete,
             'ontologyForms' => $ontologyForms,
