@@ -278,7 +278,7 @@ class OntologyField
     /**
      * Setter dataOntology.
      *
-     * @param Ontology|null $dataOntology
+     * @param DataOntology|null $dataOntology
      *
      * @return OntologyField
      */
@@ -322,5 +322,4 @@ class OntologyField
     {
         return $this->possessed;
     }
-    
 }

@@ -111,7 +111,7 @@ class FormCreation
         $choiceArray = array();
         $entityManager = $this->get('ontopress.doctrine_manager');
         $qb = $entityManager->createQueryBuilder();
-        foreach($field->getRestrictions()->toArray() as $key => $choice) {
+        foreach ($field->getRestrictions()->toArray() as $key => $choice) {
             $pushChoice = $qb->select('u')
                 ->from('OntologyField')
                 ->where('u.name = :name')

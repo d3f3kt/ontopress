@@ -72,7 +72,7 @@ class Parser
      * A parsing-helper function, which handles the Restrictions
      *
      * @param $statement
-     * @param $ontologyField 
+     * @param $ontologyField
      * @return array
      *
      */
