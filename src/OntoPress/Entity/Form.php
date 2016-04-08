@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Form.
+ * This PHP Object allows Doctrine to translate php Objects into an relational SQL Table via Metadata.
  *
  * @ORM\Table(name="ontopress_form")
  * @ORM\Entity(repositoryClass="OntoPress\Repository\FormRepository")
