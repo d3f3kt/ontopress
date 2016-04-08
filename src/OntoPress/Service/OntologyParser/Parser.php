@@ -8,7 +8,7 @@ use Saft\Addition\EasyRdf\Data\ParserEasyRdf;
 use Saft\Rdf\NodeFactoryImpl;
 use Saft\Rdf\StatementFactoryImpl;
 use OntoPress\Entity\OntologyField;
-use OntoPress\Entity\Restriction as RestrictionEntity;
+use OntoPress\Entity\Restriction;
 
 /**
  * Class Parser.
@@ -19,13 +19,12 @@ class Parser
      * Parsing-method, to parse an Ontology-object to OntologyNode.
      *
      * @param Ontology
-     * @param bool
      *
      * @return array Array of OntologyNodes
      *
      * @throws \Exception
      */
-    public function parsing($ontology, $writeData = false)
+    public function parsing($ontology)
     {
         $parser = new ParserEasyRdf(
             new NodeFactoryImpl(),
@@ -34,21 +33,21 @@ class Parser
         );
         $ontologyArray = $ontology->getOntologyFiles();
         $objectArray = array();
-        $restrictionArray = array();
 
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
             foreach ($statementIterator as $key => $statement) {
                 if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
-                    $objectArray[$statement->getSubject()->getUri()] = new OntologyNode($statement->getSubject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
+                    $objectArray[$statement->getSubject()->getUri()] = new OntologyField();
+                    $objectArray[$statement->getSubject()->getUri()]->setName($statement->getSubject()->getUri());
+                    $objectArray[$statement->getSubject()->getUri()]->setType(OntologyField::TYPE_TEXT);
                 }
                 switch ($statement->getPredicate()) {
                     case 'http://www.w3.org/2000/01/rdf-schema#label':
                         $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                         break;
                     case 'http://localhost/k00ni/knorke/restrictionOneOf':
-                        $restrictionArray = $this->restrictionHandler($statement, $restrictionArray);
-                        $objectArray[$statement->getSubject()->getUri()]->setType(OntologyNode::TYPE_RADIO);
+                        $objectArray[$statement->getSubject()->getUri()] = $this->restrictionHandler($statement, $objectArray[$statement->getSubject()->getUri()]);
                         break;
                     case 'http://www.w3.org/2000/01/rdf-schema#comment':
                         $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
@@ -58,24 +57,15 @@ class Parser
                         break;
                 }
             }
+            foreach ($statementIterator as $key => $statement) {
+                if ($statement->getPredicate() == 'http://localhost/k00ni/knorke/restrictionOneOf' && isset($objectArray[$statement->getObject()->getUri()])) {
+                    $objectArray[$statement->getObject()->getUri()]->setType(OntologyField::TYPE_CHOICE);
+                }
+            }
         }
         $objectArray = $this->propertyHandler($statementIterator, $objectArray);
 
-        foreach ($restrictionArray as $subject => $restriction) {
-            $restrictionObject = new Restriction();
-            foreach ($restriction->getOneOf() as $key => $choice) {
-                if (isset($objectArray[$choice])) {
-                    $objectArray[$choice]->setType(OntologyNode::TYPE_CHOICE);
-                    $restrictionObject->addOneOf($objectArray[$choice]->getName());
-                } else {
-                    $restrictionObject->addOneOf($choice);
-                }
-            }
-            $objectArray[$subject]->setRestriction($restrictionObject);
-        }
-        if ($writeData) {
-            $this->writeDataHandler($ontology, $objectArray);
-        }
+        $this->dataOntologyHandler($ontology, $objectArray);
 
         return $objectArray;
     }
@@ -88,16 +78,13 @@ class Parser
      * @return array
      *
      */
-    public function restrictionHandler($statement, $restrictionArray)
+    public function restrictionHandler($statement, $ontologyField)
     {
-        if (!(isset($restrictionArray[$statement->getSubject()->getUri()]))) {
-            $restrictionArray[$statement->getSubject()->getUri()] = new Restriction();
-            $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
-        } else {
-            $restrictionArray[$statement->getSubject()->getUri()]->addOneOf($statement->getObject()->getUri());
-        }
-
-        return $restrictionArray;
+        $ontologyField->setType(OntologyField::TYPE_RADIO);
+        $restriction = new Restriction();
+        $restriction->setName($statement->getObject()->getUri());
+        $ontologyField->addRestriction($restriction);
+        return $ontologyField;
     }
 
     /**
@@ -112,14 +99,18 @@ class Parser
         foreach ($statementIterator as $key => $statement) {
             if ($statement->getPredicate() == 'http://localhost/k00ni/knorke/hasProperty') {
                 if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
-                    $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
+                    $objectArray[$statement->getObject()->getUri()] = new OntologyField();
+                    $objectArray[$statement->getObject()->getUri()]->setName($statement->getObject()->getUri());
+                    $objectArray[$statement->getObject()->getUri()]->setType(OntologyField::TYPE_TEXT);
                 }
                 $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
             }
             switch ($statement->getPredicate()) {
                 case 'http://localhost/k00ni/knorke/hasProperty':
                     if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
-                        $objectArray[$statement->getObject()->getUri()] = new OntologyNode($statement->getObject()->getUri(), null, null, OntologyNode::TYPE_TEXT);
+                        $objectArray[$statement->getObject()->getUri()] = new OntologyField();
+                        $objectArray[$statement->getObject()->getUri()]->setName($statement->getObject()->getUri());
+                        $objectArray[$statement->getObject()->getUri()]->setType(OntologyField::TYPE_TEXT);
                     }
                     $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
                     break;
@@ -132,46 +123,26 @@ class Parser
                     break;
             }
         }
-        foreach ($statementIterator as $key => $statement) {
-            if (isset($objectArray[$statement->getSubject()->getUri()]) &&
-                (!($objectArray[$statement->getSubject()->getUri()]->getPossessed()))
-            ) {
-                unset($objectArray[$statement->getSubject()->getUri()]);
-            }
-        }
 
         return $objectArray;
     }
 
     /**
-     * A parsing-helper function which handles the database interaction to save every property and restriction
+     * A parsing-helper function
      *
      * @param Ontology $ontology
      * @param array $objectArray
      * @return bool
      */
-    public function writeDataHandler($ontology, $objectArray)
+    public function dataOntologyHandler($ontology, $objectArray)
     {
         foreach ($objectArray as $key => $object) {
-            $newNode = new OntologyField();
-            $newNode->setName($object->getName());
-            $newNode->setLabel($object->getLabel());
-            $newNode->setComment($object->getComment());
-            $newNode->setType($object->getType());
-            $newNode->setMandatory($object->getMandatory());
-
-            if (!empty($object->getRestriction())) {
-                foreach ($object->getRestriction()->getOneOf() as $resKey => $resObject) {
-                    $newRestriction = new RestrictionEntity();
-                    $newNode->addRestriction($newRestriction->setName($resObject));
-                }
-            }
             $dataOntologyArray = $ontology->getDataOntologies();
             $newDataOntology = true;
 
             foreach ($dataOntologyArray as $arrayKey => $dataOntology) {
                 if ($dataOntology->getName() == $this->groupOntologies($object->getName())) {
-                    $dataOntology->addOntologyField($newNode);
+                    $dataOntology->addOntologyField($object);
                     $newDataOntology = false;
                 }
             }

@@ -20,18 +20,16 @@ class TestController extends AbstractController
         $ontologyParser = $this->get('ontopress.ontology_parser');
         $ontologyParser->parsing($ontologyObj, true);
 
-        //print_r($this->getDoctrine()->getRepository('OntoPress\Entity\OntologyField'));
-
         $output = $ontologyParser->parsing($ontologyObj);
         foreach ($output as $key => $object) {
             echo $object->getName() . " - " . $object->getLabel() . " - " .
                 $object->getComment() . " - " . $object->getType() . " - " .
                 $object->getPossessed() . " - " .$object->getMandatory() . " - ";
-            if ($object->getRestriction() != null) {
-                print_r($object->getRestriction());
-                echo "<br />";
+            foreach ($object->getRestrictions() as $key2 => $restriction){
+                echo "<br />" . $restriction->getName();
             }
-            echo "<br />";
+            echo "<br /><br />";
+
         }
 
         return null;

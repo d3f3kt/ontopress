@@ -25,7 +25,7 @@ class OntologyField
 
     /**
      * @var string
-     * @ORM\Column(name="name", type="string", length=128)
+     * @ORM\Column(name="name", type="string", length=256)
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
      */
@@ -42,13 +42,13 @@ class OntologyField
 
     /**
      * @var string
-     * @ORM\Column(name="label", type="string", length=128, nullable=true)
+     * @ORM\Column(name="label", type="string", length=256, nullable=true)
      */
     protected $label;
 
     /**
      * @var string
-     * @ORM\Column(name="comment", type="string", length=128, nullable=true)
+     * @ORM\Column(name="comment", type="string", length=512, nullable=true)
      */
     protected $comment;
 
@@ -69,6 +69,11 @@ class OntologyField
      * @ORM\OneToMany(targetEntity="Restriction", mappedBy="ontologyField", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $restrictions;
+
+    /**
+     * @var bool
+     */
+    protected $possessed;
 
     /**
      * Constructor.
@@ -292,5 +297,29 @@ class OntologyField
     public function getDataOntology()
     {
         return $this->dataOntology;
+    }
+
+    /**
+     * Setter possessed.
+     *
+     * @param bool $possessed
+     *
+     * @return OntologyField
+     */
+    public function setPossessed($possessed)
+    {
+        $this->possessed = $possessed;
+
+        return $this;
+    }
+
+    /**
+     * Getter possessed.
+     *
+     * @return bool
+     */
+    public function getPossessed()
+    {
+        return $this->possessed;
     }
 }
