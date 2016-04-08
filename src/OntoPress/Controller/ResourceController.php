@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Resource Controller.
+ * The Resource Controller is creating the dynamic Page Content for the Resource view.
+ * It connects to the Database and renders the specific twig template for the different views.
  */
 class ResourceController extends AbstractController
 {
@@ -19,7 +21,6 @@ class ResourceController extends AbstractController
      */
     public function showAddAction()
     {
-
         return $this->render('resource/resourceAdd.html.twig', array());
     }
 
