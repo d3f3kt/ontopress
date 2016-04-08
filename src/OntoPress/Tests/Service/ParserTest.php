@@ -20,7 +20,7 @@ class ParserTest extends OntoPressTestCase
     public function setUp()
     {
         $this->parser = new Parser();
-        
+        /*
         $this->dummyChoice = new OntologyNode('Dummy');
         $this->restriction = new Restriction();
         $this->restriction->addOneOf($this->dummyChoice);
@@ -32,26 +32,30 @@ class ParserTest extends OntoPressTestCase
             ->setType('TestType')
             ->setMandatory(true)
             ->setRestriction($this->restriction);
+        */
     }
     
     public function tearDown()
     {
         unset($this->parser);
-        unset($this->ontologyNode);
-        unset($this->restriction);
+        //unset($this->ontologyNode);
+        //unset($this->restriction);
     }
     
     /**
      * Test Basic setter (addOneOf) and getter.
      */
+    /*
     public function testRestrictionBasic()
     {
         $this->assertEquals($this->restriction->getOneOf(), array($this->dummyChoice));
     }
-
+    */
+    /*
     /**
      * Test Basic setter and getter.
      */
+    /*
     public function testOntologyNodeBasic()
     {
         $this->assertEquals($this->ontologyNode->getName(), 'TestNode');
@@ -61,7 +65,7 @@ class ParserTest extends OntoPressTestCase
         $this->assertTrue($this->ontologyNode->getMandatory());
         $this->assertEquals($this->ontologyNode->getRestriction(), $this->restriction);
     }
-
+    */
     /**
      * Test Parsing-method
      */
