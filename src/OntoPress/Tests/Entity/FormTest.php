@@ -16,11 +16,11 @@ class FormTest extends OntoPressTestCase
     private $form;
 
     /**
-     * FormField Entity.
+     * OntologyField Entity.
      *
-     * @var FormField
+     * @var OntologyField
      */
-    private $formField;
+    private $ontologyField;
 
     /**
      * Ontology Entity.
@@ -64,14 +64,15 @@ class FormTest extends OntoPressTestCase
         $this->assertEquals($this->form->getTwigCode(), 'TestTwig');
         $this->assertNull($this->form->getOntology(), '');
     }
-    // for add/removeFormField create Formfield object and give it to the functions
-    /*public function testAddRemoveFormField()
+    /* for add/removeFormField create Formfield object and give it to the functions
+    public function testAddRemoveOntologyField()
     {
-        $this->form->addformField($formField);
+        $this->form->addOntologyField($this->ontologyField);
         // test add
-        $this->form->removeformField($formField);
+        $this->form->removeOntologyField($this->ontologyField);
         // test remove
 
         //test getFormFields()
-    }*/
+    }
+    */
 }

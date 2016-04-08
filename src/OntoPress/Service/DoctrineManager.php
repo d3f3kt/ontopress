@@ -99,7 +99,7 @@ class DoctrineManager implements ManagerRegistry
      */
     public function getRepository($persistentObject, $persistentManagerName = null)
     {
-        return $this->doctirne->getRepository($persistentObject, $persistentManagerName = null);
+        return $this->doctrine->getRepository($persistentObject, $persistentManagerName = null);
     }
     /**
      * Gets the object manager associated with a given class.
