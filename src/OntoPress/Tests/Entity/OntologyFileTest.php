@@ -49,4 +49,3 @@ class OntologyFileTest extends OntoPressTestCase
         $this->assertNull($this->ontologyFile->upload());
     }
 }
-

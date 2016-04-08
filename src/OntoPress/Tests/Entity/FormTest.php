@@ -68,11 +68,10 @@ class FormTest extends OntoPressTestCase
         $this->assertEquals($this->form->getDate(), $this->dummyDate);
         $this->assertEquals($this->form->getTwigCode(), 'TestTwig');
         $this->assertEquals($this->form->getOntology(), $this->ontology);
-        /* 
+        /*
         $this->assertEquals($this->form->getOntologyFields()[0], $this->ontologyField);
 
         $this->form->removeOntologyField($this->ontologyField);
         $this->assertEmpty($this->form->getOntologyFields());
-        */
-    }
+        */}
 }
