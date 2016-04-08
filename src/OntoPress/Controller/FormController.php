@@ -12,11 +12,15 @@ use OntoPress\Form\Form\Type\DeleteFormType;
 
 /**
  * Form Controller.
+ * The Form Controller is creating the dynamic Page Content for the Form view.
+ * It connects to the Database and renders the specific twig template for the different views.
  */
 class FormController extends AbstractController
 {
     /**
      * Show all forms.
+     * Creates the dynamic Table content for the Form manage view.
+     * It fetches all Forms from the Database and and renders the twig template.
      *
      * @param Request $request HTTP Request
      *
