@@ -131,6 +131,8 @@ class FormCreation
             $choiceArray[$choice->getId()] = $pushChoice;
         }
 
-        return $choiceArray;
+	return array("yes", "no");
+
+	//return $choiceArray;
     }
 }
