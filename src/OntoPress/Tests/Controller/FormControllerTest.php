@@ -2,6 +2,7 @@
 
 namespace OntoPress\Tests;
 
+use Brain\Monkey\Functions;
 use OntoPress\Controller\FormController;
 use OntoPress\Entity\Form;
 use OntoPress\Entity\Ontology;
@@ -58,14 +59,66 @@ class FormControllerTest extends OntoPressTestCase
 
     /**
      * Tests showEditAction function, which should return a rendered twig template about form edits.
+     *
+     * @expectedException BadMethodCallException
+     *
      */
     public function testShowEditAction()
     {
-        $container = static::getContainer();
-        $formController = new FormController($container);
-        //$formOutput = $formController->showEditAction(new Request());
+        // create test ontology
+        $testOntology = new Ontology();
+        $testOntology->setName('TestOntoloy')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime());
+        static::getContainer()->get('doctrine')->persist($testOntology);
+        static::getContainer()->get('doctrine')->flush();
 
-        //$this->assertContains("Formular Bearbeiten", $formOutput);
+        // create test form
+        $testForm = new Form();
+        $testForm->setName('TestForm')
+            ->setTwigCode('testTwigCode')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime())
+            ->setOntology($testOntology);
+        static::getContainer()->get('doctrine')->persist($testForm);
+        static::getContainer()->get('doctrine')->flush();
+
+        //test without id
+        $withOutId = $this->formController->showEditAction(new Request());
+        $this->assertContains("window.location", $withOutId);
+
+        //test with wrong id
+        $wrongId = $this->formController->showEditAction(
+            new Request(array(
+                'id' => 1337,
+            ))
+        );
+        $this->assertContains("window.location",$wrongId);
+
+        // test with correct id
+        $withCorrectId = $this->formController->showEditAction(
+            new Request(array(
+                'formId' => $testForm->getId(),
+            ))
+        );
+        $this->assertContains('Formular', $withCorrectId);
+
+        // test whole edit process
+        $edit = $this->formController->showEditAction(
+            new Request(
+                array('formId' => $testForm->getId()),
+                array('EditFormType' => array(
+                    'submit' => '',
+                )),
+                array(),
+                array(),
+                array(),
+                array('REQUEST_METHOD' => 'POST')
+            )
+        );
+
+        $this->assertContains('a', $edit);
+        $this->assertEquals($testForm->getId(), 1);
     }
 
     /**
@@ -73,13 +126,60 @@ class FormControllerTest extends OntoPressTestCase
      */
     public function testShowCreateAction()
     {
-        $container = static::getContainer();
-        $formController = new FormController($container);
-        $formOutput = $formController->showCreateAction(new Request());
+        // create test ontology
+        $testOntology = new Ontology();
+        $testOntology->setName('TestOntoloy')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime());
+        static::getContainer()->get('doctrine')->persist($testOntology);
+        static::getContainer()->get('doctrine')->flush();
 
-        $this->assertContains("Formular Anlegen", $formOutput);
+        //test without id
+        $withOutId = $this->formController->showCreateAction(new Request());
+
+        $this->assertContains("Formular Anlegen", $withOutId);
+
+        //test with valid id
+        $validId = $this->formController->showCreateAction(
+            new Request(array(
+                'id' => $testOntology->getId(),
+            ))
+        );
+        $this->assertContains("Formular Anlegen", $validId);
     }
+    public function testShowCreateFormAction()
+    {
+        // create test ontology
+        $testOntology = new Ontology();
+        $testOntology->setName('TestOntoloy')
+            ->setAuthor('testAuthor')
+            ->setDate(new \DateTime());
+        static::getContainer()->get('doctrine')->persist($testOntology);
+        static::getContainer()->get('doctrine')->flush();
 
+
+        $withOutId = $this->formController->showCreateFormAction(new Request());
+        $this->assertContains("kein Formular", $withOutId);
+
+        //test with wrong id
+        $wrongId = $this->formController->showCreateFormAction(
+            new Request(array(
+                'id' => 1337,
+            ))
+        );
+        $this->assertContains("kein Formular ", $wrongId);
+
+        // test with correct id
+        $withCorrectId = $this->formController->showCreateFormAction(
+            new Request(array(
+                'id' => $testOntology->getId(),
+            ))
+        );
+        $this->assertContains('Formular', $withCorrectId);
+
+
+
+    }
     /**
      * Tests showDeleteAction function, which should return a rendered twig template about deleting a form.
      */
