@@ -7,12 +7,12 @@ services:
 
     ontopress.twig_generator:
         class: OntoPress\Service\TwigGenerator
-        arguments: [@ontopress.ontology_parser]
+        arguments: [@twig]
         lazy: true
 
     ontopress.form_creation:
         class: OntoPress\Service\FormCreation
-        arguments: [@form]
+        arguments: [@form, @doctrine]
         lazy: true
 
     ontopress.router:

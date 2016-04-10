@@ -2,7 +2,7 @@
 
 namespace OntoPress\Service;
 
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form as SymForm;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,13 +22,22 @@ class FormCreation
     private $formFactory;
 
     /**
+     * Doctrine Entity Manager.
+     *
+     * @var EntityManager
+     */
+    private $doctrine;
+
+    /**
      * Inject dependencies.
      *
      * @param FormFactoryInterface $formFactory Form Factory
+     * @param EntityManager        $doctrine    Doctrine Entity Manager
      */
-    public function __construct(FormFactoryInterface $formFactory)
+    public function __construct(FormFactoryInterface $formFactory, EntityManager $doctrine)
     {
         $this->formFactory = $formFactory;
+        $this->doctrine = $doctrine;
     }
 
     /**
@@ -75,7 +84,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => true,
-            'choices' => $this->getChoiceArray($field) //array(), //TODO: get choices of radio button field
+            'choices' => $this->getChoiceArray($field),
         ));
     }
 
@@ -86,7 +95,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => false,
-            'choices' => $this->getChoiceArray($field) //array(), //TODO. get choices of choice field
+            'choices' => $this->getChoiceArray($field),
         ));
     }
 
@@ -104,20 +113,24 @@ class FormCreation
 
     /**
      * @param OntologyField $field
+     *
      * @return array
      */
     private function getChoiceArray(OntologyField $field)
     {
         $choiceArray = array();
-        $entityManager = $this->get('ontopress.doctrine_manager');
-        $qb = $entityManager->createQueryBuilder();
-        foreach ($field->getRestrictions()->toArray() as $key => $choice) {
-            $pushChoice = $qb->select('u')
-                ->from('OntologyField')
+
+        $repo = $this->doctrine->getRepository('OntoPress\Entity\OntologyField');
+        foreach ($field->getRestrictions() as $key => $choice) {
+            $pushChoice = $repo->createQueryBuilder('u')
                 ->where('u.name = :name')
-                ->setParameter('name', $choice->getName());
-            $choiceArray[$choice->getLabel()] = $pushChoice;
+                ->setParameter('name', $choice->getName())
+                ->getQuery()
+                ->getResult();
+
+            $choiceArray[$choice->getId()] = $pushChoice;
         }
+
         return $choiceArray;
     }
 }
