@@ -60,15 +60,15 @@ class FormController extends AbstractController
             if (!$ontoForm) {
                 throw new Exception('No form found');
             }
+        }else
+        {
+            return $this->redirectToRoute('ontopress_forms');
         }
 
         $form = $this->createForm(new EditFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
         ));
 
-        $symForm = $this->get('ontopress.form_creation')->create($ontoForm);
-        $twigTemplate = $this->get('twig')->createTemplate('{{ form(form) }}');
-        print($twigTemplate->render(array('form' => $symForm->createView())));
 
         $form->handleRequest($request);
 
