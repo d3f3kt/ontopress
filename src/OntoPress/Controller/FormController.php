@@ -2,11 +2,11 @@
 
 namespace OntoPress\Controller;
 
-use OntoPress\Form\Form\Type\SelectFormType;
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Library\AbstractController;
 use OntoPress\Entity\Form;
 use OntoPress\Form\Form\Type\EditFormType;
+use OntoPress\Form\Form\Type\SelectOntologyType;
 use OntoPress\Form\Form\Type\CreateFormType;
 use OntoPress\Form\Form\Type\DeleteFormType;
 
@@ -60,15 +60,13 @@ class FormController extends AbstractController
             if (!$ontoForm) {
                 throw new Exception('No form found');
             }
-        }else
-        {
+        } else {
             return $this->redirectToRoute('ontopress_forms');
         }
 
         $form = $this->createForm(new EditFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
         ));
-
 
         $form->handleRequest($request);
 
@@ -90,7 +88,11 @@ class FormController extends AbstractController
     }
 
     /**
-     * Handle the add request of a form.
+     * Handle the Form add process.
+     * If no ontologyId is set in the request this method will return the Ontology selection method.
+     * Otherwise the Form creation method will be returned.
+     *
+     * @param Request $request HTTP request
      *
      * @return string rendered twig template
      */
@@ -103,9 +105,17 @@ class FormController extends AbstractController
         }
     }
 
+    /**
+     * Show ontology selection form. After selecting an Ontology the user gets
+     * redericted to the Form creation process.
+     *
+     * @param Request $request HTTP request
+     *
+     * @return string rendered twig template
+     */
     public function showSelectOntologyAction(Request $request)
     {
-        $form = $this->createForm(new CreateFormType(), null, array(
+        $form = $this->createForm(new SelectOntologyType(), null, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
         ));
@@ -126,6 +136,13 @@ class FormController extends AbstractController
         ));
     }
 
+    /**
+     * Show Form to create OntoPress Form.
+     *
+     * @param Request $request HTTP Request
+     *
+     * @return string redered twig template
+     */
     public function showCreateFormAction(Request $request)
     {
         $author = wp_get_current_user();
