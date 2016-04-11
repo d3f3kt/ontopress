@@ -219,7 +219,8 @@ class FormControllerTest extends OntoPressWPTestCase
                 array(),
                 array(),
                 array('REQUEST_METHOD' => 'POST')
-        ));
+            )
+        );
     }
     /**
      * Tests showDeleteAction function, which should return a rendered twig template about deleting a form.

@@ -18,5 +18,4 @@ class TestHelper
 
         return $testUser;
     }
-
 }
