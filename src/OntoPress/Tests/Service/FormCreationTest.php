@@ -21,6 +21,7 @@ class FormCreationTest extends OntoPressTestCase
         $this->doctrine = static::getContainer()->get('doctrine');
         $this->parser = static::getContainer()->get('ontopress.ontology_parser');
         $this->formCreation = static::getContainer()->get('ontopress.form_creation');
+        $this->twigGenerator = static::getContainer()->get('ontopress.twig_generator');
     }
 
     public function tearDown()
@@ -39,6 +40,7 @@ class FormCreationTest extends OntoPressTestCase
         $form = TestHelper::createOntologyForm($ontology);
 
         $this->formCreation->create($form);
+        $this->twigGenerator->generate($form);
 
     }
 }

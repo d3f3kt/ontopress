@@ -129,7 +129,7 @@ class TwigGenerator
      */
     private function generateChoiceField(OntologyField $ontologyField)
     {
-        return $this->generateRadioField($ontolgyField);
+        return $this->generateRadioField($ontologyField);
     }
 
     /**
