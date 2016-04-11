@@ -26,20 +26,20 @@ class DoctrineManagerTest extends OntoPressTestCase
 
     public function testDoctrineManager()
     {
-        $this->assertEquals($doctrine, $doctrineManager->getDefaultManagerName());
-        $this->assertEquals($doctrine, $doctrineManager->getManager());
-        $this->assertEquals(array($doctrine), $doctrineManger->getManagers());
-        $this->assertEquals(null, $doctrineManager->resetManager());
-        $this->assertEquals(null, $doctrineManage->getAliasNamespace());
-        $this->asserrtEquals(null, $doctrineManger->getManagerNames());
+        $this->assertEquals($this->doctrine, $this->doctrineManager->getDefaultManagerName());
+        $this->assertEquals($this->doctrine, $this->doctrineManager->getManager());
+        $this->assertEquals(array($this->doctrine), $this->doctrineManager->getManagers());
+        $this->assertEquals(null, $this->doctrineManager->resetManager());
+        $this->assertEquals(null, $this->doctrineManager->getAliasNamespace('Ontology'));
+        $this->assertEquals(null, $this->doctrineManager->getManagerNames());
         $this->assertEquals(
             $this->doctrine->getRepository('OntoPress\Entity\Ontology'),
             $this->doctrineManager->getRepository('OntoPress\Entity\Ontology')
         );
-        $this->assertEquals(null, $this->doctrineManager->getManagerForClass('Ontology'));
-        $this->assertEquals(null, $this->getDefaultConnectionName());
-        $this->assertEquals(null, $this->getConnection());
-        $this->assertEquals(null, $this->getConnections());
-        $this->assertEquals(null, $this->getConnectionsNames());
+        $this->assertEquals($this->doctrine, $this->doctrineManager->getManagerForClass('Ontology'));
+        $this->assertEquals(null, $this->doctrineManager->getDefaultConnectionName());
+        $this->assertEquals(null, $this->doctrineManager->getConnection());
+        $this->assertEquals(null, $this->doctrineManager->getConnections());
+        $this->assertEquals(null, $this->doctrineManager->getConnectionNames());
     }
 }
