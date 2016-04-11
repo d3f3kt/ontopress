@@ -58,7 +58,7 @@ class FormController extends AbstractController
             $ontoForm = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
                 ->findOneById($formId);
             if (!$ontoForm) {
-                throw new Exception('No form found');
+                throw new \Exception('No form found');
             }
         } else {
             return $this->redirectToRoute('ontopress_forms');
@@ -69,10 +69,6 @@ class FormController extends AbstractController
         ));
 
         $form->handleRequest($request);
-
-        $symForm = $this->get('ontopress.form_creation')->create($ontoForm);
-        $twigTemplate = $this->get('twig')->createTemplate('{{ form(form) }}');
-        print($twigTemplate->render(array('form' => $symForm->createView())));
 
         if ($form->isValid()) {
             $this->getDoctrine()->persist($ontoForm);
