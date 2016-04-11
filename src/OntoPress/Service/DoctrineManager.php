@@ -36,6 +36,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return $this->doctrine;
     }
+    
     /**
      * Gets an array of all registered object managers.
      *
@@ -45,6 +46,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return array($this->doctrine);
     }
+
     /**
      * Resets a named object manager.
      *
@@ -66,6 +68,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return;
     }
+
     /**
      * Resolves a registered namespace alias to the full namespace.
      *
@@ -79,6 +82,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return;
     }
+
     /**
      * Gets all connection names.
      *
@@ -101,6 +105,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return $this->doctrine->getRepository($persistentObject, $persistentManagerName = null);
     }
+
     /**
      * Gets the object manager associated with a given class.
      *
@@ -122,6 +127,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return;
     }
+
     /**
      * Gets the named connection.
      *
@@ -133,6 +139,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return;
     }
+
     /**
      * Gets an array of all registered connections.
      *
@@ -142,6 +149,7 @@ class DoctrineManager implements ManagerRegistry
     {
         return;
     }
+
     /**
      * Gets all connection names.
      *
