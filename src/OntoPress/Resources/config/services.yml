@@ -7,12 +7,17 @@ services:
 
     ontopress.twig_generator:
         class: OntoPress\Service\TwigGenerator
-        arguments: [@twig]
+        arguments: [@twig, @ontopress.restriction_helper]
         lazy: true
 
     ontopress.form_creation:
         class: OntoPress\Service\FormCreation
-        arguments: [@form, @doctrine]
+        arguments: [@form, @ontopress.restriction_helper]
+        lazy: true
+
+    ontopress.restriction_helper:
+        class: OntoPress\Service\RestrictionHelper
+        arguments: [@doctrine]
         lazy: true
 
     ontopress.router:

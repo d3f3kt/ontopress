@@ -22,11 +22,11 @@ class FormCreation
     private $formFactory;
 
     /**
-     * Doctrine Entity Manager.
+     * Restriction helper to get choices.
      *
-     * @var EntityManager
+     * @var RestrictionHelper
      */
-    private $doctrine;
+    private $restrictionHelper;
 
     /**
      * Inject dependencies.
@@ -34,10 +34,10 @@ class FormCreation
      * @param FormFactoryInterface $formFactory Form Factory
      * @param EntityManager        $doctrine    Doctrine Entity Manager
      */
-    public function __construct(FormFactoryInterface $formFactory, EntityManager $doctrine)
+    public function __construct(FormFactoryInterface $formFactory, RestrictionHelper $restrictionHelper)
     {
         $this->formFactory = $formFactory;
-        $this->doctrine = $doctrine;
+        $this->restrictionHelper = $restrictionHelper;
     }
 
     /**
@@ -84,7 +84,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => true,
-            'choices' => $this->getChoiceArray($field),
+            'choices' => $this->restrictionHelper->getChoices($field),
         ));
     }
 
@@ -95,7 +95,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => false,
-            'choices' => $this->getChoiceArray($field),
+            'choices' => $this->restrictionHelper->getChoices($field),
         ));
     }
 
@@ -109,23 +109,5 @@ class FormCreation
         return $this->formFactory->createNamedBuilder('OntoPressForm', 'form', null, array(
             'block_name' => 'OntoPressForm',
         ));
-    }
-
-    /**
-     * @param OntologyField $field
-     *
-     * @return array
-     */
-    private function getChoiceArray(OntologyField $field)
-    {
-        $choiceArray = array();
-
-        $repo = $this->doctrine->getRepository('OntoPress\Entity\OntologyField');
-        foreach ($field->getRestrictions() as $restriction) {
-            $choiceArray[$restriction->getId()] = $repo->findOneByName($restriction->getName())
-                ->getLabel();
-        }
-
-        return $choiceArray;
     }
 }
