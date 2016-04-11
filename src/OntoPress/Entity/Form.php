@@ -227,7 +227,6 @@ class Form
      */
     public function addOntologyField(\OntoPress\Entity\OntologyField $ontologyField)
     {
-        $ontologyField->setForm($this);
         $this->ontologyFields[] = $ontologyField;
 
         return $this;

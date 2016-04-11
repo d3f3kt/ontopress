@@ -44,13 +44,14 @@ class FormTest extends OntoPressTestCase
         $this->dummyDate = new \DateTime();
         $this->ontology = new Ontology();
         $this->ontologyField = new OntologyField();
+        $this->ontologyField->setName('Test Field');
 
         $this->form->setName('TestForm')
                     ->setAuthor('TestAuthor')
                     ->setDate($this->dummyDate)
                     ->setTwigCode('TestTwig')
-                    ->setOntology($this->ontology);
-        //           ->addOntologyField($this->ontologyField);
+                    ->setOntology($this->ontology)
+                    ->addOntologyField($this->ontologyField);
     }
 
     public function tearDown()
@@ -68,13 +69,11 @@ class FormTest extends OntoPressTestCase
         $this->assertEquals($this->form->getDate(), $this->dummyDate);
         $this->assertEquals($this->form->getTwigCode(), 'TestTwig');
 
-        /*
         $this->assertEquals($this->form->getOntologyFields()[0], $this->ontologyField);
 
         $this->form->removeOntologyField($this->ontologyField);
         $this->assertEmpty($this->form->getOntologyFields());
-        */
-        
+
         $this->assertEquals($this->form->getOntology(), $this->ontology);
     }
 }
