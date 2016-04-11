@@ -50,6 +50,8 @@ class FormController extends AbstractController
     /**
      * Handle the edit request of a form.
      *
+     * @param Request $request HTTP Request
+     *
      * @return string rendered twig template
      */
     public function showEditAction(Request $request)
@@ -58,7 +60,9 @@ class FormController extends AbstractController
             $ontoForm = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
                 ->findOneById($formId);
             if (!$ontoForm) {
-                throw new \Exception('No form found');
+                return $this->render('form/formNotFound.html.twig', array(
+                    'id' => $formId,
+                ));
             }
         } else {
             return $this->redirectToRoute('ontopress_forms');
@@ -152,8 +156,12 @@ class FormController extends AbstractController
                 ->getRepository('OntoPress\Entity\Ontology');
 
             if (!$ontology = $ontoRepo->findOneById($ontoId)) {
-                throw new Exception('No Ontology found');
+                return $this->render('form/ontologyNotFound.html.twig', array(
+                    'id' => $ontoId,
+                ));
             }
+        } else {
+            return $this->redirectToRoute('ontopress_forms');
         }
 
         $ontoForm = new Form();
