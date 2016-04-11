@@ -8,6 +8,7 @@ use OntoPress\Entity\Ontology;
 use OntoPress\Controller\OntologyController;
 use OntoPress\Library\OntoPressWPTestCase;
 use OntoPress\Tests\Entity\OntologyTest;
+use OntoPress\Tests\TestHelper;
 
 /**
  * Class OntologyControllerTest
@@ -41,7 +42,7 @@ class OntologyControllerTest extends OntoPressWPTestCase
 
     public function testAddAction()
     {
-        Functions::when('wp_get_current_user')->alias(array($this, 'emulateWPUser'));
+        Functions::when('wp_get_current_user')->alias(array('OntoPress\Tests\TestHelper', 'emulateWPUser'));
 
         $addRawOutput = $this->ontologyController->showAddAction(new Request());
         $this->assertContains('Ontologie hochladen', $addRawOutput);
@@ -117,20 +118,5 @@ class OntologyControllerTest extends OntoPressWPTestCase
         );
         $this->assertContains('window.location', $deleted);
         $this->assertEquals($testOntology->getId(), null);
-    }
-
-    public function emulateWPUser()
-    {
-        $testUser = (object) array(
-            'ID' => 2,
-            'user_login' => 'TestUser',
-            'user_email' => 'testUser@example.com',
-            'user_firstname' => 'John',
-            'user_lastname' => 'Doe',
-            'user_nicename' => 'Johni',
-            'display_name' => 'Johni',
-        );
-
-        return $testUser;
     }
 }

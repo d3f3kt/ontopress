@@ -91,6 +91,6 @@ class CreateFormType extends AbstractType
      */
     public function getName()
     {
-        return 'formCreateType';
+        return 'createFormType';
     }
 }
