@@ -75,7 +75,7 @@ class FormController extends AbstractController
         if ($form->isValid()) {
             $this->getDoctrine()->persist($ontoForm);
             $this->getDoctrine()->flush();
-            
+
             $this->addFlashMessage(
                 'success',
                 'Formular erfolgreich bearbeitet'
@@ -145,9 +145,10 @@ class FormController extends AbstractController
             ->setTwigCode('REPLACE_ME')
             ->setOntology($ontology);
 
-        $form = $this->createForm(new SelectFormType(), $ontoForm, array(
+        $form = $this->createForm(new CreateFormType(), $ontoForm, array(
             'cancel_link' => $this->generateRoute('ontopress_forms'),
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
+            'ontology' => $ontology,
         ));
 
         $form->handleRequest($request);
