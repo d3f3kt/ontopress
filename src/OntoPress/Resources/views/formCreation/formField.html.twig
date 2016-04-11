@@ -1,0 +1,6 @@
+{%- include 'formCreation/formLabel.html.twig' -%}
+{%- if formField.type == 'text' -%}
+    {%- include 'formCreation/formTextField.html.twig' -%}
+{%- elseif formField.type == 'radio' -%}
+    {%- include 'formCreation/formRadioField.html.twig' -%}
+{%- endif -%}

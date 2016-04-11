@@ -1,0 +1,11 @@
+{%- raw -%}
+<form name='{{ form.vars.name }}' method='{{ form.vars.method }}' action='{{ form.vars.action }}' enctype='multipart/form-data'>
+{%- endraw %}
+<table class='form-table' id='OntoPressForm'>
+    {% for formField in formFields -%}
+    <tr>
+        {%- include 'formCreation/formField.html.twig' %}
+    </tr>
+    {% endfor -%}
+</table>
+</form>

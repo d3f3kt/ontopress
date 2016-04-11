@@ -1,0 +1,8 @@
+        <td>
+            {% for key, choice in formField.widget.choices -%}
+            <input type="radio" value="{{ key }}" {{ formField.widget.attr|replace({'%id%': loop.index0})|raw }}>
+            <label for="{{ formField.widget.labelAttr|replace({'%id%': loop.index0})|raw }}">{{ choice }}</label>
+            {{- not loop.last ? '\n' }}
+            {% endfor %}
+
+        </td>
