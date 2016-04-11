@@ -42,7 +42,7 @@ class SelectOntologyType extends AbstractType
             'cancel_link',
             'doctrineManager',
         ));
-        
+
         $resolver->setDefaults(array(
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
@@ -54,6 +54,6 @@ class SelectOntologyType extends AbstractType
      */
     public function getName()
     {
-        return 'formCreateType';
+        return 'selectOntologyType';
     }
 }
