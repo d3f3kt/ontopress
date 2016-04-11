@@ -121,18 +121,11 @@ class FormCreation
         $choiceArray = array();
 
         $repo = $this->doctrine->getRepository('OntoPress\Entity\OntologyField');
-        foreach ($field->getRestrictions() as $key => $choice) {
-            $pushChoice = $repo->createQueryBuilder('u')
-                ->where('u.name = :name')
-                ->setParameter('name', $choice->getName())
-                ->getQuery()
-                ->getResult();
-
-            $choiceArray[$choice->getId()] = $pushChoice;
+        foreach ($field->getRestrictions() as $restriction) {
+            $choiceArray[$restriction->getId()] = $repo->findOneByName($restriction->getName())
+                ->getLabel();
         }
 
-	return array("yes", "no");
-
-	//return $choiceArray;
+        return $choiceArray;
     }
 }

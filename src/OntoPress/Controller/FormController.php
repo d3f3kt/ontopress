@@ -70,6 +70,10 @@ class FormController extends AbstractController
 
         $form->handleRequest($request);
 
+        $symForm = $this->get('ontopress.form_creation')->create($ontoForm);
+        $twigTemplate = $this->get('twig')->createTemplate('{{ form(form) }}');
+        print($twigTemplate->render(array('form' => $symForm->createView())));
+
         if ($form->isValid()) {
             $this->getDoctrine()->persist($ontoForm);
             $this->getDoctrine()->flush();
