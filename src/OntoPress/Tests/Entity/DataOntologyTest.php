@@ -36,6 +36,7 @@ class DataOntologyTest extends OntoPressTestCase
         $this->assertEquals($this->dataOntology->getName(), "testName");
         $this->assertEquals($this->dataOntology->getOntology(), $this->ontology);
         $this->assertEquals($this->dataOntology->getOntologyFields()[0], $this->ontologyField);
+        $this->assertNull($this->dataOntology->getId());
 
         $this->dataOntology->removeOntologyField($this->ontologyField);
         $this->assertEmpty($this->dataOntology->getOntologyFields());
