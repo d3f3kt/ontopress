@@ -110,6 +110,9 @@ class OntologyTest extends OntoPressTestCase
         $this->assertFileExists($ontologyFile->getAbsolutePath());
     }
 
+    /**
+     * Test add/remove of DataOntologies and DataOntologies getter
+     */
     public function testAddRemoveDataOntologies()
     {
         $this->ontology->addDataOntology($this->dataOntology);
