@@ -6,6 +6,7 @@ use OntoPress\Entity\DataOntology;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
+use OntoPress\Entity\Form;
 use OntoPress\Library\OntoPressTestCase;
 
 class OntologyTest extends OntoPressTestCase
@@ -38,6 +39,13 @@ class OntologyTest extends OntoPressTestCase
      */
     private $dataOntology;
 
+    /**
+     * OntologyForm entity.
+     *
+     * @var OntologyForm
+     */
+    private $ontologyForm;
+
     public function setUp()
     {
         $this->dummyDate = new \DateTime();
@@ -49,6 +57,7 @@ class OntologyTest extends OntoPressTestCase
 
         $this->ontologyFile = new OntologyFile();
         $this->dataOntology = new DataOntology();
+        $this->ontologyForm = new Form();
     }
 
     public function tearDown()
@@ -119,6 +128,14 @@ class OntologyTest extends OntoPressTestCase
         $this->assertEquals($this->ontology->getDataOntologies()[0], $this->dataOntology);
         $this->ontology->removeDataOntology($this->dataOntology);
         $this->assertEmpty($this->ontology->getDataOntologies());
+    }
+
+    public function testAddRemoveOntologyForms()
+    {
+        $this->ontology->addOntologyForm($this->ontologyForm);
+        $this->assertEquals($this->ontology->getOntologyForms()[0], $this->ontologyForm);
+        $this->ontology->removeOntologyForm($this->ontologyForm);
+        $this->assertEmpty($this->ontology->getOntologyForms());
     }
 
     /**
