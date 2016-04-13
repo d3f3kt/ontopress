@@ -6,11 +6,28 @@ use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Entity\OntologyFile;
 
+/**
+ * Class OntologyFileTest
+ * Creates an OntologyFile and tests it.
+ */
 class OntologyFileTest extends OntoPressTestCase
 {
+    /**
+     * OntologyFile Entity.
+     * @var OntologyFile
+     */
     private $ontologyFile;
+
+    /**
+     * Ontology Entity.
+     * @var Ontology
+     */
     private $ontology;
 
+    /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         $this->ontologyFile = new OntologyFile();
@@ -21,12 +38,19 @@ class OntologyFileTest extends OntoPressTestCase
                             ->setFile();
     }
 
+    /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->ontology);
         unset($this->ontologyFile);
     }
 
+    /**
+     * Tests OntologyFile basic set/get-methods, which should return the new or changed attributes.
+     */
     public function testOntologyFileBasic()
     {
         $this->assertEquals($this->ontologyFile->getPath(), "test/testpath");
@@ -35,6 +59,9 @@ class OntologyFileTest extends OntoPressTestCase
         $this->assertNull($this->ontologyFile->getFile());
     }
 
+    /**
+     * Tests getDir method, which should return the path of saved files.
+     */
     public function testGetDir()
     {
         /*
@@ -48,6 +75,9 @@ class OntologyFileTest extends OntoPressTestCase
         */
     }
 
+    /**
+     * Tests upload method, should return null, when nothing is uploaded.
+     */
     public function testUpload()
     {
         $this->assertNull($this->ontologyFile->upload());

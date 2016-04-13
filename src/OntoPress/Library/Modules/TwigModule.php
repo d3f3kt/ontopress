@@ -9,8 +9,16 @@ use Symfony\Bridge\Twig\Extension\DumpExtension;
 use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 
+/**
+ * Class TwigModule
+ * Module loaded in AppKernel, to create Twig environment.
+ */
 class TwigModule extends AbstractModule
 {
+    /**
+     * Adds twig filesystem to given ContainerBuilder.
+     * @param ContainerBuilder $container
+     */
     public function process(ContainerBuilder $container)
     {
         $appVariableReflection = new \ReflectionClass('\Symfony\Bridge\Twig\AppVariable');

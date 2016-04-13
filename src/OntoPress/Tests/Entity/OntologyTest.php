@@ -46,6 +46,10 @@ class OntologyTest extends OntoPressTestCase
      */
     private $ontologyForm;
 
+    /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         $this->dummyDate = new \DateTime();
@@ -60,6 +64,10 @@ class OntologyTest extends OntoPressTestCase
         $this->ontologyForm = new Form();
     }
 
+    /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->ontology);

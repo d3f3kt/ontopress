@@ -5,11 +5,28 @@ namespace OntoPress\Tests;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Service\DoctrineManager;
 
+/**
+ * Class DoctrineManagerTest
+ * Creates a DoctrineManager and test it.
+ */
 class DoctrineManagerTest extends OntoPressTestCase
 {
+    /**
+     * DoctrineManager Entity.
+     * @var DoctrineManager
+     */
     private $doctrineManager;
+
+    /**
+     * Doctrine Entity.
+     * @var
+     */
     private $doctrine;
 
+    /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         parent::setUp();
@@ -18,12 +35,19 @@ class DoctrineManagerTest extends OntoPressTestCase
         $this->doctrineManager = static::getContainer()->get('ontopress.doctrine_manager');
     }
 
+    /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->doctrine);
         parent::tearDown();
     }
 
+    /**
+     * Tests all DoctrineManager methods.
+     */
     public function testDoctrineManager()
     {
         $this->assertEquals($this->doctrine, $this->doctrineManager->getDefaultManagerName());

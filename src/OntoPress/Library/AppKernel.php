@@ -7,12 +7,35 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Composer\Autoload\ClassLoader;
 
+/**
+ * Class AppKernel
+ * Loads various modules/extensions and binds them into the project.
+ */
 class AppKernel
 {
+    /**
+     * ContainerBuilder Entity. Compiles after modules are loaded.
+     * @var ContainerBuilder
+     */
     private $containerBuilder;
+
+    /**
+     * Regulates working environment.
+     * @var string $environment
+     */
     private $environment;
+
+    /**
+     * ClassLoader used create new service definition in the ContainerBuilder.
+     * @var ClassLoader $loader
+     */
     private $loader;
 
+    /**
+     * AppKernel constructor.
+     * @param string $environment
+     * @param ClassLoader $loader
+     */
     public function __construct($environment, ClassLoader $loader)
     {
         $this->containerBuilder = new ContainerBuilder();
@@ -39,11 +62,18 @@ class AppKernel
         }
     }
 
+    /**
+     * Getter for containerBuilder.
+     * @return ContainerBuilder $containerBuilder
+     */
     public function getContainer()
     {
         return $this->containerBuilder;
     }
 
+    /**
+     * Sets resource parameters in the ContainerBuilder.
+     */
     private function setPathes()
     {
         $this->containerBuilder->setParameter('ontopress.root_dir', __DIR__.'/../');
@@ -53,6 +83,9 @@ class AppKernel
         $this->containerBuilder->setParameter('ontopress.views_dir', __DIR__.'/../Resources/views');
     }
 
+    /**
+     * Loads service parameters from the ContainerBuilder.
+     */
     private function loadServiceConfig()
     {
         $loader = new YamlFileLoader(
@@ -61,6 +94,11 @@ class AppKernel
         );
         $loader->load('services.yml');
     }
+
+    /**
+     * Registers every module at the ContainerBuilder, using the ClassLoader.
+     * @param array $moduleArray
+     */
     private function registerModules($moduleArray)
     {
         foreach ($moduleArray as $module) {

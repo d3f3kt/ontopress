@@ -9,8 +9,16 @@ use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
 use Symfony\Component\Translation\Translator;
 
+/**
+ * Class FormModule
+ * Form module, loaded in the AppKernel to use various FormFactory Extensions.
+ */
 class FormModule extends AbstractModule
 {
+    /**
+     * Loads the module into a ContainerBuilder.
+     * @param ContainerBuilder $container
+     */
     public function process(ContainerBuilder $container)
     {
         $formEngine = new TwigRendererEngine(array('form/base.html.twig'));

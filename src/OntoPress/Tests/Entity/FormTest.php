@@ -7,6 +7,10 @@ use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Library\OntoPressTestCase;
 
+/**
+ * Class FormTest
+ * Creates a Form Entity and its surroundings and tests it.
+ */
 class FormTest extends OntoPressTestCase
 {
     /**
@@ -38,6 +42,10 @@ class FormTest extends OntoPressTestCase
     private $dummyDate;
 
 
+    /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         $this->form = new Form();
@@ -54,6 +62,10 @@ class FormTest extends OntoPressTestCase
                     ->addOntologyField($this->ontologyField);
     }
 
+    /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->form);
@@ -62,6 +74,9 @@ class FormTest extends OntoPressTestCase
         unset($this->dummyDate);
     }
 
+    /**
+     * Tests Basic set/get-methods of the Form Entity, which should return the new or changed attributes.
+     */
     public function testFormBasic()
     {
         $this->assertEquals($this->form->getName(), 'TestForm');

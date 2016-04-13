@@ -7,8 +7,17 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
+/**
+ * Class DoctrineModule
+ * Doctrine module, loaded in the AppKernel to access environment database.
+ */
 class DoctrineModule extends AbstractModule
 {
+    /**
+     * Loads the module into a ContainerBuilder.
+     * @param ContainerBuilder $container
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function process(ContainerBuilder $container)
     {
         AnnotationRegistry::registerLoader(array($this->classLoader, 'loadClass'));
@@ -26,6 +35,10 @@ class DoctrineModule extends AbstractModule
         $container->set('doctrine', $entityManager);
     }
 
+    /**
+     * Method to access database parameters of the environment.
+     * @return array
+     */
     private function getDatabaseParameters()
     {
         if ($this->environment == 'test') {
