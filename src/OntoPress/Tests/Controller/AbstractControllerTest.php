@@ -126,7 +126,7 @@ class AbstractControllerTest extends OntoPressTestCase
     public function testGetParameter()
     {
         $result = $this->invokeMethod($this->abstractController, 'getParameter', array('ontopress.root_dir'));
-        $this->assertContains($result, __DIR__);
+        $this->assertContains('src/OntoPress/', $result);
     }
 
     /**
@@ -136,6 +136,6 @@ class AbstractControllerTest extends OntoPressTestCase
     public function testAddFlashMessage()
     {
         $this->invokeMethod($this->abstractController, 'addFlashMessage', array('info', 'HelloWorld'));
-        $this->assertContains('HelloWorld', static::getContainer()->get('session')->getFlashBag()->get('info'));
+        $this->assertContains('HelloWorld', static::getContainer()->get('symfony.session')->getFlashBag()->get('info'));
     }
 }

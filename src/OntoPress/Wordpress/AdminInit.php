@@ -52,7 +52,7 @@ class AdminInit
     {
         $this->container = $container;
         $this->router = $container->get('ontopress.router');
-        $container->get('session')->start();
+        $container->get('symfony.session')->start();
 
         add_action('admin_notices', array($this, 'adminNotices'));
         add_action('admin_menu', array($this, 'adminMenu'));
@@ -65,12 +65,12 @@ class AdminInit
      */
     public function adminNotices()
     {
-        $sessionFlash = $this->container->get('session')->getFlashBag();
+        $sessionFlash = $this->container->get('symfony.session')->getFlashBag();
         $tags = array('success', 'info', 'warning', 'error');
 
         foreach ($tags as $tag) {
             foreach ($sessionFlash->get($tag) as $message) {
-                echo $this->container->get('twig')->render(
+                echo $this->container->get('symfony.twig')->render(
                     'snippets/notice.html.twig',
                     array(
                         'tag' => $tag,

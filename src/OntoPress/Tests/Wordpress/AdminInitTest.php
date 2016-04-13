@@ -27,7 +27,7 @@ class AdminInitTest extends OntoPressWPTestCase
 
     public function testAdminNotices()
     {
-        static::getContainer()->get('session')->getFlashBag()->add('info', 'testNotice');
+        static::getContainer()->get('symfony.session')->getFlashBag()->add('info', 'testNotice');
 
         ob_start();
         $this->adminInit->adminNotices();

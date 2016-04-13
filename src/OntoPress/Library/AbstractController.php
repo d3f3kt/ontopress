@@ -39,7 +39,7 @@ abstract class AbstractController
      */
     protected function render($name, array $context = array())
     {
-        return $this->get('twig')->render($name, $context);
+        return $this->get('symfony.twig')->render($name, $context);
     }
 
     /**
@@ -69,7 +69,7 @@ abstract class AbstractController
      */
     protected function trans($id, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->get('translator')->trans($id, $parameters, $domain, $locale);
+        return $this->get('symfony.translator')->trans($id, $parameters, $domain, $locale);
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class AbstractController
      */
     protected function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->get('translator')->transChoice($id, $number, $parameters, $domain, $locale);
+        return $this->get('symfony.translator')->transChoice($id, $number, $parameters, $domain, $locale);
     }
     /**
      * Returns a form.
@@ -98,7 +98,7 @@ abstract class AbstractController
      */
     protected function createForm($type = 'form', $data = null, array $options = array())
     {
-        return $this->get('form')->create($type, $data, $options);
+        return $this->get('symfony.form')->create($type, $data, $options);
     }
 
     /**
@@ -136,7 +136,7 @@ abstract class AbstractController
      */
     protected function validate($value, $groups = null, $traverse = false, $deep = false)
     {
-        return $this->get('validator')->validate($value, $groups, $traverse, $deep);
+        return $this->get('symfony.validator')->validate($value, $groups, $traverse, $deep);
     }
 
     /**
@@ -165,6 +165,6 @@ abstract class AbstractController
 
     protected function addFlashMessage($type, $message)
     {
-        return $this->get('session')->getFlashBag()->add($type, $message);
+        return $this->get('symfony.session')->getFlashBag()->add($type, $message);
     }
 }
