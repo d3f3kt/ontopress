@@ -41,7 +41,8 @@ class OntologyFile
     private $file;
 
     /**
-     * Get id.
+     * Getter id.
+     * Returns the Primary key "id"
      *
      * @return int
      */
@@ -75,7 +76,9 @@ class OntologyFile
     }
 
     /**
-     * Set ontology.
+     * Setter ontology.
+     * Sets the Ontology for the many to one connection to Ontologys.
+     * Default NULL.
      *
      * @param \OntoPress\Entity\Ontology $ontology
      *
@@ -90,6 +93,7 @@ class OntologyFile
 
     /**
      * Get ontology.
+     * Returns the Ontology, that this Object is related to
      *
      * @return \OntoPress\Entity\Ontology
      */
@@ -98,7 +102,8 @@ class OntologyFile
         return $this->ontology;
     }
     /**
-     * Sets file.
+     * Setter file.
+     * Default NULL.
      *
      * @param UploadedFile $file
      */
@@ -108,7 +113,7 @@ class OntologyFile
     }
 
     /**
-     * Get file.
+     * Getter file.
      *
      * @return UploadedFile
      */

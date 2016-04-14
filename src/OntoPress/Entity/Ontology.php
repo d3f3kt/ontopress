@@ -75,7 +75,8 @@ class Ontology
     protected $date;
 
     /**
-     * Get id.
+     * Getter id.
+     * Returns the Primary key "id"
      *
      * @return int
      */
@@ -85,7 +86,7 @@ class Ontology
     }
 
     /**
-     * Set name.
+     * Set the Name of this Object
      *
      * @param string $name
      *
@@ -100,6 +101,7 @@ class Ontology
 
     /**
      * Get name.
+     * Returns the Name of this Object
      *
      * @return string
      */
@@ -157,7 +159,9 @@ class Ontology
     }
 
     /**
-     * Constructor.
+     * Ontology constructor.
+     * This Constructor is automatically called by creating a new Ontology Object.
+     * It initializes the OntologyFiles, OntologyForm, DataOntologies as ArrayCollection.
      */
     public function __construct()
     {
@@ -167,7 +171,7 @@ class Ontology
     }
 
     /**
-     * Add ontologyFile.
+     * Adds an OntologyFile to the array collection of OntologyFiles.
      *
      * @param \OntoPress\Entity\OntologyFile $ontologyFile
      *
@@ -182,7 +186,7 @@ class Ontology
     }
 
     /**
-     * Remove ontologyFile.
+     * Removes one OntologyFile from OntologyFile array collection.
      *
      * @param \OntoPress\Entity\OntologyFile $ontologyFile
      *
@@ -195,6 +199,7 @@ class Ontology
 
     /**
      * Get ontologyFiles.
+     * Returns all OntologyFiles, of this Object.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -204,7 +209,7 @@ class Ontology
     }
 
     /**
-     * Add ontologyForms.
+     * Adds an OntologyForm to the array collection of OntologyForm.
      *
      * @param \OntoPress\Entity\Form $ontologyForm
      *
@@ -219,7 +224,7 @@ class Ontology
     }
 
     /**
-     * Remove ontologyForm.
+     * Removes one OntologyForm from OntologyForm array collection.
      *
      * @param \OntoPress\Entity\Form $ontologyForm
      *
@@ -232,6 +237,7 @@ class Ontology
 
     /**
      * Get ontologyForms.
+     * Returns all OntologyForms, of this Object.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -241,7 +247,7 @@ class Ontology
     }
 
     /**
-     * Add DataOntology.
+     * Adds an DataOntology to the array collection of DataOntologys.
      *
      * @param \OntoPress\Entity\DataOntology $newDataOntology
      *
@@ -256,7 +262,7 @@ class Ontology
     }
 
     /**
-     * Remove dataOntology
+     * Removes one OntologyForm from OntologyForm array collection.
      *
      * @param \OntoPress\Entity\DataOntology $dataOntology
      *
@@ -268,22 +274,23 @@ class Ontology
     }
 
     /**
-     *Upload every Ontology File
-     */
-    public function uploadFiles()
-    {
-        foreach ($this->getOntologyFiles() as $file) {
-            $file->upload();
-        }
-    }
-
-    /**
      * Get DataOntologies
+     * Returns all DataOntologies, of this Object.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getDataOntologies()
     {
         return $this->dataOntologies;
+    }
+
+    /**
+     *Uploads every Ontology File
+     */
+    public function uploadFiles()
+    {
+        foreach ($this->getOntologyFiles() as $file) {
+            $file->upload();
+        }
     }
 }

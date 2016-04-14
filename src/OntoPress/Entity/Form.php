@@ -81,7 +81,8 @@ class Form
     protected $date;
 
     /**
-     * Get id.
+     * Getter id.
+     * Returns the Primary key "id"
      *
      * @return int
      */
@@ -91,10 +92,9 @@ class Form
     }
 
     /**
-     * Set name.
+     * Set the Name of this Object
      *
      * @param string $name
-     *
      * @return Ontology
      */
     public function setName($name)
@@ -106,6 +106,7 @@ class Form
 
     /**
      * Get name.
+     * Returns the Name of this Object
      *
      * @return string
      */
@@ -115,7 +116,9 @@ class Form
     }
 
     /**
-     * Set ontology.
+     * Setter ontology.
+     * Sets the Ontology for the many to one connection to Ontologys.
+     * Default NULL.
      *
      * @param \OntoPress\Entity\Ontology $ontology
      *
@@ -130,6 +133,7 @@ class Form
 
     /**
      * Get Ontology.
+     * Returns the Ontology, that this Object is related to.
      *
      * @return int
      */
@@ -154,6 +158,7 @@ class Form
 
     /**
      * Get Twig Code.
+     * Returns the Twig Code of this Object.
      *
      * @return string
      */
@@ -211,7 +216,9 @@ class Form
     }
 
     /**
-     * Constructor.
+     * Form constructor.
+     * This Constructor is automatically called by creating a new Form Object.
+     * It initializes the OntologyFields as ArrayCollection.
      */
     public function __construct()
     {
@@ -219,7 +226,7 @@ class Form
     }
 
     /**
-     * Add Ontology Field.
+     * Adds an OntologyField to the array collection of OntologyFields.
      *
      * @param \OntoPress\Entity\OntologyField $ontologyField
      *
@@ -233,7 +240,7 @@ class Form
     }
 
     /**
-     * Remove Ontology Field.
+     * Removes one OntologyField from OntologyField array collection.
      *
      * @param \OntoPress\Entity\OntologyField $ontologyField
      *
@@ -245,7 +252,8 @@ class Form
     }
 
     /**
-     * Get ontologyFields
+     * Get ontologyField.
+     * Returns all OntologyFields, of this Object.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

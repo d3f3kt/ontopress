@@ -23,6 +23,7 @@ class Restriction
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
     /**
      * @var OntologyField
      * @ORM\ManyToOne(targetEntity="OntologyField", inversedBy="restriction")
@@ -30,14 +31,17 @@ class Restriction
      * @Assert\NotBlank()
      */
     protected $ontologyField;
+
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=256)
      * @Assert\NotBlank()
      */
     protected $name;
+
     /**
-     * Get id.
+     * Getter id.
+     * Returns the Primary key "id"
      *
      * @return int
      */
@@ -45,8 +49,9 @@ class Restriction
     {
         return $this->id;
     }
+
     /**
-     * Set name.
+     * Set the Name of this Object
      *
      * @param string $name
      *
@@ -57,8 +62,11 @@ class Restriction
         $this->name = $name;
         return $this;
     }
+
     /**
      * Get name.
+     * Returns the Name of this Object
+
      *
      * @return string
      */
@@ -68,7 +76,9 @@ class Restriction
     }
 
     /**
-     * Set ontologyField
+     * Setter OntologyField.
+     * Sets the OntologyField for the many to one connection to Ontologys.
+     * Default NULL.
      *
      * @param \OntoPress\Entity\OntologyField $ontologyField
      *
@@ -83,6 +93,7 @@ class Restriction
 
     /**
      * Get ontologyField
+     * Returns the OntologyField, that this Object is related to.
      *
      * @return \OntoPress\Entity\OntologyField
      */

@@ -45,6 +45,8 @@ class DataOntology
 
     /**
      * DataOntology constructor.
+     * This Constructor is automatically called by creating a new DataOntology Object.
+     * It initializes the OntologyFields as ArrayCollection.
      */
     public function __construct()
     {
@@ -53,6 +55,8 @@ class DataOntology
 
     /**
      * Getter id.
+     * Returns the Primary key "id"
+     *
      * @return int
      */
     public function getId()
@@ -62,6 +66,9 @@ class DataOntology
 
     /**
      * Setter ontology.
+     * Sets the Ontology for the many to one connection to Ontologys.
+     * Default NULL.
+     *
      * @param Ontology|null $ontology
      * @return DataOntology
      */
@@ -74,6 +81,8 @@ class DataOntology
 
     /**
      * Getter ontology.
+     * Returns the Ontology, that this Object is related to.
+     *
      * @return Ontology
      */
     public function getOntology()
@@ -83,6 +92,8 @@ class DataOntology
 
     /**
      * Getter ontologyFields.
+     * Returns all OntologyFields, of this Object.
+     *
      * @return \Doctrine\Common\Collections\ArrayCollection|OntologyField
      */
     public function getOntologyFields()
@@ -91,7 +102,7 @@ class DataOntology
     }
 
     /**
-     * Adds an OntologyField to the array ontologyFields.
+     * Adds an OntologyField to the array collection of OntologyFields.
      * @param OntologyField $newOntologyField
      * @return DataOntology
      */
@@ -104,7 +115,7 @@ class DataOntology
     }
 
     /**
-     * Removes an ontologyField from ontologyFields.
+     * Removes one OntologyField from OntologyField array collection.
      * @param \OntoPress\Entity\OntologyField $ontologyField
      * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
      */
@@ -115,6 +126,8 @@ class DataOntology
 
     /**
      * Getter name.
+     * Returns the Name of this Object
+     *
      * @return String
      */
     public function getName()
@@ -124,6 +137,8 @@ class DataOntology
 
     /**
      * Setter name.
+     * Sets the Name of this Object
+     *
      * @param String $newName
      * @return $this
      */

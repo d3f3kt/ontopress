@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * OntologyNode.
+ * OntologyField.
+ * This PHP Object allows Doctrine to translate php Objects into an relational SQL Table via Metadata.
  *
  * @ORM\Table(name="ontopress_ontology_field")
  * @ORM\Entity()
@@ -76,7 +77,9 @@ class OntologyField
     protected $possessed;
 
     /**
-     * Constructor.
+     * OntologyField constructor.
+     * This Constructor is automatically called by creating a new OntologyField Object.
+     * It initializes the Restrictions as ArrayCollection.
      */
     public function __construct()
     {
@@ -84,7 +87,8 @@ class OntologyField
     }
 
     /**
-     * Get last part of an Uri.
+     * Getter Uri File
+     * Returns the last part of an Uri.
      *
      * @return string last part of the Uri
      */
@@ -97,7 +101,8 @@ class OntologyField
     }
 
     /**
-     * Helper function to generate unique name from ontology field object.
+     * Generates and Returns an unique Name of this Ontology Field Object.
+     * It replaces every special character with a "_"
      *
      * @return string
      */
@@ -109,7 +114,7 @@ class OntologyField
     }
 
     /**
-     * Removes a restriction from $restrictions.
+     * Removes one Restriction from the Restriction array collection.
      *
      * @param Restriction $restriction
      *
@@ -121,7 +126,7 @@ class OntologyField
     }
 
     /**
-     * Adds a restriction to $restrictions.
+     * Adds a Restriction to the array collection of Restrictions.
      *
      * @param Restriction $newRestriction
      *
@@ -137,6 +142,7 @@ class OntologyField
 
     /**
      * Getter id.
+     * Returns the Primary key "id"
      *
      * @return int $id
      */
@@ -146,7 +152,7 @@ class OntologyField
     }
 
     /**
-     * Setter name.
+     * Set the Name of this Object
      *
      * @param String $name
      *
@@ -161,6 +167,7 @@ class OntologyField
 
     /**
      * Getter name.
+     * Returns the Name of this Object
      *
      * @return string $name
      */
@@ -276,7 +283,9 @@ class OntologyField
     }
 
     /**
-     * Setter dataOntology.
+     * Setter DataOntology.
+     * Sets the DataOntology for the many to one connection to DataOntologys.
+     * Default NULL.
      *
      * @param DataOntology|null $dataOntology
      *
