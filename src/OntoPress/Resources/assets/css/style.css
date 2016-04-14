@@ -8,6 +8,12 @@
 {
     padding-bottom: 20px;
 }
+
+.ontopressWrap .infoText p  {
+    font-size:16px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
 .ontopressWrap .dashboard-square{
     background-color:white;
     width:130px;
