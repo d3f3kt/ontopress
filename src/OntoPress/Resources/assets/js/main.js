@@ -19,17 +19,17 @@ function addSelectAllLink(formFieldCheckboxes)
     formFieldCheckboxes.prepend(jQuery("<span>|</span>"));
     formFieldCheckboxes.prepend(selectLink);
 
-    selectLink.on('click', function (e) {
+    selectLink.on('click', function(e) {
         e.preventDefault();
 
-        jQuery(this).parent().find('input').each( function() {
+        jQuery(this).parent().find('input').each(function() {
             this.checked = true;
         });
     });
 
-    deselectLink.on('click', function (e) {
+    deselectLink.on('click', function(e) {
         e.preventDefault();
-        jQuery(this).parent().find('input').each( function() {
+        jQuery(this).parent().find('input').each(function() {
             this.checked = false;
         });
     });
@@ -40,7 +40,7 @@ function addLinkToOntologyUploadFiles(collectionHolder)
     addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontology hochladen</a>');
     collectionHolder.append(addTagLink);
 
-    addTagLink.on('click', function (e) {
+    addTagLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
