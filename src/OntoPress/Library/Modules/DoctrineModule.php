@@ -8,14 +8,15 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 /**
- * Class DoctrineModule
- * Doctrine module, loaded in the AppKernel to access environment database.
+ * Module which adds the doctrine EntityManager to the dependency injection container.
  */
 class DoctrineModule extends AbstractModule
 {
     /**
      * Loads the module into a ContainerBuilder.
+     *
      * @param ContainerBuilder $container
+     *
      * @throws \Doctrine\ORM\ORMException
      */
     public function process(ContainerBuilder $container)
@@ -36,7 +37,9 @@ class DoctrineModule extends AbstractModule
     }
 
     /**
-     * Method to access database parameters of the environment.
+     * Decide according to the environment if doctrine is supposed
+     * to use MySQL or PDO in memory database.
+     *
      * @return array
      */
     private function getDatabaseParameters()

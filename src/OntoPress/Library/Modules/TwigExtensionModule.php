@@ -10,14 +10,14 @@ use Symfony\Bridge\Twig\Form\TwigRenderer;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 
 /**
- * Class TwigExtensionModule
- * Module loaded in AppKernel, to use multiple Twig Extension.
- * Namely FormExtension, TranslationExtension and if not in development mode, DumpExtension.
+ * Module which adds the FormExtension, TranslationExtension and DumpExtension to Twig environment.
+ * Furthermore all services which are tagged to used as a twig extension gets added too.
  */
 class TwigExtensionModule extends AbstractModule
 {
     /**
-     * Adds extension services to all twig templates of given ContainerBuilder.
+     * Adds hard coded twig extensions and tagged services to twig environment.
+     *
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)

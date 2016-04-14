@@ -6,13 +6,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Validator\Validation;
 
 /**
- * Class ValidatorModule
- * Module loaded in AppKernel, used in various validations.
+ * Module which adds the Symfony Validator component to the dependency injection container.
  */
 class ValidatorModule extends AbstractModule
 {
     /**
-     * Adds ValidatorBuilder to given ContainerBuilder.
+     * Adds Validator to dependency injection container.
+     *
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)

@@ -8,13 +8,13 @@ use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 
 /**
- * Class TranslatorModule
- * Module loaded in AppKernel, to use XliffFileLoader.
+ * Module which adds the Symfony Translation component to the dependency injection container.
  */
 class TranslatorModule extends AbstractModule
 {
     /**
-     * Adds translator with XliffFileLoader to given ContainerBuilder.
+     * Adds translator with XliffFileLoader to dependency injection container.
+     *
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)

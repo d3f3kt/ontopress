@@ -7,16 +7,15 @@ use Symfony\Component\Form\Forms;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
-use Symfony\Component\Translation\Translator;
 
 /**
- * Class FormModule
- * Form module, loaded in the AppKernel to use various FormFactory Extensions.
+ * Module which adds the Symfony Form Component to the dependency injection container.
  */
 class FormModule extends AbstractModule
 {
     /**
      * Loads the module into a ContainerBuilder.
+     *
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)

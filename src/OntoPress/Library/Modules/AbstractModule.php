@@ -6,6 +6,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Composer\Autoload\ClassLoader;
 
+/**
+ * Abstract module structure to add a service to the dependency injection container.
+ */
 abstract class AbstractModule implements CompilerPassInterface
 {
     /**

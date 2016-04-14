@@ -3,20 +3,15 @@
 namespace OntoPress\Library\Modules;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Bridge\Twig\Extension\FormExtension;
-use Symfony\Bridge\Twig\Extension\TranslationExtension;
-use Symfony\Bridge\Twig\Extension\DumpExtension;
-use Symfony\Bridge\Twig\Form\TwigRenderer;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
 
 /**
- * Class TwigModule
- * Module loaded in AppKernel, to create Twig environment.
+ * Module which adds the twig environment to the dependency injection container.
  */
 class TwigModule extends AbstractModule
 {
     /**
-     * Adds twig filesystem to given ContainerBuilder.
+     * Adds twig environment to dependency injection container.
+     *
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)

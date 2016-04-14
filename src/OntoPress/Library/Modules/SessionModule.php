@@ -7,13 +7,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
- * Class SessionModule
- * Module loaded in AppKernel, to create new Session.
+ * Module which adds the Symfony Session component to the dependency injection component.
  */
 class SessionModule extends AbstractModule
 {
     /**
-     * Creates new Session in given environment.
+     * Creates new Session according to the environment.
+     *
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
