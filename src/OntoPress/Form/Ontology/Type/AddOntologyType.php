@@ -8,11 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
 
 /**
- * Ontology Add Form.
+ * Creates a form for adding one or more Ontologies to the database.
  */
 class AddOntologyType extends AbstractType
 {
     /**
+     * Lets the builder create a form for adding OntologyFiles together, from one to a wished number.
+     * The number of OntologyFiles is regulated over an addButton, which the uploader can use.
+     * @param FormBuilderInterface $builder
+     * @param array $options
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -36,6 +40,8 @@ class AddOntologyType extends AbstractType
     }
 
     /**
+     * Sets the resolver back to default.
+     * @param OptionsResolverInterface $resolver
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -50,6 +56,8 @@ class AddOntologyType extends AbstractType
     }
 
     /**
+     * Returns the class Prefix ontologyAddType.
+     * @return string "ontologyAddType"
      * {@inheritdoc}
      */
     public function getName()

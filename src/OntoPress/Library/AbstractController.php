@@ -163,6 +163,12 @@ abstract class AbstractController
         return $this->container->getParameter($name);
     }
 
+    /**
+     * Adds a flash Message of given type to the FlashBag.
+     * @param $type
+     * @param $message
+     * @return mixed
+     */
     protected function addFlashMessage($type, $message)
     {
         return $this->get('symfony.session')->getFlashBag()->add($type, $message);

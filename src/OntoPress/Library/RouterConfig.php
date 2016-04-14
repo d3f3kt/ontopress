@@ -11,6 +11,8 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 class RouterConfig implements ConfigurationInterface
 {
     /**
+     * Defines configuration tree and returns it.
+     * @return TreeBuilder $treeBuilder
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()

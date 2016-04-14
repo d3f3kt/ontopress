@@ -20,6 +20,9 @@ use Doctrine\DBAL\Query\QueryBuilder;
 class CreateFormType extends AbstractType
 {
     /**
+     * Lets the FormBuilderInterface create a form to choose the wanted OntologyFields per Checkboxes.
+     * @param FormBuilderInterface $builder
+     * @param array $options
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -70,6 +73,8 @@ class CreateFormType extends AbstractType
     }
 
     /**
+     * Sets the resolver back to default.
+     * @param OptionsResolverInterface $resolver
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -87,6 +92,8 @@ class CreateFormType extends AbstractType
     }
 
     /**
+     * Returns the createFormType class Prefix.
+     * @return string "createFormType"
      * {@inheritdoc}
      */
     public function getName()

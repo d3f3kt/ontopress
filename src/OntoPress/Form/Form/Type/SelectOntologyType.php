@@ -16,6 +16,9 @@ use Doctrine\ORM\EntityRepository;
 class SelectOntologyType extends AbstractType
 {
     /**
+     * Lets builder list all Ontologies in a choice type field, together with a cancel/submit button.
+     * @param FormBuilderInterface $builder
+     * @param array $options
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -34,6 +37,8 @@ class SelectOntologyType extends AbstractType
     }
 
     /**
+     * Sets the resolver back to default.
+     * @param OptionsResolverInterface $resolver
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -50,6 +55,8 @@ class SelectOntologyType extends AbstractType
     }
 
     /**
+     * Returns the class Prefix selectOntologyType.
+     * @return string "selectOntologyType"
      * {@inheritdoc}
      */
     public function getName()

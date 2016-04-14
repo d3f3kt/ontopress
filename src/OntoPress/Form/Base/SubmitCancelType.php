@@ -8,11 +8,13 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * A combination of a submit button and a cancel button.
+ * Creates a submit button and a cancel button within the buildView.
  */
 class SubmitCancelType extends SubmitType
 {
     /**
+     * Changes OptionResolver to fit the buttons.
+     * @param OptionsResolver $resolver
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -25,6 +27,10 @@ class SubmitCancelType extends SubmitType
     }
 
     /**
+     * Creates the view, giving it to the superclass.
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
      * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -35,6 +41,8 @@ class SubmitCancelType extends SubmitType
     }
 
     /**
+     * Returns the submitCancel Prefix of the class.
+     * @return string "submitCancel"
      * {@inheritdoc}
      */
     public function getBlockPrefix()
