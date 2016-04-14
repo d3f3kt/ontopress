@@ -13,7 +13,7 @@ use OntoPress\Entity\Restriction;
 /**
  * Class Parser.
  */
-class Parser
+class OntologyParser
 {
     /**
      * Parsing-method, to parse an Ontology-object to OntologyNode.

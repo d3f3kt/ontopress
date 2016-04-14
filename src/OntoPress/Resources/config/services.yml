@@ -2,7 +2,7 @@ parameters:
     ontopress.plugin_url: /wp-content/plugins/ontologie/src/OntoPress
 services:
     ontopress.ontology_parser:
-        class: OntoPress\Service\OntologyParser\Parser
+        class: OntoPress\Service\OntologyParser
         lazy: true
 
     ontopress.twig_generator:
