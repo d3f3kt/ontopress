@@ -19,17 +19,17 @@ function addSelectAllLink(formFieldCheckboxes)
     formFieldCheckboxes.prepend(jQuery("<span>|</span>"));
     formFieldCheckboxes.prepend(selectLink);
 
-    selectLink.on('click', function(e) {
+    selectLink.on('click', function (e) {
         e.preventDefault();
 
-        jQuery(this).parent().find('input').each(function() {
+        jQuery(this).parent().find('input').each( function() {
             this.checked = true;
         });
     });
 
-    deselectLink.on('click', function(e) {
+    deselectLink.on('click', function (e) {
         e.preventDefault();
-        jQuery(this).parent().find('input').each(function() {
+        jQuery(this).parent().find('input').each( function() {
             this.checked = false;
         });
     });
