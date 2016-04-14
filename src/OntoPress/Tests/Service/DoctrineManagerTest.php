@@ -42,6 +42,7 @@ class DoctrineManagerTest extends OntoPressTestCase
     public function tearDown()
     {
         unset($this->doctrine);
+        unset($this->doctrineManager);
         parent::tearDown();
     }
 
