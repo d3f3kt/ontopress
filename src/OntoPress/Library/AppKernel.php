@@ -46,13 +46,14 @@ class AppKernel
         $this->loadServiceConfig();
 
         $this->registerModules(array(
-            'DoctrineModule',
-            'TranslatorModule',
-            'ValidatorModule',
-            'TwigModule',
-            'FormModule',
-            'SessionModule',
-            'TwigExtensionModule',
+            'Doctrine',
+            'Translator',
+            'Validator',
+            'Twig',
+            'Form',
+            'Session',
+            'Saft',
+            'TwigExtension',
         ));
 
         $this->containerBuilder->compile();
@@ -102,7 +103,7 @@ class AppKernel
     private function registerModules($moduleArray)
     {
         foreach ($moduleArray as $module) {
-            $moduleClass = 'OntoPress\Library\Modules\\'.$module;
+            $moduleClass = 'OntoPress\Library\Modules\\'.$module.'Module';
             $this->containerBuilder->addCompilerPass(
                 new $moduleClass($this->environment, $this->loader)
             );

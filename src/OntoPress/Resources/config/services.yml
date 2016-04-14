@@ -3,6 +3,7 @@ parameters:
 services:
     ontopress.ontology_parser:
         class: OntoPress\Service\OntologyParser
+        arguments: [@saft.easyrdf.parser]
         lazy: true
 
     ontopress.twig_generator:

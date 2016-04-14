@@ -4,17 +4,21 @@ namespace OntoPress\Service;
 
 use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\Ontology;
-use Saft\Addition\EasyRdf\Data\ParserEasyRdf;
-use Saft\Rdf\NodeFactoryImpl;
-use Saft\Rdf\StatementFactoryImpl;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Entity\Restriction;
+use Saft\Addition\EasyRdf\Data\ParserEasyRdf as Parser;
 
 /**
  * Class Parser.
  */
 class OntologyParser
 {
+    private $parser;
+    
+    public function __construct(Parser $parser)
+    {
+        $this->parser = $parser;
+    }
     /**
      * Parsing-method, to parse an Ontology-object to OntologyNode.
      *
@@ -26,16 +30,11 @@ class OntologyParser
      */
     public function parsing($ontology)
     {
-        $parser = new ParserEasyRdf(
-            new NodeFactoryImpl(),
-            new StatementFactoryImpl(),
-            'turtle' // RDF format of the file to parse later on (ttl => turtle)
-        );
         $ontologyArray = $ontology->getOntologyFiles();
         $objectArray = array();
 
         foreach ($ontologyArray as $index => $ontologyFile) {
-            $statementIterator = $parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
+            $statementIterator = $this->parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
             foreach ($statementIterator as $key => $statement) {
                 if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
                     $objectArray[$statement->getSubject()->getUri()] = new OntologyField();

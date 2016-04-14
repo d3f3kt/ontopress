@@ -11,19 +11,19 @@ use OntoPress\Library\OntoPressTestCase;
 class ParserTest extends OntoPressTestCase
 {
     private $parser;
-    
+
     public function setUp()
     {
-        $this->parser = new OntologyParser();
+        $this->parser = static::getContainer()->get('ontopress.ontology_parser');
     }
-    
+
     public function tearDown()
     {
         unset($this->parser);
         //unset($this->ontologyNode);
         //unset($this->restriction);
     }
-    
+
     /**
      * Test Parsing-method
      */
