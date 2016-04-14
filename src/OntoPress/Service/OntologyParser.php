@@ -1,6 +1,6 @@
 <?php
 
-namespace OntoPress\Service\OntologyParser;
+namespace OntoPress\Service;
 
 use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\Ontology;
