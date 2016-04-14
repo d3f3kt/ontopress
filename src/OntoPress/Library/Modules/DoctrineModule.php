@@ -26,7 +26,7 @@ class DoctrineModule extends AbstractModule
             array(
                 $container->getParameter('ontopress.entity_dir'),
             ),
-            in_array($this->environment, array('dev', 'test')),
+            !$this->isProdEnv(),
             null,
             null,
             false
@@ -44,7 +44,7 @@ class DoctrineModule extends AbstractModule
      */
     private function getDatabaseParameters()
     {
-        if ($this->environment == 'test') {
+        if ($this->isTestEnv()) {
             $dbParams = array(
                 'driver' => 'pdo_sqlite',
                 'memory' => true,

@@ -18,7 +18,7 @@ class SessionModule extends AbstractModule
      */
     public function process(ContainerBuilder $container)
     {
-        if ($this->environment == 'test') {
+        if ($this->isTestEnv()) {
             $session = new Session(new MockArraySessionStorage());
         } else {
             $session = new Session();

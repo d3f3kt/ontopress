@@ -43,4 +43,34 @@ abstract class AbstractModule implements CompilerPassInterface
      * @param ContainerBuilder $container Container Builder
      */
     abstract public function process(ContainerBuilder $container);
+
+    /**
+     * Check if we are in development environment.
+     *
+     * @return bool TRUE if dev environment FALSE otherwise
+     */
+    protected function isDevEnv()
+    {
+        return $this->environment == 'dev';
+    }
+
+    /**
+     * Check if we are in test environment.
+     *
+     * @return bool TRUE if test environment FALSE otherwise
+     */
+    protected function isTestEnv()
+    {
+        return $this->environment == 'test';
+    }
+
+    /**
+     * Check if we are in prod environment.
+     *
+     * @return bool TRUE if prod environment FALSE otherwise
+     */
+    protected function isProdEnv()
+    {
+        return $this->environment == 'prod';
+    }
 }

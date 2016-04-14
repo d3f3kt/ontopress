@@ -25,7 +25,7 @@ class TwigExtensionModule extends AbstractModule
         $container->get('symfony.twig')->addExtension(new FormExtension(new TwigRenderer($container->get('symfony.form_engine'))));
         $container->get('symfony.twig')->addExtension(new TranslationExtension($container->get('symfony.translator')));
 
-        if ($this->environment != 'prod') {
+        if (!$this->isProdEnv()) {
             $container->get('symfony.twig')->addExtension(new DumpExtension(new VarCloner()));
         }
 
