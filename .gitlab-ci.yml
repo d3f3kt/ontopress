@@ -17,7 +17,7 @@ stages:
 stylecheck:php:
     stage: stylecheck
     script:
-    - vendor/bin/phpcs --standard=PSR2 -n --report=full src/OntoPress
+    - vendor/bin/phpcs --standard=PSR2 --extensions=php -n --report=full src/OntoPress
 
 stylecheck:twig:
     stage: stylecheck
