@@ -1,10 +1,43 @@
 // setup an "Weitere Ontologie hochladen" link
-var addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontology hochladen</a>');
 
 jQuery(document).ready(function () {
-    // Get the ul that holds the collection of tags
-    var collectionHolder = jQuery('#ontologyAddType_ontologyFiles');
+    if (uploadFilesCollectionHolder = jQuery('#ontologyAddType_ontologyFiles')) {
+        addLinkToOntologyUploadFiles(uploadFilesCollectionHolder);
+    }
 
+    if (formFieldCheckboxes = jQuery('#createFormType_ontologyFields')) {
+        addSelectAllLink(formFieldCheckboxes);
+    }
+});
+
+function addSelectAllLink(formFieldCheckboxes)
+{
+    selectLink = jQuery('<a href="#">Alle auswählen</a>');
+    deselectLink = jQuery('<a href="#">Alle abwählen</a>');
+
+    formFieldCheckboxes.prepend(deselectLink);
+    formFieldCheckboxes.prepend(jQuery("<span>|</span>"));
+    formFieldCheckboxes.prepend(selectLink);
+
+    selectLink.on('click', function(e) {
+        e.preventDefault();
+
+        jQuery(this).parent().find('input').each(function() {
+            this.checked = true;
+        });
+    });
+
+    deselectLink.on('click', function(e) {
+        e.preventDefault();
+        jQuery(this).parent().find('input').each(function() {
+            this.checked = false;
+        });
+    });
+}
+
+function addLinkToOntologyUploadFiles(collectionHolder)
+{
+    addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontology hochladen</a>');
     collectionHolder.append(addTagLink);
 
     addTagLink.on('click', function (e) {
@@ -14,9 +47,7 @@ jQuery(document).ready(function () {
         // add a new tag form
         addTagForm(collectionHolder, addTagLink);
     });
-
-
-});
+}
 
 function addTagForm(collectionHolder, addTagLink)
 {
