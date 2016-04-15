@@ -3,6 +3,6 @@
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 require_once __DIR__.'/../../../wp-config.php';
-require_once __DIR__.'/src/OntoPress/bootstrap.php';
+$container = require __DIR__.'/src/OntoPress/bootstrap.php';
 
-return ConsoleRunner::createHelperSet($entityManager);
+return ConsoleRunner::createHelperSet($container->get('doctrine'));
