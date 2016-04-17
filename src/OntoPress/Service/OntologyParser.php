@@ -36,7 +36,6 @@ class OntologyParser
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $this->parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
             foreach ($statementIterator as $key => $statement) {
-                
                 $objectArray = $this->initElement($statement, $objectArray);
                 switch ($statement->getPredicate()) {
                     case 'http://www.w3.org/2000/01/rdf-schema#label':
@@ -166,7 +165,7 @@ class OntologyParser
 
     /**
      * Initiate objects if not already part of the objectArray
-     * 
+     *
      * @param $statement
      * @param $objectArray
      * @return mixed
