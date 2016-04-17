@@ -6,8 +6,10 @@ use OntoPress\Entity\Form;
 use OntoPress\Entity\OntologyField;
 
 /**
- * To make it more comfortable to customize forms, this class generates a base Twig
- * structure which contains all fields of a given OntoPressForm.
+ * Class TwigGenerator
+ *
+ * To make customizing forms more comfortable, this class generates a base Twig
+ * structure which contains all OntologyFields of a given OntoPressForm.
  */
 class TwigGenerator
 {

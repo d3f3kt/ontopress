@@ -4,12 +4,30 @@ namespace OntoPress\Service;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
-
+/**
+ * Class DoctrineManager
+ *
+ * DoctrineManager is the base component of all doctrine based projects.
+ * It opens and keeps track of all connections (database connections).
+ */
 class DoctrineManager implements ManagerRegistry
 {
 
+    /**
+     * Doctrine instance.
+     *
+     * @var doctrine
+     */
     protected $doctrine;
 
+    /**
+     * The Constructor is automatically called by creating a new DoctrineManager.
+     * It initializes a doctrine instance with the given parameter.
+     *
+     * DoctrineManager constructor.
+     *
+     * @param EntityManager $doctrine
+     */
     public function __construct(EntityManager $doctrine)
     {
         $this->doctrine = $doctrine;

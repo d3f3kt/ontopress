@@ -9,18 +9,29 @@ use OntoPress\Entity\Restriction;
 use Saft\Addition\EasyRdf\Data\ParserEasyRdf as Parser;
 
 /**
- * Class Parser.
+ * Class OntologyParser
+ *
+ * The OntologyParser parses a given Ontology-Object to OntologyNodes.
  */
 class OntologyParser
 {
+    /**
+     * Parser instance
+     *
+     * @var Parser
+     */
     private $parser;
-    
+
+    /**
+     * The Constructor is automatically called by creating a new OntologyParser.
+     * It initializes the parser instance with the given parameter.
+     */
     public function __construct(Parser $parser)
     {
         $this->parser = $parser;
     }
     /**
-     * Parsing-method, to parse an Ontology-object to OntologyNode.
+     * Parsing-method, to parse an Ontology-object to OntologyNodes.
      *
      * @param Ontology
      *

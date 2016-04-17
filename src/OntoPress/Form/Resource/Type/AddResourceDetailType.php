@@ -14,7 +14,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class AddResourceDetailType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Creates a Form including all OntologyFields that can be selected and added to a Resource
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -39,8 +42,11 @@ class AddResourceDetailType extends AbstractType
             ));
     }
 
+
     /**
-     * {@inheritdoc}
+     * Sets the resolver to default
+     *
+     * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -52,7 +58,9 @@ class AddResourceDetailType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * Getter Name
+     *
+     * @return string "networkMessage"
      */
     public function getName()
     {

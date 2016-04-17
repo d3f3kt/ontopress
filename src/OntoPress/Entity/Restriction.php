@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Restriction.
- * This PHP Object allows Doctrine to translate php Objects into an relational SQL Table via Metadata.
+ * This PHP Object allows Doctrine to translate a Restriction into an relational SQL Table via Metadata.
  *
  * @ORM\Table(name="ontopress_restriction")
  * @ORM\Entity()

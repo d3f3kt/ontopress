@@ -10,7 +10,9 @@ use OntoPress\Entity\Form as OntoForm;
 use OntoPress\Entity\OntologyField;
 
 /**
- * Service to generate a SymfonyForm from an OntoPressForm.
+ * Class FormCreation
+ *
+ * Service to generate a SymfonyForm of an OntoPressForm.
  */
 class FormCreation
 {
@@ -29,9 +31,11 @@ class FormCreation
     private $restrictionHelper;
 
     /**
-     * Inject dependencies.
+     * The Constructor is automatically called by creating a new FormCreation.
+     * It initializes the formFactory and restrictionHelper with the given parameters.
      *
      * @param FormFactoryInterface $formFactory Form Factory
+     *
      * @param EntityManager        $doctrine    Doctrine Entity Manager
      */
     public function __construct(FormFactoryInterface $formFactory, RestrictionHelper $restrictionHelper)
@@ -41,7 +45,8 @@ class FormCreation
     }
 
     /**
-     * Iterate through all OntoPressFormFields and add them to the Symfony Form.
+     * Iterate through all OntoPressFormFields of the given OntoForm
+     * and create a Symfony Form including all OntoPressFormFields.
      *
      * @param OntoForm $ontoForm OntoPress From
      *

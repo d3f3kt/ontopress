@@ -4,7 +4,11 @@ namespace OntoPress\Service;
 
 use OntoPress\Entity\OntologyField;
 use Doctrine\ORM\EntityManager;
-
+/**
+ * Class RestrictionHelper
+ *
+ * The RestrictionHelper helps to get all Restrictions of an OntologyField
+ */
 class RestrictionHelper
 {
     /**
@@ -15,7 +19,9 @@ class RestrictionHelper
     private $doctrine;
 
     /**
-     * Dependency Injection
+     * The Constructor is automatically called by creating a new RestrictionHelper.
+     * It initializes a doctrine instance with the given parameter.
+     *
      * @param EntityManager $doctrine Doctrine Entity Manager
      */
     public function __construct(EntityManager $doctrine)
@@ -24,9 +30,11 @@ class RestrictionHelper
     }
 
     /**
+     * Get all Restrictions as Array of Choices of an OntologyField.
+     *
      * @param OntologyField $field
      *
-     * @return array
+     * @return array All Choices
      */
     public function getChoices(OntologyField $field)
     {
