@@ -59,6 +59,7 @@ class OntologyParser
             }
         }
         $objectArray = $this->propertyHandler($statementIterator, $objectArray);
+        $objectArray = $this->selectHandler($objectArray);
         $this->dataOntologyHandler($ontology, $objectArray);
         return $objectArray;
     }
@@ -90,6 +91,7 @@ class OntologyParser
     public function propertyHandler($statementIterator, $objectArray)
     {
         foreach ($statementIterator as $key => $statement) {
+            /*
             if ($statement->getPredicate() == 'http://localhost/k00ni/knorke/hasProperty') {
                 if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
                     $objectArray[$statement->getObject()->getUri()] = new OntologyField();
@@ -98,6 +100,7 @@ class OntologyParser
                 }
                 $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
             }
+            */
             switch ($statement->getPredicate()) {
                 case 'http://localhost/k00ni/knorke/hasProperty':
                     if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
@@ -176,6 +179,22 @@ class OntologyParser
             $objectArray[$statement->getSubject()->getUri()] = new OntologyField();
             $objectArray[$statement->getSubject()->getUri()]->setName($statement->getSubject()->getUri());
             $objectArray[$statement->getSubject()->getUri()]->setType(OntologyField::TYPE_TEXT);
+        }
+        return $objectArray;
+    }
+
+    /**
+     * Sets TYPE_SELECT in properties with 4 or more choices
+     *
+     * @param $objectArray
+     * @return mixed
+     */
+    public function selectHandler($objectArray)
+    {
+        foreach ($objectArray as $key => $object) {
+            if (sizeof($object->getRestrictions()) >= 3) {
+                $object->setType(OntologyField::TYPE_SELECT);
+            }
         }
         return $objectArray;
     }
