@@ -84,6 +84,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => true,
+            'placeholder' => false,
             'choices' => $this->restrictionHelper->getChoices($field),
         ));
     }
@@ -95,6 +96,7 @@ class FormCreation
             'required' => $field->getMandatory(),
             'multiple' => false,
             'expanded' => false,
+            'placeholder' => false,
             'choices' => $this->restrictionHelper->getChoices($field),
         ));
     }
