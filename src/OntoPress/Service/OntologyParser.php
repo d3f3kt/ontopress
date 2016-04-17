@@ -36,13 +36,7 @@ class OntologyParser
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $this->parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
             foreach ($statementIterator as $key => $statement) {
-                /*
-                if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
-                $objectArray[$statement->getSubject()->getUri()] = new OntologyField();
-                $objectArray[$statement->getSubject()->getUri()]->setName($statement->getSubject()->getUri());
-                $objectArray[$statement->getSubject()->getUri()]->setType(OntologyField::TYPE_TEXT);
-                }
-                */
+                
                 $objectArray = $this->initElement($statement, $objectArray);
                 switch ($statement->getPredicate()) {
                     case 'http://www.w3.org/2000/01/rdf-schema#label':
@@ -184,7 +178,6 @@ class OntologyParser
             $objectArray[$statement->getSubject()->getUri()]->setName($statement->getSubject()->getUri());
             $objectArray[$statement->getSubject()->getUri()]->setType(OntologyField::TYPE_TEXT);
         }
-        
         return $objectArray;
     }
 }
