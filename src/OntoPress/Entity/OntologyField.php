@@ -14,9 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class OntologyField
 {
-    const TYPE_TEXT = 'Text';
-    const TYPE_RADIO = 'Radio-Button';
-    const TYPE_CHOICE = 'Restriction-Choice';
+    const TYPE_TEXT = 'TEXT';
+    const TYPE_RADIO = 'RADIO';
+    const TYPE_CHOICE = 'CHOICE';
+    const TYPE_SELECT = 'RADIO_SELECT';
 
     /**
      * @var DataOntology

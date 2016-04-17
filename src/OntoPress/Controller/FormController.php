@@ -188,7 +188,7 @@ class FormController extends AbstractController
 
             $this->addFlashMessage(
                 'success',
-                'Formular, erflogreich erstellt.'
+                'Formular erfolgreich erstellt.'
             );
 
             return $this->redirectToRoute(

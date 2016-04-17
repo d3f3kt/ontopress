@@ -66,6 +66,8 @@ class FormCreation
                 return $this->addRadioField($field, $builder);
             case OntologyField::TYPE_CHOICE:
                 return $this->addChoiceField($field, $builder);
+            case OntologyField::TYPE_SELECT:
+                return $this->addSelectField($field, $builder);
         }
     }
 
@@ -95,6 +97,18 @@ class FormCreation
             'label' => $field->getLabel(),
             'required' => $field->getMandatory(),
             'multiple' => false,
+            'expanded' => false,
+            'placeholder' => false,
+            'choices' => $this->restrictionHelper->getChoices($field),
+        ));
+    }
+
+    private function addSelectField(OntologyField $field, FormBuilderInterface $builder)
+    {
+        return $builder->add($field->getFormFieldName(), 'choice', array(
+            'label' => $field->getLabel(),
+            'required' => $field->getMandatory(),
+            'multiple' => true,
             'expanded' => false,
             'placeholder' => false,
             'choices' => $this->restrictionHelper->getChoices($field),
