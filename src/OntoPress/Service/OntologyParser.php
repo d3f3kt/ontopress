@@ -36,11 +36,14 @@ class OntologyParser
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $this->parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
             foreach ($statementIterator as $key => $statement) {
+                /*
                 if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
-                    $objectArray[$statement->getSubject()->getUri()] = new OntologyField();
-                    $objectArray[$statement->getSubject()->getUri()]->setName($statement->getSubject()->getUri());
-                    $objectArray[$statement->getSubject()->getUri()]->setType(OntologyField::TYPE_TEXT);
+                $objectArray[$statement->getSubject()->getUri()] = new OntologyField();
+                $objectArray[$statement->getSubject()->getUri()]->setName($statement->getSubject()->getUri());
+                $objectArray[$statement->getSubject()->getUri()]->setType(OntologyField::TYPE_TEXT);
                 }
+                */
+                $objectArray = $this->initElement($statement, $objectArray);
                 switch ($statement->getPredicate()) {
                     case 'http://www.w3.org/2000/01/rdf-schema#label':
                         $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
@@ -165,5 +168,23 @@ class OntologyParser
         $pos = (strlen($ontologyNodeName) - $pos) * -1;
         $parsedName = substr($ontologyNodeName, 0, $pos);
         return $parsedName;
+    }
+
+    /**
+     * Initiate objects if not already part of the objectArray
+     * 
+     * @param $statement
+     * @param $objectArray
+     * @return mixed
+     */
+    public function initElement($statement, $objectArray)
+    {
+        if (!(array_key_exists($statement->getSubject()->getUri(), $objectArray))) {
+            $objectArray[$statement->getSubject()->getUri()] = new OntologyField();
+            $objectArray[$statement->getSubject()->getUri()]->setName($statement->getSubject()->getUri());
+            $objectArray[$statement->getSubject()->getUri()]->setType(OntologyField::TYPE_TEXT);
+        }
+        
+        return $objectArray;
     }
 }

@@ -34,8 +34,10 @@ class RestrictionHelper
 
         $repo = $this->doctrine->getRepository('OntoPress\Entity\OntologyField');
         foreach ($field->getRestrictions() as $restriction) {
-            $choiceArray[$restriction->getId()] = $repo->findOneByName($restriction->getName())
+            if ($repo->findOneByName($restriction->getName()) != null) {
+                $choiceArray[$restriction->getId()] = $repo->findOneByName($restriction->getName())
                 ->getLabel();
+            }
         }
 
         return $choiceArray;
