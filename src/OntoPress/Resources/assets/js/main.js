@@ -15,6 +15,7 @@ function addSelectAllLink(formFieldCheckboxes)
     selectLink = jQuery('<a href="#">Alle auswählen</a>');
     deselectLink = jQuery('<a href="#">Alle abwählen</a>');
 
+    formFieldCheckboxes.prepend(jQuery("<br>"));
     formFieldCheckboxes.prepend(deselectLink);
     formFieldCheckboxes.prepend(jQuery("<span>|</span>"));
     formFieldCheckboxes.prepend(selectLink);
