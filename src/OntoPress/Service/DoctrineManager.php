@@ -4,6 +4,7 @@ namespace OntoPress\Service;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
+
 /**
  * Class DoctrineManager
  *

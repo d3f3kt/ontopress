@@ -4,6 +4,7 @@ namespace OntoPress\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
+
 /**
  * Class DoctrineSchemaTool
  *

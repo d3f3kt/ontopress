@@ -4,6 +4,7 @@ namespace OntoPress\Service;
 
 use OntoPress\Entity\OntologyField;
 use Doctrine\ORM\EntityManager;
+
 /**
  * Class RestrictionHelper
  *
