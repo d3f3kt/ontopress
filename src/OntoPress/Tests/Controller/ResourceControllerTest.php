@@ -4,6 +4,7 @@ namespace OntoPress\Tests;
 
 use OntoPress\Controller\ResourceController;
 use OntoPress\Library\OntoPressTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class ResourceControllerTest
@@ -18,7 +19,7 @@ class ResourceControllerTest extends OntoPressTestCase
     {
         $container = static::getContainer();
         $resourceController = new ResourceController($container);
-        $resourceOutput = $resourceController->showAddAction();
+        $resourceOutput = $resourceController->showAddAction(new Request());
 
         $this->assertContains("Ressourcen Hinzufügen", $resourceOutput);
     }
