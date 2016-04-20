@@ -7,14 +7,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Doctrine\Common\Collections;
 
 /**
  * That is an example form.
  */
-class AddResourceDetailType extends AbstractType
+class AddResourceType extends AbstractType
 {
     /**
-     * Creates a Form including all OntologyFields that can be selected and added to a Resource
      *
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -22,15 +22,30 @@ class AddResourceDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('Formular', ChoiceType::class, [
+                    'choices' => $this->generateChoices($options)
+                ]
+            )
             ->add('submit', new SubmitCancelType(), array(
-                'label' => 'Speichern',
+                'label' => 'Weiter',
                 'attr' => array('class' => 'button button-primary'),
                 'cancel_link' => $options['cancel_link'],
                 'cancel_label' => $options['cancel_label'],
             ));
     }
 
-
+    public function generateChoices($options) {
+        $ontologyArray = array();
+        foreach ($options['ontologies'] as $key => $ontology) {
+            $temp = $ontology->getOntologyForms();
+            $formArray = array();
+            foreach ($temp as $form) {
+                $formArray[$form->getId()] = $form->getName();
+            }
+            $ontologyArray[$ontology->getName()] = $formArray;
+        }
+        return $ontologyArray;
+    }
     /**
      * Sets the resolver to default
      *
@@ -38,7 +53,12 @@ class AddResourceDetailType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired('cancel_link');
+        $resolver->setRequired(array(
+            'cancel_link',
+            'doctrineManager',
+            'ontologies'
+        ));
+
         $resolver->setDefaults(array(
             'attr' => array('class' => 'form-table'),
             'cancel_label' => 'Abbrechen',
@@ -52,6 +72,7 @@ class AddResourceDetailType extends AbstractType
      */
     public function getName()
     {
-        return 'addResourceDetailType';
+        return 'addResourceType';
     }
 }
+

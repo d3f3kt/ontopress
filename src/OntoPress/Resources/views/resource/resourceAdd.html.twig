@@ -4,25 +4,7 @@
     Ressourcen Hinzufügen
 {% endblock %}
 {% block content %}
-    <h2>Formular auswählen</h2>
-    <form method="get">
-        <select name="Ontologien" size="1" >
-            <optgroup label="Ontologie 1">
-                <option label="Form 1">Form 1</option>
-                <option label="Form 2">Form 2</option>
-                <option label="Form 3">Form 3</option>
-            </optgroup>
-            <optgroup label="Ontologie 2">
-                <option label="Form 1">Form 1</option>
-                <option label="Form 2">Form 2</option>
-            </optgroup>
-            <optgroup label="Ontologie 3">
-                <option label="Form 1">Form 1</option>
-            </optgroup>
-        </select>
-    </form>
-    <br>
-    </br>
-    <a href="{{path('ontopress_resourceAddDetails')}}" class="page-title-action">Weiter</a>
-    <a href="{{path('ontopress')}}" class="page-title-action">Abbrechen</a>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 {% endblock %}

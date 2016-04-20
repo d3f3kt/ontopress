@@ -2,6 +2,7 @@
 
 namespace OntoPress\Controller;
 
+use OntoPress\Form\Resource\Type\AddResourceType;
 use OntoPress\Library\AbstractController;
 use OntoPress\Form\Resource\Type\AddResourceDetailType;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,18 @@ class ResourceController extends AbstractController
      */
     public function showAddAction()
     {
-        return $this->render('resource/resourceAdd.html.twig', array());
+        $ontologies = $this->getDoctrine()
+            ->getRepository('OntoPress\Entity\Ontology')
+            ->findAll();
+
+        $form = $this->createForm(new AddResourceType(), null, array(
+            'cancel_link' => $this->generateRoute('ontopress_forms'),
+            'doctrineManager' => $this->get('ontopress.doctrine_manager'),
+            'ontologies' => $ontologies,
+        ));
+        return $this->render('resource/resourceAdd.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
