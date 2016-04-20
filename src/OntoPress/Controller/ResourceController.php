@@ -20,7 +20,7 @@ class ResourceController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showAddAction()
+    public function showAddAction(Request $request)
     {
         $ontologies = $this->getDoctrine()
             ->getRepository('OntoPress\Entity\Ontology')
@@ -31,6 +31,15 @@ class ResourceController extends AbstractController
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
             'ontologies' => $ontologies,
         ));
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $formData = $form->getData();
+            $ontoFormId = $formData['Formular'];
+            return $this->redirectToRoute(
+                'ontopress_resourceAddDetails',
+                array('formId' => $ontoFormId)
+            );
+        }
         return $this->render('resource/resourceAdd.html.twig', array(
             'form' => $form->createView(),
         ));
