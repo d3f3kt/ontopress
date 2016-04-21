@@ -50,26 +50,39 @@ class ResourceController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showAddDetailsAction()//Request $request)
+    public function showAddDetailsAction(Request $request)
     {
+        
         //get formId
-        //$id = $request->get('id');
-        $id = 2;
-
+        $id = $request->get('formId');
+        //$id = 2;
         //fetch the form by formId
-        $formEntity = $this->getDoctrine()
+        /*$formEntity = $this->getDoctrine()
             ->getRepository('OntoPress\Entity\Form')
             ->find($id);
-
-        //create Formgenerator and hand over form
-
+        */
+        if ($formId = $request->get('formId')) {
+            $formEntity = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
+                ->findOneById($formId);
+            if (!$formEntity) {
+                return $this->render('form/formNotFound.html.twig', array(
+                    'id' => $formId,
+                ));
+            }
+        } else {
+            return $this->redirectToRoute('ontopress_resource');
+        }
+       
+        $rawForm = $this->get('ontopress.form_creation')->create($formEntity);
+        
         $form = $this->createForm(new AddResourceDetailType(), null, array(
             'data' => $formEntity,
             'cancel_link' => $this->generateRoute('ontopress_resource'),
         ));
 
         return $this->render('resource/resourceAddDetails.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $rawForm->createView(),
+            'form1' => $form->createView(),
         ));
     }
 

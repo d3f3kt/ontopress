@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
  * That is an example form.
@@ -27,7 +27,7 @@ class AddResourceDetailType extends AbstractType
                 'attr' => array('class' => 'button button-primary'),
                 'cancel_link' => $options['cancel_link'],
                 'cancel_label' => $options['cancel_label'],
-            ));
+            ));            
     }
 
 
