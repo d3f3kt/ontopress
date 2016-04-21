@@ -27,7 +27,7 @@ class AddResourceDetailType extends AbstractType
                 'attr' => array('class' => 'button button-primary'),
                 'cancel_link' => $options['cancel_link'],
                 'cancel_label' => $options['cancel_label'],
-            ));            
+            ));
     }
 
 
