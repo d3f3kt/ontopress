@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Ontology.
  * This PHP Object allows Doctrine to translate php Objects into an relational SQL Table via Metadata.
  *
- * @ORM\Table(name="ontopress_ontology", uniqueConstraints={@ORM\UniqueConstraint(columns={"name"})})
+ * @ORM\Table(name="ontopress_ontology")
  * @ORM\Entity(repositoryClass="OntoPress\Repository\OntologyRepository")
  */
 class Ontology
