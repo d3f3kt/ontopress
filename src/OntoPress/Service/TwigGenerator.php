@@ -49,6 +49,15 @@ class TwigGenerator
     public function generate(Form $form)
     {
         $twigFields = array();
+
+        $nameField = new OntologyField();
+        $nameField->setName('Name')
+            ->setLabel('Name')
+            ->setType(OntologyField::TYPE_TEXT)
+            ->setMandatory(true)
+            ->setPossessed(true);
+        $twigFields[] = $this->generateFormField($nameField);
+        
         foreach ($form->getOntologyFields() as $ontologyField) {
             $twigFields[] = $this->generateFormField($ontologyField);
         }
