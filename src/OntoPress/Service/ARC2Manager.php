@@ -32,7 +32,7 @@ class ARC2Manager
         if (!array_key_exists($saveGraphName, $graphs)) {
             $this->arc2->createGraph(new NamedNodeImpl($saveGraphName));
         }
-        
+        dump($graphs);
         $this->arc2->addStatements($statements, $graphs[$saveGraphName]);
     }
 

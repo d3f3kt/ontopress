@@ -63,13 +63,18 @@ class ResourceController extends AbstractController
         } else {
             return $this->redirectToRoute('ontopress_resource');
         }
-        $form = $this->get('ontopress.form_creation')->create($formEntity);
+        $form = $this->get('ontopress.form_creation')->create($formEntity)->add('submit', 'submit');
 
         $form->handleRequest($request);
-        dump($form->getData());
+        dump($form);
+        dump($form->isValid());
         if ($form->isValid()) {
             $arc2Manager = $this->get('ontopress.arc2_manager');
             $arc2Manager->store($form->getData());
+            $this->addFlashMessage(
+                'success',
+                'Ressource erfolgreich gespeichert'
+            );
         }
 
         $template = $formEntity->getTwigCode();
