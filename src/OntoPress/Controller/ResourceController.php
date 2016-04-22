@@ -72,11 +72,15 @@ class ResourceController extends AbstractController
         } else {
             return $this->redirectToRoute('ontopress_resource');
         }
+        $form = $this->get('ontopress.form_creation')->create($formEntity);
+
+        $form->handleRequest($request);
 
         $template = $formEntity->getTwigCode();
 
         return $this->render('resource/resourceAddDetails.html.twig', array(
             'twig_template' => $template,
+            'form' => $form->createView(),
         ));
     }
 

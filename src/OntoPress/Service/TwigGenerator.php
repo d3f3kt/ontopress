@@ -137,7 +137,7 @@ class TwigGenerator
             'type' => 'select',
             'widget' => array(
                 'choices' => $this->restrictionHelper->getChoices($ontologyField),
-                'attr' => $this->generateChoiceAttributes($ontologyField),
+                'attr' => $this->generateFieldAttributes($ontologyField),
                 'labelAttr' => 'for="OntoPressForm_'.$ontologyField->getFormFieldName().'_%id%"',
             ),
         );
