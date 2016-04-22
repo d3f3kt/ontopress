@@ -40,12 +40,18 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowAddDetailsAction()
     {
-        $testhelper = new TestHelper();
-        $ontologyEntity = $testhelper->createTestOntology();
-        $formEntity = $testhelper->createOntologyForm($ontologyEntity);
+        $ontologyEntity = TestHelper::createTestOntology();
+        $formEntity = TestHelper::createOntologyForm($ontologyEntity);
 
 
-        $resourceNoID = $this->resourceController->showAddDetailsAction(new Request());
+        $resourceNoID = $this->resourceController->showAddDetailsAction(new Request(
+            array(),
+            array(),
+            array(),
+            array(),
+            array(),
+            array('REQUEST_METHOD' => 'POST')
+        ));
         $resourceNoEntity = $this->resourceController->showAddDetailsAction(new Request(array(
             'formId' => 2000
         )));

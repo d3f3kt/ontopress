@@ -38,16 +38,16 @@ class FormControllerTest extends OntoPressWPTestCase
      */
     public function setUp()
     {
-        $testHelper = new TestHelper();
-        $this->ontology = $testHelper->createTestOntology();
-        $this->dataOntology = $testHelper->createDataOntology($this->ontology);
-        $this->ontologyField = $testHelper->createOntologyField($this->dataOntology);
-        $this->form = $testHelper->createOntologyForm($this->ontology);
+        $this->ontology = TestHelper::createTestOntology();
+        $this->dataOntology = TestHelper::createDataOntology($this->ontology);
+        $this->ontologyField = TestHelper::createOntologyField($this->dataOntology);
+        $this->form = TestHelper::createOntologyForm($this->ontology);
         $this->formController = new FormController(static::getContainer());
 
         static::getContainer()->get('doctrine')->persist($this->ontology);
         static::getContainer()->get('doctrine')->persist($this->form);
         static::getContainer()->get('doctrine')->flush();
+        parent::setUp();
     }
 
     /**
@@ -61,6 +61,7 @@ class FormControllerTest extends OntoPressWPTestCase
         unset($this->ontologyField);
         unset($this->formController);
         unset($this->form);
+        parent::tearDown();
     }
 
     /**
@@ -124,7 +125,7 @@ class FormControllerTest extends OntoPressWPTestCase
         );
 
         $this->assertContains('window.location', $edit);
-        $this->assertEquals($this->form->getName(), 'Test Form');
+        $this->assertEquals($this->form->getName(), 'otherName');
         $this->assertEquals($this->form->getTwigCode(), '{{ form(form) }}');
     }
 
@@ -200,6 +201,7 @@ class FormControllerTest extends OntoPressWPTestCase
                 array('REQUEST_METHOD' => 'POST')
             )
         );
+        // $this->assertEquals();
     }
 
     /**
