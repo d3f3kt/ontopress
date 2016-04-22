@@ -5,6 +5,7 @@ namespace OntoPress\Tests;
 use OntoPress\Controller\ResourceController;
 use OntoPress\Library\OntoPressTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use OntoPress\Tests\TestHelper;
 
 /**
  * Class ResourceControllerTest
@@ -12,15 +13,25 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ResourceControllerTest extends OntoPressTestCase
 {
+
+    private $resourceController;
+
+    public function setUp()
+    {
+        $this->resourceController = new ResourceController(static::getContainer());
+    }
+
+    public function tearDown()
+    {
+        unset($this->resourceController);
+    }
+
     /**
      * Tests showAddAction function, which should return a rendered twig template about adding resources.
      */
     public function testShowAddAction()
     {
-        $container = static::getContainer();
-        $resourceController = new ResourceController($container);
-        $resourceOutput = $resourceController->showAddAction(new Request());
-
+        $resourceOutput = $this->resourceController->showAddAction(new Request());
         $this->assertContains("Ressourcen Hinzufügen", $resourceOutput);
     }
 
@@ -29,13 +40,23 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowAddDetailsAction()
     {
-        /*
-        $container = static::getContainer();
-        $resourceController = new ResourceController($container);
-        $resourceOutput = $resourceController->showAddDetailsAction(new Request());
+        $testhelper = new TestHelper();
+        $ontologyEntity = $testhelper->createTestOntology();
+        $formEntity = $testhelper->createOntologyForm($ontologyEntity);
 
-        $this->assertContains("Ressourcen Hinzufügen", $resourceOutput);
-        */
+
+        $resourceNoID = $this->resourceController->showAddDetailsAction(new Request());
+        $resourceNoEntity = $this->resourceController->showAddDetailsAction(new Request(array(
+            'formId' => 2000
+        )));
+        $resourceValid = $this->resourceController->showAddDetailsAction(new Request(array(
+            'formId' => 2,
+            'formEntity' => $formEntity
+        )));
+
+        $this->assertContains("window.location", $resourceNoID);
+        $this->assertContains("Formular nicht gefunden!", $resourceNoEntity);
+        $this->assertContains("Ressourcen Hinzufügen", $resourceValid);
     }
 
     /**
@@ -43,10 +64,7 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowManagementAction()
     {
-        $container = static::getContainer();
-        $resourceController = new ResourceController($container);
-        $resourceOutput = $resourceController->showManagementAction();
-
+        $resourceOutput = $this->resourceController->showManagementAction();
         $this->assertContains("Ressourcen Verwaltung", $resourceOutput);
     }
 
@@ -55,10 +73,7 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
-        $container = static::getContainer();
-        $resourceController = new ResourceController($container);
-        $resourceOutput = $resourceController->showDeleteAction();
-
+        $resourceOutput = $this->resourceController->showDeleteAction();
         $this->assertContains("Ressource Löschen", $resourceOutput);
     }
 }
