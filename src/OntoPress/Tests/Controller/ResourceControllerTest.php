@@ -31,7 +31,7 @@ class ResourceControllerTest extends OntoPressTestCase
     {
         $container = static::getContainer();
         $resourceController = new ResourceController($container);
-        $resourceOutput = $resourceController->showAddDetailsAction();
+        $resourceOutput = $resourceController->showAddDetailsAction(new Request());
 
         $this->assertContains("Ressourcen Hinzufügen", $resourceOutput);
     }
