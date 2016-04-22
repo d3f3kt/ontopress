@@ -1,0 +1,7 @@
+        <td>
+            <select name="addResourceDetailType[Formular]" {{ formField.widget.attr|replace({'%id%': loop.index0})|raw }}>
+                {%- for key, choice in formField.widget.choices -%}
+                <option value="{{ key }}">{{ choice }}</option>
+                {% endfor %}
+            </select>
+        </td>
