@@ -56,6 +56,12 @@ class FormCreation
     public function create(OntoForm $ontoForm)
     {
         $builder = $this->getBuilder();
+
+        $builder->add('OntologyField_', 'text', array(
+            'label' => 'Ressourcenname',
+            'required' => true,
+        ));
+
         foreach ($ontoForm->getOntologyFields() as $field) {
             $this->addField($field, $builder);
         }

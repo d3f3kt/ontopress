@@ -109,9 +109,7 @@ class OntologyField
      */
     public function getFormFieldName()
     {
-        return str_replace(' ', '', $this->getDataOntology()->getOntology()->getName())
-            .'_'
-            .preg_replace("/[^A-Za-z0-9 ]/", '_', $this->getUriFile());
+        return 'OntologyField_' . $this->getId();
     }
 
     /**
