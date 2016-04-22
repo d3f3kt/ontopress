@@ -73,8 +73,9 @@ class FormController extends AbstractController
         ));
 
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
+            $ontoForm->setTwigCode(stripslashes($ontoForm->getTwigCode()));
             $this->getDoctrine()->persist($ontoForm);
             $this->getDoctrine()->flush();
 
