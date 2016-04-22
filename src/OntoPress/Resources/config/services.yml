@@ -6,6 +6,11 @@ services:
         arguments: [@saft.easyrdf.parser]
         lazy: true
 
+    ontopress.arc2_manager:
+        class: OntoPress\Service\ARC2Manger
+        arguments: [@saft.store]
+        lazy: true
+
     ontopress.twig_generator:
         class: OntoPress\Service\TwigGenerator
         arguments: [@symfony.twig, @ontopress.restriction_helper]
