@@ -7,8 +7,8 @@ services:
         lazy: true
 
     ontopress.arc2_manager:
-        class: OntoPress\Service\ARC2Manger
-        arguments: [@saft.store]
+        class: OntoPress\Service\ARC2Manager
+        arguments: [@saft.store, @doctrine]
         lazy: true
 
     ontopress.twig_generator:
