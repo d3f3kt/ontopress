@@ -16,7 +16,7 @@ use Saft\Addition\EasyRdf\Data\ParserEasyRdf as Parser;
 class OntologyParser
 {
     /**
-     * Parser instance
+     * A EasyRDFParser instance
      *
      * @var Parser
      */
@@ -25,17 +25,19 @@ class OntologyParser
     /**
      * The Constructor is automatically called by creating a new OntologyParser.
      * It initializes the parser instance with the given parameter.
+     *
+     * @param $parser Parser
      */
     public function __construct(Parser $parser)
     {
         $this->parser = $parser;
     }
     /**
-     * Parsing-method, to parse an Ontology-object to OntologyNodes.
+     * Parsing-method, to parse an Ontology-object to OntologyFields.
      *
      * @param Ontology
      *
-     * @return array Array of OntologyNodes
+     * @return array Array of OntologyFields
      *
      * @throws \Exception
      */
@@ -43,10 +45,10 @@ class OntologyParser
     {
         $ontologyArray = $ontology->getOntologyFiles();
         $objectArray = array();
-
         foreach ($ontologyArray as $index => $ontologyFile) {
             $statementIterator = $this->parser->parseStreamToIterator($ontologyFile->getAbsolutePath());
             foreach ($statementIterator as $key => $statement) {
+                echo $statement . '<br>';
                 $objectArray = $this->initElement($statement, $objectArray);
                 switch ($statement->getPredicate()) {
                     case 'http://www.w3.org/2000/01/rdf-schema#label':
