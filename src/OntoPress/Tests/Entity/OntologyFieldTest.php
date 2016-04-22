@@ -100,6 +100,6 @@ class OntologyFieldTest extends OntoPressTestCase
      */
     public function testGetFormFieldName()
     {
-        $this->assertEquals($this->ontologyField->getFormFieldName(), "_testname");
+        $this->assertEquals($this->ontologyField->getFormFieldName(), "OntologyField_");
     }
 }
