@@ -27,7 +27,7 @@ class OntologyRepository extends EntityRepository
     /**
      * Searches the 5 most used Ontologies in the database via the number of their forms
      *
-     * @return table with the 5 most used Ontologies
+     * @return mixed Table with the 5 most used Ontologies
      */
     public function getMostUsedOntologies()
     {
