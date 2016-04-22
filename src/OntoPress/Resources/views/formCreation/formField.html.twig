@@ -3,4 +3,6 @@
     {%- include 'formCreation/formTextField.html.twig' -%}
 {%- elseif formField.type == 'radio' -%}
     {%- include 'formCreation/formRadioField.html.twig' -%}
+{%- elseif formField.type == 'select' -%}
+    {%- include 'formCreation/formSelectField.html.twig' -%}
 {%- endif -%}
