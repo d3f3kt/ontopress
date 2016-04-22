@@ -4,7 +4,6 @@ namespace OntoPress\Tests;
 
 use Brain\Monkey\Functions;
 use Symfony\Component\HttpFoundation\Request;
-use OntoPress\Entity\Ontology;
 use OntoPress\Controller\OntologyController;
 use OntoPress\Library\OntoPressWPTestCase;
 use OntoPress\Tests\Entity\OntologyTest;

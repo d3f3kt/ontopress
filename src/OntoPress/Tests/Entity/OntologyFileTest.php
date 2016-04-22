@@ -5,6 +5,7 @@ namespace OntoPress\Tests\Entity;
 use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Entity\OntologyFile;
+use OntoPress\Tests\TestHelper;
 
 /**
  * Class OntologyFileTest
@@ -30,9 +31,9 @@ class OntologyFileTest extends OntoPressTestCase
      */
     public function setUp()
     {
+        parent::setUp();
+        $this->ontology = TestHelper::createTestOntology();
         $this->ontologyFile = new OntologyFile();
-        $this->ontology = new Ontology();
-
         $this->ontologyFile->setOntology($this->ontology)
                             ->setPath("test/testpath")
                             ->setFile();
@@ -46,6 +47,7 @@ class OntologyFileTest extends OntoPressTestCase
     {
         unset($this->ontology);
         unset($this->ontologyFile);
+        parent::tearDown();
     }
 
     /**

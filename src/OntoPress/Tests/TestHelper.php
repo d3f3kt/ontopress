@@ -61,7 +61,7 @@ class TestHelper
         $restriction = new Restriction();
         $ontologyField = new OntologyField();
         $restriction->setName('Test Restriction');
-        $ontologyField->setName('Test OntologyField')
+        $ontologyField->setName('TestUri/TestOntologyField')
             ->setType(OntologyField::TYPE_TEXT)
             ->setComment('Test Comment')
             ->setLabel('Test Label')

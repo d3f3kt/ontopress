@@ -7,6 +7,7 @@ use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Entity\Restriction;
 use OntoPress\Library\OntoPressTestCase;
+use OntoPress\Tests\TestHelper;
 
 /**
  * Class OntologyFieldTest
@@ -19,12 +20,6 @@ class OntologyFieldTest extends OntoPressTestCase
      * @var OntologyField
      */
     private $ontologyField;
-
-    /**
-     * Restriction Entity
-     * @var Restriction
-     */
-    private $restriction;
 
     /**
      * DataOntology Entity
@@ -44,18 +39,10 @@ class OntologyFieldTest extends OntoPressTestCase
      */
     public function setUp()
     {
-        $this->dataOntology = new DataOntology();
-        $this->ontology = new Ontology();
-        $this->dataOntology->setOntology($this->ontology);
-        $this->restriction = new Restriction();
-        $this->ontologyField = new OntologyField();
-        $this->ontologyField->setDataOntology($this->dataOntology)
-                            ->setName("test/testroot/testname")
-                            ->setComment("testComment")
-                            ->setLabel("testLabel")
-                            ->setMandatory(true)
-                            ->setType("TYPE_TEXT")
-                            ->addRestriction($this->restriction);
+        parent::setUp();
+        $this->ontology = TestHelper::createTestOntology();
+        $this->dataOntology = TestHelper::createDataOntology($this->ontology);
+        $this->ontologyField = TestHelper::createOntologyField($this->dataOntology);
     }
 
     /**
@@ -66,8 +53,8 @@ class OntologyFieldTest extends OntoPressTestCase
     {
         unset($this->ontologyField);
         unset($this->dataOntology);
-        unset($this->restriction);
         unset($this->ontology);
+        parent::tearDown();
     }
 
     /**
@@ -75,16 +62,19 @@ class OntologyFieldTest extends OntoPressTestCase
      */
     public function testOntologyFieldBasic()
     {
-        $this->assertEquals($this->ontologyField->getName(), "test/testroot/testname");
-        $this->assertEquals($this->ontologyField->getComment(), "testComment");
-        $this->assertEquals($this->ontologyField->getLabel(), "testLabel");
+        $restriction = new Restriction();
+        $this->ontologyField->addRestriction($restriction);
+
+        $this->assertEquals($this->ontologyField->getName(), "TestUri/TestOntologyField");
+        $this->assertEquals($this->ontologyField->getComment(), "Test Comment");
+        $this->assertEquals($this->ontologyField->getLabel(), "Test Label");
         $this->assertTrue($this->ontologyField->getMandatory());
-        $this->assertEquals($this->ontologyField->getType(), "TYPE_TEXT");
-        $this->assertEquals($this->ontologyField->getRestrictions()[0], $this->restriction);
+        $this->assertEquals($this->ontologyField->getType(), "TEXT");
+        $this->assertEquals($this->ontologyField->getRestrictions()[1], $restriction);
         $this->assertEquals($this->ontologyField->getDataOntology(), $this->dataOntology);
 
-        $this->ontologyField->removeRestriction($this->restriction);
-        $this->assertEmpty($this->ontologyField->getRestrictions());
+        $this->ontologyField->removeRestriction(new Restriction());
+        $this->assertEquals($this->ontologyField->getRestrictions()->count(), 2);
     }
 
     /**
@@ -92,7 +82,7 @@ class OntologyFieldTest extends OntoPressTestCase
      */
     public function testGetUriFile()
     {
-        $this->assertEquals($this->ontologyField->getUriFile(), "testname");
+        $this->assertEquals($this->ontologyField->getUriFile(), "TestOntologyField");
     }
 
     /**
