@@ -4,10 +4,5 @@
     Ressourcen Hinzufügen
 {% endblock %}
 {% block content %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-    {{ form_start(form1) }}
-    {{ form_widget(form1) }}
-    {{ form_end(form1) }}
+    {{ include(template_from_string(twig_template)) }}
 {% endblock %}
