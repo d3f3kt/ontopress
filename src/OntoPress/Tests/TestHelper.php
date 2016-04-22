@@ -84,7 +84,7 @@ class TestHelper
             ->setTwigCode('{{ form(form) }}')
             ->setOntology($ontology);
 
-        if(!$ontologyField) {
+        if (!$ontologyField) {
             foreach ($ontology->getDataOntologies() as $dataOntology) {
                 if (strpos($dataOntology->getName(), 'building')) {
                     foreach ($dataOntology->getOntologyFields() as $field) {
@@ -94,8 +94,7 @@ class TestHelper
                     }
                 }
             }
-        }
-        else {
+        } else {
             $form->addOntologyField($ontologyField);
         }
 
