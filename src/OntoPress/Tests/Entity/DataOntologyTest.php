@@ -6,6 +6,7 @@ use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Library\OntoPressTestCase;
+use OntoPress\Tests\TestHelper;
 
 /**
  * Class DataOntologyTest
@@ -37,13 +38,10 @@ class DataOntologyTest extends OntoPressTestCase
      */
     public function setUp()
     {
-        $this->dataOntology = new DataOntology();
-        $this->ontology = new Ontology();
-        $this->ontologyField = new OntologyField();
-
-        $this->dataOntology->setName("testName");
-        $this->dataOntology->setOntology($this->ontology);
-        $this->dataOntology->addOntologyField($this->ontologyField);
+        parent::setUp();
+        $this->ontology = TestHelper::createTestOntology();
+        $this->dataOntology = TestHelper::createDataOntology($this->ontology);
+        $this->ontologyField = TestHelper::createOntologyField($this->dataOntology);
     }
 
     /**
@@ -55,6 +53,7 @@ class DataOntologyTest extends OntoPressTestCase
         unset($this->dataOntology);
         unset($this->ontology);
         unset($this->ontologyField);
+        parent::tearDown();
     }
 
     /**
@@ -63,7 +62,7 @@ class DataOntologyTest extends OntoPressTestCase
      */
     public function testDataOntologyBasic()
     {
-        $this->assertEquals($this->dataOntology->getName(), "testName");
+        $this->assertEquals($this->dataOntology->getName(), "Test DataOntology");
         $this->assertEquals($this->dataOntology->getOntology(), $this->ontology);
         $this->assertEquals($this->dataOntology->getOntologyFields()[0], $this->ontologyField);
         $this->assertNull($this->dataOntology->getId());

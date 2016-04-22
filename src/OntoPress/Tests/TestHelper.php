@@ -2,10 +2,13 @@
 
 namespace OntoPress\Tests;
 
+use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\Form;
 use OntoPress\Entity\Ontology;
+use OntoPress\Entity\OntologyField;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Tests\Entity\OntologyTest;
+use OntoPress\Entity\Restriction;
 
 class TestHelper
 {
@@ -43,7 +46,36 @@ class TestHelper
         return $ontology;
     }
 
-    public static function createOntologyForm(Ontology $ontology)
+    public static function createDataOntology(Ontology $ontology)
+    {
+        $dataOntology = new DataOntology();
+        $dataOntology->setName('Test DataOntology')
+           ->setOntology($ontology);
+        $ontology->addDataOntology($dataOntology);
+
+        return $dataOntology;
+    }
+
+    public static function createOntologyField(DataOntology $dataOntology)
+    {
+        $restriction = new Restriction();
+        $ontologyField = new OntologyField();
+        $restriction->setName('Test Restriction');
+        $ontologyField->setName('Test OntologyField')
+            ->setType(OntologyField::TYPE_TEXT)
+            ->setComment('Test Comment')
+            ->setLabel('Test Label')
+            ->setMandatory(true)
+            ->setDataOntology($dataOntology)
+            ->setPossessed(true)
+            ->addRestriction($restriction);
+        $dataOntology->addOntologyField($ontologyField);
+        $restriction->setOntologyField($ontologyField);
+
+        return $ontologyField;
+    }
+
+    public static function createOntologyForm(Ontology $ontology, OntologyField $ontologyField = null)
     {
         $form = new Form();
         $form->setName('Test Form')
@@ -52,14 +84,19 @@ class TestHelper
             ->setTwigCode('{{ form(form) }}')
             ->setOntology($ontology);
 
-        foreach ($ontology->getDataOntologies() as $dataOntology) {
-            if (strpos($dataOntology->getName(), 'building')) {
-                foreach ($dataOntology->getOntologyFields() as $field) {
-                    if ($field->getLabel()) {
-                        $form->addOntologyField($field);
+        if(!$ontologyField) {
+            foreach ($ontology->getDataOntologies() as $dataOntology) {
+                if (strpos($dataOntology->getName(), 'building')) {
+                    foreach ($dataOntology->getOntologyFields() as $field) {
+                        if ($field->getLabel()) {
+                            $form->addOntologyField($field);
+                        }
                     }
                 }
             }
+        }
+        else {
+            $form->addOntologyField($ontologyField);
         }
 
         return $form;

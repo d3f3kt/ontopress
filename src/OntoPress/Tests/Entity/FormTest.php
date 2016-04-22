@@ -4,8 +4,10 @@ namespace OntoPress\Tests\Entity;
 
 use OntoPress\Entity\Form;
 use OntoPress\Entity\Ontology;
+use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Library\OntoPressTestCase;
+use OntoPress\Tests\TestHelper;
 
 /**
  * Class FormTest
@@ -35,12 +37,10 @@ class FormTest extends OntoPressTestCase
     private $ontology;
 
     /**
-     * Dummy Date.
-     *
-     * @var \DateTime
+     * DataOntology Entity.
+     * @var DataOntology
      */
-    private $dummyDate;
-
+    private $dataOntology;
 
     /**
      * Test setUp.
@@ -48,18 +48,11 @@ class FormTest extends OntoPressTestCase
      */
     public function setUp()
     {
-        $this->form = new Form();
-        $this->dummyDate = new \DateTime();
-        $this->ontology = new Ontology();
-        $this->ontologyField = new OntologyField();
-        $this->ontologyField->setName('Test Field');
-
-        $this->form->setName('TestForm')
-                    ->setAuthor('TestAuthor')
-                    ->setDate($this->dummyDate)
-                    ->setTwigCode('TestTwig')
-                    ->setOntology($this->ontology)
-                    ->addOntologyField($this->ontologyField);
+        parent::setUp();
+        $this->ontology = TestHelper::createTestOntology();
+        $this->dataOntology = TestHelper::createDataOntology($this->ontology);
+        $this->ontologyField = TestHelper::createOntologyField($this->dataOntology);
+        $this->form = TestHelper::createOntologyForm($this->ontology, $this->ontologyField);
     }
 
     /**
@@ -72,6 +65,7 @@ class FormTest extends OntoPressTestCase
         unset($this->ontology);
         unset($this->ontologyField);
         unset($this->dummyDate);
+        parent::tearDown();
     }
 
     /**
@@ -79,10 +73,10 @@ class FormTest extends OntoPressTestCase
      */
     public function testFormBasic()
     {
-        $this->assertEquals($this->form->getName(), 'TestForm');
-        $this->assertEquals($this->form->getAuthor(), 'TestAuthor');
-        $this->assertEquals($this->form->getDate(), $this->dummyDate);
-        $this->assertEquals($this->form->getTwigCode(), 'TestTwig');
+        $this->assertEquals($this->form->getName(), 'Test Form');
+        $this->assertEquals($this->form->getAuthor(), 'Test User');
+        $this->assertEquals($this->form->getDate(), new \DateTime());
+        $this->assertEquals($this->form->getTwigCode(), '{{ form(form) }}');
 
         $this->assertEquals($this->form->getOntologyFields()[0], $this->ontologyField);
 

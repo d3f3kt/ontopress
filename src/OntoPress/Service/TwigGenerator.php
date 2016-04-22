@@ -72,7 +72,7 @@ class TwigGenerator
                 return $this->generateTextField($ontologyField);
             case OntologyField::TYPE_RADIO:
                 return $this->generateRadioField($ontologyField);
-            case OntologyField::TYPE_CHOICE:
+            case OntologyField::TYPE_SELECT:
                 return $this->generateChoiceField($ontologyField);
         }
     }
@@ -131,7 +131,18 @@ class TwigGenerator
      */
     private function generateChoiceField(OntologyField $ontologyField)
     {
-        return $this->generateRadioField($ontologyField);
+        $twigField = array(
+            'label' => $this->generateLabel($ontologyField),
+            'error' => '{{form_errors(form.'.$ontologyField->getFormFieldName().')}}',
+            'type' => 'select',
+            'widget' => array(
+                'choices' => $this->restrictionHelper->getChoices($ontologyField),
+                'attr' => $this->generateFieldAttributes($ontologyField),
+                'labelAttr' => 'for="OntoPressForm_'.$ontologyField->getFormFieldName().'_%id%"',
+            ),
+        );
+
+        return $twigField;
     }
 
     /**

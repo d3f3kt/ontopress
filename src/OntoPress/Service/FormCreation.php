@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form as SymForm;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use OntoPress\Form\Base\SubmitCancelType;
 use OntoPress\Entity\Form as OntoForm;
 use OntoPress\Entity\OntologyField;
 
@@ -69,10 +70,8 @@ class FormCreation
                 return $this->addTextField($field, $builder);
             case OntologyField::TYPE_RADIO:
                 return $this->addRadioField($field, $builder);
-            case OntologyField::TYPE_CHOICE:
-                return $this->addChoiceField($field, $builder);
             case OntologyField::TYPE_SELECT:
-                return $this->addSelectField($field, $builder);
+                return $this->addChoiceField($field, $builder);
         }
     }
 
@@ -102,18 +101,6 @@ class FormCreation
             'label' => $field->getLabel(),
             'required' => $field->getMandatory(),
             'multiple' => false,
-            'expanded' => false,
-            'placeholder' => false,
-            'choices' => $this->restrictionHelper->getChoices($field),
-        ));
-    }
-
-    private function addSelectField(OntologyField $field, FormBuilderInterface $builder)
-    {
-        return $builder->add($field->getFormFieldName(), 'choice', array(
-            'label' => $field->getLabel(),
-            'required' => $field->getMandatory(),
-            'multiple' => true,
             'expanded' => false,
             'placeholder' => false,
             'choices' => $this->restrictionHelper->getChoices($field),
