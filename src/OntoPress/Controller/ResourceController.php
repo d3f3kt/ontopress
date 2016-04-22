@@ -66,8 +66,8 @@ class ResourceController extends AbstractController
         $form = $this->get('ontopress.form_creation')->create($formEntity)->add('submit', 'submit');
 
         $form->handleRequest($request);
-        dump($form);
-        dump($form->isValid());
+        // dump($form);
+        // dump($form->isValid());
         if ($form->isValid()) {
             $arc2Manager = $this->get('ontopress.arc2_manager');
             $arc2Manager->store($form->getData());
