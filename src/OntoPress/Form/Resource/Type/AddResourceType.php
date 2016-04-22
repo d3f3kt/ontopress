@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use OntoPress\Form\Base\SubmitCancelType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\Common\Collections;
 
 /**
@@ -22,7 +21,7 @@ class AddResourceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Formular', ChoiceType::class, ['choices' => $this->generateChoices($options)])
+            ->add('Formular', 'choice', ['choices' => $this->generateChoices($options)])
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Weiter',
                 'attr' => array('class' => 'button button-primary'),
@@ -44,6 +43,7 @@ class AddResourceType extends AbstractType
         }
         return $ontologyArray;
     }
+
     /**
      * Sets the resolver to default
      *
