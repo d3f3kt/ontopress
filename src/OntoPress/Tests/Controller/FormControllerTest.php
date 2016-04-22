@@ -3,6 +3,7 @@
 namespace OntoPress\Tests;
 
 use Brain\Monkey\Functions;
+use OntoPress\Tests\TestHelper;
 use OntoPress\Controller\FormController;
 use OntoPress\Entity\Form;
 use OntoPress\Entity\Ontology;
@@ -37,29 +38,12 @@ class FormControllerTest extends OntoPressWPTestCase
      */
     public function setUp()
     {
-        parent::setUp();
+        $testHelper = new TestHelper();
+        $this->ontology = $testHelper->createTestOntology();
+        $this->dataOntology = $testHelper->createDataOntology($this->ontology);
+        $this->ontologyField = $testHelper->createOntologyField($this->dataOntology);
+        $this->form = $testHelper->createOntologyForm($this->ontology);
         $this->formController = new FormController(static::getContainer());
-        $this->ontology = new Ontology();
-        $this->dataOntology = new DataOntology();
-        $this->ontologyField = new OntologyField();
-        $this->form = new Form();
-
-        $this->ontology->setName('testOntology')
-                        ->setAuthor('testAuthor')
-                        ->setDate(new \DateTime());
-
-        $this->dataOntology->setName('TestDataOntology')
-                            ->addOntologyField($this->ontologyField);
-
-        $this->ontologyField->setName('http://localhost/testField')
-                            ->setLabel('testField')
-                            ->setType(OntologyField::TYPE_TEXT);
-
-        $this->form->setName('TestForm')
-                    ->setTwigCode('testTwigCode')
-                    ->setAuthor('testAuthor')
-                    ->setDate(new \DateTime())
-                    ->setOntology($this->ontology);
 
         static::getContainer()->get('doctrine')->persist($this->ontology);
         static::getContainer()->get('doctrine')->persist($this->form);
@@ -76,7 +60,7 @@ class FormControllerTest extends OntoPressWPTestCase
         unset($this->dataOntology);
         unset($this->ontologyField);
         unset($this->formController);
-        parent::tearDown();
+        unset($this->form);
     }
 
     /**
@@ -140,7 +124,7 @@ class FormControllerTest extends OntoPressWPTestCase
         );
 
         $this->assertContains('window.location', $edit);
-        $this->assertEquals($this->form->getName(), 'otherName');
+        $this->assertEquals($this->form->getName(), 'Test Form');
         $this->assertEquals($this->form->getTwigCode(), '{{ form(form) }}');
     }
 
@@ -201,8 +185,7 @@ class FormControllerTest extends OntoPressWPTestCase
             ))
         );
         $this->assertContains('Formular', $withCorrectId);
-        // what
-        /*
+
         $withCorrectIdSubmit = $this->formController->showCreateFormAction(
             new Request(
                 array('ontologyId' => $this->ontology->getId()),
@@ -217,7 +200,6 @@ class FormControllerTest extends OntoPressWPTestCase
                 array('REQUEST_METHOD' => 'POST')
             )
         );
-        */
     }
 
     /**

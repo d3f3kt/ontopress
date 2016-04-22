@@ -2,10 +2,13 @@
 
 namespace OntoPress\Tests;
 
+use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\Form;
 use OntoPress\Entity\Ontology;
+use OntoPress\Entity\OntologyField;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Tests\Entity\OntologyTest;
+use OntoPress\Entity\Restriction;
 
 class TestHelper
 {
@@ -41,6 +44,35 @@ class TestHelper
         $ontology->uploadFiles();
 
         return $ontology;
+    }
+
+    public static function createDataOntology(Ontology $ontology)
+    {
+        $dataOntology = new DataOntology();
+        $dataOntology->setName('Test DataOntology')
+           ->setOntology($ontology);
+        $ontology->addDataOntology($dataOntology);
+
+        return $dataOntology;
+    }
+
+    public static function createOntologyField(DataOntology $dataOntology)
+    {
+        $restriction = new Restriction();
+        $ontologyField = new OntologyField();
+        $restriction->setName('Test Restriction');
+        $ontologyField->setName('Test OntologyField')
+            ->setType(OntologyField::TYPE_TEXT)
+            ->setComment('Test Comment')
+            ->setLabel('Test Label')
+            ->setMandatory(true)
+            ->setDataOntology($dataOntology)
+            ->setPossessed(true)
+            ->addRestriction($restriction);
+        $dataOntology->addOntologyField($ontologyField);
+        $restriction->setOntologyField($ontologyField);
+
+        return $dataOntology;
     }
 
     public static function createOntologyForm(Ontology $ontology)
