@@ -52,15 +52,6 @@ class ResourceController extends AbstractController
      */
     public function showAddDetailsAction(Request $request)
     {
-        
-        //get formId
-        $id = $request->get('formId');
-        //$id = 2;
-        //fetch the form by formId
-        /*$formEntity = $this->getDoctrine()
-            ->getRepository('OntoPress\Entity\Form')
-            ->find($id);
-        */
         if ($formId = $request->get('formId')) {
             $formEntity = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
                 ->findOneById($formId);
@@ -75,6 +66,11 @@ class ResourceController extends AbstractController
         $form = $this->get('ontopress.form_creation')->create($formEntity);
 
         $form->handleRequest($request);
+        dump($form->getData());
+        if ($form->isValid()) {
+            $arc2Manager = $this->get('ontopress.arc2_manager');
+            $arc2Manager->store($form->getData());
+        }
 
         $template = $formEntity->getTwigCode();
 
