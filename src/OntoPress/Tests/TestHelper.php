@@ -72,10 +72,10 @@ class TestHelper
         $dataOntology->addOntologyField($ontologyField);
         $restriction->setOntologyField($ontologyField);
 
-        return $dataOntology;
+        return $ontologyField;
     }
 
-    public static function createOntologyForm(Ontology $ontology)
+    public static function createOntologyForm(Ontology $ontology, OntologyField $ontologyField = null)
     {
         $form = new Form();
         $form->setName('Test Form')
@@ -84,14 +84,19 @@ class TestHelper
             ->setTwigCode('{{ form(form) }}')
             ->setOntology($ontology);
 
-        foreach ($ontology->getDataOntologies() as $dataOntology) {
-            if (strpos($dataOntology->getName(), 'building')) {
-                foreach ($dataOntology->getOntologyFields() as $field) {
-                    if ($field->getLabel()) {
-                        $form->addOntologyField($field);
+        if(!$ontologyField) {
+            foreach ($ontology->getDataOntologies() as $dataOntology) {
+                if (strpos($dataOntology->getName(), 'building')) {
+                    foreach ($dataOntology->getOntologyFields() as $field) {
+                        if ($field->getLabel()) {
+                            $form->addOntologyField($field);
+                        }
                     }
                 }
             }
+        }
+        else {
+            $form->addOntologyField($ontologyField);
         }
 
         return $form;

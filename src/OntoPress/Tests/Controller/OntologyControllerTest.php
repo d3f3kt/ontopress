@@ -87,10 +87,8 @@ class OntologyControllerTest extends OntoPressWPTestCase
     public function testDeleteAction()
     {
         // create test ontology
-        $testOntology = new Ontology();
-        $testOntology->setName('testOntology')
-            ->setAuthor('testAuthor')
-            ->setDate(new \DateTime());
+        $testOntology = TestHelper::createTestOntology();
+
         static::getContainer()->get('doctrine')->persist($testOntology);
         static::getContainer()->get('doctrine')->flush();
 
@@ -112,7 +110,7 @@ class OntologyControllerTest extends OntoPressWPTestCase
                 'id' => $testOntology->getId(),
             ))
         );
-        $this->assertContains('testOntology', $withCorrectId);
+        $this->assertContains('Test Ontology', $withCorrectId);
 
         // test whole delete process
         $deleted = $this->ontologyController->showDeleteAction(
