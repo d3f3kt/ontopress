@@ -108,10 +108,18 @@ class ResourceController extends AbstractController
         // test statement
         $anyStatement = new StatementImpl(
             new NamedNodeImpl('http://localhost/Place/Augustusplatz'),
-            new NamedNodeImpl('http://localhost/street_name'),
-            new NamedNodeImpl('http://localhost/property/Teststraße7')
+            new NamedNodeImpl('http://localhost/author'),
+            new NamedNodeImpl('http://localhost/k00ni')
         );
-        dump($anyStatement);
+        $anyStatement2 = new StatementImpl(
+            new NamedNodeImpl('http://localhost/Place/Uni'),
+            new NamedNodeImpl('http://localhost/date'),
+            new NamedNodeImpl('http://localhost/01.01.2016')
+        );
+
+        $store->addStatements($anyStatement);
+        $store->addStatements($anyStatement2);
+
         $graph = new NamedNodeImpl('graph:hallo');
         $store->addStatements($anyStatement, $graph);
 
@@ -119,88 +127,22 @@ class ResourceController extends AbstractController
 
         // select all subjects
         //             FROM <http://localhost/>
-        $selectQuery = 'SELECT DISTINCT ?subject ?someVariable WHERE { ?subject ?p ?o. }';
-        
-        dump($selectQuery);
+        $selectQuery = 'SELECT DISTINCT * WHERE { ?subject ?p ?o. }';
+
         // test query
-        $subject = $store->query($selectQuery, array());
+        $queryResult = $store->query($selectQuery, array());
+
+        // speichern des subjects
+        $subject = $queryResult->getVariables();
         dump($subject);
-        //dump($store->query($selectQuery));
+
 
         // foreach für jedes subject alle triple in dem das subject vorkommt raussuchen und
         // daraus object für tabelle holen
-        $bar = (string)$subject;
         
         $resourceManageTable = array(
-                array('id' => 1, 'title' => 'Augustusplatz', 'author' => $bar, 'date' => '20.Jan 2016')
+            array('id' => 1, 'title' => $subject[0], 'author' => 'k00ni', 'date' => '20.Jan 2016')
         );
-
-        /*
-        // mit foreach jedes triple im store durchgehen
-        foreach ($store as $statement) {
-            query = '
-                SELECT ?subject
-            '
-            // im zweiten foreach den store nach triplen mit dem selben subjekt durchsuchen,
-            // zu diesem subjekt dann alle objekte in tabelle eintragen
-            foreach {
-
-            }
-        }*/
-
-        ########################################################################
-
-        /*$tableArray = array();
-        $id = 0;
-
-        // TODO: one huge loop, until all triples were read --> statement interator?
-        $store = $this->get('saft.store');
-
-        // ## TEST ## //
-        $anyStatement = new StatementImpl(
-            new NamedNodeImpl('http://localhost/Place/Augustusplatz'),
-            new NamedNodeImpl('http://localhost/street_name'),
-            new NamedNodeImpl('http://localhost/property/Teststraße7')
-        );
-
-        $store->addStatements($anyStatement); // TODO: ARC2 provideds statement iterator to loop through all triples?
-        $query = '
-            SELECT ?subject ?predicate ?object
-            WHERE {
-                ?subject ?predicate ?object
-            }
-        ';
-
-        dump($anyStatement);
-        $triple = $store->query($query, array());
-
-        // TODO: Author und Date sind Platzhalter zum identifizieren
-        switch ($triple[1]) {
-            case 'Author':
-                $predicate = 2;
-                break;
-            case 'Date':
-                $predicate = 3;
-                break;
-            default:
-                // Exception?
-                break;
-        }
-
-        $newTitle = true;
-        $n = 0;
-        foreach ($tableArray as $array) {
-            if ($triple[0] == $array[0]) {
-                $tableArray[$n][$predicate] = $triple[2];
-                $newTitle = false;
-                break;
-            }
-            $n = $n+1;
-        }
-        if ($newTitle == true) {
-            array_push($tableArray, array($id+1, $triple[0], '', ''));
-            $tableArray[$id][$predicate] = $triple[2];
-        }
 
         /*
          array('id' => 1, 'title' => 'Augustusplatz', 'author' => 'k00ni', 'date' => '20.Jan 2016'),
