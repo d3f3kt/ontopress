@@ -19,6 +19,7 @@ use Saft\Sparql\Result\EmptyResultImpl;
 use Saft\Sparql\Result\SetResultImpl;
 use Saft\Sparql\Result\StatementSetResultImpl;
 use Saft\Sparql\Result\ValueResultImpl;
+use Saft\Sparql\Result\ValueResult;
 
 /**
  * Resource Controller.
@@ -65,6 +66,15 @@ class ResourceController extends AbstractController
      */
     public function showAddDetailsAction(Request $request)
     {
+        
+        //get formId
+        $id = $request->get('formId');
+        //$id = 2;
+        //fetch the form by formId
+        /*$formEntity = $this->getDoctrine()
+            ->getRepository('OntoPress\Entity\Form')
+            ->find($id);
+        */
         if ($formId = $request->get('formId')) {
             $formEntity = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
                 ->findOneById($formId);
@@ -76,23 +86,17 @@ class ResourceController extends AbstractController
         } else {
             return $this->redirectToRoute('ontopress_resource');
         }
-
-        $form = $this->get('ontopress.form_creation')->create($formEntity)->add('submit', 'submit');
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $arc2Manager = $this->get('ontopress.arc2_manager');
-            $arc2Manager->store($form->getData());
-            $this->addFlashMessage(
-                'success',
-                'Ressource erfolgreich gespeichert'
-            );
-        }
-
-        $template = $formEntity->getTwigCode();
+       
+        $rawForm = $this->get('ontopress.form_creation')->create($formEntity);
+        
+        $form = $this->createForm(new AddResourceDetailType(), null, array(
+            'data' => $formEntity,
+            'cancel_link' => $this->generateRoute('ontopress_resource'),
+        ));
 
         return $this->render('resource/resourceAddDetails.html.twig', array(
-            'twig_template' => $template,
-            'form' => $form->createView(),
+            'form' => $rawForm->createView(),
+            'form1' => $form->createView(),
         ));
     }
 
@@ -108,31 +112,39 @@ class ResourceController extends AbstractController
         // test statement
         $anyStatement = new StatementImpl(
             new NamedNodeImpl('http://localhost/Place/Augustusplatz'),
-            new NamedNodeImpl('http://localhost/street_name'),
-            new NamedNodeImpl('http://localhost/property/Teststraße7')
+            new NamedNodeImpl('http://localhost/author'),
+            new NamedNodeImpl('http://localhost/k00ni')
         );
-        dump($anyStatement);
-        $graph = new NamedNodeImpl('graph:hallo');
-        $store->addStatements($anyStatement, $graph);
 
-        dump($store);
+        $anyStatement2 = new StatementImpl(
+            new NamedNodeImpl('http://localhost/Place/Uni'),
+            new NamedNodeImpl('http://localhost/date'),
+            new NamedNodeImpl('http://localhost/01.01.2016')
+        );
+
+        $store->addStatements($anyStatement);
+        $store->addStatements($anyStatement2);
 
         // select all subjects
         //             FROM <http://localhost/>
-        $selectQuery = 'SELECT DISTINCT ?subject ?someVariable WHERE { ?subject ?p ?o. }';
-        
-        dump($selectQuery);
+        $selectQuery = 'SELECT DISTINCT * WHERE { ?subject ?p ?o. }';
+
         // test query
-        $subject = $store->query($selectQuery, array());
+        $queryResult = $store->query($selectQuery, array());
+
+        // speichern des subjects
+        $subject = $queryResult->getVariables();
+
         dump($subject);
-        //dump($store->query($selectQuery));
 
         // foreach für jedes subject alle triple in dem das subject vorkommt raussuchen und
         // daraus object für tabelle holen
-        $bar = (string)$subject;
-        
+
+
+
+
         $resourceManageTable = array(
-                array('id' => 1, 'title' => 'Augustusplatz', 'author' => $bar, 'date' => '20.Jan 2016')
+                array('id' => 1, 'title' => $subject[0], 'author' => 'k00ni', 'date' => '20.Jan 2016')
         );
 
         /*
