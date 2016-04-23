@@ -70,6 +70,7 @@ class OntologyFieldTest extends OntoPressTestCase
         $this->assertEquals($this->ontologyField->getLabel(), "Test Label");
         $this->assertTrue($this->ontologyField->getMandatory());
         $this->assertEquals($this->ontologyField->getType(), "TEXT");
+        $this->assertTrue($this->ontologyField->getPossessed());
         $this->assertEquals($this->ontologyField->getRestrictions()[1], $restriction);
         $this->assertEquals($this->ontologyField->getDataOntology(), $this->dataOntology);
 
