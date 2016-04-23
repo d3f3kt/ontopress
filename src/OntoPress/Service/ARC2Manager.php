@@ -69,7 +69,7 @@ class ARC2Manager
                 ->findOneById($id); */
             if (!$ontoField) {
                 $predicateUri = $this->createUriFromName($id, 'FieldId');
-                $statementArray[] = $this->generateTriple($subjectUri, $predicateUri, $propertyValue);;
+                $statementArray[] = $this->generateTriple($subjectUri, $predicateUri, $propertyValue);
             } else {
                 $statementArray[] = $this->generateTriple($subjectUri, $ontoField->getName(), $propertyValue);
             }
