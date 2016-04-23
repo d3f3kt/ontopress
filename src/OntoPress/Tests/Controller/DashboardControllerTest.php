@@ -33,9 +33,7 @@ class DashboardControllerTest extends OntoPressTestCase
      */
     public function testDashboardController()
     {
-
         $dashboardOutput = $this->dashboardController->showDashboardAction();
-
         $this->assertContains("Dashboard", $dashboardOutput);
     }
 }

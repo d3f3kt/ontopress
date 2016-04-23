@@ -61,7 +61,7 @@ class TestHelper
         $restriction = new Restriction();
         $ontologyField = new OntologyField();
         $restriction->setName('Test Restriction');
-        $ontologyField->setName('Test OntologyField')
+        $ontologyField->setName('TestUri/TestOntologyField')
             ->setType(OntologyField::TYPE_TEXT)
             ->setComment('Test Comment')
             ->setLabel('Test Label')
@@ -84,7 +84,7 @@ class TestHelper
             ->setTwigCode('{{ form(form) }}')
             ->setOntology($ontology);
 
-        if(!$ontologyField) {
+        if (!$ontologyField) {
             foreach ($ontology->getDataOntologies() as $dataOntology) {
                 if (strpos($dataOntology->getName(), 'building')) {
                     foreach ($dataOntology->getOntologyFields() as $field) {
@@ -94,8 +94,7 @@ class TestHelper
                     }
                 }
             }
-        }
-        else {
+        } else {
             $form->addOntologyField($ontologyField);
         }
 

@@ -24,12 +24,28 @@ class FormControllerTest extends OntoPressWPTestCase
      */
     private $formController;
 
+    /**
+     * Ontology Entity.
+     * @var Ontology
+     */
     private $ontology;
 
+    /**
+     * DataOntology Entity.
+     * @var DataOntology
+     */
     private $dataOntology;
 
+    /**
+     * OntologyField Entity.
+     * @var OntologyField
+     */
     private $ontologyField;
 
+    /**
+     * Form Entity.
+     * @var Form
+     */
     private $form;
 
     /**

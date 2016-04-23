@@ -14,14 +14,14 @@ class ParserTest extends OntoPressTestCase
 
     public function setUp()
     {
+        parent::setUp();
         $this->parser = static::getContainer()->get('ontopress.ontology_parser');
     }
 
     public function tearDown()
     {
         unset($this->parser);
-        //unset($this->ontologyNode);
-        //unset($this->restriction);
+        parent::tearDown();
     }
 
     /**
