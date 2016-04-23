@@ -10,6 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Saft\Rdf\NamedNode;
 use Saft\Rdf\NamedNodeImpl;
 use Saft\Rdf\StatementImpl;
+use Saft\Rdf\AnyPatternImpl;
+use Saft\Rdf\ArrayStatementIteratorImpl;
+use Saft\Rdf\LiteralImpl;
+use Saft\Rdf\StatementIterator;
+use Saft\Sparql\SparqlUtils;
+use Saft\Sparql\Result\EmptyResultImpl;
+use Saft\Sparql\Result\SetResultImpl;
+use Saft\Sparql\Result\StatementSetResultImpl;
+use Saft\Sparql\Result\ValueResultImpl;
 
 /**
  * Resource Controller.
@@ -97,7 +106,54 @@ class ResourceController extends AbstractController
      */
     public function showManagementAction()
     {
-        $tableArray = array();
+        $store = $this->get('saft.store');
+
+        // test statement
+        $anyStatement = new StatementImpl(
+            new NamedNodeImpl('http://localhost/Place/Augustusplatz'),
+            new NamedNodeImpl('http://localhost/street_name'),
+            new NamedNodeImpl('http://localhost/property/Teststraße7')
+        );
+        dump($anyStatement);
+        $graph = new NamedNodeImpl('graph:hallo');
+        $store->addStatements($anyStatement, $graph);
+
+        dump($store);
+
+        // select all subjects
+        //             FROM <http://localhost/>
+        $selectQuery = 'SELECT DISTINCT ?subject ?someVariable WHERE { ?subject ?p ?o. }'; 
+
+        dump($selectQuery);
+        // test query
+        $subject = $store->query($selectQuery, array());
+        dump($subject);
+        //dump($store->query($selectQuery));
+
+        // foreach für jedes subject alle triple in dem das subject vorkommt raussuchen und
+        // daraus object für tabelle holen
+        $bar = (string)$subject;
+        
+        $resourceManageTable = array(
+                array('id' => 1, 'title' => 'Augustusplatz', 'author' => $bar, 'date' => '20.Jan 2016')
+        );
+
+        /*
+        // mit foreach jedes triple im store durchgehen
+        foreach ($store as $statement) {
+            query = '
+                SELECT ?subject
+            '
+            // im zweiten foreach den store nach triplen mit dem selben subjekt durchsuchen,
+            // zu diesem subjekt dann alle objekte in tabelle eintragen
+            foreach {
+
+            }
+        }*/
+
+        ########################################################################
+
+        /*$tableArray = array();
         $id = 0;
 
         // TODO: one huge loop, until all triples were read --> statement interator?
@@ -105,9 +161,9 @@ class ResourceController extends AbstractController
 
         // ## TEST ## //
         $anyStatement = new StatementImpl(
-            new NamedNodeImpl('http://localhost/Place/'),
-            new NamedNodeImpl('http://localhost/hasProperty/'),
-            new NamedNodeImpl('http://localhost/property/')
+            new NamedNodeImpl('http://localhost/Place/Augustusplatz'),
+            new NamedNodeImpl('http://localhost/street_name'),
+            new NamedNodeImpl('http://localhost/property/Teststraße7')
         );
 
         $store->addStatements($anyStatement); // TODO: ARC2 provideds statement iterator to loop through all triples?
@@ -155,7 +211,7 @@ class ResourceController extends AbstractController
          array('id' => 3, 'title' => 'Oper Leipzig', 'author' => 'd3f3ct', 'date' => '22.Jan 2016'),
          */
         return $this->render('resource/resourceManagement.html.twig', array(
-            'resourceManageTable' => $tableArray
+            'resourceManageTable' => $resourceManageTable
         ));
     }
 
