@@ -121,29 +121,37 @@ class ResourceController extends AbstractController
         $store->addStatements($anyStatement2);
 
         $graph = new NamedNodeImpl('graph:hallo');
+        $store->createGraph($graph);
         $store->addStatements($anyStatement, $graph);
-
-        dump($store);
-
         // select all subjects
         //             FROM <http://localhost/>
-        $selectQuery = 'SELECT DISTINCT * WHERE { ?subject ?p ?o. }';
-
+        $selectQuery = 'SELECT * WHERE { ?s ?p ?o. }';
         // test query
-        $queryResult = $store->query($selectQuery, array());
-
-        // speichern des subjects
-        $subject = $queryResult->getVariables();
-        dump($subject);
-
+        $queryResult = $store->query($selectQuery);
+        $subjects = array();
+        $predicates = array();
+        $objects = array();
+        $i = 0;
+        foreach ($queryResult as $triple) {
+            $subjects[$i] = $triple['s']->getUri();
+            $predicates[$i] = $triple['p']->getUri();
+            $objects[$i] = $triple['o']->getValue();
+            $i++;
+        }
 
         // foreach für jedes subject alle triple in dem das subject vorkommt raussuchen und
         // daraus object für tabelle holen
         
-        $resourceManageTable = array(
-            array('id' => 1, 'title' => $subject[0], 'author' => 'k00ni', 'date' => '20.Jan 2016')
-        );
-
+        $resourceManageTable = array();
+        foreach ($subjects as $key => $subject) {
+            $row = array('id' => $key, 'title' => $subject, 'author' => $predicates[$key], 'date' => $objects[$key]);
+            array_push($resourceManageTable, $row);
+        }
+        /*
+        foreach ($subjects as $key => $subject) {
+            $resourceManageTable[] = $this->genArray($subject, $subjects, $predicates, $objects);
+        }
+        */
         /*
          array('id' => 1, 'title' => 'Augustusplatz', 'author' => 'k00ni', 'date' => '20.Jan 2016'),
          array('id' => 2, 'title' => 'Uni Campus', 'author' => 'k00ni', 'date' => '22.Jan 2016'),
@@ -153,7 +161,17 @@ class ResourceController extends AbstractController
             'resourceManageTable' => $resourceManageTable
         ));
     }
-
+    /*
+    private function genArray($subject, $subjects, $predicates, $objects){
+        $rowArray = array();
+        foreach ($subjects as $key => $sub) {
+            if ($subject == $sub) {
+                $rowArray[$predicates[$key]->getUri()] = $objects[$key]->getValue();
+            }
+        }
+        return $rowArray;
+    }
+    */
     /**
      * Handle the delete request of one or more resources.
      *

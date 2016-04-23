@@ -91,8 +91,8 @@ class ARC2Manager
     }
 
     /**
-     * @param $subjectUri
-     * @param $ontoField
+     * @param $subjectName
+     * @param $predicateUri
      * @param $value
      * @return StatementImpl
      */
@@ -135,7 +135,7 @@ class ARC2Manager
      * @param $prefix
      * @return string
      */
-    private function createUriFromName($name, $prefix = 'name:')
+    private function createUriFromName($name, $prefix = 'name')
     {
         return $prefix . ':' . $name;
     }
