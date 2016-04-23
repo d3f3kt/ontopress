@@ -65,15 +65,6 @@ class ResourceController extends AbstractController
      */
     public function showAddDetailsAction(Request $request)
     {
-        
-        //get formId
-        $id = $request->get('formId');
-        //$id = 2;
-        //fetch the form by formId
-        /*$formEntity = $this->getDoctrine()
-            ->getRepository('OntoPress\Entity\Form')
-            ->find($id);
-        */
         if ($formId = $request->get('formId')) {
             $formEntity = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
                 ->findOneById($formId);
@@ -85,17 +76,23 @@ class ResourceController extends AbstractController
         } else {
             return $this->redirectToRoute('ontopress_resource');
         }
-       
-        $rawForm = $this->get('ontopress.form_creation')->create($formEntity);
-        
-        $form = $this->createForm(new AddResourceDetailType(), null, array(
-            'data' => $formEntity,
-            'cancel_link' => $this->generateRoute('ontopress_resource'),
-        ));
+
+        $form = $this->get('ontopress.form_creation')->create($formEntity)->add('submit', 'submit');
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $arc2Manager = $this->get('ontopress.arc2_manager');
+            $arc2Manager->store($form->getData());
+            $this->addFlashMessage(
+                'success',
+                'Ressource erfolgreich gespeichert'
+            );
+        }
+
+        $template = $formEntity->getTwigCode();
 
         return $this->render('resource/resourceAddDetails.html.twig', array(
-            'form' => $rawForm->createView(),
-            'form1' => $form->createView(),
+            'twig_template' => $template,
+            'form' => $form->createView(),
         ));
     }
 
@@ -122,8 +119,8 @@ class ResourceController extends AbstractController
 
         // select all subjects
         //             FROM <http://localhost/>
-        $selectQuery = 'SELECT DISTINCT ?subject ?someVariable WHERE { ?subject ?p ?o. }'; 
-
+        $selectQuery = 'SELECT DISTINCT ?subject ?someVariable WHERE { ?subject ?p ?o. }';
+        
         dump($selectQuery);
         // test query
         $subject = $store->query($selectQuery, array());
