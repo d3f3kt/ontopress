@@ -56,6 +56,15 @@ class ResourceController extends AbstractController
      */
     public function showAddDetailsAction(Request $request)
     {
+        
+        //get formId
+        $id = $request->get('formId');
+        //$id = 2;
+        //fetch the form by formId
+        /*$formEntity = $this->getDoctrine()
+            ->getRepository('OntoPress\Entity\Form')
+            ->find($id);
+        */
         if ($formId = $request->get('formId')) {
             $formEntity = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
                 ->findOneById($formId);
@@ -67,25 +76,17 @@ class ResourceController extends AbstractController
         } else {
             return $this->redirectToRoute('ontopress_resource');
         }
-        $form = $this->get('ontopress.form_creation')->create($formEntity)->add('submit', 'submit');
-
-        $form->handleRequest($request);
-        // dump($form);
-        // dump($form->isValid());
-        if ($form->isValid()) {
-            $arc2Manager = $this->get('ontopress.arc2_manager');
-            $arc2Manager->store($form->getData());
-            $this->addFlashMessage(
-                'success',
-                'Ressource erfolgreich gespeichert'
-            );
-        }
-
-        $template = $formEntity->getTwigCode();
+       
+        $rawForm = $this->get('ontopress.form_creation')->create($formEntity);
+        
+        $form = $this->createForm(new AddResourceDetailType(), null, array(
+            'data' => $formEntity,
+            'cancel_link' => $this->generateRoute('ontopress_resource'),
+        ));
 
         return $this->render('resource/resourceAddDetails.html.twig', array(
-            'twig_template' => $template,
-            'form' => $form->createView(),
+            'form' => $rawForm->createView(),
+            'form1' => $form->createView(),
         ));
     }
 
@@ -121,7 +122,7 @@ class ResourceController extends AbstractController
         $triple = $store->query($query, array());
 
         // TODO: Author und Date sind Platzhalter zum identifizieren
-        switch($triple[1]) {
+        switch ($triple[1]) {
             case 'Author':
                 $predicate = 2;
                 break;
@@ -135,18 +136,17 @@ class ResourceController extends AbstractController
 
         $newTitle = true;
         $n = 0;
-        foreach($tableArray as $array) {
-            if($triple[0] == $array[0]) {
+        foreach ($tableArray as $array) {
+            if ($triple[0] == $array[0]) {
                 $tableArray[$n][$predicate] = $triple[2];
                 $newTitle = false;
                 break;
             }
             $n = $n+1;
         }
-        if($newTitle == true) {
+        if ($newTitle == true) {
             array_push($tableArray, array($id+1, $triple[0], '', ''));
             $tableArray[$id][$predicate] = $triple[2];
-
         }
 
         /*
