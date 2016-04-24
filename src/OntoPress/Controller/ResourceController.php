@@ -7,15 +7,6 @@ use OntoPress\Library\AbstractController;
 use OntoPress\Form\Resource\Type\AddResourceDetailType;
 use OntoPress\Library\Modules\SaftModule;
 use Symfony\Component\HttpFoundation\Request;
-/*
-use Saft\Rdf\NamedNode;
-use Saft\Rdf\NamedNodeImpl;
-use Saft\Rdf\StatementImpl;
-use Saft\Rdf\AnyPatternImpl;
-use Saft\Rdf\ArrayStatementIteratorImpl;
-use Saft\Rdf\LiteralImpl;
-use Saft\Rdf\StatementIterator;
-*/
 
 /**
  * Resource Controller.

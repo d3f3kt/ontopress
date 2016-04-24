@@ -77,7 +77,7 @@ class SparqlManager
      */
     private function getStringFromUri($uri)
     {
-        $name = explode(':' , $uri)[1];
+        $name = explode(':', $uri)[1];
         return preg_replace('/(?<!\ )[A-Z]/', ' $0', $name);
         /*
         $check = array();
