@@ -5,14 +5,14 @@ namespace OntoPress\Service;
 use Saft\Addition\ARC2\Store\ARC2;
 
 /**
- * Class SparqlManager
+ * Class SparqlManager.
  *
  * Service-class that manages SPARQL-queries to return requested data
  */
 class SparqlManager
 {
     /**
-     * Store on which the queries are executed
+     * Store on which the queries are executed.
      *
      * @var ARC2
      */
@@ -24,10 +24,9 @@ class SparqlManager
     }
 
     /**
-     * Method to get all triples from a specified graph or the whole store
+     * Method to get all triples from a specified graph or the whole store.
      *
-     * @param null $graph Graph to get data from,
-     * null if whole store shall be queried
+     * @param null|string $graph Graph to get data from, NULL if whole store shall be queried
      *
      * @return Result set of all triples
      *
@@ -37,43 +36,50 @@ class SparqlManager
     {
         $query = 'SELECT * WHERE { ?s ?p ?o. }';
         if ($graph != null) {
-            $query = 'SELECT * FROM <' . $graph . '> WHERE { ?s ?p ?o. }';
+            $query = 'SELECT * FROM <'.$graph.'> WHERE { ?s ?p ?o. }';
         }
 
         return $this->store->query($query);
     }
 
     /**
-     * Method to get displayable rows for management-page
+     * Method to get displayable rows for management-page.
      *
-     * @param null $graph Graph to get triples from
+     * @param null|string $graph Graph to get triples from
      *
      * @return array array that contains the rows for display
      */
     public function getAllManageRows($graph = null)
     {
-        $all = $this->getAllTriples($graph);
         $answer = array();
-        foreach ($all as $triples) {
-            $subject = $this->getStringFromUri($triples['s']);
+        foreach ($this->getAllTriples($graph) as $triple) {
+            $subject = $this->getStringFromUri($triple['s']);
             if (!array_key_exists($subject, $answer)) {
-                $answer[$subject] = array('title' => $this->getStringFromUri($triples['s']));
+                $answer[$subject] = array();
             }
-            if ($triples['p'] == 'OntoPress:author') {
-                $answer[$subject]['author'] = $triples['o']->getValue();
-            } elseif ($triples['p'] == 'OntoPress:date') {
-                $answer[$subject]['date'] = $triples['o']->getValue();
+
+            switch ($triple['p']) {
+                case 'OntoPress:name':
+                    $answer[$subject]['title'] = $triple['o']->getValue();
+                    break;
+                case 'OntoPress:author':
+                    $answer[$subject]['author'] = $triple['o']->getValue();
+                    break;
+                case 'OntoPress:date':
+                    $answer[$subject]['date'] = $triple['o']->getValue();
+                    break;
             }
         }
+
         return $answer;
     }
 
     /**
      * Method to get all triples that contain a given subject
-     * from a specified graph (or whole store)
+     * from a specified graph (or whole store).
      *
-     * @param $subject
-     * @param null $graph Graph to get triples from
+     * @param string      $subject graph subject
+     * @param null|string $graph   Graph to get triples from
      *
      * @return Result output of the query
      *
@@ -81,16 +87,16 @@ class SparqlManager
      */
     public function getResourceTriples($subject, $graph = null)
     {
-        $query = 'SELECT * WHERE { ' . $subject . ' ?p ?o. }';
+        $query = 'SELECT * WHERE { '.$subject.' ?p ?o. }';
         if ($graph != null) {
-            $query = 'SELECT * FROM <' . $graph . '> WHERE { ' . $subject . ' ?p ?o. }';
+            $query = 'SELECT * FROM <'.$graph.'> WHERE { '.$subject.' ?p ?o. }';
         }
 
         return $this->store->query($query);
     }
 
     /**
-     * Method to create a String out of given URI
+     * Method to create a String from given URI.
      *
      * @param $uri
      *
@@ -99,6 +105,7 @@ class SparqlManager
     private function getStringFromUri($uri)
     {
         $name = explode(':', $uri)[1];
+
         return preg_replace('/(?<!\ )[A-Z]/', ' $0', $name);
         /*
         $check = array();

@@ -3,7 +3,6 @@
 namespace OntoPress\Service;
 
 use Doctrine\ORM\EntityManager;
-use Mockery\CountValidator\Exception;
 use OntoPress\Entity\OntologyField;
 use Saft\Addition\ARC2\Store\ARC2;
 use Saft\Rdf\NodeFactoryImpl;
@@ -11,7 +10,7 @@ use Saft\Rdf\NamedNodeImpl;
 use Saft\Rdf\StatementImpl;
 
 /**
- * Class ARC2Manager
+ * Class ARC2Manager.
  *
  * ARC2Manager is the main service for storing resources as triples in a graph
  * It manages the creation of graphs and storing of a given resource
@@ -19,19 +18,19 @@ use Saft\Rdf\StatementImpl;
 class ARC2Manager
 {
     /**
-     * DoctrineManager Instance
+     * DoctrineManager Instance.
      *
      * @var EntityManager
      */
     private $entityManager;
     /**
-     * ARC2 Instance to handle the saving and graph creation
+     * ARC2 Instance to handle the saving and graph creation.
      *
      * @var ARC2
      */
     private $arc2;
     /**
-     * NodeFactoryImpl Instance to create Nodes, that are stored in triples
+     * NodeFactoryImpl Instance to create Nodes, that are stored in triples.
      *
      * @var NodeFactoryImpl
      */
@@ -46,10 +45,10 @@ class ARC2Manager
 
     /**
      * Main method to store the given information on a resource into
-     * a graph, that represents the belonging ontology
+     * a graph, that represents the belonging ontology.
      *
-     * @param array $formData data of previously submitted form
-     * @param String $author name of the author
+     * @param array  $formData data of previously submitted form
+     * @param String $author   name of the author
      *
      * @throws \Exception if no graph-name could be found
      */
@@ -77,10 +76,10 @@ class ARC2Manager
 
     /**
      * Helper-method that generates an array of triples from the given information on
-     * the resource
+     * the resource.
      *
-     * @param array $formData
-     * @param String $author name of the author
+     * @param array  $formData
+     * @param String $author   name of the author
      *
      * @return array Array that contains all generated triples
      */
@@ -92,7 +91,7 @@ class ARC2Manager
             $id = $this->makeId($fieldIdText);
             $ontoField = $this->getOntoField($id);
             if (!$ontoField) {
-                $predicateUri = $this->createUriFromName($id, 'FieldId');
+                $predicateUri = $this->createUriFromName('name', 'OntoPress');
                 $statementArray[] = $this->generateTriple($subjectName, $predicateUri, $propertyValue);
             } else {
                 $statementArray[] = $this->generateTriple($subjectName, $ontoField->getName(), $propertyValue);
@@ -102,14 +101,14 @@ class ARC2Manager
         $predicateUri = $this->createUriFromName('author', 'OntoPress');
         $statementArray[] = $this->generateTriple($subjectName, $predicateUri, $author);
 
-        $date = time();
         $predicateUri = $this->createUriFromName('date', 'OntoPress');
-        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, $date);
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, time());
+
         return $statementArray;
     }
 
     /**
-     * Helper-method that extracts the id from given string
+     * Helper-method that extracts the id from given string.
      *
      * @param String $idText Name of a OntologyField, that contains its ID
      *
@@ -117,18 +116,14 @@ class ARC2Manager
      */
     private function makeId($idText)
     {
-        if ($id = preg_replace("/OntologyField_(\d*)/", "$1", $idText)) {
-            return $id;
-        } else {
-            return 'name';
-        }
+        return preg_replace("/OntologyField_(\d*)/", '$1', $idText);
     }
 
     /**
      * Helper-method to generate a triple from the resourcename, the name of
-     * given property and its value
+     * given property and its value.
      *
-     * @param String $subjectName name of the resource
+     * @param String $subjectName  name of the resource
      * @param String $predicateUri name of the property belonging to given value
      * @param $value
      *
@@ -149,14 +144,14 @@ class ARC2Manager
             case 'integer':
                 $object = $this->nodeFactory->createLiteral((string) $value);
                 break;
-            default:  
+            default:
         }
         */
         return new StatementImpl($subject, $predicate, $object);
     }
 
     /**
-     * Helper-method to get the name of the resource
+     * Helper-method to get the name of the resource.
      *
      * @param $formData
      *
@@ -173,7 +168,7 @@ class ARC2Manager
 
     /**
      * Helper-method that gets a name and a prefix and generates
-     * a fictional URI
+     * a fictional URI.
      *
      * @param $name
      * @param $prefix
@@ -183,11 +178,12 @@ class ARC2Manager
     private function createUriFromName($name, $prefix = 'Undefined')
     {
         $trimName = str_replace(' ', '', $name);
-        return $prefix . ':' . $trimName;
+
+        return $prefix.':'.$trimName;
     }
 
     /**
-     * Helper-method to return an OntologyField by given ID
+     * Helper-method to return an OntologyField by given ID.
      *
      * @param $id
      *
