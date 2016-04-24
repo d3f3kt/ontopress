@@ -75,7 +75,7 @@
                         <p>{{ resource.author }}</p>
                     </td>
                     <td class="Datum column-Datum" data-colname="Datum">
-                        <p>{{ resource.date }}</p>
+                        <p>{{ resource.date|date("d.m.Y") }}</p>
                     </td>
                 </tr>
             {% endfor %}

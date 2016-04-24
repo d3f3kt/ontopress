@@ -7,6 +7,7 @@ use OntoPress\Library\AbstractController;
 use OntoPress\Form\Resource\Type\AddResourceDetailType;
 use OntoPress\Library\Modules\SaftModule;
 use Symfony\Component\HttpFoundation\Request;
+/*
 use Saft\Rdf\NamedNode;
 use Saft\Rdf\NamedNodeImpl;
 use Saft\Rdf\StatementImpl;
@@ -14,11 +15,7 @@ use Saft\Rdf\AnyPatternImpl;
 use Saft\Rdf\ArrayStatementIteratorImpl;
 use Saft\Rdf\LiteralImpl;
 use Saft\Rdf\StatementIterator;
-use Saft\Sparql\SparqlUtils;
-use Saft\Sparql\Result\EmptyResultImpl;
-use Saft\Sparql\Result\SetResultImpl;
-use Saft\Sparql\Result\StatementSetResultImpl;
-use Saft\Sparql\Result\ValueResultImpl;
+*/
 
 /**
  * Resource Controller.
@@ -81,11 +78,13 @@ class ResourceController extends AbstractController
         $form->handleRequest($request);
         if ($form->isValid()) {
             $arc2Manager = $this->get('ontopress.arc2_manager');
-            $arc2Manager->store($form->getData());
+            $arc2Manager->store($form->getData(), wp_get_current_user()->user_nicename);
             $this->addFlashMessage(
                 'success',
                 'Ressource erfolgreich gespeichert'
             );
+            
+            return $this->redirectToRoute('ontopress_resource');
         }
 
         $template = $formEntity->getTwigCode();
@@ -103,75 +102,15 @@ class ResourceController extends AbstractController
      */
     public function showManagementAction()
     {
-        $store = $this->get('saft.store');
-
-        // test statement
-        $anyStatement = new StatementImpl(
-            new NamedNodeImpl('http://localhost/Place/Augustusplatz'),
-            new NamedNodeImpl('http://localhost/author'),
-            new NamedNodeImpl('http://localhost/k00ni')
-        );
-        $anyStatement2 = new StatementImpl(
-            new NamedNodeImpl('http://localhost/Place/Uni'),
-            new NamedNodeImpl('http://localhost/date'),
-            new NamedNodeImpl('http://localhost/01.01.2016')
-        );
-
-        $store->addStatements($anyStatement);
-        $store->addStatements($anyStatement2);
-
-        $graph = new NamedNodeImpl('graph:hallo');
-        $store->createGraph($graph);
-        $store->addStatements($anyStatement, $graph);
-        // select all subjects
-        //             FROM <http://localhost/>
-        $selectQuery = 'SELECT * WHERE { ?s ?p ?o. }';
-        // test query
-        $queryResult = $store->query($selectQuery);
-        $subjects = array();
-        $predicates = array();
-        $objects = array();
-        $i = 0;
-        foreach ($queryResult as $triple) {
-            $subjects[$i] = $triple['s']->getUri();
-            $predicates[$i] = $triple['p']->getUri();
-            $objects[$i] = $triple['o']->getValue();
-            $i++;
-        }
-
-        // foreach für jedes subject alle triple in dem das subject vorkommt raussuchen und
-        // daraus object für tabelle holen
+        $sparqlManager = $this->get('ontopress.sparql_manager');
         
-        $resourceManageTable = array();
-        foreach ($subjects as $key => $subject) {
-            $row = array('id' => $key, 'title' => $subject, 'author' => $predicates[$key], 'date' => $objects[$key]);
-            array_push($resourceManageTable, $row);
-        }
-        /*
-        foreach ($subjects as $key => $subject) {
-            $resourceManageTable[] = $this->genArray($subject, $subjects, $predicates, $objects);
-        }
-        */
-        /*
-         array('id' => 1, 'title' => 'Augustusplatz', 'author' => 'k00ni', 'date' => '20.Jan 2016'),
-         array('id' => 2, 'title' => 'Uni Campus', 'author' => 'k00ni', 'date' => '22.Jan 2016'),
-         array('id' => 3, 'title' => 'Oper Leipzig', 'author' => 'd3f3ct', 'date' => '22.Jan 2016'),
-         */
+        $resourceManageTable = $sparqlManager->getAllManageRows();
+            
         return $this->render('resource/resourceManagement.html.twig', array(
             'resourceManageTable' => $resourceManageTable
         ));
     }
-    /*
-    private function genArray($subject, $subjects, $predicates, $objects){
-        $rowArray = array();
-        foreach ($subjects as $key => $sub) {
-            if ($subject == $sub) {
-                $rowArray[$predicates[$key]->getUri()] = $objects[$key]->getValue();
-            }
-        }
-        return $rowArray;
-    }
-    */
+    
     /**
      * Handle the delete request of one or more resources.
      *
