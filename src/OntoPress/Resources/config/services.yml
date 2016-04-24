@@ -6,6 +6,11 @@ services:
         arguments: [@saft.easyrdf.parser]
         lazy: true
 
+    ontopress.sparql_manager:
+        class: OntoPress\Service\SparqlManager
+        arguments: [@saft.store]
+        lazy: true
+
     ontopress.arc2_manager:
         class: OntoPress\Service\ARC2Manager
         arguments: [@saft.store, @doctrine]
