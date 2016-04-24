@@ -49,11 +49,12 @@ class ARC2Manager
      * a graph, that represents the belonging ontology
      *
      * @param array $formData
+     * @param String $author name of the author
      * @throws \Exception
      */
-    public function store($formData)
+    public function store($formData, $author = null)
     {
-        $statements = $this->generateStatements($formData);
+        $statements = $this->generateStatements($formData, $author);
         $saveGraphName = null;
         foreach ($formData as $key => $obj) {
             $field = $this->getOntoField($this->makeId($key));
@@ -78,9 +79,10 @@ class ARC2Manager
      * the resource
      *
      * @param array $formData
+     * @param String $author name of the author
      * @return array Array that contains all generated triples
      */
-    private function generateStatements($formData)
+    private function generateStatements($formData, $author)
     {
         $statementArray = array();
         $subjectName = $this->getSubjectName($formData);
@@ -94,12 +96,13 @@ class ARC2Manager
                 $statementArray[] = $this->generateTriple($subjectName, $ontoField->getName(), $propertyValue);
             }
         }
-        /*
+
         $predicateUri = $this->createUriFromName('author', 'OntoPress');
-        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, AUTHOR);
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, $author);
+
+        $date = time();
         $predicateUri = $this->createUriFromName('date', 'OntoPress');
-        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, DATE);
-        */
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, $date);
         return $statementArray;
     }
 
