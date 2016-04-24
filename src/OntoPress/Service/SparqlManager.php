@@ -2,15 +2,20 @@
 
 namespace OntoPress\Service;
 
-use Saft\Sparql\SparqlUtils;
-use Saft\Sparql\Result\EmptyResultImpl;
-use Saft\Sparql\Result\SetResultImpl;
-use Saft\Sparql\Result\StatementSetResultImpl;
-use Saft\Sparql\Result\ValueResultImpl;
 use Saft\Addition\ARC2\Store\ARC2;
 
+/**
+ * Class SparqlManager
+ *
+ * Service-class that manages SPARQL-queries to return requested data
+ */
 class SparqlManager
 {
+    /**
+     * Store on which the queries are executed
+     *
+     * @var ARC2
+     */
     private $store;
 
     public function __construct(ARC2 $arc2)
@@ -19,8 +24,13 @@ class SparqlManager
     }
 
     /**
-     * @param null $graph
-     * @return \Saft\Addition\ARC2\Store\Result
+     * Method to get all triples from a specified graph or the whole store
+     *
+     * @param null $graph Graph to get data from,
+     * null if whole store shall be queried
+     *
+     * @return Result set of all triples
+     *
      * @throws \Exception
      */
     public function getAllTriples($graph = null)
@@ -34,8 +44,11 @@ class SparqlManager
     }
 
     /**
-     * @param null $graph
-     * @return array
+     * Method to get displayable rows for management-page
+     *
+     * @param null $graph Graph to get triples from
+     *
+     * @return array array that contains the rows for display
      */
     public function getAllManageRows($graph = null)
     {
@@ -56,9 +69,14 @@ class SparqlManager
     }
 
     /**
+     * Method to get all triples that contain a given subject
+     * from a specified graph (or whole store)
+     *
      * @param $subject
-     * @param null $graph
-     * @return \Saft\Addition\ARC2\Store\Result
+     * @param null $graph Graph to get triples from
+     *
+     * @return Result output of the query
+     *
      * @throws \Exception
      */
     public function getResourceTriples($subject, $graph = null)
@@ -72,8 +90,11 @@ class SparqlManager
     }
 
     /**
+     * Method to create a String out of given URI
+     *
      * @param $uri
-     * @return mixed
+     *
+     * @return String
      */
     private function getStringFromUri($uri)
     {

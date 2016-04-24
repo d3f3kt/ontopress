@@ -48,9 +48,10 @@ class ARC2Manager
      * Main method to store the given information on a resource into
      * a graph, that represents the belonging ontology
      *
-     * @param array $formData
+     * @param array $formData data of previously submitted form
      * @param String $author name of the author
-     * @throws \Exception
+     *
+     * @throws \Exception if no graph-name could be found
      */
     public function store($formData, $author = null)
     {
@@ -80,6 +81,7 @@ class ARC2Manager
      *
      * @param array $formData
      * @param String $author name of the author
+     *
      * @return array Array that contains all generated triples
      */
     private function generateStatements($formData, $author)
@@ -110,6 +112,7 @@ class ARC2Manager
      * Helper-method that extracts the id from given string
      *
      * @param String $idText Name of a OntologyField, that contains its ID
+     *
      * @return String extracted ID, or 'name' if no ID was found
      */
     private function makeId($idText)
@@ -128,6 +131,7 @@ class ARC2Manager
      * @param String $subjectName name of the resource
      * @param String $predicateUri name of the property belonging to given value
      * @param $value
+     *
      * @return StatementImpl The generated triple
      */
     private function generateTriple($subjectName, $predicateUri, $value)
@@ -155,6 +159,7 @@ class ARC2Manager
      * Helper-method to get the name of the resource
      *
      * @param $formData
+     *
      * @return String
      */
     private function getSubjectName($formData)
@@ -172,6 +177,7 @@ class ARC2Manager
      *
      * @param $name
      * @param $prefix
+     *
      * @return string Generated URI
      */
     private function createUriFromName($name, $prefix = 'Undefined')
@@ -184,6 +190,7 @@ class ARC2Manager
      * Helper-method to return an OntologyField by given ID
      *
      * @param $id
+     *
      * @return OntologyField
      */
     private function getOntoField($id)
