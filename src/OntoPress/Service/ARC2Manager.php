@@ -10,26 +10,45 @@ use Saft\Rdf\NodeFactoryImpl;
 use Saft\Rdf\NamedNodeImpl;
 use Saft\Rdf\StatementImpl;
 
+/**
+ * Class ARC2Manager
+ *
+ * ARC2Manager is the main service for storing resources as triples in a graph
+ * It manages the creation of graphs and storing of a given resource
+ */
 class ARC2Manager
 {
+    /**
+     * DoctrineManager Instance
+     *
+     * @var EntityManager
+     */
     private $entityManager;
+    /**
+     * ARC2 Instance to handle the saving and graph creation
+     *
+     * @var ARC2
+     */
     private $arc2;
+    /**
+     * NodeFactoryImpl Instance to create Nodes, that are stored in triples
+     *
+     * @var NodeFactoryImpl
+     */
     private $nodeFactory;
-
-    private $xsdInt;
-    private $xsdString;
 
     public function __construct(ARC2 $arc2, EntityManager $entityManager)
     {
         $this->arc2 = $arc2;
         $this->entityManager = $entityManager;
         $this->nodeFactory = new NodeFactoryImpl();
-
-        $this->xsdInt = $this->nodeFactory->createNamedNode('http://www.w3.org/2001/XMLSchema#integer');
     }
 
     /**
-     * @param $formData
+     * Main method to store the given information on a resource into
+     * a graph, that represents the belonging ontology
+     *
+     * @param array $formData
      * @throws \Exception
      */
     public function store($formData)
@@ -55,31 +74,40 @@ class ARC2Manager
     }
 
     /**
-     * @param $formData
-     * @return array
+     * Helper-method that generates an array of triples from the given information on
+     * the resource
+     *
+     * @param array $formData
+     * @return array Array that contains all generated triples
      */
     private function generateStatements($formData)
     {
         $statementArray = array();
-        $subjectUri = $this->getSubjectName($formData);
+        $subjectName = $this->getSubjectName($formData);
         foreach ($formData as $fieldIdText => $propertyValue) {
             $id = $this->makeId($fieldIdText);
             $ontoField = $this->getOntoField($id);
-            /*$this->entityManager->getRepository('OntoPress\Entity\OntologyField')
-                ->findOneById($id); */
             if (!$ontoField) {
                 $predicateUri = $this->createUriFromName($id, 'FieldId');
-                $statementArray[] = $this->generateTriple($subjectUri, $predicateUri, $propertyValue);
+                $statementArray[] = $this->generateTriple($subjectName, $predicateUri, $propertyValue);
             } else {
-                $statementArray[] = $this->generateTriple($subjectUri, $ontoField->getName(), $propertyValue);
+                $statementArray[] = $this->generateTriple($subjectName, $ontoField->getName(), $propertyValue);
             }
         }
+        /*
+        $predicateUri = $this->createUriFromName('author', 'OntoPress');
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, AUTHOR);
+        $predicateUri = $this->createUriFromName('date', 'OntoPress');
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, DATE);
+        */
         return $statementArray;
     }
 
     /**
-     * @param $idText
-     * @return string
+     * Helper-method that extracts the id from given string
+     *
+     * @param String $idText Name of a OntologyField, that contains its ID
+     * @return String extracted ID, or 'name' if no ID was found
      */
     private function makeId($idText)
     {
@@ -91,14 +119,17 @@ class ARC2Manager
     }
 
     /**
-     * @param $subjectName
-     * @param $predicateUri
+     * Helper-method to generate a triple from the resourcename, the name of
+     * given property and its value
+     *
+     * @param String $subjectName name of the resource
+     * @param String $predicateUri name of the property belonging to given value
      * @param $value
-     * @return StatementImpl
+     * @return StatementImpl The generated triple
      */
     private function generateTriple($subjectName, $predicateUri, $value)
     {
-        $subjectUri = $this->createUriFromName($subjectName);
+        $subjectUri = $this->createUriFromName($subjectName, 'OntoPress');
 
         $subject = new NamedNodeImpl($subjectUri);
         $predicate = new NamedNodeImpl($predicateUri);
@@ -118,8 +149,10 @@ class ARC2Manager
     }
 
     /**
+     * Helper-method to get the name of the resource
+     *
      * @param $formData
-     * @return mixed
+     * @return String
      */
     private function getSubjectName($formData)
     {
@@ -131,15 +164,25 @@ class ARC2Manager
     }
 
     /**
+     * Helper-method that gets a name and a prefix and generates
+     * a fictional URI
+     *
      * @param $name
      * @param $prefix
-     * @return string
+     * @return string Generated URI
      */
-    private function createUriFromName($name, $prefix = 'name')
+    private function createUriFromName($name, $prefix = 'Undefined')
     {
-        return $prefix . ':' . $name;
+        $trimName = str_replace(' ', '', $name);
+        return $prefix . ':' . $trimName;
     }
 
+    /**
+     * Helper-method to return an OntologyField by given ID
+     *
+     * @param $id
+     * @return OntologyField
+     */
     private function getOntoField($id)
     {
         return $this->entityManager->getRepository('OntoPress\Entity\OntologyField')
