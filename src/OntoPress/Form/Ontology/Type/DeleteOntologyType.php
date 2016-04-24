@@ -14,9 +14,9 @@ class DeleteOntologyType extends AbstractType
 {
     /**
      * Lets the builder create a form to check if the Ontology deletion is wanted, using a cancel/submit button.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
-     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,8 +31,8 @@ class DeleteOntologyType extends AbstractType
 
     /**
      * Sets the resolver back to default.
+     *
      * @param OptionsResolverInterface $resolver
-     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -45,8 +45,8 @@ class DeleteOntologyType extends AbstractType
 
     /**
      * Returns the class Prefix.
+     *
      * @return string "ontologyDeleteType"
-     * {@inheritdoc}
      */
     public function getName()
     {

@@ -14,9 +14,9 @@ class DeleteFormType extends AbstractType
 {
     /**
      * Lets the FormBuilderInterface create a form with a cancel and submit button, to check if the deletion is wanted.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
-     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,8 +31,8 @@ class DeleteFormType extends AbstractType
 
     /**
      * Sets the resolver back to default.
+     *
      * @param OptionsResolverInterface $resolver
-     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -45,8 +45,8 @@ class DeleteFormType extends AbstractType
 
     /**
      * Returns class Prefix formDeleteType.
+     *
      * @return string "formDeleteType"
-     * {@inheritdoc}
      */
     public function getName()
     {

@@ -13,9 +13,9 @@ class OntologyFileType extends AbstractType
 {
     /**
      * Lets the builder create a form to choose a file for the upload.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
-     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,8 +27,8 @@ class OntologyFileType extends AbstractType
 
     /**
      * Sets the resolver back to default.
+     *
      * @param OptionsResolverInterface $resolver
-     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -40,8 +40,8 @@ class OntologyFileType extends AbstractType
 
     /**
      * Returns class Prefix.
+     *
      * @return string "ontologyFileType"
-     * {@inheritdoc}
      */
     public function getName()
     {

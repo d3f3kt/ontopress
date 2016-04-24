@@ -29,6 +29,8 @@ class DoctrineSchemaTool
     /**
      * The Constructor is automatically called by creating a new DoctrineSchemaTool.
      * It initializes a new SchemaTool instance that uses the connection of the provided EntityManager.
+     *
+     * @param EntityManager $doctrine Doctrine EntityManager
      */
     public function __construct(EntityManager $doctrine)
     {

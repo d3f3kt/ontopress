@@ -112,7 +112,7 @@ class FormController extends AbstractController
 
     /**
      * Show ontology selection form. After selecting an Ontology the user gets
-     * redericted to the Form creation process.
+     * redirected to the Form creation process.
      *
      * @param Request $request HTTP request
      *
@@ -146,7 +146,7 @@ class FormController extends AbstractController
      *
      * @param Request $request HTTP Request
      *
-     * @return string redered twig template
+     * @return string rendered twig template
      */
     public function showCreateFormAction(Request $request)
     {

@@ -26,7 +26,7 @@ class OntologyParser
      * The Constructor is automatically called by creating a new OntologyParser.
      * It initializes the parser instance with the given parameter.
      *
-     * @param $parser Parser
+     * @param $parser Parser EasyRDFParser
      */
     public function __construct(Parser $parser)
     {
@@ -82,7 +82,6 @@ class OntologyParser
      * @param $statement
      * @param $ontologyField
      * @return array
-     *
      */
     public function restrictionHandler($statement, $ontologyField)
     {
@@ -103,16 +102,6 @@ class OntologyParser
     public function propertyHandler($statementIterator, $objectArray)
     {
         foreach ($statementIterator as $key => $statement) {
-            /*
-            if ($statement->getPredicate() == 'http://localhost/k00ni/knorke/hasProperty') {
-                if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
-                    $objectArray[$statement->getObject()->getUri()] = new OntologyField();
-                    $objectArray[$statement->getObject()->getUri()]->setName($statement->getObject()->getUri());
-                    $objectArray[$statement->getObject()->getUri()]->setType(OntologyField::TYPE_TEXT);
-                }
-                $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
-            }
-            */
             switch ($statement->getPredicate()) {
                 case 'http://localhost/k00ni/knorke/hasProperty':
                     if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {

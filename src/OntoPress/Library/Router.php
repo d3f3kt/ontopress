@@ -142,6 +142,10 @@ class Router
      *
      * @param string $controllerCall Controller call in 'controller:action' format
      *
+     * @throws InvalidControllerCallException if the Controller call is invalid
+     * @throws NoActionException if the Action method is not in the Controller
+     * @throws NoControllerException if no Controller is found
+     *
      * @return string response of action method
      */
     private function callController($controllerCall)

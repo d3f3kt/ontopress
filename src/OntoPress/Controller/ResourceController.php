@@ -19,6 +19,8 @@ class ResourceController extends AbstractController
     /**
      * Handle the add request of a new resource.
      *
+     * @param Request $request HTTP Request
+     *
      * @return string rendered twig template
      */
     public function showAddAction(Request $request)
@@ -48,6 +50,8 @@ class ResourceController extends AbstractController
 
     /**
      * Handle the add details of a new resource and save them in database.
+     *
+     * @param Request $request HTTP Request
      *
      * @return string rendered twig template
      */

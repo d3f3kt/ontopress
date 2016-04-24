@@ -9,7 +9,7 @@ use OntoPress\Form\Base\SubmitCancelType;
 use Doctrine\Common\Collections;
 
 /**
- * That is an example form.
+ * Show for each Ontology all Forms in select choice type.
  */
 class AddResourceType extends AbstractType
 {

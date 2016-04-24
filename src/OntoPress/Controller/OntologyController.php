@@ -18,7 +18,7 @@ class OntologyController extends AbstractController
 {
     /**
      * Creates the dynamic Table content for the Ontology manage view.
-     * It fetches all Ontologys from the Database and and renders the twig template.
+     * It fetches all Ontologies from the Database and renders the twig template.
      *
      * @return string rendered twig template
      */

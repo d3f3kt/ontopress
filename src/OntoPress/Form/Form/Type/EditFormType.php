@@ -14,9 +14,9 @@ class EditFormType extends AbstractType
 {
     /**
      * Lets the builder create an example form, with a name label and cancel/submit button.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
-     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -43,8 +43,8 @@ class EditFormType extends AbstractType
 
     /**
      * Sets the resolver back to default.
+     *
      * @param OptionsResolverInterface $resolver
-     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -57,8 +57,8 @@ class EditFormType extends AbstractType
 
     /**
      * Returns class Prefix formEditType.
+     *
      * @return string "formEditType"
-     * {@inheritdoc}
      */
     public function getName()
     {

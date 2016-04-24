@@ -37,7 +37,7 @@ class FormCreation
      *
      * @param FormFactoryInterface $formFactory Form Factory
      *
-     * @param EntityManager        $doctrine    Doctrine Entity Manager
+     * @param RestrictionHelper        $restrictionHelper    RestrictionHelper
      */
     public function __construct(FormFactoryInterface $formFactory, RestrictionHelper $restrictionHelper)
     {
