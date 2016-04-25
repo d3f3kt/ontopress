@@ -82,7 +82,7 @@ class TwigGenerator
             case OntologyField::TYPE_RADIO:
                 return $this->generateRadioField($ontologyField);
             case OntologyField::TYPE_SELECT:
-                return $this->generateChoiceField($ontologyField);
+                return $this->generateSelectField($ontologyField);
         }
     }
 
@@ -132,13 +132,13 @@ class TwigGenerator
     }
 
     /**
-     * TODO: maybe implement select field.
+     * Generate Select Field
      *
      * @param OntologyField $ontologyField Ontology Field
      *
      * @return array array of form field information
      */
-    private function generateChoiceField(OntologyField $ontologyField)
+    private function generateSelectField(OntologyField $ontologyField)
     {
         $twigField = array(
             'label' => $this->generateLabel($ontologyField),
