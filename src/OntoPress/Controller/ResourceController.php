@@ -4,8 +4,6 @@ namespace OntoPress\Controller;
 
 use OntoPress\Form\Resource\Type\AddResourceType;
 use OntoPress\Library\AbstractController;
-use OntoPress\Form\Resource\Type\AddResourceDetailType;
-use OntoPress\Library\Modules\SaftModule;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
