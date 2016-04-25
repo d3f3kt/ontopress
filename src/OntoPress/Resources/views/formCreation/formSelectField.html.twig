@@ -1,4 +1,4 @@
-        <td>
+        <td class='inputRow'>
             <select {{ formField.widget.attr|raw }}>
                 {%- for key, choice in formField.widget.choices -%}
                 <option value="{{ key }}">{{ choice }}</option>

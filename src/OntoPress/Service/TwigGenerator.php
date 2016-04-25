@@ -163,7 +163,7 @@ class TwigGenerator
      */
     private function generateLabel(OntologyField $ontologyField)
     {
-        $twigCode = '<label%s%s>%s</label>';
+        $twigCode = '<label%s%s>%s</label><br>%s';
 
         switch ($ontologyField->getType()) {
             case OntologyField::TYPE_TEXT:
@@ -171,14 +171,16 @@ class TwigGenerator
                     $twigCode,
                     " for='OntoPressForm_".$ontologyField->getFormFieldName()."'",
                     $ontologyField->getMandatory() ? ' class="required"' : '',
-                    $ontologyField->getLabel()
+                    $ontologyField->getLabel(),
+                    '<span class="comment">'.$ontologyField->getComment().'</span>'
                 );
             default:
                 return sprintf(
                     $twigCode,
                     '',
                     $ontologyField->getMandatory() ? ' class="required"' : '',
-                    $ontologyField->getLabel()
+                    $ontologyField->getLabel(),
+                    '<span class="comment">'.$ontologyField->getComment().'</span>'
                 );
         }
     }

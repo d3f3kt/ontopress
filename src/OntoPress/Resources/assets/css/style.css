@@ -23,6 +23,11 @@
     margin-top: 3.2%;
     border:1px lightgray solid;
 }
+
+.ontopressWrap .comment{
+    visibility: hidden;
+}
+
 .dashboard-square ul li{
     text-align: center;
 }
