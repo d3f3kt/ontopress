@@ -150,7 +150,7 @@ class SparqlManager
      */
     public function countResources($graph = null)
     {
-        $query = 'SELECT DISTINCT * WHERE { ?s ?p ?o. }';
+        $query = 'SELECT DISTINCT ?s WHERE { ?s ?p ?o. }';
         if ($graph != null) {
             $query = 'SELECT DISTINCT * FROM <'.$graph.'> WHERE { ?s ?p ?o. }';
         }
