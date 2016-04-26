@@ -27,6 +27,9 @@ class DashboardController extends AbstractController
         $ontologyCount = $ontologyRepo->getCount();
         $formCount = $formRepo->getCount();
 
+        $sparqlManager = $this->get('ontopress.sparql_manager');
+        $resourceCount = $sparqlManager->countResources();
+
         $resTableBuildings = array(
             array('id' => 2, 'title' => 'Uni Campus'),
             array('id' => 3, 'title' => 'Oper Leipzig'),
@@ -51,6 +54,7 @@ class DashboardController extends AbstractController
                 'resTableBuildings' => $resTableBuildings,
                 'ontologyCount' => $ontologyCount,
                 'formCount' => $formCount,
+                'resourceCount' => $resourceCount,
         ));
     }
 }
