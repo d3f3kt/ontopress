@@ -27,41 +27,55 @@ class TestHelper
         return $testUser;
     }
 
-    public static function createTestOntology()
+    public static function createTestOntology($withOntologyFiles = true)
     {
-        $ontologyFile1 = new OntologyFile();
-        $ontologyFile1->setFile(OntologyTest::createTmpFile('place-ontology.ttl'));
-
-        $ontologyFile2 = new OntologyFile();
-        $ontologyFile2->setFile(OntologyTest::createTmpFile('knorke.ttl'));
         $ontology = new Ontology();
-        $ontology->setName('Test Ontology')
+        $ontology
+            ->setName('Test Ontology')
             ->setAuthor('Test User')
-            ->setDate(new \DateTime())
-            ->addOntologyFile($ontologyFile1)
-            ->addOntologyFile($ontologyFile2);
+            ->setDate(new \DateTime());
 
-        $ontology->uploadFiles();
+
+        if($withOntologyFiles) {
+            $ontologyFile1 = new OntologyFile();
+            $ontologyFile1->setFile(OntologyTest::createTmpFile('place-ontology.ttl'));
+            $ontologyFile2 = new OntologyFile();
+            $ontologyFile2->setFile(OntologyTest::createTmpFile('knorke.ttl'));
+
+            $ontology
+                ->addOntologyFile($ontologyFile1)
+                ->addOntologyFile($ontologyFile2);
+
+            $ontology->uploadFiles();
+        }
 
         return $ontology;
     }
 
-    public static function createDataOntology(Ontology $ontology)
+    public static function createDataOntology(Ontology $ontology = null)
     {
+        if (!$ontology) {
+            $ontology = new Ontology();
+        }
         $dataOntology = new DataOntology();
-        $dataOntology->setName('Test DataOntology')
-           ->setOntology($ontology);
+        $dataOntology
+            ->setName('Test DataOntology')
+            ->setOntology($ontology);
         $ontology->addDataOntology($dataOntology);
 
         return $dataOntology;
     }
 
-    public static function createOntologyField(DataOntology $dataOntology)
+    public static function createOntologyField(DataOntology $dataOntology, Restriction $restriction = null)
     {
-        $restriction = new Restriction();
+        if (!$restriction) {
+            $restriction = new Restriction();
+            $restriction->setName('Test Restriction');
+        }
+
         $ontologyField = new OntologyField();
-        $restriction->setName('Test Restriction');
-        $ontologyField->setName('TestUri/TestOntologyField')
+        $ontologyField
+            ->setName('TestUri/TestOntologyField')
             ->setType(OntologyField::TYPE_TEXT)
             ->setComment('Test Comment')
             ->setLabel('Test Label')
@@ -69,6 +83,7 @@ class TestHelper
             ->setDataOntology($dataOntology)
             ->setPossessed(true)
             ->addRestriction($restriction);
+
         $dataOntology->addOntologyField($ontologyField);
         $restriction->setOntologyField($ontologyField);
 
@@ -78,7 +93,8 @@ class TestHelper
     public static function createOntologyForm(Ontology $ontology, OntologyField $ontologyField = null)
     {
         $form = new Form();
-        $form->setName('Test Form')
+        $form
+            ->setName('Test Form')
             ->setAuthor('Test User')
             ->setDate(new \DateTime())
             ->setTwigCode('{{ form(form) }}')

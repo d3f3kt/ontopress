@@ -4,6 +4,7 @@ namespace OntoPress\Tests;
 
 use OntoPress\Controller\ResourceController;
 use OntoPress\Library\OntoPressTestCase;
+use OntoPress\Service\SparqlManager;
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Tests\TestHelper;
 
@@ -18,12 +19,14 @@ class ResourceControllerTest extends OntoPressTestCase
 
     public function setUp()
     {
+        parent::setUp();
         $this->resourceController = new ResourceController(static::getContainer());
     }
 
     public function tearDown()
     {
         unset($this->resourceController);
+        parent::tearDown();
     }
 
     /**
@@ -61,13 +64,11 @@ class ResourceControllerTest extends OntoPressTestCase
     /**
      * Tests showManagementAction function, which should return a rendered twig template about showing all present resources.
      */
-    /*
     public function testShowManagementAction()
     {
         $resourceOutput = $this->resourceController->showManagementAction();
         $this->assertContains("Ressourcen Verwaltung", $resourceOutput);
     }
-    */
 
     /**
      * Tests showDeleteAction function, which should return a rendered twig template about deleting resources.

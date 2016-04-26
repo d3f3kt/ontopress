@@ -3,6 +3,7 @@
 namespace OntoPress\Tests\Entity;
 
 use OntoPress\Entity\DataOntology;
+use OntoPress\Tests\TestHelper;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
@@ -19,13 +20,6 @@ class OntologyTest extends OntoPressTestCase
     private $ontology;
 
     /**
-     * Dummy Date.
-     *
-     * @var \DateTime
-     */
-    private $dummyDate;
-
-    /**
      * Ontology File entity.
      *
      * @var OntologyFile
@@ -40,11 +34,11 @@ class OntologyTest extends OntoPressTestCase
     private $dataOntology;
 
     /**
-     * OntologyForm entity.
+     * Form entity.
      *
-     * @var OntologyForm
+     * @var Form
      */
-    private $ontologyForm;
+    private $form;
 
     /**
      * Test setUp.
@@ -52,16 +46,12 @@ class OntologyTest extends OntoPressTestCase
      */
     public function setUp()
     {
-        $this->dummyDate = new \DateTime();
+        parent::setUp();
 
-        $this->ontology = new Ontology();
-        $this->ontology->setName('TestOntology')
-            ->setAuthor('TestAuthor')
-            ->setDate($this->dummyDate);
-
-        $this->ontologyFile = new OntologyFile();
+        $this->ontology = TestHelper::createTestOntology(false);
         $this->dataOntology = new DataOntology();
-        $this->ontologyForm = new Form();
+        $this->form = new Form();
+        $this->ontologyFile = new OntologyFile();
     }
 
     /**
@@ -72,6 +62,7 @@ class OntologyTest extends OntoPressTestCase
     {
         unset($this->ontology);
         unset($this->ontologyFile);
+        parent::teardown();
     }
 
     /**
@@ -79,9 +70,9 @@ class OntologyTest extends OntoPressTestCase
      */
     public function testOntologyBasic()
     {
-        $this->assertEquals($this->ontology->getName(), 'TestOntology');
-        $this->assertEquals($this->ontology->getAuthor(), 'TestAuthor');
-        $this->assertEquals($this->ontology->getDate(), $this->dummyDate);
+        $this->assertEquals($this->ontology->getName(), 'Test Ontology');
+        $this->assertEquals($this->ontology->getAuthor(), 'Test User');
+        $this->assertEquals($this->ontology->getDate(), new \DateTime());
     }
 
     /**
@@ -114,6 +105,7 @@ class OntologyTest extends OntoPressTestCase
     }
 
     /**
+     * @param Ontology $ontology
      * @depends testOntologyFileUpload
      */
     public function testOntologyFileCombined(Ontology $ontology)
@@ -140,9 +132,9 @@ class OntologyTest extends OntoPressTestCase
 
     public function testAddRemoveOntologyForms()
     {
-        $this->ontology->addOntologyForm($this->ontologyForm);
-        $this->assertEquals($this->ontology->getOntologyForms()[0], $this->ontologyForm);
-        $this->ontology->removeOntologyForm($this->ontologyForm);
+        $this->ontology->addOntologyForm($this->form);
+        $this->assertEquals($this->ontology->getOntologyForms()[0], $this->form);
+        $this->ontology->removeOntologyForm($this->form);
         $this->assertEmpty($this->ontology->getOntologyForms());
     }
 
