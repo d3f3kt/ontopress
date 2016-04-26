@@ -36,7 +36,7 @@ class TestHelper
             ->setDate(new \DateTime());
 
 
-        if($withOntologyFiles) {
+        if ($withOntologyFiles) {
             $ontologyFile1 = new OntologyFile();
             $ontologyFile1->setFile(OntologyTest::createTmpFile('place-ontology.ttl'));
             $ontologyFile2 = new OntologyFile();
