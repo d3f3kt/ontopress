@@ -77,11 +77,17 @@ class SparqlManagerTest extends OntoPressTestCase
     {
         $graph = new NamedNodeImpl('test:graph');
         $subject = new NamedNodeImpl('test:subject');
-        $predicate = new NamedNodeImpl('OntoPress:author');
+        $predicateA = new NamedNodeImpl('OntoPress:author');
+        $predicateT = new NamedNodeImpl('OntoPress:name');
+        $predicateD = new NamedNodeImpl('OntoPress:date');
         $nodeFactory = new NodeFactoryImpl();
-        $object = $nodeFactory->createLiteral('TestAuthor');
+        $objectT = $nodeFactory->createLiteral('TestTitle');
+        $objectA = $nodeFactory->createLiteral('TestAuthor');
+        $objectD = $nodeFactory->createLiteral('TestDate');
         $statements = array(
-            new StatementImpl($subject, $predicate, $object),
+            new StatementImpl($subject, $predicateT, $objectT),
+            new StatementImpl($subject, $predicateA, $objectA),
+            new StatementImpl($subject, $predicateD, $objectD),
         );
 
         $this->store->dropGraph($graph);
@@ -89,10 +95,11 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->store->addStatements($statements, $graph);
 
         $expectedRow = array(
-            'author' => 'TestAuthor'
+            'title' => 'TestTitle',
+            'author' => 'TestAuthor',
+            'date' => 'TestDate'
         );
         $rows = $this->sparqlManager->getAllManageRows($graph);
-
         $this->assertContains($expectedRow, $rows);
     }
 
@@ -118,7 +125,10 @@ class SparqlManagerTest extends OntoPressTestCase
         
         $this->assertNotEmpty($triple);
     }
-    
+
+    /**
+     * Test countResources
+     */
     public function testCountResources()
     {
         $graph = new NamedNodeImpl('test:graph');
