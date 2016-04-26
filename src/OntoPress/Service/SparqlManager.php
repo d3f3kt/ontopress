@@ -2,7 +2,8 @@
 
 namespace OntoPress\Service;
 
-use Saft\Addition\ARC2\Store\ARC2;
+use Saft\Rdf\StatementImpl;
+use Saft\Store\Store;
 
 /**
  * Class SparqlManager.
@@ -14,11 +15,11 @@ class SparqlManager
     /**
      * Store on which the queries are executed.
      *
-     * @var ARC2
+     * @var Store
      */
     private $store;
 
-    public function __construct(ARC2 $arc2)
+    public function __construct(Store $arc2)
     {
         $this->store = $arc2;
     }
@@ -53,21 +54,40 @@ class SparqlManager
     {
         $answer = array();
         foreach ($this->getAllTriples($graph) as $triple) {
-            $subject = $this->getStringFromUri($triple['s']);
-            if (!array_key_exists($subject, $answer)) {
-                $answer[$subject] = array();
-            }
+            if ($triple instanceof StatementImpl) {
+                $subject = $this->getStringFromUri($triple->getSubject());
+                if (!array_key_exists($subject, $answer)) {
+                    $answer[$subject] = array();
+                }
 
-            switch ($triple['p']) {
-                case 'OntoPress:name':
-                    $answer[$subject]['title'] = $triple['o']->getValue();
-                    break;
-                case 'OntoPress:author':
-                    $answer[$subject]['author'] = $triple['o']->getValue();
-                    break;
-                case 'OntoPress:date':
-                    $answer[$subject]['date'] = $triple['o']->getValue();
-                    break;
+                switch ($triple->getPredicate()) {
+                    case 'OntoPress:name':
+                        $answer[$subject]['title'] = $triple->getObject()->getValue();
+                        break;
+                    case 'OntoPress:author':
+                        $answer[$subject]['author'] = $triple->getObject()->getValue();
+                        break;
+                    case 'OntoPress:date':
+                        $answer[$subject]['date'] = $triple->getObject()->getValue();
+                        break;
+                }
+            } else {
+                $subject = $this->getStringFromUri($triple['s']);
+                if (!array_key_exists($subject, $answer)) {
+                    $answer[$subject] = array();
+                }
+
+                switch ($triple['p']) {
+                    case 'OntoPress:name':
+                        $answer[$subject]['title'] = $triple['o']->getValue();
+                        break;
+                    case 'OntoPress:author':
+                        $answer[$subject]['author'] = $triple['o']->getValue();
+                        break;
+                    case 'OntoPress:date':
+                        $answer[$subject]['date'] = $triple['o']->getValue();
+                        break;
+                }
             }
         }
 
@@ -89,7 +109,7 @@ class SparqlManager
     {
         $query = 'SELECT * WHERE { '.$subject.' ?p ?o. }';
         if ($graph != null) {
-            $query = 'SELECT * FROM <'.$graph.'> WHERE { '.$subject.' ?p ?o. }';
+            $query = 'SELECT ?s ?p ?o FROM <'.$graph.'> WHERE { '.$subject.' ?p ?o. }';
         }
 
         return $this->store->query($query);
@@ -119,5 +139,23 @@ class SparqlManager
                 return $uri;
         }
         */
+    }
+
+    /**
+     * Mathod to return the number of resources in a graph (or
+     *
+     * @param null $graph
+     * @return mixed
+     * @throws \Exception
+     */
+    public function countResources($graph = null)
+    {
+        $query = 'SELECT DISTINCT * WHERE { ?s ?p ?o. }';
+        if ($graph != null) {
+            $query = 'SELECT DISTINCT * FROM <'.$graph.'> WHERE { ?s ?p ?o. }';
+        }
+
+        $result = $this->store->query($query);
+        return sizeof($result);
     }
 }
