@@ -3,6 +3,7 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\ResourceController;
+use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Service\SparqlManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +35,24 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowAddAction()
     {
-        $resourceOutput = $this->resourceController->showAddAction(new Request());
-        $this->assertContains("Ressourcen Hinzufügen", $resourceOutput);
+        /*
+        $resourceOutputValidForm = $this->resourceController->showAddAction(new Request(
+            array('formId' => 1),
+            array('formEditType' => array(
+                'submit' => '',
+                'name' => 'Test Name',
+                'twigCode' => '{{ form(form) }}',
+            )),
+            array(),
+            array(),
+            array(),
+            array()
+        ));
+        $this->assertContains("window.location", $resourceOutputValidForm);
+        */
+
+        $resourceOutputNoValidForm = $this->resourceController->showAddAction( new Request());
+        $this->assertContains("Ressourcen Hinzufügen", $resourceOutputNoValidForm);
     }
 
     /**
@@ -55,7 +72,12 @@ class ResourceControllerTest extends OntoPressTestCase
             'formId' => 2,
             'formEntity' => $formEntity
         )));
+        /*
+        $resourceValidForm = $this->resourceController->showAddDetailsAction(new Request(
 
+        ));
+        $this->assertContains("window.location", $resourceValidForm);
+        */
         $this->assertContains("window.location", $resourceNoID);
         $this->assertContains("Formular nicht gefunden!", $resourceNoEntity);
         $this->assertContains("Ressourcen Hinzufügen", $resourceValid);
