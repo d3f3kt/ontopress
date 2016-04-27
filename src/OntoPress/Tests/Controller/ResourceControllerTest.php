@@ -51,7 +51,7 @@ class ResourceControllerTest extends OntoPressTestCase
         $this->assertContains("window.location", $resourceOutputValidForm);
         */
 
-        $resourceOutputNoValidForm = $this->resourceController->showAddAction( new Request());
+        $resourceOutputNoValidForm = $this->resourceController->showAddAction(new Request());
         $this->assertContains("Ressourcen Hinzufügen", $resourceOutputNoValidForm);
     }
 
