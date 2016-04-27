@@ -31,7 +31,7 @@ class ParserTest extends OntoPressTestCase
      */
     public function testParsing()
     {
-        $ontology = TestHelper::createTestOntology();
+        $ontology = TestHelper::createTestOntology(false);
         $ontologyFile = new OntologyFile();
         $ontologyFile->setPath('/../../../Tests/TestFiles/place-ontology.ttl');
         $ontology->addOntologyFile($ontologyFile);
@@ -47,17 +47,7 @@ class ParserTest extends OntoPressTestCase
         $this->assertEquals($this->parser->groupOntologies("test/testing/rootzone"), "test/testing");
         $this->assertEquals($this->parser->groupOntologies(""), "");
     }
-
-    /**
-     * Test writeDataHandler method, which should save OntologyNodes in the database, based on the Ontology they come from
-     */
-    public function testWriteDataHandler()
-    {
-        // maybe needed:
-        // getConnection()
-        // getDataSet()
-    }
-
+    
     /**
      * Tests selectHandler method, which sets an objects type to TYPE_SELECT, if its has more then 2 Restrictions.
      */
