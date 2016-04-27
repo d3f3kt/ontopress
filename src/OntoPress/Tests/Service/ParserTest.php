@@ -2,11 +2,13 @@
 
 namespace OntoPress\Tests;
 
+use OntoPress\Entity\OntologyField;
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Service\OntologyParser;
 use OntoPress\Library\OntoPressTestCase;
+use OntoPress\Entity\Restriction;
 
 class ParserTest extends OntoPressTestCase
 {
@@ -29,13 +31,12 @@ class ParserTest extends OntoPressTestCase
      */
     public function testParsing()
     {
+        $ontology = TestHelper::createTestOntology();
         $ontologyFile = new OntologyFile();
         $ontologyFile->setPath('/../../../Tests/TestFiles/place-ontology.ttl');
+        $ontology->addOntologyFile($ontologyFile);
 
-        $ontologyObj = new Ontology();
-        $ontologyObj->setName("Place")
-            ->addOntologyFile($ontologyFile);
-        $this->parser->parsing($ontologyObj);
+        $this->parser->parsing($ontology);
     }
 
     /**
@@ -55,5 +56,29 @@ class ParserTest extends OntoPressTestCase
         // maybe needed:
         // getConnection()
         // getDataSet()
+    }
+
+    /**
+     * Tests selectHandler method, which sets an objects type to TYPE_SELECT, if its has more then 2 Restrictions.
+     */
+    public function testSelectHandler()
+    {
+        $objectLess = new OntologyField();
+        $objectLessArray[] = $objectLess;
+        $this->parser->selectHandler($objectLessArray);
+        $this->assertNull($objectLessArray[0]->getType());
+
+        /*
+        $objectMore = new OntologyField();
+        $objectMore
+            ->addRestriction(new Restriction())
+            ->addRestriction(new Restriction())
+            ->addRestriction(new Restriction())
+            ->addRestriction(new Restriction())
+            ->addRestriction(new Restriction());
+        $objectMoreArray[] = $objectMore;
+        $this->parser->selectHandler($objectMoreArray);
+        $this->assertEquals($objectMoreArray[0]->getType(), "TYPE_SELECT");
+        */
     }
 }

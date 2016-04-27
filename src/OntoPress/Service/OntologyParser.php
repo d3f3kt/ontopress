@@ -185,10 +185,10 @@ class OntologyParser
     }
 
     /**
-     * Sets TYPE_SELECT in properties with 4 or more choices
+     * Sets TYPE_SELECT in properties with 3 or more choices
      *
-     * @param $objectArray
-     * @return mixed
+     * @param array() $objectArray
+     * @return array() OntologyField array
      */
     public function selectHandler($objectArray)
     {
