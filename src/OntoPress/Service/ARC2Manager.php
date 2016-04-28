@@ -4,10 +4,11 @@ namespace OntoPress\Service;
 
 use Doctrine\ORM\EntityManager;
 use OntoPress\Entity\OntologyField;
-use Saft\Addition\ARC2\Store\ARC2;
 use Saft\Rdf\NodeFactoryImpl;
 use Saft\Rdf\NamedNodeImpl;
+use Saft\Rdf\NamedNode;
 use Saft\Rdf\StatementImpl;
+use Saft\Store\Store;
 
 /**
  * Class ARC2Manager.
@@ -26,7 +27,7 @@ class ARC2Manager
     /**
      * ARC2 Instance to handle the saving and graph creation.
      *
-     * @var ARC2
+     * @var Store
      */
     private $arc2;
     /**
@@ -36,7 +37,10 @@ class ARC2Manager
      */
     private $nodeFactory;
 
-    public function __construct(ARC2 $arc2, EntityManager $entityManager)
+    const INT_URI = 'xsd:integer';
+    const STRING_URI = 'xsd:string';
+
+    public function __construct(Store $arc2, EntityManager $entityManager)
     {
         $this->arc2 = $arc2;
         $this->entityManager = $entityManager;
@@ -52,9 +56,9 @@ class ARC2Manager
      *
      * @throws \Exception if no graph-name could be found
      */
-    public function store($formData, $author = null)
+    public function store($formData, $formId, $author = null)
     {
-        $statements = $this->generateStatements($formData, $author);
+        $statements = $this->generateStatements($formData, $formId, $author);
         $saveGraphName = null;
         foreach ($formData as $key => $obj) {
             $field = $this->getOntoField($this->makeId($key));
@@ -79,11 +83,12 @@ class ARC2Manager
      * the resource.
      *
      * @param array  $formData
+     * @param int    $formId   ID of the form used to save this resource
      * @param String $author   name of the author
      *
      * @return array Array that contains all generated triples
      */
-    private function generateStatements($formData, $author)
+    private function generateStatements($formData, $formId, $author)
     {
         $statementArray = array();
         $subjectName = $this->getSubjectName($formData);
@@ -97,12 +102,14 @@ class ARC2Manager
                 $statementArray[] = $this->generateTriple($subjectName, $ontoField->getName(), $propertyValue);
             }
         }
+        $predicateUriForm = $this->createUriFromName('formId', 'OntoPress');
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUriForm, $formId);
 
-        $predicateUri = $this->createUriFromName('author', 'OntoPress');
-        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, $author);
+        $predicateUriAuthor = $this->createUriFromName('author', 'OntoPress');
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUriAuthor, $author);
 
-        $predicateUri = $this->createUriFromName('date', 'OntoPress');
-        $statementArray[] = $this->generateTriple($subjectName, $predicateUri, time());
+        $predicateUriDate = $this->createUriFromName('date', 'OntoPress');
+        $statementArray[] = $this->generateTriple($subjectName, $predicateUriDate, time());
 
         return $statementArray;
     }
@@ -135,18 +142,8 @@ class ARC2Manager
 
         $subject = new NamedNodeImpl($subjectUri);
         $predicate = new NamedNodeImpl($predicateUri);
-        $object = $this->nodeFactory->createLiteral((string) $value);
-        /*
-        switch (gettype($value)) {
-            case 'string':
-                $object = $this->nodeFactory->createLiteral($value);
-                break;
-            case 'integer':
-                $object = $this->nodeFactory->createLiteral((string) $value);
-                break;
-            default:
-        }
-        */
+        $object = $this->nodeFactory->createLiteral((string)$value, $this->getDatatypeNode($value));
+        
         return new StatementImpl($subject, $predicate, $object);
     }
 
@@ -193,5 +190,24 @@ class ARC2Manager
     {
         return $this->entityManager->getRepository('OntoPress\Entity\OntologyField')
             ->findOneById($id);
+    }
+
+    /**
+     * Helper-method to get the datatype of given value
+     * and return it as a NamedNode to create a Literal
+     *
+     * @param mixed $objectData
+     *
+     * @return NamedNode Datatype of given value
+     */
+    private function getDatatypeNode($objectData)
+    {
+        //TODO eventually other types (e.g. for an ID)
+        switch (gettype($objectData)) {
+            case 'integer':
+                return $this->nodeFactory->createNamedNode(ARC2Manager::INT_URI);
+            default:
+                return $this->nodeFactory->createNamedNode(ARC2Manager::STRING_URI);
+        }
     }
 }
