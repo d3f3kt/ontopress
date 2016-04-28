@@ -4,10 +4,12 @@
     Ressource Löschen
 {% endblock %}
 {% block content %}
-    <p>Sie sind dabei die Ressource <b>Augustusplatz</b> zu löschen.</p>
+    <p>Sie sind dabei die Ressource <b>{{ title }}</b> zu löschen.</p>
 
 
     <h2>Wirklich löschen?</h2>
-    <a href="#" class="page-title-action">Löschen</a>
-    <a href="{{path('ontopress_resource')}}" class="page-title-action">Abbrechen</a>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
 {% endblock %}

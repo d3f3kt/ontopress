@@ -5,6 +5,7 @@ namespace OntoPress\Controller;
 use OntoPress\Form\Resource\Type\AddResourceType;
 use OntoPress\Library\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use OntoPress\Form\Resource\Type\DeleteResourceType;
 
 /**
  * Resource Controller.
@@ -71,7 +72,7 @@ class ResourceController extends AbstractController
         $form->handleRequest($request);
         if ($form->isValid()) {
             $arc2Manager = $this->get('ontopress.arc2_manager');
-            $arc2Manager->store($form->getData(), wp_get_current_user()->user_nicename);
+            $arc2Manager->store($form->getData(), $formId, wp_get_current_user()->user_nicename);
             $this->addFlashMessage(
                 'success',
                 'Ressource erfolgreich gespeichert'
@@ -109,8 +110,28 @@ class ResourceController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showDeleteAction()
+    public function showDeleteAction(Request $request)
     {
-        return $this->render('resource/resourceDelete.html.twig', array());
+        $resource = $request->get('uri');
+        //delete not edit
+        $form = $this->createForm(new DeleteResourceType(), null, array(
+            'cancel_link' => $this->generateRoute('ontopress_resource'),
+        ));
+
+        $form->handleRequest($request);
+        
+        if ($form->isValid()) {
+            $this->get('ontopress.sparql_manager')->deleteResource($resource);
+            $this->addFlashMessage(
+                'success',
+                'Ressource erfolgreich gelöscht.'
+            );
+            
+            return $this->redirectToRoute('ontopress_resource');
+        }
+        return $this->render('resource/resourceDelete.html.twig', array(
+            'title' => $request->get('title'),
+            'form' => $form->createView()
+        ));
     }
 }

@@ -59,7 +59,7 @@
                         <p>{{ resource.title }}</p>
                         <div class="row-actions">
                             <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
-                            <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'id': 1}) }}">Löschen</a></span>
+                            <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'uri': (resource.uri), 'title': (resource.title)}) }}">Löschen</a></span>
                         </div>
                     </td>
                     <td class="Autor column-Autor" data-colname="Autor">

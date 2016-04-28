@@ -55,6 +55,8 @@ class SparqlManager
         $answer = array();
         foreach ($this->getAllTriples($graph) as $triple) {
             if ($triple instanceof StatementImpl) {
+                //this case is only for the Test-Environment,
+                //not triggered in real system
                 $subject = $this->getStringFromUri($triple->getSubject());
                 if (!array_key_exists($subject, $answer)) {
                     $answer[$subject] = array();
@@ -72,9 +74,9 @@ class SparqlManager
                         break;
                 }
             } else {
-                $subject = $this->getStringFromUri($triple['s']);
+                $subject = $triple['s']->getUri();
                 if (!array_key_exists($subject, $answer)) {
-                    $answer[$subject] = array();
+                    $answer[$subject] = array('uri' => $subject);
                 }
 
                 switch ($triple['p']) {
@@ -90,7 +92,7 @@ class SparqlManager
                 }
             }
         }
-
+        //$this->store->emptyAllTables();
         return $answer;
     }
 
@@ -107,14 +109,30 @@ class SparqlManager
      */
     public function getResourceTriples($subject, $graph = null)
     {
-        $query = 'SELECT * WHERE { '.$subject.' ?p ?o. }';
+        $query = 'SELECT { ?s ?p ?o. } WHERE { '.$subject.' ?p ?o. }';
         if ($graph != null) {
-            $query = 'SELECT ?s ?p ?o FROM <'.$graph.'> WHERE { '.$subject.' ?p ?o. }';
+            $query = 'SELECT { <'.$subject.'> ?p ?o. } FROM <'.$graph.'> WHERE { <'.$subject.'> ?p ?o. }';
         }
 
         return $this->store->query($query);
     }
 
+    /**
+     * Method to return the ID of the form used to create given resource
+     *
+     * @param string       $subject  Uri of resource
+     * @param null|string  $graph    Graph to search in
+     * @return \Saft\Sparql\Result\Result
+     */
+    public function getFormId($subject, $graph = null)
+    {
+        $query = 'SELECT ?o WHERE { <'.$subject.'> <OntoPress:formId> ?o. }';
+        if ($graph != null) {
+            $query = 'SELECT ?o FROM <'.$graph.'> WHERE { <'.$subject.'> <OntoPress:formId> ?o. }';
+        }
+        $result = $this->store->query($query);
+        dump($result);
+    }
     /**
      * Method to create a String from given URI.
      *
@@ -142,7 +160,7 @@ class SparqlManager
     }
 
     /**
-     * Mathod to return the number of resources in a graph (or
+     * Method to return the number of resources in a graph (or
      *
      * @param null $graph
      * @return mixed
@@ -150,12 +168,29 @@ class SparqlManager
      */
     public function countResources($graph = null)
     {
-        $query = 'SELECT DISTINCT ?s WHERE { ?s ?p ?o. }';
+        $query = 'SELECT DISTINCT ?s WHERE { ?s ?p ?o }';
         if ($graph != null) {
-            $query = 'SELECT DISTINCT * FROM <'.$graph.'> WHERE { ?s ?p ?o. }';
+            $query = 'SELECT DISTINCT ?s FROM <'.$graph.'> WHERE { ?s ?p ?o }';
         }
 
         $result = $this->store->query($query);
         return sizeof($result);
+    }
+
+    /**
+     * Method to delete all statements of a given resource
+     *
+     * @param string       $resourceUri
+     * @param null|string  $graph
+     */
+    public function deleteResource($resourceUri, $graph = null)
+    {
+        
+        $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } WHERE { <'.$resourceUri.'> ?p ?o. }';
+        if ($graph != null) {
+            $query = 'DELETE FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
+        }
+        
+        $this->store->query($query);
     }
 }
