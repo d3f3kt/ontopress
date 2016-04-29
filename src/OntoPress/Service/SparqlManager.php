@@ -212,7 +212,8 @@ class SparqlManager
      * @return array Array that contains the Title and the Author of all Resources from the given Graph or the whole Store.
      *               All Resources are sorted by the Upload date, beginning with the Latest.
      */
-    public function getLatestResources($graph = null) {
+    public function getLatestResources($graph = null)
+    {
         //maybe needs to be optimized by LIMIT
         $query = 'SELECT * WHERE { ?s ?p ?o. ?s <OntoPress:date> ?date.} ORDER BY DESC(?date) ';
         if ($graph != null) {
