@@ -168,11 +168,21 @@ class SparqlManager
      */
     public function countResources($graph = null)
     {
-        $query = 'SELECT DISTINCT ?s WHERE { ?s ?p ?o }';
+        $query = 'SELECT DISTINCT ?s WHERE { ?s <OntoPress:date> ?o }';
         if ($graph != null) {
             $query = 'SELECT DISTINCT ?s FROM <'.$graph.'> WHERE { ?s ?p ?o }';
         }
 
+        $result = $this->store->query($query);
+        return sizeof($result);
+    }
+
+    public function countResourceTriples($subject, $graph = null)
+    {
+        $query = 'SELECT DISTINCT ?s WHERE { '.$subject.' ?p ?o. }';
+        if ($graph != null) {
+            $query = 'SELECT { <'.$subject.'> ?p ?o. } FROM <'.$graph.'> WHERE { <'.$subject.'> ?p ?o. }';
+        }
         $result = $this->store->query($query);
         return sizeof($result);
     }
@@ -192,5 +202,60 @@ class SparqlManager
         }
         
         $this->store->query($query);
+    }
+
+    /**
+     * Method to get displayable rows for dashboard latest resources Table.
+     *
+     * @param null|string $graph Graph to get triples from
+     *
+     * @return array Array that contains the Title and the Author of all Resources from the given Graph or the whole Store.
+     *               All Resources are sorted by the Upload date, beginning with the Latest.
+     */
+    public function getLatestResources($graph = null) {
+        //maybe needs to be optimized by LIMIT
+        $query = 'SELECT * WHERE { ?s ?p ?o. ?s <OntoPress:date> ?date.} ORDER BY DESC(?date) ';
+        if ($graph != null) {
+            $query = 'SELECT * FROM <'.$graph.'> WHERE { ?s ?p ?o. ?s <OntoPress:date> ?date.} ORDER BY DESC(?date) ';
+        }
+        $result = $this->store->query($query);
+
+
+        $answer = array();
+        foreach ($result as $triple) {
+            if ($triple instanceof StatementImpl) {
+                //this case is only for the Test-Environment,
+                //not triggered in real system
+                $subject = $this->getStringFromUri($triple->getSubject());
+                if (!array_key_exists($subject, $answer)) {
+                    $answer[$subject] = array();
+                }
+
+                switch ($triple->getPredicate()) {
+                    case 'OntoPress:name':
+                        $answer[$subject]['title'] = $triple->getObject()->getValue();
+                        break;
+                    case 'OntoPress:author':
+                        $answer[$subject]['author'] = $triple->getObject()->getValue();
+                        break;
+                }
+            } else {
+                $subject = $triple['s']->getUri();
+                if (!array_key_exists($subject, $answer)) {
+                    $answer[$subject] = array('uri' => $subject);
+                }
+
+                switch ($triple['p']) {
+                    case 'OntoPress:name':
+                        $answer[$subject]['title'] = $triple['o']->getValue();
+                        break;
+                    case 'OntoPress:author':
+                        $answer[$subject]['author'] = $triple['o']->getValue();
+                        break;
+                }
+            }
+        }
+        //$this->store->emptyAllTables();
+        return $answer;
     }
 }
