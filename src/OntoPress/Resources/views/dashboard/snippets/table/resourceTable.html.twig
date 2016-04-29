@@ -2,16 +2,16 @@
     <!--Table-->
     <thead>
     <tr>
-        <th>ID</th>
         <th>Titel</th>
+        <th>Author</th>
     </tr>
     </thead>
     <!--Tablecontent-->
     <tbody>
     {% for resource in table %}
         <tr>
-            <td>{{ resource.id }}</td>
             <td>{{ resource.title }}</td>
+            <td>{{ resource.author }}</td>
         </tr>
     {% endfor %}
     </tbody>
