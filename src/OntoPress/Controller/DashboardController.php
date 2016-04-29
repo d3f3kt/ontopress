@@ -47,8 +47,7 @@ class DashboardController extends AbstractController
 
         $mostUsedOntologys = $ontologyRepo->getMostUsedOntologies();
         $dashTableOnto = array();
-        foreach ($mostUsedOntologys as $onto)
-        {
+        foreach ($mostUsedOntologys as $onto) {
             array_push($dashTableOnto, array('id' => $onto->getId(), 'name' => $onto->getName(),
                 'ontologyForms' => $onto->getOntologyForms(), 'resource' => $sparqlManager->countResources('graph:'. $onto->getName())));
         }
