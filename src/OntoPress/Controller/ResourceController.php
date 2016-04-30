@@ -90,7 +90,7 @@ class ResourceController extends AbstractController
     }
 
     /**
-     * Show all resources.
+     * Show all resources of the whole Store or all resources of a specific Ontology.
      *
      * @return string rendered twig template
      */
@@ -99,10 +99,9 @@ class ResourceController extends AbstractController
         $graph = $request->get('graph');
         $sparqlManager = $this->get('ontopress.sparql_manager');
 
-        if((empty($graph))) {
+        if ((empty($graph))) {
             $resourceManageTable = $sparqlManager->getAllManageRows();
-        }
-        else {
+        } else {
             $graph = 'graph:'. $graph;
             $resourceManageTable = $sparqlManager->getAllManageRows($graph);
         }
