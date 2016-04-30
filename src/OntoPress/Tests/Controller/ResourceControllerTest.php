@@ -97,7 +97,13 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
-        $resourceOutput = $this->resourceController->showDeleteAction();
+        $resourceOutput = $this->resourceController->showDeleteAction(
+            new Request(
+                array(
+                    'uri' => 'Test:Uri'
+                )
+            )
+        );
         $this->assertContains("Ressource Löschen", $resourceOutput);
     }
 }
