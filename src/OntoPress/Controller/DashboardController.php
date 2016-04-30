@@ -30,16 +30,25 @@ class DashboardController extends AbstractController
         $sparqlManager = $this->get('ontopress.sparql_manager');
         $resourceCount = $sparqlManager->countResources();
 
-        $resTableBuildings = array(
-            array('id' => 2, 'title' => 'Uni Campus'),
-            array('id' => 3, 'title' => 'Oper Leipzig'),
-        );
+        $buildingOntology = $ontologyRepo->findOneByName('Gebäude');
+        $resTableBuildings = $sparqlManager->getLatestResources('graph:onto');
+        $resTableBuildings = array_slice($resTableBuildings, 0, 5);
 
-        $resTablePlaces = array(
-            array('id' => 1, 'title' => 'Augustusplatz'),
-        );
+        $placeOntology = $ontologyRepo->findOneByName('Plätze');
+        $resTablePlaces = $sparqlManager->getLatestResources('graph:Plätze');
+        $resTablePlaces = array_slice($resTablePlaces, 0, 5);
 
-        $dashTableOnto = $ontologyRepo->getMostUsedOntologies();
+        $churchOntology = $ontologyRepo->findOneByName('Kirchen');
+        $resTableChurches = $sparqlManager->getLatestResources('graph:Kirchen');
+        $resTableChurches = array_slice($resTableChurches, 0, 5);
+
+
+        $mostUsedOntologys = $ontologyRepo->getMostUsedOntologies();
+        $dashTableOnto = array();
+        foreach ($mostUsedOntologys as $onto) {
+            array_push($dashTableOnto, array('id' => $onto->getId(), 'name' => $onto->getName(),
+                'ontologyForms' => $onto->getOntologyForms(), 'resource' => $sparqlManager->countResources('graph:'. $onto->getName())));
+        }
 
         $dashTableForm = $formRepo->createQueryBuilder('p')
             ->setMaxResults(5)
@@ -50,7 +59,11 @@ class DashboardController extends AbstractController
         return $this->render('dashboard/dashboard.html.twig', array(
                 'dashTableForm' => $dashTableForm,
                 'dashTableOnto' => $dashTableOnto,
+                'placeOntology' => $placeOntology,
                 'resTablePlaces' => $resTablePlaces,
+                'churchOntology' => $churchOntology,
+                'resTableChurches' => $resTableChurches,
+                'buildingOntology' => $buildingOntology,
                 'resTableBuildings' => $resTableBuildings,
                 'ontologyCount' => $ontologyCount,
                 'formCount' => $formCount,

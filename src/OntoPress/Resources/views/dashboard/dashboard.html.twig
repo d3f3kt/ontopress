@@ -75,7 +75,11 @@
                 <div id="dashboard_form" class="postbox">
                     <h2 class='hndle'><span>Neueste Gebäude</span></h2>
                     <div class="inside">
+                        {% if buildingOntology %}
                         {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'table': resTableBuildings} %}
+                        {% else %}
+                            <p>Sie haben noch keine Gebäude Ontologie erstellt</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -85,7 +89,11 @@
                 <div id="dashboard_form" class="postbox">
                     <h2 class='hndle'><span>Neueste Plätze</span></h2>
                     <div class="inside">
+                        {% if placeOntology %}
                         {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'table': resTablePlaces} %}
+                        {% else %}
+                            <p>Sie haben noch keine Kirchen Ontologie erstellt</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -95,7 +103,11 @@
                 <div id="dashboard_form" class="postbox">
                     <h2 class='hndle'><span>Neueste Kirchen</span></h2>
                     <div class="inside">
-                        {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'table': false} %}
+                        {% if churchOntology %}
+                        {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'table': resTableChurches} %}
+                        {% else %}
+                            <p>Sie haben noch keine Kirchen Ontologie erstellt</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

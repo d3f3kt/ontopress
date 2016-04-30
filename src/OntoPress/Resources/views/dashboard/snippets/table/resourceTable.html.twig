@@ -1,18 +1,23 @@
-<table class="wp-list-resource widefat fixed striped users">
-    <!--Table-->
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Titel</th>
-    </tr>
-    </thead>
-    <!--Tablecontent-->
-    <tbody>
-    {% for resource in table %}
+
+{% if table %}
+    <table class="wp-list-resource widefat fixed striped users">
+        <!--Table-->
+        <thead>
         <tr>
-            <td>{{ resource.id }}</td>
-            <td>{{ resource.title }}</td>
+            <th>Titel</th>
+            <th>Author</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <!--Tablecontent-->
+        <tbody>
+        {% for resource in table %}
+            <tr>
+                <td>{{ resource.title }}</td>
+                <td>{{ resource.author }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Es gibt noch keine Resourcen</p>
+{% endif %}

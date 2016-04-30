@@ -157,8 +157,11 @@ class ARC2Manager
     private function getSubjectName($formData)
     {
         $title = $formData['OntologyField_'];
-
-        // TODO: clean up title
+        if (strpbrk($title, 'äöüß!_')) {
+            $translation = array("ä" => "ae", "ö" => "oe", "ü" => "ue", "ß" => "ss", "!" => "", "_" => "");
+            $title = strtr($title, $translation);
+        }
+    // TODO: clean up title
 
         return $title;
     }

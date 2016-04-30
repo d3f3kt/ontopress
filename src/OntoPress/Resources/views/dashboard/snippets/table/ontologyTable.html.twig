@@ -17,7 +17,9 @@
             <td><a href="{{ path('ontopress_forms', {'id': ontology.id}) }}">
                     {{ ontology.ontologyForms.count }}
                 </a></td>
-            <td>{{ ontology.resource }}</td>
+            <td><a href="{{ path('ontopress_resource', {'graph': ontology.name}) }}"> <!-- need to be fixed -->
+                    {{ ontology.resource }}
+                </a></td>
         </tr>
     {% endfor %}
     </tbody>
