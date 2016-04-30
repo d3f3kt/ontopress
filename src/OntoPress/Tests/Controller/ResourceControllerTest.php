@@ -88,7 +88,13 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowManagementAction()
     {
-        $resourceOutput = $this->resourceController->showManagementAction();
+        $resourceOutput = $this->resourceController->showManagementAction(
+            new Request(
+                array(
+                    'graph' => 'Test:Uri'
+                )
+            )
+        );
         $this->assertContains("Ressourcen Verwaltung", $resourceOutput);
     }
 
