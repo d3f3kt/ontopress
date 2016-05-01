@@ -27,12 +27,12 @@ class Ontology
      */
     protected $id;
 
-    // unique=true
+
     /**
      * Name of ontology.
      *
      * @var string
-     * @ORM\Column(name="name", type="string", length=64)
+     * @ORM\Column(name="name", type="string", length=64, unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
      */

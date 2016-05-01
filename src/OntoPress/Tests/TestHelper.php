@@ -31,7 +31,7 @@ class TestHelper
     {
         $ontology = new Ontology();
         $ontology
-            ->setName('Test Ontology')
+            ->setName('Test Ontology '. uniqid())
             ->setAuthor('Test User')
             ->setDate(new \DateTime());
 

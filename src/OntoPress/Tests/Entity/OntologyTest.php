@@ -70,7 +70,7 @@ class OntologyTest extends OntoPressTestCase
      */
     public function testOntologyBasic()
     {
-        $this->assertEquals($this->ontology->getName(), 'Test Ontology');
+        $this->assertContains('Test Ontology', $this->ontology->getName());
         $this->assertEquals($this->ontology->getAuthor(), 'Test User');
         $this->assertEquals($this->ontology->getDate(), new \DateTime());
     }

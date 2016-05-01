@@ -3,6 +3,7 @@
 namespace OntoPress\Tests;
 
 use Brain\Monkey\Functions;
+use Doctrine\ORM\EntityManager;
 use OntoPress\Tests\TestHelper;
 use OntoPress\Controller\FormController;
 use OntoPress\Entity\Form;
@@ -61,13 +62,10 @@ class FormControllerTest extends OntoPressWPTestCase
         $this->form = TestHelper::createOntologyForm($this->ontology);
         $this->formController = new FormController(static::getContainer());
 
-        try {
-            static::getContainer()->get('doctrine')->persist($this->ontology);
-            static::getContainer()->get('doctrine')->persist($this->form);
-            static::getContainer()->get('doctrine')->flush();
-        } catch (UniqueConstraintViolationException $e) {
-            $this->ontology->setName("Test Ontology ". rand(1, 10000));
-        };
+        static::getContainer()->get('doctrine')->persist($this->ontology);
+        static::getContainer()->get('doctrine')->persist($this->form);
+        static::getContainer()->get('doctrine')->flush();
+
         parent::setUp();
     }
 
