@@ -104,7 +104,7 @@ class SparqlManagerTest extends OntoPressTestCase
     }
 
     /**
-     * Test getLatestResources
+     * Test getAllManageRows
      */
     public function testGetLatestResources()
     {
@@ -123,7 +123,6 @@ class SparqlManagerTest extends OntoPressTestCase
             new StatementImpl($subjectOld, $predicateA, $objectOldA),
             new StatementImpl($subjectOld, $predicateD, $objectOldD),
         );
-
         $objectNewT = $nodeFactory->createLiteral('TestTitleNew');
         $objectNewA = $nodeFactory->createLiteral('TestAuthorNew');
         $objectNewD = $nodeFactory->createLiteral('B');
@@ -138,8 +137,8 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->store->addStatements($statementsOld, $graph);
         $this->store->addStatements($statementsNew, $graph);
 
-        $expectedRow = array( array('title' => 'TestTitleNew', 'author' => 'TestAuthorNew'),
-            array('title' => 'TestTitleOld', 'author' => 'TestAuthorOld'),
+        $expectedRow = array( 'title' => 'TestTitleNew', 'author' => 'TestAuthorNew',
+            'title' => 'TestTitleOld', 'author' => 'TestAuthorOld'
         );
         $rows = $this->sparqlManager->getLatestResources($graph);
         $this->assertContains($expectedRow, $rows);
