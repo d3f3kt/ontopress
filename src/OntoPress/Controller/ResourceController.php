@@ -171,7 +171,6 @@ class ResourceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            
             $this->get('ontopress.sparql_manager')->deleteResource($resourceUri);
             $this->get('ontopress.arc2_manager')->store(
                 $form->getData(),
