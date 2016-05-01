@@ -104,6 +104,48 @@ class SparqlManagerTest extends OntoPressTestCase
     }
 
     /**
+     * Test getLatestResources
+     */
+    public function testGetLatestResources()
+    {
+        $graph = new NamedNodeImpl('test:graph');
+        $subjectOld = new NamedNodeImpl('test:subjectOld');
+        $subjectNew = new NamedNodeImpl('test:subjectNew');
+        $predicateA = new NamedNodeImpl('OntoPress:author');
+        $predicateT = new NamedNodeImpl('OntoPress:name');
+        $predicateD = new NamedNodeImpl('OntoPress:date');
+        $nodeFactory = new NodeFactoryImpl();
+        $objectOldT = $nodeFactory->createLiteral('TestTitleOld');
+        $objectOldA = $nodeFactory->createLiteral('TestAuthorOld');
+        $objectOldD = $nodeFactory->createLiteral('A');
+        $statementsOld = array(
+            new StatementImpl($subjectOld, $predicateT, $objectOldT),
+            new StatementImpl($subjectOld, $predicateA, $objectOldA),
+            new StatementImpl($subjectOld, $predicateD, $objectOldD),
+        );
+
+        $objectNewT = $nodeFactory->createLiteral('TestTitleNew');
+        $objectNewA = $nodeFactory->createLiteral('TestAuthorNew');
+        $objectNewD = $nodeFactory->createLiteral('B');
+        $statementsNew = array(
+            new StatementImpl($subjectNew, $predicateT, $objectNewT),
+            new StatementImpl($subjectNew, $predicateA, $objectNewA),
+            new StatementImpl($subjectNew, $predicateD, $objectNewD),
+        );
+
+        $this->store->dropGraph($graph);
+        $this->store->createGraph($graph);
+        $this->store->addStatements($statementsOld, $graph);
+        $this->store->addStatements($statementsNew, $graph);
+
+        $expectedRow = array( array('title' => 'TestTitleNew', 'author' => 'TestAuthorNew'),
+            array('title' => 'TestTitleOld', 'author' => 'TestAuthorOld'),
+        );
+        $rows = $this->sparqlManager->getLatestResources($graph);
+        $this->assertContains($expectedRow, $rows);
+    }
+
+    /**
      * Test getResourceTriples
      */
     public function testGetResourceTriples()
