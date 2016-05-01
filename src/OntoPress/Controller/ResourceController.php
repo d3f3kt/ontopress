@@ -105,7 +105,7 @@ class ResourceController extends AbstractController
             $graph = 'graph:'. $graph;
             $resourceManageTable = $sparqlManager->getAllManageRows($graph);
         }
-            
+        
         return $this->render('resource/resourceManagement.html.twig', array(
             'resourceManageTable' => $resourceManageTable
         ));
@@ -138,6 +138,57 @@ class ResourceController extends AbstractController
         return $this->render('resource/resourceDelete.html.twig', array(
             'title' => $request->get('title'),
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * Handle editing of a resource
+     *
+     * @param  Request  $request
+     * @return string   rendered twig template
+     */
+    public function showEditAction(Request $request)
+    {
+        if ($resourceUri = $request->get('uri')) {
+            $formId = $this->get('ontopress.sparql_manager')->getFormId($resourceUri);
+            $resForm = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
+                ->findOneById($formId);
+            if (!$resForm) {
+                $this->addFlashMessage(
+                    'fail',
+                    'Ressource konnte nicht geladen werden (zugehöriges Formular fehlt)'
+                );
+
+                return $this->redirectToRoute('ontopress_resource');
+            }
+        } else {
+            return $this->redirectToRoute('ontopress_resource');
+        }
+    
+        $formValues = $this->get('ontopress.sparql_manager')->getResourceTriples($resourceUri);
+
+        $form = $this->get('ontopress.form_creation')->createFilledForm($resForm, $formValues)->add('submit', 'submit');
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            
+            $this->get('ontopress.sparql_manager')->deleteResource($resourceUri);
+            $this->get('ontopress.arc2_manager')->store(
+                $form->getData(),
+                $formId,
+                wp_get_current_user()->user_nicename
+            );
+
+            $this->addFlashMessage(
+                'success',
+                'Ressource erfolgreich bearbeitet'
+            );
+
+            return $this->redirectToRoute('ontopress_resource');
+        }
+
+        return $this->render('resource/resourceEdit.html.twig', array(
+            'form' => $form->createView(),
         ));
     }
 }

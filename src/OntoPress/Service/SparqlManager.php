@@ -109,12 +109,23 @@ class SparqlManager
      */
     public function getResourceTriples($subject, $graph = null)
     {
-        $query = 'SELECT { ?s ?p ?o. } WHERE { '.$subject.' ?p ?o. }';
+        $query = 'SELECT ?p ?o WHERE { <'.$subject.'> ?p ?o. }';
         if ($graph != null) {
-            $query = 'SELECT { <'.$subject.'> ?p ?o. } FROM <'.$graph.'> WHERE { <'.$subject.'> ?p ?o. }';
+            $query = 'SELECT ?p ?o FROM <'.$graph.'> WHERE { <'.$subject.'> ?p ?o. }';
         }
 
-        return $this->store->query($query);
+        $result = $this->store->query($query);
+        $doubles = array();
+        if ($result->current() instanceof StatementImpl) {
+            foreach ($result as $double) {
+                $doubles[$double->getPredicate()->getUri()] = $double->getObject()->getValue();
+            }
+        } else {
+            foreach ($result as $double) {
+                $doubles[$double['p']->getUri()] = $double['o']->getValue();
+            }
+        }
+        return $doubles;
     }
 
     /**
@@ -131,7 +142,7 @@ class SparqlManager
             $query = 'SELECT ?o FROM <'.$graph.'> WHERE { <'.$subject.'> <OntoPress:formId> ?o. }';
         }
         $result = $this->store->query($query);
-        dump($result);
+        return $result->current()['o']->getValue();
     }
     /**
      * Method to create a String from given URI.

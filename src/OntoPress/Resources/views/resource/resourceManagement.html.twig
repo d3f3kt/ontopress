@@ -58,7 +58,7 @@
                     <td class="Titel column-Titel" data-colname="Titel">
                         <p>{{ resource.title }}</p>
                         <div class="row-actions">
-                            <span class="edit"><a href="{{ path('ontopress_resourceAddDetails',{'id': 1}) }}">Bearbeiten</a></span>
+                            <span class="edit"><a href="{{ path('ontopress_resourceEdit',{'uri': (resource.uri), 'title': (resource.title)}) }}">Bearbeiten</a></span>
                             <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'uri': (resource.uri), 'title': (resource.title)}) }}">Löschen</a></span>
                         </div>
                     </td>

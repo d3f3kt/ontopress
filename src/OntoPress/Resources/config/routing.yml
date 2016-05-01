@@ -74,6 +74,12 @@ sites:
                 capability: manage_options
                 controller: Resource:showDelete
                 virtual:    true
+            resourceEdit:
+                page_title: Ressource Bearbeiten
+                menu_title: Ressourcen
+                capability: manage_options
+                controller: Resource:showEdit
+                virtual:    true
             test:
                 page_title: Test
                 menu_title: Test
