@@ -70,48 +70,7 @@
 </div>
 <div id="dashboard-widgets-wrap">
     <div id="dashboard-widgets" class="metabox-holder columns-3">
-        <div id="postbox-container-1" class="postbox-container">
-            <div id="normal-sortables" class="meta-box-sortables">
-                <div id="dashboard_form" class="postbox">
-                    <h2 class='hndle'><span>Neueste Gebäude</span></h2>
-                    <div class="inside">
-                        {% if buildingOntology %}
-                        {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'table': resTableBuildings} %}
-                        {% else %}
-                            <p>Sie haben noch keine Gebäude Ontologie erstellt</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="postbox-container-1" class="postbox-container">
-            <div id="normal-sortables" class="meta-box-sortables">
-                <div id="dashboard_form" class="postbox">
-                    <h2 class='hndle'><span>Neueste Plätze</span></h2>
-                    <div class="inside">
-                        {% if placeOntology %}
-                        {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'table': resTablePlaces} %}
-                        {% else %}
-                            <p>Sie haben noch keine Kirchen Ontologie erstellt</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="postbox-container-1" class="postbox-container">
-            <div id="normal-sortables" class="meta-box-sortables">
-                <div id="dashboard_form" class="postbox">
-                    <h2 class='hndle'><span>Neueste Kirchen</span></h2>
-                    <div class="inside">
-                        {% if churchOntology %}
-                        {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'table': resTableChurches} %}
-                        {% else %}
-                            <p>Sie haben noch keine Kirchen Ontologie erstellt</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include 'dashboard/snippets/table/resourceTable.html.twig' with {'resourceTables': resourceTables} %}
     </div>
 </div><!--dashboard widget wrap-->
 
