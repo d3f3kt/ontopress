@@ -1,23 +1,42 @@
-
-{% if table %}
-    <table class="wp-list-resource widefat fixed striped users">
-        <!--Table-->
-        <thead>
-        <tr>
-            <th>Titel</th>
-            <th>Author</th>
-        </tr>
-        </thead>
-        <!--Tablecontent-->
-        <tbody>
-        {% for resource in table %}
-            <tr>
-                <td>{{ resource.title }}</td>
-                <td>{{ resource.author }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% for table in resourceTables %}
+    {% if  table.tableContent is empty %}
+    <div id="postbox-container-1" class="postbox-container">
+        <div id="normal-sortables" class="meta-box-sortables">
+            <div id="dashboard_form" class="postbox">
+            <h2 class='hndle'><span>Neueste {{ table.ontologyName }}</span></h2>
+                <div class="inside">
+                    <p>Es gibt noch keine {{ table.ontologyName }} Resourcen </p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% else %}
-    <p>Es gibt noch keine Resourcen</p>
+    <div id="postbox-container-1" class="postbox-container">
+        <div id="normal-sortables" class="meta-box-sortables">
+            <div id="dashboard_form" class="postbox">
+                <h2 class='hndle'><span>Neueste {{ table.ontologyName }}</span></h2>
+                <div class="inside">
+                    <table class="wp-list-resource widefat fixed striped users">
+                        <!--Table-->
+                        <thead>
+                        <tr>
+                            <th>Titel</th>
+                            <th>Author</th>
+                        </tr>
+                        </thead>
+                        <!--Tablecontent-->
+                        <tbody>
+                        {% for resource in table.tableContent %}
+                            <tr>
+                                <td>{{ resource.title }}</td>
+                                <td>{{ resource.author }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endif %}
+{% endfor %}
