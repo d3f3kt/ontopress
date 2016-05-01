@@ -49,3 +49,7 @@ services:
     ontopress.doctrine_schema_tool:
         class: OntoPress\Service\DoctrineSchemaTool
         arguments: [@doctrine]
+
+    doctrine.orm.validator.unique:
+        class: Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator
+        arguments: [@ontopress.doctrine_manager]
