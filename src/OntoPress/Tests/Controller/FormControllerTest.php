@@ -11,6 +11,7 @@ use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Library\OntoPressWPTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 /**
  * Class FormControllerTest
@@ -60,9 +61,13 @@ class FormControllerTest extends OntoPressWPTestCase
         $this->form = TestHelper::createOntologyForm($this->ontology);
         $this->formController = new FormController(static::getContainer());
 
-        static::getContainer()->get('doctrine')->persist($this->ontology);
-        static::getContainer()->get('doctrine')->persist($this->form);
-        static::getContainer()->get('doctrine')->flush();
+        try {
+            static::getContainer()->get('doctrine')->persist($this->ontology);
+            static::getContainer()->get('doctrine')->persist($this->form);
+            static::getContainer()->get('doctrine')->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            $this->ontology->setName("Test Ontology ". rand(1, 10000));
+        };
         parent::setUp();
     }
 
@@ -217,7 +222,6 @@ class FormControllerTest extends OntoPressWPTestCase
                 array('REQUEST_METHOD' => 'POST')
             )
         );
-        // $this->assertEquals();
     }
 
     /**

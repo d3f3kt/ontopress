@@ -109,6 +109,10 @@ class OntologyController extends AbstractController
 
             $ontologyParser = $this->get('ontopress.ontology_parser');
             $ontologyParser->parsing($ontology, true);
+            $this->getDoctrine()->persist($ontology);
+            $this->getDoctrine()->flush();
+            
+            /*
             try {
                 $this->getDoctrine()->persist($ontology);
                 $this->getDoctrine()->flush();
@@ -119,6 +123,8 @@ class OntologyController extends AbstractController
                 );
                 return $this->redirectToRoute('ontopress_ontologyAdd');
             }
+            */
+
             $this->addFlashMessage(
                 'success',
                 'Ontologie erfolgreich hochgeladen.'

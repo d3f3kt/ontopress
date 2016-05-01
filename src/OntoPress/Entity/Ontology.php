@@ -4,10 +4,13 @@ namespace OntoPress\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+// @UniqueEntity(fields={"name"}, message="Dieser Ontologiename existiert bereits.")
 /**
  * Ontology.
  * This PHP Object allows Doctrine to translate php Objects into an relational SQL Table via Metadata.
+ *
  *
  * @ORM\Table(name="ontopress_ontology")
  * @ORM\Entity(repositoryClass="OntoPress\Repository\OntologyRepository")
@@ -24,11 +27,12 @@ class Ontology
      */
     protected $id;
 
+    // unique=true
     /**
      * Name of ontology.
      *
      * @var string
-     * @ORM\Column(name="name", type="string", length=64, unique=true)
+     * @ORM\Column(name="name", type="string", length=64)
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
      */
