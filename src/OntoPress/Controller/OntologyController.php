@@ -8,6 +8,7 @@ use OntoPress\Form\Ontology\Type\DeleteOntologyType;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Library\AbstractController;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 /**
  * Ontology Controller.
@@ -108,10 +109,16 @@ class OntologyController extends AbstractController
 
             $ontologyParser = $this->get('ontopress.ontology_parser');
             $ontologyParser->parsing($ontology, true);
-
-            $this->getDoctrine()->persist($ontology);
-            $this->getDoctrine()->flush();
-
+            try {
+                $this->getDoctrine()->persist($ontology);
+                $this->getDoctrine()->flush();
+            } catch (UniqueConstraintViolationException $e) {
+                $this->addFlashMessage(
+                    'error',
+                    'Dieser Ontologiename existiert schon, bitte nutzen Sie einen anderen Namen.'
+                );
+                return $this->redirectToRoute('ontopress_ontologyAdd');
+            }
             $this->addFlashMessage(
                 'success',
                 'Ontologie erfolgreich hochgeladen.'
