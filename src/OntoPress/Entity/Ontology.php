@@ -6,12 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-// @UniqueEntity(fields={"name"}, message="Dieser Ontologiename existiert bereits.")
 /**
  * Ontology.
  * This PHP Object allows Doctrine to translate php Objects into an relational SQL Table via Metadata.
  *
- *
+ * @UniqueEntity(fields={"name"}, message="Dieser Ontologiename existiert bereits.")
  * @ORM\Table(name="ontopress_ontology")
  * @ORM\Entity(repositoryClass="OntoPress\Repository\OntologyRepository")
  */

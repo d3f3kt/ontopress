@@ -3,8 +3,6 @@
 namespace OntoPress\Tests;
 
 use Brain\Monkey\Functions;
-use Doctrine\ORM\EntityManager;
-use OntoPress\Tests\TestHelper;
 use OntoPress\Controller\FormController;
 use OntoPress\Entity\Form;
 use OntoPress\Entity\Ontology;
@@ -12,7 +10,6 @@ use OntoPress\Entity\DataOntology;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Library\OntoPressWPTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 /**
  * Class FormControllerTest

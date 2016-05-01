@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Controller\OntologyController;
 use OntoPress\Library\OntoPressWPTestCase;
 use OntoPress\Tests\Entity\OntologyTest;
-use OntoPress\Tests\TestHelper;
 
 /**
  * Class OntologyControllerTest
@@ -101,7 +100,7 @@ class OntologyControllerTest extends OntoPressWPTestCase
                 'id' => 1337,
             ))
         );
-        $this->assertContains('keine Ontologie', $withOutId);
+        $this->assertContains('keine Ontologie', $withWrongId);
 
         // test with correct id
         $withCorrectId = $this->ontologyController->showDeleteAction(
