@@ -53,3 +53,5 @@ services:
     doctrine.orm.validator.unique:
         class: Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator
         arguments: [@ontopress.doctrine_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: doctrine.orm.validator.unique }
