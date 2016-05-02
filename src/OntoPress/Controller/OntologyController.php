@@ -27,7 +27,6 @@ class OntologyController extends AbstractController
         if ($request->get('sort') !== null) {
             $ontologyManageTable = $this->showSortAction($request);
         } else {
-
             //fetch all Ontologies from the Database
             $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
             $ontologyManageTable = $repository->findAll();
@@ -137,8 +136,8 @@ class OntologyController extends AbstractController
             case 'id':
                 $ontologySort = $ontologyRepository->findBy(array(), array('id' => 'ASC'));
                 break;
-            case 'ontology':
-                $ontologySort = $ontologyRepository->findBy(array(), array('ontology' => 'ASC'));
+            case 'name':
+                $ontologySort = $ontologyRepository->findBy(array(), array('name' => 'ASC'));
                 break;
             case 'formCount':
                 $ontologySort = $ontologyRepository->findBy(array(), array('formCount' => 'ASC'));
