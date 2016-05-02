@@ -139,8 +139,8 @@ class OntologyController extends AbstractController
             case 'name':
                 $ontologySort = $ontologyRepository->findBy(array(), array('name' => 'ASC'));
                 break;
-            case 'formCount':
-                $ontologySort = $ontologyRepository->findBy(array(), array('formCount' => 'ASC'));
+            case 'ontologyForms':
+                $ontologySort = $ontologyRepository->findBy(array(), array('ontologyForms' => 'ASC'));
                 break;
             case 'author':
                 $ontologySort = $ontologyRepository->findBy(array(), array('author' => 'ASC'));
