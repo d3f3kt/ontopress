@@ -12,31 +12,31 @@
         <thead>
         <tr>
             <th scope="col" id="id" class="manage-column column-id column-primary sortable desc" style="width: 90px">
-                <a href="#">
+                <a href="{{ path('ontopress_ontology', {'sort': 'id'}) }}">
                     <span>ID</span>
                     <span class="sorting-indicator"></span>
                 </a>
             </th>
             <th scope="col" id="ontology" class="manage-column column-ontology sortable desc">
-                <a href="#">
+                <a href="{{ path('ontopress_ontology', {'sort': 'ontology'}) }}">
                     <span>Ontologie</span>
                     <span class="sorting-indicator"></span>
                 </a>
             </th>
             <th scope="col" id="form" class="manage-column column-form sorted asc">
-                <a href="#">
+                <a href="{{ path('ontopress_ontology', {'sort': 'formCount'}) }}">
                     <span>Formular Anz.</span>
                     <span class="sorting-indicator"></span>
                 </a>
             </th>
             <th scope="col" id="author" class="manage-column column-form sorted asc">
-                <a href="#">
+                <a href="{{ path('ontopress_ontology', {'sort': 'author'}) }}">
                     <span>Autor</span>
                     <span class="sorting-indicator"></span>
                 </a>
             </th>
             <th scope="col" id="date" class="manage-column column-form sorted asc">
-                <a href="#">
+                <a href="{{ path('ontopress_ontology', {'sort': 'date'}) }}">
                     <span>Datum</span>
                     <span class="sorting-indicator"></span>
                 </a>
