@@ -44,7 +44,7 @@ class OntologyControllerTest extends OntoPressWPTestCase
      */
     public function testOntologyPages()
     {
-        $manageOutput = $this->ontologyController->showManageAction();
+        $manageOutput = $this->ontologyController->showManageAction(new Request());
 
         $this->assertContains('Ontologie Verwaltung', $manageOutput);
     }

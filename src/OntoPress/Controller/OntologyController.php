@@ -21,7 +21,7 @@ class OntologyController extends AbstractController
      * It fetches all Ontologies from the Database and renders the twig template.
      *
      * @param Request $request HTTP Request
-     * 
+     *
      * @return string rendered twig template
      */
     public function showManageAction(Request $request)
