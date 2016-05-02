@@ -137,9 +137,7 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->store->addStatements($statementsOld, $graph);
         $this->store->addStatements($statementsNew, $graph);
 
-        $expectedRow = array( 'title' => 'TestTitleNew', 'author' => 'TestAuthorNew',
-            'title' => 'TestTitleOld', 'author' => 'TestAuthorOld'
-        );
+        $expectedRow = array( 'title' => 'TestTitleNew', 'author' => 'TestAuthorNew', 'date' => 'B');
         $rows = $this->sparqlManager->getLatestResources($graph);
         $this->assertContains($expectedRow, $rows);
     }

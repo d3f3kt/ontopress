@@ -239,6 +239,9 @@ class SparqlManager
                     case 'OntoPress:author':
                         $answer[$subject]['author'] = $triple->getObject()->getValue();
                         break;
+                    case 'OntoPress:date':
+                        $answer[$subject]['date'] = $triple->getObject()->getValue();
+                        break;
                 }
             } else {
                 $subject = $triple['s']->getUri();
@@ -252,6 +255,9 @@ class SparqlManager
                         break;
                     case 'OntoPress:author':
                         $answer[$subject]['author'] = $triple['o']->getValue();
+                        break;
+                    case 'OntoPress:date':
+                        $answer[$subject]['date'] = $triple['o']->getValue();
                         break;
                 }
             }
