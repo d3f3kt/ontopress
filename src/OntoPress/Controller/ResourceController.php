@@ -122,6 +122,10 @@ class ResourceController extends AbstractController
             }
         }
         
+        if (!empty($orderBy = $request->get('orderBy'))) {
+            $resourceManageTable = $sparqlManager->getSortedTable($orderBy, $request->get('order'));
+        }
+        
         return $this->render('resource/resourceManagement.html.twig', array(
             'resourceManageTable' => $resourceManageTable,
             'graphs' => $graphs,

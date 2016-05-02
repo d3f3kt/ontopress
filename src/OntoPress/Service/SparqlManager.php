@@ -264,4 +264,12 @@ class SparqlManager
         }
         return $answer;
     }
+    
+    public function getSortedTable($sortBy, $order)
+    {
+        $query = 'SELECT * WHERE { ?s ?p ?o ; <OntoPress:'.$sortBy.'> ?sort. } ORDER BY '.$order.'(?sort)';
+        $result = $this->store->query($query);
+
+        return $this->getRows($result);
+    }
 }

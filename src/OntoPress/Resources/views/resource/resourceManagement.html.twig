@@ -25,30 +25,21 @@
         </div>
         <table class="wp-list-resource widefat fixed striped users">
             <thead>
-            <tr>
-                <td class="manage-column column-cb check-column" id="cb">
-                    <label for="cb-select-all-1" class="screen-reader-text">Alle auswählen</label>
-                    <input type="checkbox" id="cb-select-all-1">
-                </td>
-                <th scope="col" class="manage-column column-Titel sortable desc">
-                    <a href="#">
-                        <span>Titel</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-Autor sortable desc">
-                    <a href="#">
-                        <span>Autor</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-Datum sortable desc">
-                    <a href="#">
-                        <span>Datum</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-            </tr>
+                <tr>
+                    <td class="manage-column column-cb check-column" id="cb">
+                        <label for="cb-select-all-1" class="screen-reader-text">Alle auswählen</label>
+                        <input type="checkbox" id="cb-select-all-1">
+                    </td>
+                    {% embed 'snippets/sortableColumn.html.twig'
+                        with {'colName': 'name', 'colTitle': 'Titel', 'colPath': 'ontopress_resource'} %}
+                    {% endembed %}
+                    {% embed 'snippets/sortableColumn.html.twig'
+                        with {'colName': 'author', 'colTitle': 'Autor', 'colPath': 'ontopress_resource'} %}
+                    {% endembed %}
+                    {% embed 'snippets/sortableColumn.html.twig'
+                        with {'colName': 'date', 'colTitle': 'Datum', 'colPath': 'ontopress_resource'} %}
+                    {% endembed %}
+                </tr>
             </thead>
             <tbody id="the-list" data-wp-lists="list:resource">
             {% for resource in resourceManageTable %}
