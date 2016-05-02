@@ -96,31 +96,37 @@ class ResourceController extends AbstractController
      */
     public function showManagementAction(Request $request)
     {
-        if ($request->get('s') !== null) {
-            return $this->showSearchAction($request);
-        }
-        
         $graph = $request->get('graph');
         $sparqlManager = $this->get('ontopress.sparql_manager');
         $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
         $graphs = array();
+        
         foreach ($ontologies as $ontology) {
             $graphs[] = array(
                 'name' => $ontology->getName(),
-                'uri' => 'graph:'.$ontology->getName(),
             );
         }
-        if ((empty($graph))) {
-            $resourceManageTable = $sparqlManager->getAllManageRows();
+        
+        if (!empty($request->get('s'))) {
+            if (!$request->get('graph')) {
+                $resourceManageTable = $this->getSearchTable($request->get('s'));
+            } else {
+                $resourceManageTable = $this->getSearchTable($request->get('s'), $graph);
+            }
         } else {
-            $graph = 'graph:'. $graph;
-            $resourceManageTable = $sparqlManager->getAllManageRows($graph);
+            if ((empty($graph))) {
+                $resourceManageTable = $sparqlManager->getAllManageRows();
+            } else {
+                $graph = 'graph:' . $graph;
+                $resourceManageTable = $sparqlManager->getAllManageRows($graph);
+            }
         }
         
         return $this->render('resource/resourceManagement.html.twig', array(
             'resourceManageTable' => $resourceManageTable,
             'graphs' => $graphs,
         ));
+        
     }
     
     /**
@@ -203,29 +209,16 @@ class ResourceController extends AbstractController
         ));
     }
 
-    private function showSearchAction(Request $request)
+    private function getSearchTable($searchString, $graph = null)
     {
-        $graph = $request->get('graph');
         $sparqlManager = $this->get('ontopress.sparql_manager');
-
-        $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
-        $graphs = array();
-        foreach ($ontologies as $ontology) {
-            $graphs[] = array(
-                'name' => $ontology->getName(),
-                'uri' => 'graph:'.$ontology->getName(),
-            );
-        }
-        if ((empty($graph))) {
-            $resourceManageTable = $sparqlManager->getResourceRowsLike($request->get('s'));
+        if (!$graph) {
+            $resourceManageTable = $sparqlManager->getResourceRowsLike($searchString);
         } else {
             $graph = 'graph:'. $graph;
-            $resourceManageTable = $sparqlManager->getAllManageRows($request->get('s'), $graph);
+            $resourceManageTable = $sparqlManager->getResourceRowsLike($searchString, $graph);
         }
 
-        return $this->render('resource/resourceManagement.html.twig', array(
-            'resourceManageTable' => $resourceManageTable,
-            'graphs' => $graphs,
-        ));
+        return $resourceManageTable;
     }
 }
