@@ -57,7 +57,7 @@ class TwigGenerator
             ->setMandatory(true)
             ->setPossessed(true);
         $twigFields[] = $this->generateFormField($nameField);
-        
+
         foreach ($form->getOntologyFields() as $ontologyField) {
             $twigFields[] = $this->generateFormField($ontologyField);
         }
@@ -99,6 +99,7 @@ class TwigGenerator
             'label' => $this->generateLabel($ontologyField),
             'error' => '{{form_errors(form.'.$ontologyField->getFormFieldName().')}}',
             'type' => 'text',
+            'comment' => $ontologyField->getComment(),
             'widget' => array(
                 'val' => $this->generateFieldValue($ontologyField),
                 'attr' => $this->generateFieldAttributes($ontologyField),
@@ -121,6 +122,7 @@ class TwigGenerator
             'label' => $this->generateLabel($ontologyField),
             'error' => '{{form_errors(form.'.$ontologyField->getFormFieldName().')}}',
             'type' => 'radio',
+            'comment' => $ontologyField->getComment(),
             'widget' => array(
                 'choices' => $this->restrictionHelper->getChoices($ontologyField),
                 'attr' => $this->generateChoiceAttributes($ontologyField),
@@ -144,6 +146,7 @@ class TwigGenerator
             'label' => $this->generateLabel($ontologyField),
             'error' => '{{form_errors(form.'.$ontologyField->getFormFieldName().')}}',
             'type' => 'select',
+            'comment' => $ontologyField->getComment(),
             'widget' => array(
                 'choices' => $this->restrictionHelper->getChoices($ontologyField),
                 'attr' => $this->generateFieldAttributes($ontologyField),
@@ -163,7 +166,7 @@ class TwigGenerator
      */
     private function generateLabel(OntologyField $ontologyField)
     {
-        $twigCode = '<label%s%s>%s</label><br>%s';
+        $twigCode = '<label%s%s>%s</label><br>';
 
         switch ($ontologyField->getType()) {
             case OntologyField::TYPE_TEXT:
@@ -171,16 +174,14 @@ class TwigGenerator
                     $twigCode,
                     " for='OntoPressForm_".$ontologyField->getFormFieldName()."'",
                     $ontologyField->getMandatory() ? ' class="required"' : '',
-                    $ontologyField->getLabel(),
-                    '<span class="comment">'.$ontologyField->getComment().'</span>'
+                    $ontologyField->getLabel()
                 );
             default:
                 return sprintf(
                     $twigCode,
                     '',
                     $ontologyField->getMandatory() ? ' class="required"' : '',
-                    $ontologyField->getLabel(),
-                    '<span class="comment">'.$ontologyField->getComment().'</span>'
+                    $ontologyField->getLabel()
                 );
         }
     }
