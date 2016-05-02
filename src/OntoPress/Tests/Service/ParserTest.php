@@ -58,7 +58,6 @@ class ParserTest extends OntoPressTestCase
         $this->parser->selectHandler($objectLessArray);
         $this->assertNull($objectLessArray[0]->getType());
 
-        /*
         $objectMore = new OntologyField();
         $objectMore
             ->addRestriction(new Restriction())
@@ -68,7 +67,7 @@ class ParserTest extends OntoPressTestCase
             ->addRestriction(new Restriction());
         $objectMoreArray[] = $objectMore;
         $this->parser->selectHandler($objectMoreArray);
-        $this->assertEquals($objectMoreArray[0]->getType(), "TYPE_SELECT");
-        */
+        $this->assertEquals($objectMoreArray[0]->getType(), OntologyField::TYPE_SELECT);
+
     }
 }
