@@ -96,9 +96,20 @@ class ResourceController extends AbstractController
      */
     public function showManagementAction(Request $request)
     {
+        if ($request->get('s') !== null) {
+            return $this->showSearchAction($request);
+        }
+        
         $graph = $request->get('graph');
         $sparqlManager = $this->get('ontopress.sparql_manager');
-
+        $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
+        $graphs = array();
+        foreach ($ontologies as $ontology) {
+            $graphs[] = array(
+                'name' => $ontology->getName(),
+                'uri' => 'graph:'.$ontology->getName(),
+            );
+        }
         if ((empty($graph))) {
             $resourceManageTable = $sparqlManager->getAllManageRows();
         } else {
@@ -107,7 +118,8 @@ class ResourceController extends AbstractController
         }
         
         return $this->render('resource/resourceManagement.html.twig', array(
-            'resourceManageTable' => $resourceManageTable
+            'resourceManageTable' => $resourceManageTable,
+            'graphs' => $graphs,
         ));
     }
     
@@ -188,6 +200,32 @@ class ResourceController extends AbstractController
 
         return $this->render('resource/resourceEdit.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    private function showSearchAction(Request $request)
+    {
+        $graph = $request->get('graph');
+        $sparqlManager = $this->get('ontopress.sparql_manager');
+
+        $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
+        $graphs = array();
+        foreach ($ontologies as $ontology) {
+            $graphs[] = array(
+                'name' => $ontology->getName(),
+                'uri' => 'graph:'.$ontology->getName(),
+            );
+        }
+        if ((empty($graph))) {
+            $resourceManageTable = $sparqlManager->getResourceRowsLike($request->get('s'));
+        } else {
+            $graph = 'graph:'. $graph;
+            $resourceManageTable = $sparqlManager->getAllManageRows($request->get('s'), $graph);
+        }
+
+        return $this->render('resource/resourceManagement.html.twig', array(
+            'resourceManageTable' => $resourceManageTable,
+            'graphs' => $graphs,
         ));
     }
 }

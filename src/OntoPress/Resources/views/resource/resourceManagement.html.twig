@@ -9,15 +9,17 @@
     <form method="get">
         <p class="search-box">
         	<label for="user-search-input" class="screen-reader-text">Suche Ressourcen:</label>
+            <input type="text" value="ontopress_resource" name="page" style="display:none">
         	<input type="search" value="" name="s" id="user-search-input">
         	<input type="submit" value="Ressourcen suchen" class="button" id="search-submit">
         </p>
         <div class="tablenav top">
             <div class="alignleft">
-                Ontologie: <select name="Gebäude">
-                    <option value="value1" selected>Gebäude</option>
-                    <option value="value2">Plätze</option>
-                    <option value="value3">Kirchen</option>
+                Ontologie: <select name="graph">
+                    <option value="">Filtern</option>
+                {% for graph in graphs %}
+                    <option value="{{ graph.uri }}">{{ graph.name }}</option>
+                {% endfor %}
                 </select>
             </div>
         </div>

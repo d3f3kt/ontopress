@@ -3,6 +3,7 @@
 namespace OntoPress\Service;
 
 use Saft\Rdf\StatementImpl;
+use Saft\Sparql\Result\Result;
 use Saft\Store\Store;
 
 /**
@@ -52,48 +53,7 @@ class SparqlManager
      */
     public function getAllManageRows($graph = null)
     {
-        $answer = array();
-        foreach ($this->getAllTriples($graph) as $triple) {
-            if ($triple instanceof StatementImpl) {
-                //this case is only for the Test-Environment,
-                //not triggered in real system
-                $subject = $this->getStringFromUri($triple->getSubject());
-                if (!array_key_exists($subject, $answer)) {
-                    $answer[$subject] = array();
-                }
-
-                switch ($triple->getPredicate()) {
-                    case 'OntoPress:name':
-                        $answer[$subject]['title'] = $triple->getObject()->getValue();
-                        break;
-                    case 'OntoPress:author':
-                        $answer[$subject]['author'] = $triple->getObject()->getValue();
-                        break;
-                    case 'OntoPress:date':
-                        $answer[$subject]['date'] = $triple->getObject()->getValue();
-                        break;
-                }
-            } else {
-                $subject = $triple['s']->getUri();
-                if (!array_key_exists($subject, $answer)) {
-                    $answer[$subject] = array('uri' => $subject);
-                }
-
-                switch ($triple['p']) {
-                    case 'OntoPress:name':
-                        $answer[$subject]['title'] = $triple['o']->getValue();
-                        break;
-                    case 'OntoPress:author':
-                        $answer[$subject]['author'] = $triple['o']->getValue();
-                        break;
-                    case 'OntoPress:date':
-                        $answer[$subject]['date'] = $triple['o']->getValue();
-                        break;
-                }
-            }
-        }
-        //$this->store->emptyAllTables();
-        return $answer;
+        return $this->getRows($this->getAllTriples($graph));
     }
 
     /**
@@ -190,7 +150,7 @@ class SparqlManager
 
     public function countResourceTriples($subject, $graph = null)
     {
-        $query = 'SELECT DISTINCT ?s WHERE { '.$subject.' ?p ?o. }';
+        $query = 'SELECT DISTINCT ?s WHERE { <'.$subject.'> ?p ?o. }';
         if ($graph != null) {
             $query = 'SELECT { <'.$subject.'> ?p ?o. } FROM <'.$graph.'> WHERE { <'.$subject.'> ?p ?o. }';
         }
@@ -232,9 +192,38 @@ class SparqlManager
         }
         $result = $this->store->query($query);
 
+        return $this->getRows($result);
+    }
 
+    /**
+     * Return resources that contain given string
+     *
+     * @param $uriPart
+     * @return Store
+     */
+    public function getResourceRowsLike($uriPart, $graph = null)
+    {
+        $allRows = $this->getAllManageRows($graph);
+        $wantedRows = array();
+        foreach ($allRows as $resource => $data) {
+            if (strpos(strtolower($resource), strtolower($uriPart)) !== false) {
+                $wantedRows[$resource] = $data;
+            }
+        }
+        
+        return $wantedRows;
+    }
+
+    /**
+     * Helper-method to generate displayable rows
+     *
+     * @param  array|Result $triples Resourcedata to generate rows from
+     * @return array        $answer  Rows
+     */
+    private function getRows($triples)
+    {
         $answer = array();
-        foreach ($result as $triple) {
+        foreach ($triples as $triple) {
             if ($triple instanceof StatementImpl) {
                 //this case is only for the Test-Environment,
                 //not triggered in real system
@@ -267,7 +256,6 @@ class SparqlManager
                 }
             }
         }
-        //$this->store->emptyAllTables();
         return $answer;
     }
 }
