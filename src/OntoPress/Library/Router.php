@@ -6,7 +6,6 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
-use OntoPress\Library\Twig\RouterExtension;
 use OntoPress\Library\Exception\InvalidControllerCallException;
 use OntoPress\Library\Exception\NoActionException;
 use OntoPress\Library\Exception\NoControllerException;
@@ -143,8 +142,8 @@ class Router
      * @param string $controllerCall Controller call in 'controller:action' format
      *
      * @throws InvalidControllerCallException if the Controller call is invalid
-     * @throws NoActionException if the Action method is not in the Controller
-     * @throws NoControllerException if no Controller is found
+     * @throws NoActionException              if the Action method is not in the Controller
+     * @throws NoControllerException          if no Controller is found
      *
      * @return string response of action method
      */
@@ -162,6 +161,8 @@ class Router
             $controller = new $class($this->container);
             if (method_exists($controller, $method.'Action')) {
                 $request = Request::createFromGlobals();
+                $this->container->get('symfony.twig')
+                    ->addGlobal('request', $request);
 
                 return call_user_func(array($controller, $method.'Action'), $request);
             } else {
