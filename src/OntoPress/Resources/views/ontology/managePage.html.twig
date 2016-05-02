@@ -11,36 +11,26 @@
     <table class="wp-list-table widefat fixed striped users">
         <thead>
         <tr>
-            <th scope="col" id="id" class="manage-column column-id column-primary sortable desc" style="width: 90px">
-                <a href="{{ path('ontopress_ontology', {'sort': 'id'}) }}">
-                    <span>ID</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
-            <th scope="col" id="ontology" class="manage-column column-ontology sortable desc">
-                <a href="{{ path('ontopress_ontology', {'sort': 'name'}) }}">
-                    <span>Ontologie</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
-            <th scope="col" id="form" class="manage-column column-form sorted asc">
-                <a href="{{ path('ontopress_ontology', {'sort': 'ontologyForms'}) }}">
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'id', 'colTitle': 'ID', 'colPath': 'ontopress_ontology'} %}
+                {% block colAttr %}
+                    {{ parent() }} style="with: 90px"
+                {% endblock %}
+            {% endembed %}
+
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'name', 'colTitle': 'Ontologie', 'colPath': 'ontopress_ontology'} %}
+            {% endembed %}
+            <th scope="col" id="form" class="manage-column column-form">
                     <span>Formular Anz.</span>
-                    <span class="sorting-indicator"></span>
                 </a>
             </th>
-            <th scope="col" id="author" class="manage-column column-form sorted asc">
-                <a href="{{ path('ontopress_ontology', {'sort': 'author'}) }}">
-                    <span>Autor</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
-            <th scope="col" id="date" class="manage-column column-form sorted asc">
-                <a href="{{ path('ontopress_ontology', {'sort': 'date'}) }}">
-                    <span>Datum</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'author', 'colTitle': 'Autor', 'colPath': 'ontopress_ontology'} %}
+            {% endembed %}
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'date', 'colTitle': 'Datum', 'colPath': 'ontopress_ontology'} %}
+            {% endembed %}
         </tr>
         </thead>
         <tbody id="the-list" data-wp-lists="list:ontology">
@@ -69,36 +59,26 @@
         </tbody>
         <tfoot>
         <tr>
-            <th scope="col" id="id" class="manage-column column-id column-primary sortable desc">
-                <a href="#">
-                    <span>ID</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
-            <th scope="col" id="ontology" class="manage-column column-ontology sortable desc">
-                <a href="#">
-                    <span>Ontologie</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
-            <th scope="col" id="form" class="manage-column column-form sorted asc">
-                <a href="#">
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'id', 'colTitle': 'ID', 'colPath': 'ontopress_ontology'} %}
+                {% block colAttr %}
+                    {{ parent() }} style="with: 90px"
+                {% endblock %}
+            {% endembed %}
+
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'name', 'colTitle': 'Ontologie', 'colPath': 'ontopress_ontology'} %}
+            {% endembed %}
+            <th scope="col" id="form" class="manage-column column-form">
                     <span>Formular Anz.</span>
-                    <span class="sorting-indicator"></span>
                 </a>
             </th>
-            <th scope="col" id="author" class="manage-column column-form sorted asc">
-                <a href="#">
-                    <span>Autor</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
-            <th scope="col" id="date" class="manage-column column-form sorted asc">
-                <a href="#">
-                    <span>Datum</span>
-                    <span class="sorting-indicator"></span>
-                </a>
-            </th>
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'author', 'colTitle': 'Autor', 'colPath': 'ontopress_ontology'} %}
+            {% endembed %}
+            {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'date', 'colTitle': 'Datum', 'colPath': 'ontopress_ontology'} %}
+            {% endembed %}
         </tr>
         </tfoot>
     </table>

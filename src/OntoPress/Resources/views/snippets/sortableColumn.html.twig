@@ -1,0 +1,14 @@
+{% if request.get('orderBy') == colName %}
+    {% set sorted = 'sorted' %}
+    {% if request.get('order') == 'asc' %}
+        {% set order = 'desc' %}
+    {% else %}
+        {% set order = 'asc' %}
+    {% endif %}
+{% endif %}
+<th {% block colAttr %}scope="col" class="manage-column column-id column-primary sortable {{ sorted|default('') }} {{ order }}"{% endblock %}>
+    <a href="{{ path(colPath, {'orderBy': colName, 'order': order|default('asc')}) }}">
+        <span>{{ colTitle }}</span>
+        <span class="sorting-indicator"></span>
+    </a>
+</th>

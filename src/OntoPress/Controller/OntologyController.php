@@ -20,21 +20,19 @@ class OntologyController extends AbstractController
      * Creates the dynamic Table content for the Ontology manage view.
      * It fetches all Ontologies from the Database and renders the twig template.
      *
+     * @param Request $request HTTP Request
+     * 
      * @return string rendered twig template
      */
     public function showManageAction(Request $request)
     {
-        if ($request->get('sort') !== null) {
-            $ontologyManageTable = $this->showSortAction($request);
-        } else {
-            //fetch all Ontologies from the Database
-            $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
-            $ontologyManageTable = $repository->findAll();
-        }
-            //render twig template
-            return $this->render('ontology/managePage.html.twig', array(
-                'ontologyManageTable' => $ontologyManageTable,
-            ));
+        $ontologyManageTable = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')
+            ->getSortedList($request->get('orderBy'), $request->get('order'));
+
+        //render twig template
+        return $this->render('ontology/managePage.html.twig', array(
+            'ontologyManageTable' => $ontologyManageTable,
+        ));
     }
 
     /**
@@ -60,7 +58,7 @@ class OntologyController extends AbstractController
             ));
         }
         $ontologyForms = $ontologyDelete->getOntologyForms();
-        
+
         $form = $this->createForm(new DeleteOntologyType(), $ontologyDelete, array(
             'cancel_link' => $this->generateRoute('ontopress_ontology'),
         ));
@@ -126,30 +124,5 @@ class OntologyController extends AbstractController
         return $this->render('ontology/ontologyAdd.html.twig', array(
             'form' => $form->createView(),
         ));
-    }
-
-    private function showSortAction(Request $request)
-    {
-        $ontologyRepository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
-        $col = $request->get('sort');
-        switch ($col) {
-            case 'id':
-                $ontologySort = $ontologyRepository->findBy(array(), array('id' => 'ASC'));
-                break;
-            case 'name':
-                $ontologySort = $ontologyRepository->findBy(array(), array('name' => 'ASC'));
-                break;
-            case 'ontologyForms':
-                $ontologySort = $ontologyRepository->findBy(array(), array('ontologyForms' => 'ASC'));
-                break;
-            case 'author':
-                $ontologySort = $ontologyRepository->findBy(array(), array('author' => 'ASC'));
-                break;
-            case 'date':
-                $ontologySort = $ontologyRepository->findBy(array(), array('date' => 'ASC'));
-                break;
-        }
-
-        return $ontologySort;
     }
 }
