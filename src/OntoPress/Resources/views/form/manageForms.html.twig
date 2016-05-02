@@ -13,25 +13,25 @@
             <thead>
             <tr>
                 <th scope="col" id="id" style="width:90px" class="manage-column column-id column-primary sortable desc">
-                    <a href="#">
+                    <a href="{{ path('ontopress_forms', {'sort': 'id'}) }}">
                         <span>ID</span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="#">
+                    <a href="{{ path('ontopress_forms', {'sort': 'name'}) }}">
                         <span>Name</span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="#">
+                    <a href="{{ path('ontopress_forms', {'sort': 'author'}) }}">
                         <span>Autor</span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="#">
+                    <a href="{{ path('ontopress_forms', {'sort': 'date'}) }}">
                         <span>Datum</span>
                         <span class="sorting-indicator"></span>
                     </a>
