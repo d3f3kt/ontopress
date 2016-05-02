@@ -6,7 +6,7 @@
         {% set order = 'asc' %}
     {% endif %}
 {% endif %}
-<th {% block colAttr %}scope="col" class="manage-column column-id column-primary sortable {{ sorted|default('') }} {{ order }}"{% endblock %}>
+<th {% block colAttr %}scope="col" class="manage-column column-id column-primary sortable {{ sorted|default('') }} {{ request.get('order') }}"{% endblock %}>
     <a href="{{ path(colPath, {'orderBy': colName, 'order': order|default('asc')}) }}">
         <span>{{ colTitle }}</span>
         <span class="sorting-indicator"></span>
