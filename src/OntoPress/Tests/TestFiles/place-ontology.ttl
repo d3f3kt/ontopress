@@ -1,5 +1,5 @@
-@prefix : <http://localhost/bvl/building-place/> .
-@prefix knok: <http://localhost/k00ni/knorke/> .
+@prefix : <http://le-online.de/ontology/place/ns#> .
+@prefix knok: <http://inspirito.de/ontology/knorke/ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -22,12 +22,14 @@
 :Place knok:hasProperty :address-zipCode .
 :zipCode a knok:Property ;
     knok:isMandatory "true"^^xsd:boolean ;
-    rdfs:label "Postleitzahl"@de .
+    rdfs:label "Postleitzahl"@de ;
+    knok:restrictionRegex "/^(\d{5})$/"^^xsd:string .
 
 :Place knok:hasProperty :dateOfInterview .
 :dateOfInterview a knok:Property ;
     rdfs:label "Datum des Interviews"@de ;
-    rdfs:comment "Wann wurde das Interview mit dem Ansprechpartner durchgeführt?"@de .
+    rdfs:comment "Wann wurde das Interview mit dem Ansprechpartner durchgeführt?"@de ;
+    knok:restrictionRegex "/^\d{2}\.\d{2}\.\d{4}$/"^^xsd:string .
 
 :Place knok:hasProperty :doorDescriptionIfTypeNotAvailable .
 :doorDescriptionIfTypeNotAvailable rdfs:label "Falls Türart nicht vorhanden, bitte Art hier eintragen"@de .

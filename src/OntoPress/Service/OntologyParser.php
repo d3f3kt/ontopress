@@ -53,19 +53,19 @@ class OntologyParser
                     case 'http://www.w3.org/2000/01/rdf-schema#label':
                         $objectArray[$statement->getSubject()->getUri()]->setLabel($statement->getObject()->getValue());
                         break;
-                    case 'http://localhost/k00ni/knorke/restrictionOneOf':
+                    case 'http://inspirito.de/ontology/knorke/ns#restrictionOneOf':
                         $objectArray[$statement->getSubject()->getUri()] = $this->restrictionHandler($statement, $objectArray[$statement->getSubject()->getUri()]);
                         break;
                     case 'http://www.w3.org/2000/01/rdf-schema#comment':
                         $objectArray[$statement->getSubject()->getUri()]->setComment($statement->getObject()->getValue());
                         break;
-                    case 'http://localhost/k00ni/knorke/isMandatory':
+                    case 'http://inspirito.de/ontology/knorke/ns#isMandatory':
                         $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
                         break;
                 }
             }
             foreach ($statementIterator as $key => $statement) {
-                if ($statement->getPredicate() == 'http://localhost/k00ni/knorke/restrictionOneOf' && isset($objectArray[$statement->getObject()->getUri()])) {
+                if ($statement->getPredicate() == 'http://inspirito.de/ontology/knorke/ns#restrictionOneOf' && isset($objectArray[$statement->getObject()->getUri()])) {
                     $objectArray[$statement->getObject()->getUri()]->setType(OntologyField::TYPE_CHOICE);
                 }
             }
@@ -103,7 +103,7 @@ class OntologyParser
     {
         foreach ($statementIterator as $key => $statement) {
             switch ($statement->getPredicate()) {
-                case 'http://localhost/k00ni/knorke/hasProperty':
+                case 'http://inspirito.de/ontology/knorke/ns#hasProperty':
                     if (!(array_key_exists($statement->getObject()->getUri(), $objectArray))) {
                         $objectArray[$statement->getObject()->getUri()] = new OntologyField();
                         $objectArray[$statement->getObject()->getUri()]->setName($statement->getObject()->getUri());
@@ -112,8 +112,8 @@ class OntologyParser
                     $objectArray[$statement->getObject()->getUri()]->setPossessed(true);
                     break;
                 case 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type':
-                    if (($statement->getObject() == 'http://localhost/k00ni/knorke/RestrictionElement') ||
-                        $statement->getObject() == 'http://localhost/k00ni/knorke/Property'
+                    if (($statement->getObject() == 'http://inspirito.de/ontology/knorke/ns#RestrictionElement') ||
+                        $statement->getObject() == 'http://inspirito.de/ontology/knorke/ns#Property'
                     ) {
                         $objectArray[$statement->getSubject()->getUri()]->setPossessed(true);
                     }
