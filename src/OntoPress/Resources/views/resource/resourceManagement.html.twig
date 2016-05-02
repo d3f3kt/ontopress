@@ -18,7 +18,7 @@
                 Ontologie: <select name="graph">
                     <option value="">Filtern</option>
                 {% for graph in graphs %}
-                    <option value="{{ graph.uri }}">{{ graph.name }}</option>
+                    <option value="{{ graph.name }}">{{ graph.name }}</option>
                 {% endfor %}
                 </select>
             </div>
