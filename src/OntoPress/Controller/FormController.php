@@ -29,20 +29,21 @@ class FormController extends AbstractController
     public function showManageAction(Request $request)
     {
         if ($request->get('sort') !== null) {
-            return $this->showSortAction($request);
-        }
-        $id = $request->get('id', 0);
-
-        $ontology = $this->getDoctrine()
-            ->getRepository('OntoPress\Entity\Ontology')
-            ->find($id);
-
-        if (!$ontology) {
-            $formManageTable = $this->getDoctrine()
-                ->getRepository('OntoPress\Entity\Form')
-                ->findAll();
+            $formManageTable = $this->showSortAction($request);
         } else {
-            $formManageTable = $ontology->getOntologyForms();
+            $id = $request->get('id', 0);
+
+            $ontology = $this->getDoctrine()
+                ->getRepository('OntoPress\Entity\Ontology')
+                ->find($id);
+
+            if (!$ontology) {
+                $formManageTable = $this->getDoctrine()
+                    ->getRepository('OntoPress\Entity\Form')
+                    ->findAll();
+            } else {
+                $formManageTable = $ontology->getOntologyForms();
+            }
         }
 
         return $this->render('form/manageForms.html.twig', array(
@@ -260,9 +261,6 @@ class FormController extends AbstractController
                 break;
             case 'name':
                 $formSort = $formRepository->findBy(array(), array('name' => 'ASC'));
-                return $this->render('form/manageForms.html.twig', array(
-                    'name' => $formSort
-                ));
                 break;
             case 'author':
                 $formSort = $formRepository->findBy(array(), array('author' => 'ASC'));
@@ -272,6 +270,6 @@ class FormController extends AbstractController
                 break;
         }
 
-        dump($formSort);
+        return $formSort;
     }
 }
