@@ -4,5 +4,8 @@
             <label for="{{ formField.widget.labelAttr|replace({'%id%': loop.index0})|raw }}">{{ choice }}</label>
             {{- not loop.last ? '\n' }}
             {% endfor %}
-
+            {% if formField.comment is not empty -%}
+            <span class="dashicons dashicons-info"></span>
+            <span class="comment">{{ formField.comment }}</span>
+            {% endif -%}
         </td>

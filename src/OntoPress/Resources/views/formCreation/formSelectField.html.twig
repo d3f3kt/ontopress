@@ -4,4 +4,8 @@
                 <option value="{{ key }}">{{ choice }}</option>
                 {% endfor %}
             </select>
+            {% if formField.comment is not empty -%}
+            <span class="dashicons dashicons-info"></span>
+            <span class="comment">{{ formField.comment }}</span>
+            {% endif -%}
         </td>
