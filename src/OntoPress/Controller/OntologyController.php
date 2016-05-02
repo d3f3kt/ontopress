@@ -8,7 +8,6 @@ use OntoPress\Form\Ontology\Type\DeleteOntologyType;
 use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Library\AbstractController;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 /**
  * Ontology Controller.
@@ -23,16 +22,20 @@ class OntologyController extends AbstractController
      *
      * @return string rendered twig template
      */
-    public function showManageAction()
+    public function showManageAction(Request $request)
     {
-        //fetch all Ontologies from the Database
-        $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
-        $ontologyManageTable = $repository->findAll();
+        if ($request->get('sort') !== null) {
+            $ontologyManageTable = $this->showSortAction($request);
+        } else {
 
-        //render twig template
-        return $this->render('ontology/managePage.html.twig', array(
-            'ontologyManageTable' => $ontologyManageTable,
-        ));
+            //fetch all Ontologies from the Database
+            $repository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
+            $ontologyManageTable = $repository->findAll();
+        }
+            //render twig template
+            return $this->render('ontology/managePage.html.twig', array(
+                'ontologyManageTable' => $ontologyManageTable,
+            ));
     }
 
     /**
@@ -113,18 +116,6 @@ class OntologyController extends AbstractController
             $this->getDoctrine()->persist($ontology);
             $this->getDoctrine()->flush();
 
-            /*
-            try {
-                $this->getDoctrine()->persist($ontology);
-                $this->getDoctrine()->flush();
-            } catch (UniqueConstraintViolationException $e) {
-                $this->addFlashMessage(
-                    'error',
-                    'Dieser Ontologiename existiert schon, bitte nutzen Sie einen anderen Namen.'
-                );
-                return $this->redirectToRoute('ontopress_ontologyAdd');
-            }
-            */
             $this->addFlashMessage(
                 'success',
                 'Ontologie erfolgreich hochgeladen.'
@@ -136,5 +127,30 @@ class OntologyController extends AbstractController
         return $this->render('ontology/ontologyAdd.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    private function showSortAction(Request $request)
+    {
+        $ontologyRepository = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology');
+        $col = $request->get('sort');
+        switch ($col) {
+            case 'id':
+                $ontologySort = $ontologyRepository->findBy(array(), array('id' => 'ASC'));
+                break;
+            case 'ontology':
+                $ontologySort = $ontologyRepository->findBy(array(), array('ontology' => 'ASC'));
+                break;
+            case 'formCount':
+                $ontologySort = $ontologyRepository->findBy(array(), array('formCount' => 'ASC'));
+                break;
+            case 'author':
+                $ontologySort = $ontologyRepository->findBy(array(), array('author' => 'ASC'));
+                break;
+            case 'date':
+                $ontologySort = $ontologyRepository->findBy(array(), array('date' => 'ASC'));
+                break;
+        }
+
+        return $ontologySort;
     }
 }
