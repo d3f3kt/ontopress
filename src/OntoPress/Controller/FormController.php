@@ -28,6 +28,9 @@ class FormController extends AbstractController
      */
     public function showManageAction(Request $request)
     {
+        if ($request->get('sort') !== null) {
+            return $this->showSortAction($request);
+        }
         $id = $request->get('id', 0);
 
         $ontology = $this->getDoctrine()
@@ -245,5 +248,30 @@ class FormController extends AbstractController
             'formDelete' => $formDelete,
             'form' => $form->createView(),
         ));
+    }
+
+    private function showSortAction(Request $request)
+    {
+        $formRepository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
+        $col = $request->get('sort');
+        switch ($col) {
+            case 'id':
+                $formSort = $formRepository->findBy(array(), array('id' => 'ASC'));
+                break;
+            case 'name':
+                $formSort = $formRepository->findBy(array(), array('name' => 'ASC'));
+                return $this->render('form/manageForms.html.twig', array(
+                    'name' => $formSort
+                ));
+                break;
+            case 'author':
+                $formSort = $formRepository->findBy(array(), array('author' => 'ASC'));
+                break;
+            case 'date':
+                $formSort = $formRepository->findBy(array(), array('date' => 'ASC'));
+                break;
+        }
+
+        dump($formSort);
     }
 }
