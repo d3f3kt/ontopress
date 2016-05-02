@@ -62,6 +62,9 @@ class OntologyParser
                     case 'http://inspirito.de/ontology/knorke/ns#isMandatory':
                         $objectArray[$statement->getSubject()->getUri()]->setMandatory(true);
                         break;
+                    case 'http://inspirito.de/ontology/knorke/ns#restrictionRegex':
+                        $objectArray[$statement->getSubject()->getUri()]->setRegex($statement->getObject()->getValue());
+                        break;
                 }
             }
             foreach ($statementIterator as $key => $statement) {

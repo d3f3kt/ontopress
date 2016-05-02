@@ -67,6 +67,12 @@ class OntologyField
     protected $type;
 
     /**
+     * @var string
+     * @ORM\Column(name="regex", type="string", length=64, nullable=true)
+     */
+    protected $regex;
+
+    /**
      * @var Restriction
      * @ORM\OneToMany(targetEntity="Restriction", mappedBy="ontologyField", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -329,5 +335,29 @@ class OntologyField
     public function getPossessed()
     {
         return $this->possessed;
+    }
+
+    /**
+     * Set regex
+     *
+     * @param string $regex
+     *
+     * @return OntologyField
+     */
+    public function setRegex($regex)
+    {
+        $this->regex = $regex;
+
+        return $this;
+    }
+
+    /**
+     * Get regex
+     *
+     * @return string
+     */
+    public function getRegex()
+    {
+        return $this->regex;
     }
 }
