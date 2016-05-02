@@ -1,5 +1,3 @@
-// setup an "Weitere Ontologie hochladen" link
-
 jQuery(document).ready(function () {
     if (uploadFilesCollectionHolder = jQuery('#ontologyAddType_ontologyFiles')) {
         addLinkToOntologyUploadFiles(uploadFilesCollectionHolder);
@@ -73,8 +71,3 @@ function addTagForm(collectionHolder, addTagLink)
         return false;
     });
 }
-
-jQuery('.inputRow').mouseover(function()
-{
-    jQuery(this).find('.comment').css('visibility', 'visible');
-});
