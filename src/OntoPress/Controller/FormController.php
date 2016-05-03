@@ -28,23 +28,12 @@ class FormController extends AbstractController
      */
     public function showManageAction(Request $request)
     {
-        if ($request->get('sort') !== null) {
-            $formManageTable = $this->showSortAction($request);
-        } else {
-            $id = $request->get('id', 0);
-
-            $ontology = $this->getDoctrine()
-                ->getRepository('OntoPress\Entity\Ontology')
-                ->find($id);
-
-            if (!$ontology) {
-                $formManageTable = $this->getDoctrine()
-                    ->getRepository('OntoPress\Entity\Form')
-                    ->findAll();
-            } else {
-                $formManageTable = $ontology->getOntologyForms();
-            }
-        }
+        $formManageTable = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
+            ->getSortedList(
+                $request->get('id', null),
+                $request->get('orderBy', null),
+                $request->get('order', null)
+            );
 
         return $this->render('form/manageForms.html.twig', array(
             'formManageTable' => $formManageTable,
@@ -77,7 +66,7 @@ class FormController extends AbstractController
         ));
 
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $ontoForm->setTwigCode(stripslashes($ontoForm->getTwigCode()));
             $this->getDoctrine()->persist($ontoForm);
@@ -249,27 +238,5 @@ class FormController extends AbstractController
             'formDelete' => $formDelete,
             'form' => $form->createView(),
         ));
-    }
-
-    private function showSortAction(Request $request)
-    {
-        $formRepository = $this->getDoctrine()->getRepository('OntoPress\Entity\Form');
-        $col = $request->get('sort');
-        switch ($col) {
-            case 'id':
-                $formSort = $formRepository->findBy(array(), array('id' => 'ASC'));
-                break;
-            case 'name':
-                $formSort = $formRepository->findBy(array(), array('name' => 'ASC'));
-                break;
-            case 'author':
-                $formSort = $formRepository->findBy(array(), array('author' => 'ASC'));
-                break;
-            case 'date':
-                $formSort = $formRepository->findBy(array(), array('date' => 'ASC'));
-                break;
-        }
-
-        return $formSort;
     }
 }

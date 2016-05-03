@@ -12,30 +12,21 @@
         <table class="wp-list-form widefat fixed striped users">
             <thead>
             <tr>
-                <th scope="col" id="id" style="width:90px" class="manage-column column-id column-primary sortable desc">
-                    <a href="{{ path('ontopress_forms', {'sort': 'id'}) }}">
-                        <span>ID</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="{{ path('ontopress_forms', {'sort': 'name'}) }}">
-                        <span>Name</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="{{ path('ontopress_forms', {'sort': 'author'}) }}">
-                        <span>Autor</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="{{ path('ontopress_forms', {'sort': 'date'}) }}">
-                        <span>Datum</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'id', 'colTitle': 'ID', 'colPath': 'ontopress_forms'} %}
+                    {% block colAttr %}
+                        {{ parent() }} style="width: 90px"
+                    {% endblock %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'name', 'colTitle': 'Name', 'colPath': 'ontopress_forms'} %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'author', 'colTitle': 'Autor', 'colPath': 'ontopress_forms'} %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'date', 'colTitle': 'Datum', 'colPath': 'ontopress_forms'} %}
+                {% endembed %}
             </thead>
             <tbody id="the-list" data-wp-lists="list:form">
             {% for form in formManageTable %}
@@ -73,30 +64,21 @@
             </tbody>
             <tfoot>
             <tr>
-                <th scope="col" id="id" class="manage-column column-primary sortable desc ">
-                    <a href="#">
-                        <span>ID</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="#">
-                        <span>Name</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="#">
-                        <span>Autor</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-name sortable desc">
-                    <a href="#">
-                        <span>Datum</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'id', 'colTitle': 'ID', 'colPath': 'ontopress_forms'} %}
+                    {% block colAttr %}
+                        {{ parent() }} style="width: 90px"
+                    {% endblock %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'name', 'colTitle': 'Name', 'colPath': 'ontopress_forms'} %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'author', 'colTitle': 'Autor', 'colPath': 'ontopress_forms'} %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                    with {'colName': 'date', 'colTitle': 'Datum', 'colPath': 'ontopress_forms'} %}
+                {% endembed %}
             </tfoot>
         </table>
     </form>
