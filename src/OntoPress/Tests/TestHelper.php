@@ -75,7 +75,6 @@ class TestHelper
         if (!$dataOntology) {
             $dataOntology = new DataOntology();
             $dataOntology->setName('Test DataOntology');
-
         }
         $ontologyField = new OntologyField();
         $ontologyField
