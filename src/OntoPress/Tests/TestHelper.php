@@ -65,13 +65,18 @@ class TestHelper
         return $dataOntology;
     }
 
-    public static function createOntologyField(DataOntology $dataOntology, Restriction $restriction = null)
+    public static function createOntologyField(DataOntology $dataOntology = null, Restriction $restriction = null)
     {
         if (!$restriction) {
             $restriction = new Restriction();
             $restriction->setName('Test Restriction');
         }
 
+        if (!$dataOntology) {
+            $dataOntology = new DataOntology();
+            $dataOntology->setName('Test DataOntology');
+
+        }
         $ontologyField = new OntologyField();
         $ontologyField
             ->setName('TestUri/TestOntologyField')
@@ -90,8 +95,16 @@ class TestHelper
         return $ontologyField;
     }
 
-    public static function createOntologyForm(Ontology $ontology, OntologyField $ontologyField = null)
+    public static function createOntologyForm(Ontology $ontology = null, OntologyField $ontologyField = null)
     {
+        if (!$ontology) {
+            $ontology = new Ontology();
+            $ontology
+                ->setName('Test Ontology '. uniqid())
+                ->setAuthor('Test User')
+                ->setDate(new \DateTime());
+        }
+
         $form = new Form();
         $form
             ->setName('Test Form')
