@@ -190,6 +190,6 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->assertEquals($this->subject, $result);
     }
     */
-    
+
     // TODO: exportRDF, deleteResources, countTriples
 }
