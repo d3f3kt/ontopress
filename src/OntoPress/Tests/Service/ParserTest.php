@@ -12,14 +12,26 @@ use OntoPress\Entity\Restriction;
 
 class ParserTest extends OntoPressTestCase
 {
+    /**
+     * OntologyParser Entity.
+     * @var OntologyParser
+     */
     private $parser;
 
+    /**
+     * Test setUp.
+     * Get called before every test.
+     */
     public function setUp()
     {
         parent::setUp();
         $this->parser = static::getContainer()->get('ontopress.ontology_parser');
     }
 
+    /**
+     * Test tearDown.
+     * Gets called after every test.
+     */
     public function tearDown()
     {
         unset($this->parser);
@@ -27,7 +39,7 @@ class ParserTest extends OntoPressTestCase
     }
 
     /**
-     * Test Parsing-method
+     * Tests Parsing-method.
      */
     public function testParsing()
     {
@@ -40,7 +52,7 @@ class ParserTest extends OntoPressTestCase
     }
 
     /**
-     * Test groupOntologies method, which should return a string identical to the given one, except cut off at the last '/'
+     * Tests groupOntologies method, which should return a string identical to the given one, except cut off at the last '/'
      */
     public function testGroupOntologies()
     {

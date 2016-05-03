@@ -5,8 +5,10 @@ namespace OntoPress\Tests;
 use OntoPress\Controller\ResourceController;
 use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
+use OntoPress\Tests\Entity\OntologyTest;
 use OntoPress\Service\SparqlManager;
 use Symfony\Component\HttpFoundation\Request;
+use Brain\Monkey\Functions;
 use OntoPress\Tests\TestHelper;
 
 /**
@@ -35,22 +37,25 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowAddAction()
     {
+        // $ontologyForm = TestHelper::createOntologyForm();
+        // array('formId' => $ontologyForm->getId())
         /*
-        $resourceOutputValidForm = $this->resourceController->showAddAction(new Request(
-            array('formId' => 1),
-            array('formEditType' => array(
-                'submit' => '',
-                'name' => 'Test Name',
-                'twigCode' => '{{ form(form) }}',
-            )),
-            array(),
-            array(),
-            array(),
-            array()
-        ));
+        $resourceOutputValidForm = $this->resourceController->showAddAction(
+            new Request(
+                array(),
+                array('OntoPressForm' => array(
+                    'OntologyField_' => 'testResource',
+                    'submit' => ''
+                )),
+                array(),
+                array(),
+                array(),
+                array('REQUEST_METHOD' => 'POST')
+            )
+        );
+
         $this->assertContains("window.location", $resourceOutputValidForm);
         */
-
         $resourceOutputNoValidForm = $this->resourceController->showAddAction(new Request());
         $this->assertContains("Ressourcen Hinzufügen", $resourceOutputNoValidForm);
     }

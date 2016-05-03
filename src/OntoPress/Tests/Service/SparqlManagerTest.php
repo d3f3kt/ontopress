@@ -187,4 +187,32 @@ class SparqlManagerTest extends OntoPressTestCase
 
         $this->assertEquals(1, $count);
     }
+
+    // TODO: exportRDF, getFormID, getStringFromUri, deleteResources, countTriples
+
+    public function testGetSortedTable()
+    {
+        $graph = new NamedNodeImpl('test:graph');
+        $subject = new NamedNodeImpl('test:subject');
+        $predicate = new NamedNodeImpl('OntoPress:author');
+        $nodeFactory = new NodeFactoryImpl();
+        $object = $nodeFactory->createLiteral('TestAuthor');
+        $statements = array(
+            new StatementImpl($subject, $predicate, $object),
+            new StatementImpl($subject, $subject, $object)
+        );
+        $this->store->dropGraph($graph);
+        $this->store->createGraph($graph);
+        $this->store->addStatements($statements, $graph);
+
+
+        $result = $this->sparqlManager->getSortedTable('author','ASC');
+        $this->assertEquals(array('subject'=>array('author'=>'TestAuthor')), $result);
+    }
+
+    public function testGetStringFromUri()
+    {
+        $resultString = $this->invokeMethod($this->sparqlManager, 'getStringFromUri', array('test:testUri'));
+        $this->assertEquals('test Uri', $resultString);
+    }
 }

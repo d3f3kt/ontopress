@@ -24,6 +24,7 @@ class AbstractControllerTest extends OntoPressTestCase
      */
     public function setUp()
     {
+        parent::setUp();
         $this->abstractController = $this->getMockForAbstractClass(
             'OntoPress\Library\AbstractController',
             array(static::getContainer())
@@ -37,6 +38,7 @@ class AbstractControllerTest extends OntoPressTestCase
     public function tearDown()
     {
         unset($this->abstractController);
+        parent::tearDown();
     }
 
     /**
