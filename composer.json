@@ -29,7 +29,7 @@
         "ext-odbc": "*",
         "ext-pdo_odbc": "*"
     },
-    "license": "private",
+    "license": "GPL",
     "authors": [
         {
             "name": "David Geistert",
