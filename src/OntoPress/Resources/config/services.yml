@@ -8,7 +8,7 @@ services:
 
     ontopress.sparql_manager:
         class: OntoPress\Service\SparqlManager
-        arguments: [@saft.store, @doctrine]
+        arguments: [@saft.store]
         lazy: true
 
     ontopress.arc2_manager:
