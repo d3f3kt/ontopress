@@ -206,7 +206,7 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->store->addStatements($statements, $graph);
 
 
-        $result = $this->sparqlManager->getSortedTable('author','ASC');
+        $result = $this->sparqlManager->getSortedTable('author', 'ASC');
         $this->assertEquals(array('subject'=>array('author'=>'TestAuthor')), $result);
     }
 
