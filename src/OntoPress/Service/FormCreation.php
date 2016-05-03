@@ -64,8 +64,8 @@ class FormCreation
         ));
         foreach ($ontoForm->getOntologyFields() as $field) {
             $this->addField($field, $builder);
-            $builder->get($field->getFormFieldName())->setData($formData[$field->getName()]);
         }
+        $builder->setData($formData);
         return $builder->getForm();
     }
 

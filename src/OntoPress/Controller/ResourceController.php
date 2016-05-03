@@ -186,12 +186,12 @@ class ResourceController extends AbstractController
         } else {
             return $this->redirectToRoute('ontopress_resource');
         }
-    
-        $formValues = $this->get('ontopress.sparql_manager')->getResourceTriples($resourceUri);
 
         $resForm = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
             ->findOneById($formId);
+        $formValues = $this->get('ontopress.sparql_manager')->getValueArray($resourceUri, $resForm);
         $form = $this->get('ontopress.form_creation')->create($resForm, $formValues)->add('submit', 'submit');
+        
         $form->handleRequest($request);
 
         if ($form->isValid()) {

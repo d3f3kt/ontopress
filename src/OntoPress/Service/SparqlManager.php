@@ -2,6 +2,7 @@
 
 namespace OntoPress\Service;
 
+use Doctrine\ORM\EntityManager;
 use Saft\Rdf\StatementImpl;
 use Saft\Sparql\Result\Result;
 use Saft\Store\Store;
@@ -19,10 +20,13 @@ class SparqlManager
      * @var Store
      */
     private $store;
-
-    public function __construct(Store $arc2)
+    
+    private $doctrine;
+    
+    public function __construct(Store $arc2, EntityManager $doctrine)
     {
         $this->store = $arc2;
+        $this->doctrine = $doctrine;
     }
 
     /**
@@ -86,6 +90,24 @@ class SparqlManager
             }
         }
         return $doubles;
+    }
+
+    /**
+     * Method to get array for inserting resourcedata in existing form
+     *
+     * @param  string $subject     requested Resource
+     * @param  Form   $form        form for inserting data
+     * @return array  $valueArray  data array
+     */
+    public function getValueArray($subject, $form)
+    {
+        $data = $this->getResourceTriples($subject);
+        $valueArray = array();
+        $valueArray['OntoPress:name'] = $data['OntoPress:name'];
+        foreach ($form->getOntologyFields() as $field) {
+            $valueArray[$field->getFormFieldName()] = $data[$field->getName()];
+        }
+        return $valueArray;
     }
 
     /**
