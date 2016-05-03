@@ -21,7 +21,7 @@ class SparqlManager
      */
     private $store;
     
-    public function __construct(Store $arc2, EntityManager $doctrine)
+    public function __construct(Store $arc2)
     {
         $this->store = $arc2;
     }
