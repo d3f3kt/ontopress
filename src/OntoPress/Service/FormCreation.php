@@ -53,96 +53,64 @@ class FormCreation
      *
      * @return SymForm SymfonyForm
      */
-    public function create(OntoForm $ontoForm)
+    public function create(OntoForm $ontoForm, $formData = null)
     {
         $builder = $this->getBuilder();
 
         $builder->add('OntologyField_', 'text', array(
             'label' => 'Ressourcenname',
             'required' => true,
+            'data' => $formData['OntoPress:name']
         ));
-
         foreach ($ontoForm->getOntologyFields() as $field) {
             $this->addField($field, $builder);
+            $builder->get($field->getFormFieldName())->setData($formData[$field->getName()]);
         }
-
         return $builder->getForm();
     }
 
-    private function addField(OntologyField $field, FormBuilderInterface $builder, $value = null)
+    private function addField(OntologyField $field, FormBuilderInterface $builder)
     {
         switch ($field->getType()) {
             case OntologyField::TYPE_TEXT:
-                return $this->addTextField($field, $builder, $value);
+                return $this->addTextField($field, $builder);
             case OntologyField::TYPE_RADIO:
-                return $this->addRadioField($field, $builder, $value);
+                return $this->addRadioField($field, $builder);
             case OntologyField::TYPE_SELECT:
-                return $this->addChoiceField($field, $builder, $value);
+                return $this->addChoiceField($field, $builder);
         }
     }
 
-    private function addTextField(OntologyField $field, FormBuilderInterface $builder, $value)
+    private function addTextField(OntologyField $field, FormBuilderInterface $builder)
     {
-        if (!$value) {
-            return $builder->add($field->getFormFieldName(), 'text', array(
-                'label' => $field->getLabel(),
-                'required' => $field->getMandatory(),
-            ));
-        } else {
-            return $builder->add($field->getFormFieldName(), 'text', array(
-                'label' => $field->getLabel(),
-                'required' => $field->getMandatory(),
-                'data' => $value,
-            ));
-        }
+        return $builder->add($field->getFormFieldName(), 'text', array(
+            'label' => $field->getLabel(),
+            'required' => $field->getMandatory(),
+        ));
     }
 
-    private function addRadioField(OntologyField $field, FormBuilderInterface $builder, $value)
+    private function addRadioField(OntologyField $field, FormBuilderInterface $builder)
     {
-        if (!$value) {
-            return $builder->add($field->getFormFieldName(), 'choice', array(
-                'label' => $field->getLabel(),
-                'required' => $field->getMandatory(),
-                'multiple' => false,
-                'expanded' => true,
-                'placeholder' => false,
-                'choices' => $this->restrictionHelper->getChoices($field),
-            ));
-        } else {
-            return $builder->add($field->getFormFieldName(), 'choice', array(
-                'label' => $field->getLabel(),
-                'required' => $field->getMandatory(),
-                'multiple' => false,
-                'expanded' => true,
-                'placeholder' => false,
-                'choices' => $this->restrictionHelper->getChoices($field),
-                'data' => $value,
-            ));
-        }
+        return $builder->add($field->getFormFieldName(), 'choice', array(
+            'label' => $field->getLabel(),
+            'required' => $field->getMandatory(),
+            'multiple' => false,
+            'expanded' => true,
+            'placeholder' => false,
+            'choices' => $this->restrictionHelper->getChoices($field),
+        ));
     }
 
-    private function addChoiceField(OntologyField $field, FormBuilderInterface $builder, $value)
+    private function addChoiceField(OntologyField $field, FormBuilderInterface $builder)
     {
-        if (!$value) {
-            return $builder->add($field->getFormFieldName(), 'choice', array(
-                'label' => $field->getLabel(),
-                'required' => $field->getMandatory(),
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder' => false,
-                'choices' => $this->restrictionHelper->getChoices($field),
-            ));
-        } else {
-            return $builder->add($field->getFormFieldName(), 'choice', array(
-                'label' => $field->getLabel(),
-                'required' => $field->getMandatory(),
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder' => false,
-                'choices' => $this->restrictionHelper->getChoices($field),
-                'data' => $value,
-            ));
-        }
+        return $builder->add($field->getFormFieldName(), 'choice', array(
+            'label' => $field->getLabel(),
+            'required' => $field->getMandatory(),
+            'multiple' => false,
+            'expanded' => false,
+            'placeholder' => false,
+            'choices' => $this->restrictionHelper->getChoices($field),
+        ));
     }
 
     /**
@@ -155,23 +123,5 @@ class FormCreation
         return $this->formFactory->createNamedBuilder('OntoPressForm', 'form', null, array(
             'block_name' => 'OntoPressForm',
         ));
-    }
-
-    public function createFilledForm(OntoForm $form, $formData)
-    {
-        $builder = $this->getBuilder();
-
-        $builder->add('OntologyField_', 'text', array(
-            'label' => 'Ressourcenname',
-            'required' => true,
-            'data' => $formData['OntoPress:name']
-        ));
-
-        foreach ($form->getOntologyFields() as $field) {
-            $value = $formData[$field->getName()];
-            $this->addField($field, $builder, $value);
-        }
-
-        return $builder->getForm();
     }
 }
