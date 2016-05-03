@@ -24,15 +24,39 @@ class SparqlManagerTest extends OntoPressTestCase
     private $store;
 
     /**
+     * Graph of a statement.
+     * @var String
+     */
+    private $graph;
+
+    /**
+     * Subject of a statement.
+     * @var String
+     */
+    private $subject;
+
+    /**
      * Test setUp.
      * Gets called before every test-method.
      */
     public function setUp()
     {
         parent::setUp();
-        
         $this->store = static::getContainer()->get('saft.store');
         $this->sparqlManager = static::getContainer()->get('ontopress.sparql_manager');
+
+        $this->graph = new NamedNodeImpl('test:graph');
+        $this->subject = new NamedNodeImpl('test:subject');
+        $predicate = new NamedNodeImpl('OntoPress:author');
+        $nodeFactory = new NodeFactoryImpl();
+        $object = $nodeFactory->createLiteral('TestAuthor');
+        $statements = array(
+            new StatementImpl($this->subject, $predicate, $object),
+            new StatementImpl($this->subject, $this->subject, $object)
+        );
+        // $this->store->dropGraph($this->graph);
+        $this->store->createGraph($this->graph);
+        $this->store->addStatements($statements, $this->graph);
     }
 
     /**
@@ -41,6 +65,8 @@ class SparqlManagerTest extends OntoPressTestCase
      */
     public function tearDown()
     {
+        unset($this->graph);
+        unset($this->subject);
         unset($this->sparqlManager);
         unset($this->store);
         parent::tearDown();
@@ -51,21 +77,8 @@ class SparqlManagerTest extends OntoPressTestCase
      */
     public function testGetAllTriples()
     {
-        $graph = new NamedNodeImpl('test:graph');
-        $subject = new NamedNodeImpl('test:subject');
-        $predicate = new NamedNodeImpl('test:predicate');
-        $nodeFactory = new NodeFactoryImpl();
-        $object = $nodeFactory->createLiteral('TestObject');
-        $statements = array(
-            new StatementImpl($subject, $predicate, $object),
-            new StatementImpl($predicate, $predicate, $object)
-        );
 
-        $this->store->dropGraph($graph);
-        $this->store->createGraph($graph);
-        $this->store->addStatements($statements, $graph);
-
-        $triples1 = $this->sparqlManager->getAllTriples($graph);
+        $triples1 = $this->sparqlManager->getAllTriples($this->graph);
         $triples2 = $this->sparqlManager->getAllTriples();
         $this->assertEquals($triples1, $triples2);
     }
@@ -75,8 +88,6 @@ class SparqlManagerTest extends OntoPressTestCase
      */
     public function testGetAllManageRows()
     {
-        $graph = new NamedNodeImpl('test:graph');
-        $subject = new NamedNodeImpl('test:subject');
         $predicateA = new NamedNodeImpl('OntoPress:author');
         $predicateT = new NamedNodeImpl('OntoPress:name');
         $predicateD = new NamedNodeImpl('OntoPress:date');
@@ -85,21 +96,21 @@ class SparqlManagerTest extends OntoPressTestCase
         $objectA = $nodeFactory->createLiteral('TestAuthor');
         $objectD = $nodeFactory->createLiteral('TestDate');
         $statements = array(
-            new StatementImpl($subject, $predicateT, $objectT),
-            new StatementImpl($subject, $predicateA, $objectA),
-            new StatementImpl($subject, $predicateD, $objectD),
+            new StatementImpl($this->subject, $predicateT, $objectT),
+            new StatementImpl($this->subject, $predicateA, $objectA),
+            new StatementImpl($this->subject, $predicateD, $objectD),
         );
 
-        $this->store->dropGraph($graph);
-        $this->store->createGraph($graph);
-        $this->store->addStatements($statements, $graph);
+        $this->store->dropGraph($this->graph);
+        $this->store->createGraph($this->graph);
+        $this->store->addStatements($statements, $this->graph);
 
         $expectedRow = array(
             'title' => 'TestTitle',
             'author' => 'TestAuthor',
             'date' => 'TestDate'
         );
-        $rows = $this->sparqlManager->getAllManageRows($graph);
+        $rows = $this->sparqlManager->getAllManageRows($this->graph);
         $this->assertContains($expectedRow, $rows);
     }
 
@@ -147,21 +158,7 @@ class SparqlManagerTest extends OntoPressTestCase
      */
     public function testGetResourceTriples()
     {
-        $graph = new NamedNodeImpl('test:graph');
-        $subject = new NamedNodeImpl('test:subject');
-        $predicate = new NamedNodeImpl('OntoPress:author');
-        $nodeFactory = new NodeFactoryImpl();
-        $object = $nodeFactory->createLiteral('TestAuthor');
-        $statements = array(
-            new StatementImpl($subject, $predicate, $object),
-            new StatementImpl($subject, $subject, $object)
-        );
-        $this->store->dropGraph($graph);
-        $this->store->createGraph($graph);
-        $this->store->addStatements($statements, $graph);
-        
-        $triple = $this->sparqlManager->getResourceTriples($subject, $graph);
-        
+        $triple = $this->sparqlManager->getResourceTriples($this->subject, $this->graph);
         $this->assertNotEmpty($triple);
     }
 
@@ -170,42 +167,12 @@ class SparqlManagerTest extends OntoPressTestCase
      */
     public function testCountResources()
     {
-        $graph = new NamedNodeImpl('test:graph');
-        $subject = new NamedNodeImpl('test:subject');
-        $predicate = new NamedNodeImpl('OntoPress:author');
-        $nodeFactory = new NodeFactoryImpl();
-        $object = $nodeFactory->createLiteral('TestAuthor');
-        $statements = array(
-            new StatementImpl($subject, $predicate, $object),
-            new StatementImpl($subject, $subject, $object)
-        );
-        $this->store->dropGraph($graph);
-        $this->store->createGraph($graph);
-        $this->store->addStatements($statements, $graph);
-
-        $count = $this->sparqlManager->countResources($graph);
-
+        $count = $this->sparqlManager->countResources($this->graph);
         $this->assertEquals(1, $count);
     }
 
-    // TODO: exportRDF, getFormID, getStringFromUri, deleteResources, countTriples
-
     public function testGetSortedTable()
     {
-        $graph = new NamedNodeImpl('test:graph');
-        $subject = new NamedNodeImpl('test:subject');
-        $predicate = new NamedNodeImpl('OntoPress:author');
-        $nodeFactory = new NodeFactoryImpl();
-        $object = $nodeFactory->createLiteral('TestAuthor');
-        $statements = array(
-            new StatementImpl($subject, $predicate, $object),
-            new StatementImpl($subject, $subject, $object)
-        );
-        $this->store->dropGraph($graph);
-        $this->store->createGraph($graph);
-        $this->store->addStatements($statements, $graph);
-
-
         $result = $this->sparqlManager->getSortedTable('author', 'ASC');
         $this->assertEquals(array('subject'=>array('author'=>'TestAuthor')), $result);
     }
@@ -215,4 +182,14 @@ class SparqlManagerTest extends OntoPressTestCase
         $resultString = $this->invokeMethod($this->sparqlManager, 'getStringFromUri', array('test:testUri'));
         $this->assertEquals('test Uri', $resultString);
     }
+
+    /*
+    public function testGetFormId()
+    {
+        $result = $this->sparqlManager->getFormId('test:subject');
+        $this->assertEquals($this->subject, $result);
+    }
+    */
+    
+    // TODO: exportRDF, deleteResources, countTriples
 }
