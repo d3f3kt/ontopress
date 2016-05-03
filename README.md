@@ -1,4 +1,4 @@
-# Project Name
+# OntoPress
 
 This Wordpress plugin allows the retrieval of information for places and buildings,
 using html forms, which  evaluate ontologys and save the information in semantic web graphs.
@@ -54,18 +54,3 @@ In the next step you will see a list of all properties of the form.
 You now need to set a name for the resource, as well as the data for each field and confirm it.
 The resource will be added to the resource management page, where you can delete it or,
 choose "edit" to alter the values of the properties.
-
-
-## License
-
- Copyright (C) 2016 
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
