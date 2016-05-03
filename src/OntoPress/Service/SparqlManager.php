@@ -206,7 +206,7 @@ class SparqlManager
         $allRows = $this->getAllManageRows($graph);
         $wantedRows = array();
         foreach ($allRows as $resource => $data) {
-            if (strpos(strtolower($resource), strtolower($uriPart)) !== false) {
+            if (strpos(strtolower($data['title']), strtolower($uriPart)) !== false) {
                 $wantedRows[$resource] = $data;
             }
         }
@@ -264,12 +264,25 @@ class SparqlManager
         }
         return $answer;
     }
-    
+
+    /**
+     * Method for returning an ordered array of resources
+     *
+     * @param  string $sortBy property to sort
+     * @param  string $order  "ASC" or "DESC"
+     * @return array          sorted Array
+     */
     public function getSortedTable($sortBy, $order)
     {
         $query = 'SELECT * WHERE { ?s ?p ?o ; <OntoPress:'.$sortBy.'> ?sort. } ORDER BY '.$order.'(?sort)';
         $result = $this->store->query($query);
 
         return $this->getRows($result);
+    }
+
+    public function exportRdf($graph = null)
+    {
+        $triples = $this->getAllTriples($graph);
+        
     }
 }
