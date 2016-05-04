@@ -2,6 +2,7 @@
 
 namespace OntoPress\Tests;
 
+use OntoPress\Entity\Form;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Service\SparqlManager;
 use Saft\Rdf\NodeFactoryImpl;
@@ -81,7 +82,6 @@ class SparqlManagerTest extends OntoPressTestCase
      */
     public function testGetAllTriples()
     {
-
         $triples1 = $this->sparqlManager->getAllTriples($this->graph);
         $triples2 = $this->sparqlManager->getAllTriples();
         $this->assertEquals($triples1, $triples2);
@@ -207,6 +207,13 @@ class SparqlManagerTest extends OntoPressTestCase
         // TODO: cant get the given Uri to work
         $this->sparqlManager->deleteResource('test:author');
         $this->assertEquals(0, $this->sparqlManager->countResources($this->graph));
+    }
+
+    public function testGetValueArray()
+    {
+        // TODO: wrong Form Entity? OntoPress:name in subject missing.
+        $result = $this->sparqlManager->getValueArray($this->subject, new Form());
+        $this->assertEquals(1, count($result));
     }
     */
 }
