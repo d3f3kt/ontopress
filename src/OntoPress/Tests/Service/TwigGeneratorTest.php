@@ -50,9 +50,23 @@ class TwigGeneratorTest extends OntoPressTestCase
         // generateLabel fail test
     }
 
-    public function generateFieldValue()
+    public function testGenerateFieldValue()
     {
         $result = $this->invokeMethod($this->twigGenerator, 'generateFieldValue', array($this->ontologyField));
-        $this->assertContains('id=OntoPressForm_', $result);
+        // $this->assertContains('required', $result);
+        $this->assertEquals(1 ,count($result));
+    }
+
+    public function testGenerateChoiceAttributes()
+    {
+        $result = $this->invokeMethod($this->twigGenerator, 'generateChoiceAttributes', array($this->ontologyField));
+        $this->assertEquals('id="OntoPressForm_'.$this->ontologyField->getFormFieldName().'_%id%" '.
+            'name="OntoPressForm['.$this->ontologyField->getFormFieldName().']"', $result);
+    }
+
+    public function testCreateFieldVarName()
+    {
+        $result = $this->invokeMethod($this->twigGenerator, 'createFieldVarName', array($this->ontologyField));
+        $this->assertEquals('form.children.'.$this->ontologyField->getFormFieldName().'.vars', $result);
     }
 }
