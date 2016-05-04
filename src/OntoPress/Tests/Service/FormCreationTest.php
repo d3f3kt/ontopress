@@ -4,6 +4,7 @@ namespace OntoPress\Tests;
 
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Entity\OntologyField;
+use OntoPress\Service\OntologyParser;
 use OntoPress\Service\SparqlManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
@@ -15,12 +16,34 @@ use OntoPress\Tests\Entity\OntologyTest;
 use OntoPress\Tests\TestHelper;
 use OntoPress\Service\FormCreation;
 
+/**
+ * Class FormCreationTest
+ * Tests FormCreation Class.
+ */
 class FormCreationTest extends OntoPressTestCase
 {
+    /**
+     * FormCreation Instance.
+     * @var FormCreation
+     */
     private $formCreator;
+
+    /**
+     * Parser Entity.
+     * @var OntologyParser
+     */
     private $parser;
+
+    /**
+     *
+     * @var
+     */
     private $doctrine;
 
+    /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         parent::setUp();
@@ -31,6 +54,10 @@ class FormCreationTest extends OntoPressTestCase
 
     }
 
+    /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->formCreator);
@@ -39,6 +66,9 @@ class FormCreationTest extends OntoPressTestCase
         parent::tearDown();
     }
 
+    /**
+     * Tests creation method.
+     */
     public function testFormCreation()
     {
         $ontology = TestHelper::createTestOntology();
@@ -52,6 +82,9 @@ class FormCreationTest extends OntoPressTestCase
         $this->twigGenerator->generate($form);
     }
 
+    /**
+     * Tests addField and connected methods.
+     */
     public function testAddField()
     {
         $formBuilder = $this->invokeMethod($this->formCreator, 'getBuilder', array());
@@ -70,15 +103,5 @@ class FormCreationTest extends OntoPressTestCase
         $ontologyFieldSelect->setType(OntologyField::TYPE_SELECT);
         $result3 = $this->invokeMethod($this->formCreator, 'addField', array($ontologyFieldSelect, $formBuilder));
         $this->assertEquals($formBuilder, $result3);
-    }
-
-    public function testCreateFilledForm()
-    {
-        /*
-        $resourceUri
-        $formValues = $this->get('ontopress.sparql_manager')->getResourceTriples($resourceUri);
-        $ontologyForm = TestHelper::createOntologyForm();
-        $this->formCreator->createFilledForm($ontologyForm, $formValues);
-        */
     }
 }

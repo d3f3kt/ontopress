@@ -6,28 +6,50 @@ use OntoPress\Library\Router;
 use OntoPress\Library\OntoPressWPTestCase;
 use Brain\Monkey\Functions;
 
+/**
+ * Class RouterTest
+ * Tests the Router Class.
+ */
 class RouterTest extends OntoPressWPTestCase
 {
+    /**
+     * Router Instance.
+     * @var Router
+     */
     private $router;
 
+    /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         parent::setUp();
         $this->router = new Router(static::getContainer());
     }
 
+    /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->router);
         parent::tearDown();
     }
 
+    /**
+     * Tests generate method.
+     */
     public function testGenerate()
     {
         $result = $this->invokeMethod($this->router, 'generate', array("ontopress", array()));
         $this->assertContains("?page=ontopress", $result);
     }
 
+    /**
+     * Tests setRoutes method.
+     */
     public function testSetRoutes()
     {
         Functions::when('add_menu_page')->justReturn(true);
@@ -36,6 +58,9 @@ class RouterTest extends OntoPressWPTestCase
         $this->router->setRoutes();
     }
 
+    /**
+     * Tests controllerCall method.
+     */
     public function testControllerCall()
     {
         ob_start();
@@ -45,6 +70,7 @@ class RouterTest extends OntoPressWPTestCase
     }
 
     /**
+     * Tests badMethodException.
      * @expectedException BadMethodCallException
      */
     public function testBadMethodException()
@@ -53,6 +79,7 @@ class RouterTest extends OntoPressWPTestCase
     }
 
     /**
+     * Tests invalidControllerCallException.
      * @expectedException OntoPress\Library\Exception\InvalidControllerCallException
      */
     public function testInvalidControllerCallException()
@@ -61,6 +88,7 @@ class RouterTest extends OntoPressWPTestCase
     }
 
     /**
+     * Tests noActionException.
      * @expectedException OntoPress\Library\Exception\NoActionException
      */
     public function testNoActionException()
@@ -69,6 +97,7 @@ class RouterTest extends OntoPressWPTestCase
     }
 
     /**
+     * Tests noControllerException.
      * @expectedException OntoPress\Library\Exception\NoControllerException
      */
     public function testNoControllerException()
