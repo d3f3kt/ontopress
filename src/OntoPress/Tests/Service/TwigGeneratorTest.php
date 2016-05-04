@@ -54,7 +54,7 @@ class TwigGeneratorTest extends OntoPressTestCase
     {
         $result = $this->invokeMethod($this->twigGenerator, 'generateFieldValue', array($this->ontologyField));
         // $this->assertContains('required', $result);
-        $this->assertEquals(1 ,count($result));
+        $this->assertEquals(1, count($result));
     }
 
     public function testGenerateChoiceAttributes()
