@@ -77,3 +77,9 @@
     display: block;
     margin-left: 10px;
 }
+
+#OntoPressForm .required::after{
+    content: "*";
+    color: red;
+    margin-left: 4px;
+}

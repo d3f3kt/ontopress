@@ -6,7 +6,7 @@ use OntoPress\Entity\Form;
 use OntoPress\Entity\OntologyField;
 
 /**
- * Class TwigGenerator
+ * Class TwigGenerator.
  *
  * To make customizing forms more comfortable, this class generates a base Twig
  * structure which contains all OntologyFields of a given OntoPressForm.
@@ -134,7 +134,7 @@ class TwigGenerator
     }
 
     /**
-     * Generate Select Field
+     * Generate Select Field.
      *
      * @param OntologyField $ontologyField Ontology Field
      *
@@ -196,7 +196,7 @@ class TwigGenerator
     private function generateFieldValue(OntologyField $ontologyField)
     {
         return '{{ '.$this->createFieldVarName($ontologyField).'.value is not empty ? '
-            ."'value=\"' ~ ".$this->createFieldVarName($ontologyField).'.value }}';
+            ."'value=' ~ ".$this->createFieldVarName($ontologyField).'.value }}';
     }
 
     /**
@@ -208,8 +208,14 @@ class TwigGenerator
      */
     private function generateFieldAttributes(OntologyField $ontologyField)
     {
-        return 'id="OntoPressForm_'.$ontologyField->getFormFieldName().'" '.
-            'name="OntoPressForm['.$ontologyField->getFormFieldName().']"';
+        $attr = array();
+        $attr['id'] = 'id="OntoPressForm_'.$ontologyField->getFormFieldName().'"';
+        $attr['name'] = 'name="OntoPressForm['.$ontologyField->getFormFieldName().']"';
+        if ($ontologyField->getMandatory()) {
+            $attr['required'] = 'required="required"';
+        }
+
+        return implode(' ', $attr);
     }
 
     /**
