@@ -23,7 +23,7 @@ services:
 
     ontopress.form_creation:
         class: OntoPress\Service\FormCreation
-        arguments: [@symfony.form, @ontopress.restriction_helper]
+        arguments: [@symfony.form, @ontopress.restriction_helper, @symfony.validator]
         lazy: true
 
     ontopress.restriction_helper:

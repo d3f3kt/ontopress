@@ -2,16 +2,15 @@
 
 namespace OntoPress\Service;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form as SymForm;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use OntoPress\Form\Base\SubmitCancelType;
 use OntoPress\Entity\Form as OntoForm;
 use OntoPress\Entity\OntologyField;
+use Symfony\Component\Validator\Constraints;
 
 /**
- * Class FormCreation
+ * Class FormCreation.
  *
  * Service to generate a SymfonyForm of an OntoPressForm.
  */
@@ -35,9 +34,8 @@ class FormCreation
      * The Constructor is automatically called by creating a new FormCreation.
      * It initializes the formFactory and restrictionHelper with the given parameters.
      *
-     * @param FormFactoryInterface $formFactory Form Factory
-     *
-     * @param RestrictionHelper        $restrictionHelper    RestrictionHelper
+     * @param FormFactoryInterface $formFactory       Form Factory
+     * @param RestrictionHelper    $restrictionHelper RestrictionHelper
      */
     public function __construct(FormFactoryInterface $formFactory, RestrictionHelper $restrictionHelper)
     {
@@ -60,13 +58,30 @@ class FormCreation
         $builder->add('OntologyField_', 'text', array(
             'label' => 'Ressourcenname',
             'required' => true,
-            'data' => $formData['OntoPress:name']
+            'data' => $formData['OntoPress:name'],
         ));
         foreach ($ontoForm->getOntologyFields() as $field) {
             $this->addField($field, $builder);
         }
         $builder->setData($formData);
+
         return $builder->getForm();
+    }
+
+    private function getConstraints(OntologyField $field)
+    {
+        $constraints = array();
+
+        if ($field->getMandatory()) {
+            $constraints[] = new Constraints\NotBlank();
+        }
+        if ($regex = $field->getRegex()) {
+            $constraints[] = new Constraints\Regex(array(
+                'pattern' => $regex,
+            ));
+        }
+
+        return $constraints;
     }
 
     private function addField(OntologyField $field, FormBuilderInterface $builder)
@@ -86,6 +101,7 @@ class FormCreation
         return $builder->add($field->getFormFieldName(), 'text', array(
             'label' => $field->getLabel(),
             'required' => $field->getMandatory(),
+            'constraints' => $this->getConstraints($field),
         ));
     }
 
