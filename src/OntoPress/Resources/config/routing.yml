@@ -80,9 +80,3 @@ sites:
                 capability: manage_options
                 controller: Resource:showEdit
                 virtual:    true
-            test:
-                page_title: Test
-                menu_title: Test
-                capability: manage_options
-                controller: Test:showAdd
-                virtual:    true
