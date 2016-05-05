@@ -100,6 +100,7 @@ class TwigGenerator
             'error' => '{{form_errors(form.'.$ontologyField->getFormFieldName().')}}',
             'type' => 'text',
             'comment' => $ontologyField->getComment(),
+            'errors' => $this->generateFieldErrors($ontologyField),
             'widget' => array(
                 'val' => $this->generateFieldValue($ontologyField),
                 'attr' => $this->generateFieldAttributes($ontologyField),
@@ -197,6 +198,18 @@ class TwigGenerator
     {
         return '{{ '.$this->createFieldVarName($ontologyField).'.value is not empty ? '
             ."'value=' ~ ".$this->createFieldVarName($ontologyField).'.value }}';
+    }
+
+    /**
+     * Generate error list for form field.
+     *
+     * @param OntologyField $ontologyField Ontology Field
+     *
+     * @return string error list
+     */
+    private function generateFieldErrors(OntologyField $ontologyField)
+    {
+        return '{{ form_errors(form.'.$ontologyField->getFormFieldName().') }}';
     }
 
     /**

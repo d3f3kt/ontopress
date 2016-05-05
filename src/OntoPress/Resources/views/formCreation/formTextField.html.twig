@@ -1,4 +1,5 @@
         <td class='inputRow'>
+            {{ formField.errors }}
             <input type="text" {{ formField.widget.attr|raw }} {{ formField.widget.val|raw }} />
             {% if formField.comment is not empty -%}
             <span class="dashicons dashicons-info"></span>

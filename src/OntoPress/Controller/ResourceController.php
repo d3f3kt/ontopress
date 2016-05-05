@@ -14,7 +14,6 @@ use OntoPress\Form\Resource\Type\DeleteResourceType;
  */
 class ResourceController extends AbstractController
 {
-
     /**
      * Handle the add request of a new resource.
      *
@@ -33,15 +32,19 @@ class ResourceController extends AbstractController
             'doctrineManager' => $this->get('ontopress.doctrine_manager'),
             'ontologies' => $ontologies,
         ));
+
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $formData = $form->getData();
             $ontoFormId = $formData['Formular'];
+
             return $this->redirectToRoute(
                 'ontopress_resourceAddDetails',
                 array('formId' => $ontoFormId)
             );
         }
+
         return $this->render('resource/resourceAdd.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -70,6 +73,7 @@ class ResourceController extends AbstractController
 
         $form = $this->get('ontopress.form_creation')->create($formEntity)->add('submit', 'submit');
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $arc2Manager = $this->get('ontopress.arc2_manager');
             $arc2Manager->store($form->getData(), $formId, wp_get_current_user()->user_nicename);
@@ -77,7 +81,7 @@ class ResourceController extends AbstractController
                 'success',
                 'Ressource erfolgreich gespeichert'
             );
-            
+
             return $this->redirectToRoute('ontopress_resource');
         }
 
@@ -100,13 +104,13 @@ class ResourceController extends AbstractController
         $sparqlManager = $this->get('ontopress.sparql_manager');
         $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
         $graphs = array();
-        
+
         foreach ($ontologies as $ontology) {
             $graphs[] = array(
                 'name' => $ontology->getName(),
             );
         }
-        
+
         if (!empty($request->get('s'))) {
             if (!$request->get('graph')) {
                 $resourceManageTable = $this->getSearchTable($request->get('s'));
@@ -117,22 +121,21 @@ class ResourceController extends AbstractController
             if ((empty($graph))) {
                 $resourceManageTable = $sparqlManager->getAllManageRows();
             } else {
-                $graph = 'graph:' . $graph;
+                $graph = 'graph:'.$graph;
                 $resourceManageTable = $sparqlManager->getAllManageRows($graph);
             }
         }
-        
+
         if (!empty($orderBy = $request->get('orderBy'))) {
             $resourceManageTable = $sparqlManager->getSortedTable($orderBy, $request->get('order'));
         }
-        
+
         return $this->render('resource/resourceManagement.html.twig', array(
             'resourceManageTable' => $resourceManageTable,
             'graphs' => $graphs,
         ));
-        
     }
-    
+
     /**
      * Handle the delete request of one or more resources.
      *
@@ -147,27 +150,29 @@ class ResourceController extends AbstractController
         ));
 
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $this->get('ontopress.sparql_manager')->deleteResource($resource);
             $this->addFlashMessage(
                 'success',
                 'Ressource erfolgreich gelöscht.'
             );
-            
+
             return $this->redirectToRoute('ontopress_resource');
         }
+
         return $this->render('resource/resourceDelete.html.twig', array(
             'title' => $request->get('title'),
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
 
     /**
-     * Handle editing of a resource
+     * Handle editing of a resource.
      *
-     * @param  Request  $request
-     * @return string   rendered twig template
+     * @param Request $request
+     *
+     * @return string rendered twig template
      */
     public function showEditAction(Request $request)
     {
@@ -191,7 +196,7 @@ class ResourceController extends AbstractController
             ->findOneById($formId);
         $formValues = $this->get('ontopress.sparql_manager')->getValueArray($resourceUri, $resForm);
         $form = $this->get('ontopress.form_creation')->create($resForm, $formValues)->add('submit', 'submit');
-        
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -221,7 +226,7 @@ class ResourceController extends AbstractController
         if (!$graph) {
             $resourceManageTable = $sparqlManager->getResourceRowsLike($searchString);
         } else {
-            $graph = 'graph:'. $graph;
+            $graph = 'graph:'.$graph;
             $resourceManageTable = $sparqlManager->getResourceRowsLike($searchString, $graph);
         }
 
