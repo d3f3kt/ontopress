@@ -2,6 +2,7 @@
 
 namespace OntoPress\Tests;
 
+use OntoPress\Entity\Form;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Service\SparqlManager;
 use Saft\Rdf\NodeFactoryImpl;
@@ -9,6 +10,10 @@ use Saft\Rdf\NamedNodeImpl;
 use Saft\Rdf\StatementImpl;
 use Saft\Store\Store;
 
+/**
+ * Class SparqlManagerTest
+ * Tests SparqlManager Service.
+ */
 class SparqlManagerTest extends OntoPressTestCase
 {
     /**
@@ -77,7 +82,6 @@ class SparqlManagerTest extends OntoPressTestCase
      */
     public function testGetAllTriples()
     {
-
         $triples1 = $this->sparqlManager->getAllTriples($this->graph);
         $triples2 = $this->sparqlManager->getAllTriples();
         $this->assertEquals($triples1, $triples2);
@@ -154,7 +158,7 @@ class SparqlManagerTest extends OntoPressTestCase
     }
 
     /**
-     * Test getResourceTriples
+     * Tests getResourceTriples method.
      */
     public function testGetResourceTriples()
     {
@@ -163,7 +167,7 @@ class SparqlManagerTest extends OntoPressTestCase
     }
 
     /**
-     * Test countResources
+     * Tests countResources method.
      */
     public function testCountResources()
     {
@@ -171,12 +175,18 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->assertEquals(1, $count);
     }
 
+    /**
+     * Tests getSortedTable method.
+     */
     public function testGetSortedTable()
     {
         $result = $this->sparqlManager->getSortedTable('author', 'ASC');
         $this->assertEquals(array('subject'=>array('author'=>'TestAuthor')), $result);
     }
 
+    /**
+     * Tests getStringFromUri method.
+     */
     public function testGetStringFromUri()
     {
         $resultString = $this->invokeMethod($this->sparqlManager, 'getStringFromUri', array('test:testUri'));
@@ -186,10 +196,24 @@ class SparqlManagerTest extends OntoPressTestCase
     /*
     public function testGetFormId()
     {
+        // TODO: make exception for testing in sparqlManager?
         $result = $this->sparqlManager->getFormId('test:subject');
         $this->assertEquals($this->subject, $result);
     }
-    */
 
-    // TODO: exportRDF, deleteResources, countTriples
+
+    public function testDeleteResource()
+    {
+        // TODO: cant get the given Uri to work
+        $this->sparqlManager->deleteResource('test:author');
+        $this->assertEquals(0, $this->sparqlManager->countResources($this->graph));
+    }
+
+    public function testGetValueArray()
+    {
+        // TODO: wrong Form Entity? OntoPress:name in subject missing.
+        $result = $this->sparqlManager->getValueArray($this->subject, new Form());
+        $this->assertEquals(1, count($result));
+    }
+    */
 }
