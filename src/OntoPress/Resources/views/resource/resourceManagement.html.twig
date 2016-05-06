@@ -23,6 +23,8 @@
                 </select>
             </div>
         </div>
+    </form>
+    <form method="get">
         <table class="wp-list-resource widefat fixed striped users">
             <thead>
                 <tr>
@@ -45,8 +47,8 @@
             {% for resource in resourceManageTable %}
                 <tr>
                     <th class="check-column" scope="row">
-                        <label for="resource_1" class="screen-reader-text">Augustusplatz auswählen</label>
-                        <input type="checkbox" value="1" id="resource_1" name="resources[]">
+                        <label for="{{ resource.uri }}" class="screen-reader-text">{{ resource.title }} auswählen</label>
+                        <input type="checkbox" value="{{ resource.uri }}" id="{{ resource.uri }}" name="resources[]">
                     </th>
                     <td class="Titel column-Titel" data-colname="Titel">
                         <p>{{ resource.title }}</p>
@@ -82,13 +84,12 @@
             </tr>
             </tfoot>
         </table>
-    </form>
     <div class="tablenav bottom">
-        <select name="action">
-            <option value="value1" selected>Aktion wählen</option>
-            <option value="value3">In Papierkorb legen</option>
+        <select name="page">
+            <option value="" selected>Aktion wählen</option>
+            <option value="ontopress_resourceDelete">Löschen</option>
         </select>
-        <button type="button" class="button">Übernehmen</button>
+        <button type="submit" class="button">Übernehmen</button>
     </div>
-
+    </form>
 {% endblock %}
