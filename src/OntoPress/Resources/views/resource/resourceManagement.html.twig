@@ -70,24 +70,15 @@
                     <label for="cb-select-all-1" class="screen-reader-text">Alle auswählen</label>
                     <input type="checkbox" id="cb-select-all-1">
                 </td>
-                <th scope="col" class="manage-column column-titel sortable desc">
-                    <a href="#">
-                        <span>Titel</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-autor sortable desc">
-                    <a href="#">
-                        <span>Autor</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
-                <th scope="col" class="manage-column column-datum sortable desc">
-                    <a href="#">
-                        <span>Datum</span>
-                        <span class="sorting-indicator"></span>
-                    </a>
-                </th>
+                {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'name', 'colTitle': 'Titel', 'colPath': 'ontopress_resource'} %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'author', 'colTitle': 'Autor', 'colPath': 'ontopress_resource'} %}
+                {% endembed %}
+                {% embed 'snippets/sortableColumn.html.twig'
+                with {'colName': 'date', 'colTitle': 'Datum', 'colPath': 'ontopress_resource'} %}
+                {% endembed %}
             </tr>
             </tfoot>
         </table>
