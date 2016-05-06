@@ -112,6 +112,7 @@ class TestHelper
             ->setDate(new \DateTime())
             ->setTwigCode('{{ form(form) }}')
             ->setOntology($ontology);
+        $ontology->addOntologyForm($form);
 
         if (!$ontologyField) {
             foreach ($ontology->getDataOntologies() as $dataOntology) {

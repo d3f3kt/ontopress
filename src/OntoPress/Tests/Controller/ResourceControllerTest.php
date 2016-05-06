@@ -37,14 +37,18 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowAddAction()
     {
-        // $ontologyForm = TestHelper::createOntologyForm();
-        // array('formId' => $ontologyForm->getId())
-        /*
+        $ontologyEntity = TestHelper::createTestOntology();
+        $formEntity = TestHelper::createOntologyForm($ontologyEntity);
+        static::getContainer()->get('doctrine')->persist($ontologyEntity);
+        static::getContainer()->get('doctrine')->persist($formEntity);
+        static::getContainer()->get('doctrine')->flush();
+
+        $this->assertContains("addResourceType", $this->resourceController->showAddAction(new Request()));
         $resourceOutputValidForm = $this->resourceController->showAddAction(
             new Request(
                 array(),
-                array('OntoPressForm' => array(
-                    'OntologyField_' => 'testResource',
+                array('addResourceType' => array(
+                    'form' => '1',
                     'submit' => ''
                 )),
                 array(),
@@ -55,9 +59,6 @@ class ResourceControllerTest extends OntoPressTestCase
         );
 
         $this->assertContains("window.location", $resourceOutputValidForm);
-        */
-        $resourceOutputNoValidForm = $this->resourceController->showAddAction(new Request());
-        $this->assertContains("Ressourcen Hinzufügen", $resourceOutputNoValidForm);
     }
 
     /**
