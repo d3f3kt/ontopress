@@ -21,7 +21,7 @@ class AddResourceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Formular', 'choice', ['choices' => $this->generateChoices($options)])
+            ->add('form', 'choice', ['choices' => $this->generateChoices($options)])
             ->add('submit', new SubmitCancelType(), array(
                 'label' => 'Weiter',
                 'attr' => array('class' => 'button button-primary'),
@@ -34,13 +34,13 @@ class AddResourceType extends AbstractType
     {
         $ontologyArray = array();
         foreach ($options['ontologies'] as $key => $ontology) {
-            $temp = $ontology->getOntologyForms();
             $formArray = array();
-            foreach ($temp as $form) {
+            foreach ($ontology->getOntologyForms() as $form) {
                 $formArray[$form->getId()] = $form->getName();
             }
             $ontologyArray[$ontology->getName()] = $formArray;
         }
+        
         return $ontologyArray;
     }
 

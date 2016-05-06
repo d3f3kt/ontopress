@@ -37,7 +37,7 @@ class ResourceController extends AbstractController
 
         if ($form->isValid()) {
             $formData = $form->getData();
-            $ontoFormId = $formData['Formular'];
+            $ontoFormId = $formData['form'];
 
             return $this->redirectToRoute(
                 'ontopress_resourceAddDetails',
@@ -73,7 +73,6 @@ class ResourceController extends AbstractController
 
         $form = $this->get('ontopress.form_creation')->create($formEntity)->add('submit', 'submit');
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $arc2Manager = $this->get('ontopress.arc2_manager');
             $arc2Manager->store($form->getData(), $formId, wp_get_current_user()->user_nicename);
@@ -143,49 +142,28 @@ class ResourceController extends AbstractController
      */
     public function showDeleteAction(Request $request)
     {
+        $resource = $request->get('uri');
+        //delete not edit
         $form = $this->createForm(new DeleteResourceType(), null, array(
             'cancel_link' => $this->generateRoute('ontopress_resource'),
         ));
 
         $form->handleRequest($request);
 
-        if ($resource = $request->get('uri')) {
-            if ($form->isValid()) {
-                $this->get('ontopress.sparql_manager')->deleteResource($resource);
-                $this->addFlashMessage(
-                    'success',
-                    'Ressource erfolgreich gelöscht.'
-                );
+        if ($form->isValid()) {
+            $this->get('ontopress.sparql_manager')->deleteResource($resource);
+            $this->addFlashMessage(
+                'success',
+                'Ressource erfolgreich gelöscht.'
+            );
 
-                return $this->redirectToRoute('ontopress_resource');
-            }
-
-            return $this->render('resource/resourceDelete.html.twig', array(
-                'title' => $request->get('title'),
-                'form' => $form->createView(),
-            ));
-        } else {
-            $resources = $request->get('resources');
-            if ($form->isValid()) {
-                foreach ($resources as $resource) {
-                    $this->get('ontopress.sparql_manager')->deleteResource($resource);
-                }
-                $this->addFlashMessage(
-                    'success',
-                    'Ressourcen erfolgreich gelöscht.'
-                );
-
-                return $this->redirectToRoute('ontopress_resource');
-            }
-
-            $title = $resources[0].' und '.(sizeof($resources)-1).' weitere';
-            
-            return $this->render('resource/resourceDelete.html.twig', array(
-                'title' => $title,
-                'form' => $form->createView(),
-            ));
+            return $this->redirectToRoute('ontopress_resource');
         }
 
+        return $this->render('resource/resourceDelete.html.twig', array(
+            'title' => $request->get('title'),
+            'form' => $form->createView(),
+        ));
     }
 
     /**
