@@ -68,7 +68,7 @@ class TwigGenerator
     }
 
     /**
-     * Decide which form field typ should be rendered.
+     * Decide which form field type should be rendered.
      *
      * @param OntologyField $ontologyField Ontology Field
      *
