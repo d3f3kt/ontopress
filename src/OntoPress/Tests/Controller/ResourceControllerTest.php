@@ -17,15 +17,25 @@ use OntoPress\Tests\TestHelper;
  */
 class ResourceControllerTest extends OntoPressTestCase
 {
-
+    /**
+     * @var resourceController
+     */
     private $resourceController;
 
+     /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         parent::setUp();
         $this->resourceController = new ResourceController(static::getContainer());
     }
 
+     /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->resourceController);

@@ -180,6 +180,9 @@ class FormControllerTest extends OntoPressWPTestCase
         $this->assertContains('<label class="required">Ontology fields</label>', $validId);
     }
 
+    /**
+     * Tests showCreateFormAction method, should return a rendered twig template.
+     */
     public function testShowCreateFormAction()
     {
         Functions::when('wp_get_current_user')->alias(array('OntoPress\Tests\TestHelper', 'emulateWPUser'));

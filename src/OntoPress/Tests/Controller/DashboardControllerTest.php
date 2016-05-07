@@ -16,12 +16,20 @@ class DashboardControllerTest extends OntoPressTestCase
      */
     private $dashboardController;
 
+     /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         parent::setUp();
         $this->dashboardController = new DashboardController(static::getContainer());
     }
 
+     /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($this->dashboardController);

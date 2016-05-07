@@ -49,6 +49,9 @@ class OntologyControllerTest extends OntoPressWPTestCase
         $this->assertContains('Ontologie Verwaltung', $manageOutput);
     }
 
+    /**
+     * Tests showAddAction method, should add an ontology and return a rendered twig template.
+     */
     public function testAddAction()
     {
         Functions::when('wp_get_current_user')->alias(array('OntoPress\Tests\TestHelper', 'emulateWPUser'));
@@ -82,6 +85,9 @@ class OntologyControllerTest extends OntoPressWPTestCase
         $this->assertEquals($uploadedOntology->getOntologyFiles()->count(), 2);
     }
 
+    /**
+     * Tests showDeleteAction method, should remove a selected ontology and return a rendered twig template.
+     */
     public function testDeleteAction()
     {
         // create test ontology
