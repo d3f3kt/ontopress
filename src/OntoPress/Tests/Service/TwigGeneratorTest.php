@@ -8,11 +8,28 @@ use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Service\RestrictionHelper;
 use OntoPress\Service\TwigGenerator;
 
+/**
+ * Class TwigGeneratorTest
+ * Tests the twig generator.
+ */
 class TwigGeneratorTest extends OntoPressTestCase
 {
+    /**
+     * @var twigGenerator
+     */
     private $twigGenerator;
+
+    /**
+     * OntologyField Entity.
+     *
+     * @var ontologyField
+     */
     private $ontologyField;
 
+    /**
+     * Test setUp.
+     * Gets called before every test-method.
+     */
     public function setUp()
     {
         parent::setUp();
@@ -20,6 +37,10 @@ class TwigGeneratorTest extends OntoPressTestCase
         $this->ontologyField = TestHelper::createOntologyField();
     }
 
+    /**
+     * Test tearDown.
+     * Unsets all instances after finishing a test-method.
+     */
     public function tearDown()
     {
         unset($ontologyField);
@@ -27,12 +48,18 @@ class TwigGeneratorTest extends OntoPressTestCase
         parent::tearDown();
     }
 
+    /**
+     * Test generate method, should generate a twig structure of an OntoPressForm and return it as string.
+     */
     public function testGenerate()
     {
         $result = $this->twigGenerator->generate(new Form());
         $this->assertContains('OntoPressForm[submit]', $result);
     }
 
+    /**
+     * Test generateFormField method, should test the rendering of different form field types
+     */
     public function testGenerateFormField()
     {
         $this->ontologyField->setType(OntologyField::TYPE_TEXT);
@@ -50,6 +77,9 @@ class TwigGeneratorTest extends OntoPressTestCase
         // generateLabel fail test
     }
 
+    /**
+     * Test GenerateFieldValue method, should test the generation of a value tag for a text field.
+     */
     public function testGenerateFieldValue()
     {
         $result = $this->invokeMethod($this->twigGenerator, 'generateFieldValue', array($this->ontologyField));
@@ -57,6 +87,9 @@ class TwigGeneratorTest extends OntoPressTestCase
         $this->assertEquals(1, count($result));
     }
 
+    /**
+     * Test GenerateChoiceAttributes method, should test the generation of name and id for a radio field.
+     */
     public function testGenerateChoiceAttributes()
     {
         $result = $this->invokeMethod($this->twigGenerator, 'generateChoiceAttributes', array($this->ontologyField));
@@ -64,6 +97,9 @@ class TwigGeneratorTest extends OntoPressTestCase
             'name="OntoPressForm['.$this->ontologyField->getFormFieldName().']"', $result);
     }
 
+    /**
+     * Test createFieldVarName method, should create var name for an ontology field.
+     */
     public function testCreateFieldVarName()
     {
         $result = $this->invokeMethod($this->twigGenerator, 'createFieldVarName', array($this->ontologyField));

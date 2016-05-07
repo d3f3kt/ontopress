@@ -10,6 +10,10 @@ use OntoPress\Service\OntologyParser;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Entity\Restriction;
 
+/**
+ * Class ParserTest
+ * Tests the parser.
+ */
 class ParserTest extends OntoPressTestCase
 {
     /**

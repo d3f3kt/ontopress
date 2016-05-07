@@ -10,6 +10,11 @@ use OntoPress\Entity\OntologyFile;
 use OntoPress\Entity\Form;
 use OntoPress\Library\OntoPressTestCase;
 
+
+/**
+ * Class OntologyTest
+ * Creates an ontology and tests it.
+ */
 class OntologyTest extends OntoPressTestCase
 {
     /**
