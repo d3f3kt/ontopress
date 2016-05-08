@@ -241,6 +241,14 @@ class ResourceController extends AbstractController
         ));
     }
 
+    /**
+     * Handle the search for a certain resource
+     *
+     * @param $searchString
+     * @param null $graph
+     *
+     * @return filtered resource table
+     */
     private function getSearchTable($searchString, $graph = null)
     {
         $sparqlManager = $this->get('ontopress.sparql_manager');

@@ -68,6 +68,13 @@ class FormCreation
         return $builder->getForm();
     }
 
+    /**
+     * Get all constraints
+     *
+     * @param OntologyField $field
+     *
+     * @return array
+     */
     private function getConstraints(OntologyField $field)
     {
         $constraints = array();
@@ -84,6 +91,14 @@ class FormCreation
         return $constraints;
     }
 
+    /**
+     * Builds every needed field for the properties
+     *
+     * @param OntologyField $field
+     * @param FormBuilderInterface $builder
+     *
+     * @return mixed
+     */
     private function addField(OntologyField $field, FormBuilderInterface $builder)
     {
         switch ($field->getType()) {
@@ -96,6 +111,14 @@ class FormCreation
         }
     }
 
+    /**
+     * Creates a text field
+     *
+     * @param OntologyField $field
+     * @param FormBuilderInterface $builder
+     *
+     * @return mixed
+     */
     private function addTextField(OntologyField $field, FormBuilderInterface $builder)
     {
         return $builder->add($field->getFormFieldName(), 'text', array(
@@ -105,6 +128,14 @@ class FormCreation
         ));
     }
 
+    /**
+     * Creates a radio button field
+     *
+     * @param OntologyField $field
+     * @param FormBuilderInterface $builder
+     *
+     * @return mixed
+     */
     private function addRadioField(OntologyField $field, FormBuilderInterface $builder)
     {
         return $builder->add($field->getFormFieldName(), 'choice', array(
@@ -117,6 +148,14 @@ class FormCreation
         ));
     }
 
+    /**
+     * Creates a field for choices
+     *
+     * @param OntologyField $field
+     * @param FormBuilderInterface $builder
+     *
+     * @return mixed
+     */
     private function addChoiceField(OntologyField $field, FormBuilderInterface $builder)
     {
         return $builder->add($field->getFormFieldName(), 'choice', array(

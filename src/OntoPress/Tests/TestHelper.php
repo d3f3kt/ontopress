@@ -12,6 +12,11 @@ use OntoPress\Entity\Restriction;
 
 class TestHelper
 {
+    /**
+     * creates a test user
+     *
+     * @return object
+     */
     public static function emulateWPUser()
     {
         $testUser = (object) array(
@@ -27,6 +32,13 @@ class TestHelper
         return $testUser;
     }
 
+    /**
+     * creates a test Ontology
+     *
+     * @param bool $withOntologyFiles
+     *
+     * @return Ontology
+     */
     public static function createTestOntology($withOntologyFiles = true)
     {
         $ontology = new Ontology();
@@ -51,6 +63,13 @@ class TestHelper
         return $ontology;
     }
 
+    /**
+     * creates a data ontology for the testOntology
+     *
+     * @param Ontology|null $ontology
+     *
+     * @return DataOntology
+     */
     public static function createDataOntology(Ontology $ontology = null)
     {
         if (!$ontology) {
@@ -65,6 +84,14 @@ class TestHelper
         return $dataOntology;
     }
 
+    /**
+     * creates an ontology field for the testOntology
+     *
+     * @param DataOntology|null $dataOntology
+     * @param Restriction|null $restriction
+     *
+     * @return OntologyField
+     */
     public static function createOntologyField(DataOntology $dataOntology = null, Restriction $restriction = null)
     {
         if (!$restriction) {
@@ -95,6 +122,14 @@ class TestHelper
         return $ontologyField;
     }
 
+    /**
+     * creates a test form
+     *
+     * @param Ontology|null $ontology
+     * @param OntologyField|null $ontologyField
+     *
+     * @return Form
+     */
     public static function createOntologyForm(Ontology $ontology = null, OntologyField $ontologyField = null)
     {
         if (!$ontology) {
