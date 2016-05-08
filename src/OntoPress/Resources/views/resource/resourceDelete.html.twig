@@ -1,20 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block headline %}
-    {% if action == 'suspend'%}
-    Ressource deaktivieren
-    {% elseif action == 'delete' %}
-    Ressource löschen
-    {% endif %}
+    Ressource {{ action }}
 {% endblock %}
 {% block content %}
     {% if title %}
-    <p>Sie sind dabei die Ressource <b>{{ title }}</b> zu
-        {% if action == 'suspend'%}
-        deaktivieren
-        {% elseif action == 'delete' %}
-        löschen
-        {% endif %}.</p>
+    <p>Sie sind dabei die Ressource <b>{{ title }}</b> zu {{ action }}.</p>
 
     {% elseif resources is iterable %}
     <p>
@@ -22,16 +13,11 @@
         {% for resource in resources %}
         <b>{{ resource }}</b>,</br>
         {% endfor %}
-        zu
-        {% if action == 'suspend'%}
-        deaktivieren
-        {% elseif action == 'delete' %}
-        löschen
-        {% endif %}.
+        zu {{ action }}.
     </p>
 
     {% endif %}
-    <h2>Wirklich löschen?</h2>
+    <h2>Wirklich {{ action }}?</h2>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}

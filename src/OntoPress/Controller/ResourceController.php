@@ -165,7 +165,7 @@ class ResourceController extends AbstractController
             return $this->render('resource/resourceDelete.html.twig', array(
                 'title' => $request->get('title'),
                 'form' => $form->createView(),
-                'action' => 'delete',
+                'action' => 'löschen',
             ));
         } else {
             $resources = $request->get('resources');
@@ -184,7 +184,7 @@ class ResourceController extends AbstractController
             return $this->render('resource/resourceDelete.html.twig', array(
                 'resources' => $resources,
                 'form' => $form->createView(),
-                'action' => 'delete',
+                'action' => 'löschen',
             ));
         }
 
@@ -260,7 +260,7 @@ class ResourceController extends AbstractController
             return $this->render('resource/resourceDelete.html.twig', array(
                 'title' => $request->get('title'),
                 'form' => $form->createView(),
-                'action' => 'suspend',
+                'action' => 'deaktivieren',
             ));
         } else {
             $resources = $request->get('resources');
@@ -279,19 +279,11 @@ class ResourceController extends AbstractController
             return $this->render('resource/resourceDelete.html.twig', array(
                 'resources' => $resources,
                 'form' => $form->createView(),
-                'action' => 'suspend',
+                'action' => 'deaktivieren',
             ));
         }
     }
 
-    /**
-     * Handle the search for a certain resource
-     *
-     * @param $searchString
-     * @param null $graph
-     *
-     * @return filtered resource table
-     */
     private function getSearchTable($searchString, $graph = null)
     {
         $sparqlManager = $this->get('ontopress.sparql_manager');
