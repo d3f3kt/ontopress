@@ -1,0 +1,62 @@
+ <div class='tablenav-pages'>
+        <span class="displaying-num">{{ totalResources.totalResources }} Resourcen</span>
+    <span>
+
+
+        {% if(orderBy.orderBy) is empty == false and (currentGraph.graph) is empty %}
+        <a class="next-page" href="{{ path('ontopress_resource', {'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': '1'}) }}">
+            <span class="tablenav-pages-navspan" >&laquo;</span></a>
+        <a class="next-page" href="{{ path('ontopress_resource', {'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': (currentPage.currentPage-1)}) }}">
+            <span class="tablenav-pages-navspan" >&lsaquo;</span></a>
+        {% elseif (currentGraph.graph) is empty == false and (orderBy.orderBy) is empty %}
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph), 'pageValue': '1'}) }}">
+                <span class="tablenav-pages-navspan" >&laquo;</span></a>
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph), 'pageValue': (currentPage.currentPage-1)}) }}">
+                <span class="tablenav-pages-navspan" >&lsaquo;</span></a>
+        {% elseif (currentGraph.graph) is empty == false and (orderBy.orderBy) is empty == false %}
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph),'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': '1'}) }}">
+                <span class="tablenav-pages-navspan" >&laquo;</span></a>
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph), 'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': (currentPage.currentPage-1)}) }}">
+                <span class="tablenav-pages-navspan" >&lsaquo;</span></a>
+        {% else %}
+            <a class="next-page" href="{{ path('ontopress_resource', {'pageValue': '1'}) }}">
+                <span class="tablenav-pages-navspan" >&laquo;</span></a>
+            <a class="next-page" href="{{ path('ontopress_resource', {'pageValue': (currentPage.currentPage-1)}) }}">
+                <span class="tablenav-pages-navspan" >&lsaquo;</span></a>
+
+        {% endif %}
+
+
+        <span class="paging-input">
+            <input name="pageValue" value={{ currentPage.currentPage }} type="text" size="1"/>
+            <input type="submit" class="hiddenSubmit" hidefocus="true" />
+            von
+            <span class='total-pages'>{{ totalPages.totalPages }}</span>
+        </span>
+
+
+        {% if(orderBy.orderBy) is empty == false and (currentGraph.graph) is empty %}
+        <a class="next-page" href="{{ path('ontopress_resource', {'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': (currentPage.currentPage+1)}) }}">
+            <span class="tablenav-pages-navspan" >&rsaquo;</span></a>
+        <a class="next-page" href="{{ path('ontopress_resource', {'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': (totalPages.totalPages)}) }}">
+            <span class="tablenav-pages-navspan" >&raquo;</span></a>
+        {% elseif (currentGraph.graph) is empty == false and (orderBy.orderBy) is empty %}
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph), 'pageValue': (currentPage.currentPage+1)}) }}">
+                <span class="tablenav-pages-navspan" >&rsaquo;</span></a>
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph), 'pageValue': (totalPages.totalPages)}) }}">
+                <span class="tablenav-pages-navspan" >&raquo;</span></a>
+        {% elseif (currentGraph.graph) is empty == false and (orderBy.orderBy) is empty == false %}
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph),'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': (currentPage.currentPage+1)}) }}">
+                <span class="tablenav-pages-navspan" >&rsaquo;</span></a>
+            <a class="next-page" href="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph), 'orderBy': (orderBy.orderBy), 'order': (orderBy.order), 'pageValue': (totalPages.totalPages)}) }}">
+                <span class="tablenav-pages-navspan" >&raquo;</span></a>
+        {% else %}
+            <a class="next-page" href="{{ path('ontopress_resource', {'pageValue': (currentPage.currentPage+1)}) }}">
+                <span class="tablenav-pages-navspan" >&rsaquo;</span></a>
+            <a class="next-page" href="{{ path('ontopress_resource', {'pageValue': (totalPages.totalPages)}) }}">
+                <span class="tablenav-pages-navspan" >&raquo;</span></a>
+        {% endif %}
+
+
+    </span>
+</div>
