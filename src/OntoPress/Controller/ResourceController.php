@@ -201,7 +201,7 @@ class ResourceController extends AbstractController
             ));
         } else {
             $resources = $request->get('resources');
-            if ($form->isValid()) {
+            if ($form->isValid() && is_array($resources)) {
                 foreach ($resources as $resource) {
                     $this->get('ontopress.sparql_manager')->deleteResource($resource);
                 }
