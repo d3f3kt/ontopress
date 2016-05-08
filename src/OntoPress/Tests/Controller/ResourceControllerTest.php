@@ -13,7 +13,6 @@ use Brain\Monkey\Functions;
 use OntoPress\Tests\TestHelper;
 use Saft\Rdf\NamedNodeImpl;
 
-
 /**
  * Class ResourceControllerTest
  * Creates a ResourceController and tests it.
@@ -283,7 +282,7 @@ class ResourceControllerTest extends OntoPressTestCase
         $this->assertContains("window.location", $result2);
 
         // uri, repository, no valid form
-        $result3 = $this->resourceController->showEditeAction(
+        $result3 = $this->resourceController->showEditAction(
             new Request(
                 array(),
                 array(),
