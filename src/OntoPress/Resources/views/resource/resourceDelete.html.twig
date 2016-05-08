@@ -1,12 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block headline %}
-    Ressource Löschen
+    {% if action == 'suspend'%}
+    Ressource deaktivieren
+    {% elseif action == 'delete' %}
+    Ressource löschen
+    {% endif %}
 {% endblock %}
 {% block content %}
-    <p>Sie sind dabei die Ressource <b>{{ title }}</b> zu löschen.</p>
+    {% if title %}
+    <p>Sie sind dabei die Ressource <b>{{ title }}</b> zu
+        {% if action == 'suspend'%}
+        deaktivieren
+        {% elseif action == 'delete' %}
+        löschen
+        {% endif %}.</p>
 
+    {% elseif resources is iterable %}
+    <p>
+        Sie sind dabei die Ressourcen:
+        {% for resource in resources %}
+        <b>{{ resource }}</b>,</br>
+        {% endfor %}
+        zu
+        {% if action == 'suspend'%}
+        deaktivieren
+        {% elseif action == 'delete' %}
+        löschen
+        {% endif %}.
+    </p>
 
+    {% endif %}
     <h2>Wirklich löschen?</h2>
     {{ form_start(form) }}
     {{ form_widget(form) }}

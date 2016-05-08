@@ -24,7 +24,8 @@
             </div>
         </div>
     </form>
-    <form method="get">
+    <form action="admin.php?" method="get">
+        <input type="text" value="ontopress_resourceDelete" name="page" style="display:none">
         <table class="wp-list-resource widefat fixed striped users">
             <thead>
                 <tr>
@@ -53,8 +54,9 @@
                     <td class="Titel column-Titel" data-colname="Titel">
                         <p>{{ resource.title }}</p>
                         <div class="row-actions">
-                            <span class="edit"><a href="{{ path('ontopress_resourceEdit',{'uri': (resource.uri), 'title': (resource.title)}) }}">Bearbeiten</a></span>
-                            <span class="delete"><a href="{{ path('ontopress_resourceDelete',{'uri': (resource.uri), 'title': (resource.title)}) }}">Löschen</a></span>
+                            <span class="edit"><a href="{{ path('ontopress_resourceEdit', {'uri': (resource.uri), 'title': (resource.title)}) }}">Bearbeiten</a></span>
+                            <span class="edit"><a href="{{ path('ontopress_resourceDelete', {'uri': (resource.uri), 'title': (resource.title), 'resourceAction': 'suspend'}) }}">Deaktivieren</a></span>
+                            <span class="delete"><a href="{{ path('ontopress_resourceDelete', {'uri': (resource.uri), 'title': (resource.title), 'resourceAction': 'delete'}) }}">Löschen</a></span>
                         </div>
                     </td>
                     <td class="Autor column-Autor" data-colname="Autor">
@@ -85,9 +87,10 @@
             </tfoot>
         </table>
     <div class="tablenav bottom">
-        <select name="page">
+        <select name="resourceAction">
             <option value="" selected>Aktion wählen</option>
-            <option value="ontopress_resourceDelete">Löschen</option>
+            <option value="delete">Löschen</option>
+            <option value="suspend">Deaktivieren</option>
         </select>
         <button type="submit" class="button">Übernehmen</button>
     </div>

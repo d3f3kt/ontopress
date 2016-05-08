@@ -148,7 +148,9 @@ class ResourceController extends AbstractController
         ));
 
         $form->handleRequest($request);
-
+        if ($request->get('resourceAction') == 'suspend') {
+            return $this->suspendResourceAction($request, $form);
+        }
         if ($resource = $request->get('uri')) {
             if ($form->isValid()) {
                 $this->get('ontopress.sparql_manager')->deleteResource($resource);
@@ -163,6 +165,7 @@ class ResourceController extends AbstractController
             return $this->render('resource/resourceDelete.html.twig', array(
                 'title' => $request->get('title'),
                 'form' => $form->createView(),
+                'action' => 'delete',
             ));
         } else {
             $resources = $request->get('resources');
@@ -178,11 +181,10 @@ class ResourceController extends AbstractController
                 return $this->redirectToRoute('ontopress_resource');
             }
 
-            $title = $resources[0].' und '.(sizeof($resources)-1).' weitere';
-
             return $this->render('resource/resourceDelete.html.twig', array(
-                'title' => $title,
+                'resources' => $resources,
                 'form' => $form->createView(),
+                'action' => 'delete',
             ));
         }
 
@@ -239,6 +241,47 @@ class ResourceController extends AbstractController
         return $this->render('resource/resourceEdit.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+    
+    private function suspendResourceAction(Request $request, $form)
+    {
+        $arc2Manager = $this->get('ontopress.arc2_manager');
+        if ($resource = $request->get('uri')) {
+            if ($form->isValid()) {
+                $arc2Manager->suspendResource($resource);
+                $this->addFlashMessage(
+                    'success',
+                    'Ressource erfolgreich deaktiviert.'
+                );
+
+                return $this->redirectToRoute('ontopress_resource');
+            }
+
+            return $this->render('resource/resourceDelete.html.twig', array(
+                'title' => $request->get('title'),
+                'form' => $form->createView(),
+                'action' => 'suspend',
+            ));
+        } else {
+            $resources = $request->get('resources');
+            if ($form->isValid()) {
+                foreach ($resources as $resource) {
+                    $arc2Manager->suspendResource($resource);
+                }
+                $this->addFlashMessage(
+                    'success',
+                    'Ressourcen erfolgreich deaktiviert.'
+                );
+
+                return $this->redirectToRoute('ontopress_resource');
+            }
+
+            return $this->render('resource/resourceDelete.html.twig', array(
+                'resources' => $resources,
+                'form' => $form->createView(),
+                'action' => 'suspend',
+            ));
+        }
     }
 
     private function getSearchTable($searchString, $graph = null)

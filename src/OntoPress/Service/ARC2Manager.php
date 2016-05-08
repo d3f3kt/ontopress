@@ -39,6 +39,7 @@ class ARC2Manager
 
     const INT_URI = 'xsd:integer';
     const STRING_URI = 'xsd:string';
+    const BOOL_URI = 'xsd:boolean';
 
     public function __construct(Store $arc2, EntityManager $entityManager)
     {
@@ -209,8 +210,23 @@ class ARC2Manager
         switch (gettype($objectData)) {
             case 'integer':
                 return $this->nodeFactory->createNamedNode(ARC2Manager::INT_URI);
+            case 'boolean':
+                return $this->nodeFactory->createNamedNode(ARC2Manager::BOOL_URI);
             default:
                 return $this->nodeFactory->createNamedNode(ARC2Manager::STRING_URI);
         }
+    }
+
+    public function suspendResource($resource)
+    {
+        $predicateUri = $this->createUriFromName('isSuspended', 'OntoPress');
+        $setSuspended = $this->nodeFactory->createLiteral('true', $this->nodeFactory->createNamedNode(ARC2Manager::BOOL_URI));
+        $this->arc2->addStatements(
+            array(
+                new StatementImpl(
+                    new NamedNodeImpl($resource),
+                    new NamedNodeImpl($predicateUri),
+                    $setSuspended
+        )));
     }
 }
