@@ -3,6 +3,7 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\ResourceController;
+use OntoPress\Form\Resource\Type\DeleteResourceType;
 use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Tests\Entity\OntologyTest;
@@ -10,6 +11,8 @@ use OntoPress\Service\SparqlManager;
 use Symfony\Component\HttpFoundation\Request;
 use Brain\Monkey\Functions;
 use OntoPress\Tests\TestHelper;
+use Saft\Rdf\NamedNodeImpl;
+
 
 /**
  * Class ResourceControllerTest
@@ -163,12 +166,6 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
-        $ontologyEntity = TestHelper::createTestOntology();
-        $formEntity = TestHelper::createOntologyForm($ontologyEntity);
-        static::getContainer()->get('doctrine')->persist($ontologyEntity);
-        static::getContainer()->get('doctrine')->persist($formEntity);
-        static::getContainer()->get('doctrine')->flush();
-
         // suspended resourceAction
         $result0 = $this->resourceController->showDeleteAction(
             new Request(
@@ -233,13 +230,14 @@ class ResourceControllerTest extends OntoPressTestCase
 
     public function testShowEditAction()
     {
+        // TODO: strange exception from sparqlManager
         /*
         $this->invokeMethod($this->resourceController, 'getDoctrine', array())
             ->getRepository('OntoPress\Entity\Form')
             ->clear();
 
         // uri, no repository
-        $result1 = $this->resourceController->showDeleteAction(
+        $result1 = $this->resourceController->showEditAction(
             new Request(
                 array(),
                 array(
@@ -263,9 +261,10 @@ class ResourceControllerTest extends OntoPressTestCase
         static::getContainer()->get('doctrine')->persist($ontologyEntity);
         static::getContainer()->get('doctrine')->persist($formEntity);
         static::getContainer()->get('doctrine')->flush();
+        Functions::when('wp_get_current_user')->alias(array('OntoPress\Tests\TestHelper', 'emulateWPUser'));
 
         // uri, repository, valid form
-        $result2 = $this->resourceController->showDeleteAction(
+        $result2 = $this->resourceController->showEditAction(
             new Request(
                 array(),
                 array(
@@ -284,7 +283,7 @@ class ResourceControllerTest extends OntoPressTestCase
         $this->assertContains("window.location", $result2);
 
         // uri, repository, no valid form
-        $result3 = $this->resourceController->showDeleteAction(
+        $result3 = $this->resourceController->showEditeAction(
             new Request(
                 array(),
                 array(),
@@ -297,12 +296,105 @@ class ResourceControllerTest extends OntoPressTestCase
             )
         );
         $this->assertContains("Ressource Bearbeiten", $result3);
-
+        */
         // no uri
-        $result4 = $this->resourceController->showDeleteAction(
+        $result4 = $this->resourceController->showEditAction(
             new Request()
         );
         $this->assertContains("window.location", $result4);
+    }
+
+    public function testSuspendResourceAction()
+    {
+        // TODO: needs a valid and non-valid form
+        /*
+        $validForm = static::getContainer()->createFormBuiler()->getForm();
+
+        $notValidForm = $this->resourceController->createForm(new AddResourceType(), null, array(
+            'cancel_link' => $this->generateRoute('ontopress_forms'),
+            'doctrineManager' => $this->get('ontopress.doctrine_manager'),
+            'ontologies' => $ontologies,
+        ));
+
+        // uri, valid form
+        $result1 = $this->invokeMethod($this->resourceController, 'suspendResourceAction',
+            array(
+                new Request(
+                    array(),
+                    array(
+                        'resourceDeleteType' => array(
+                            'submit' => ''
+                        )),
+                    array(
+                        'uri' => 'Test:Uri'
+                    ),
+                    array(),
+                    array(),
+                    array('REQUEST_METHOD' => 'POST')
+                ),
+                $validForm
+            )
+        );
+        $this->assertContains('window.location', $result1);
+
+        // uri, non-valid form
+        $result2 = $this->invokeMethod($this->resourceController, 'suspendResourceAction',
+            array(
+                new Request(
+                    array(),
+                    array(
+                        'resourceDeleteType' => array(
+                            'submit' => ''
+                        )),
+                    array(
+                        'uri' => 'Test:Uri'
+                    ),
+                    array(),
+                    array(),
+                    array('REQUEST_METHOD' => 'POST')
+                ),
+                $notValidForm
+            )
+        );
+        $this->assertContains('window.location', $result2);
+
+        // no uri, valid form
+        $result3 = $this->invokeMethod($this->resourceController, 'suspendResourceAction',
+            array(
+                new Request(
+                    array(),
+                    array(
+                        'resourceDeleteType' => array(
+                            'submit' => ''
+                        )),
+                    array(),
+                    array(),
+                    array(),
+                    array('REQUEST_METHOD' => 'POST')
+                ),
+                $validForm
+            )
+        );
+        $this->assertContains('window.location', $result3);
+
+        // no uri, non-valid form
+        $result4 = $this->invokeMethod($this->resourceController, 'suspendResourceAction',
+            array(
+                new Request(),
+                $notValidForm
+            )
+        );
+        $this->assertContains('Sie sind dabei die Ressource', $result4);
         */
+    }
+
+    public function testGetSearchTable()
+    {
+        $graph = new NamedNodeImpl('test:graph');
+        $sparqlManager = $this->invokeMethod($this->resourceController, 'get', array('ontopress.sparql_manager'));
+
+        $this->invokeMethod($this->resourceController, 'getSearchTable', array('searchString'));
+        $result = $this->invokeMethod($this->resourceController, 'getSearchTable', array('searchString', $graph));
+        $this->assertEquals($sparqlManager->getResourceRowsLike('searchString', $graph), $result);
     }
 }
