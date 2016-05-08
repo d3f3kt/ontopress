@@ -4,7 +4,6 @@ namespace OntoPress\Tests;
 
 use OntoPress\Entity\OntologyField;
 use Symfony\Component\HttpFoundation\Request;
-use OntoPress\Entity\Ontology;
 use OntoPress\Entity\OntologyFile;
 use OntoPress\Service\OntologyParser;
 use OntoPress\Library\OntoPressTestCase;

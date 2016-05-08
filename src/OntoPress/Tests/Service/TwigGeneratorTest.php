@@ -5,7 +5,6 @@ namespace OntoPress\Tests;
 use OntoPress\Entity\Form;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Library\OntoPressTestCase;
-use OntoPress\Service\RestrictionHelper;
 use OntoPress\Service\TwigGenerator;
 
 /**

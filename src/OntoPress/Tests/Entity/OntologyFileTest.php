@@ -67,11 +67,10 @@ class OntologyFileTest extends OntoPressTestCase
     public function testGetDir()
     {
         /*
-        // is different on testServer and main Server
+        // TODO: is different on testServer and main Server
         // /var/www/wp-content/plugins/ontologie/src/OntoPress/Entity/../Resources/ontology/upload/test/testpath
         $this->assertEquals($this->ontologyFile->getAbsolutePath(), "/builds/SWT-WordPress/plugins/src/OntoPress/Entity/../Resources/ontology/upload/test/testpath");
 
-        // protected Access -> need Stub
         $this->assertEquals($this->ontologyFile->getUploadDir(), "/var/www/wp-content/plugins/ontologie/src/OntoPress/Entity/../Resources/ontology/upload");
         $this->assertEquals($this->ontologyFile->getUploadRootDir(), "/var/www/wp-content/plugins/ontologie/src/OntoPress/Entity/../Resources/");
         */

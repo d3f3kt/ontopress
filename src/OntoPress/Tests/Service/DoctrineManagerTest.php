@@ -30,7 +30,6 @@ class DoctrineManagerTest extends OntoPressTestCase
     public function setUp()
     {
         parent::setUp();
-
         $this->doctrine = static::getContainer()->get('doctrine');
         $this->doctrineManager = static::getContainer()->get('ontopress.doctrine_manager');
     }

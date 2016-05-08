@@ -5,16 +5,8 @@ namespace OntoPress\Tests;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Service\OntologyParser;
-use OntoPress\Service\SparqlManager;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\Form\FormBuilderInterface;
-use OntoPress\Service\DoctrineManager;
-use OntoPress\Entity\Ontology;
-use OntoPress\Entity\OntologyFile;
-use OntoPress\Tests\Entity\OntologyTest;
-use OntoPress\Tests\TestHelper;
 use OntoPress\Service\FormCreation;
+use Symfony\Component\Form\FormFactory;
 
 /**
  * Class FormCreationTest
@@ -78,7 +70,6 @@ class FormCreationTest extends OntoPressTestCase
 
         $form = TestHelper::createOntologyForm($ontology);
         $this->formCreator->create($form);
-        // $this->assertEquals($form, $result);
         $this->twigGenerator->generate($form);
     }
 
@@ -103,5 +94,31 @@ class FormCreationTest extends OntoPressTestCase
         $ontologyFieldSelect->setType(OntologyField::TYPE_SELECT);
         $result3 = $this->invokeMethod($this->formCreator, 'addField', array($ontologyFieldSelect, $formBuilder));
         $this->assertEquals($formBuilder, $result3);
+    }
+
+    /**
+     * Tests getBuilder method.
+     */
+    public function testGetBuilder()
+    {
+        // TODO: assert result
+        // $formFactory = new FormFactory()
+        $result = $this->invokeMethod($this->formCreator, 'getBuilder', array());
+        /*
+        $this->assertEquals(
+            $formFactory->createNamedBuilder('OntoPressForm', 'form', null, array(
+                'block_name' => 'OntoPressForm',
+                )),
+            $result);
+        */
+    }
+
+    /**
+     * Tests getConstraints method.
+     */
+    public function testGetConstraints()
+    {
+        $result = $this->invokeMethod($this->formCreator, 'getConstraints', array(TestHelper::createOntologyField()));
+        $this->assertEquals(2, count($result));
     }
 }

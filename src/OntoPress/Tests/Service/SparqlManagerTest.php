@@ -201,7 +201,6 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->assertEquals($this->subject, $result);
     }
 
-
     public function testDeleteResource()
     {
         // TODO: cant get the given Uri to work
