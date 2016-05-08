@@ -104,18 +104,19 @@ class ResourceController extends AbstractController
         $sparqlManager = $this->get('ontopress.sparql_manager');
         $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
         $graphs = array();
+        $currentGraph = null;
 
         foreach ($ontologies as $ontology) {
             $graphs[] = array(
                 'name' => $ontology->getName(),
             );
         }
-
         if (!empty($request->get('s'))) {
             if (!$request->get('graph')) {
                 $resourceManageTable = $this->getSearchTable($request->get('s'));
             } else {
                 $resourceManageTable = $this->getSearchTable($request->get('s'), $graph);
+                $currentGraph = array('graph' => substr($graph, 6, 64));
             }
         } else {
             if ((empty($graph))) {
@@ -123,16 +124,45 @@ class ResourceController extends AbstractController
             } else {
                 $graph = 'graph:'.$graph;
                 $resourceManageTable = $sparqlManager->getAllManageRows($graph);
+                $currentGraph = array('graph' => substr($graph, 6, 64));
             }
         }
 
-        if (!empty($orderBy = $request->get('orderBy'))) {
+        if (!empty($orderBy = $request->get('orderBy')) && empty($request->get('graph'))) {
             $resourceManageTable = $sparqlManager->getSortedTable($orderBy, $request->get('order'));
+        } else if (!empty($orderBy = $request->get('orderBy')) && !empty($request->get('graph'))) {
+            $resourceManageTable = $sparqlManager->getSortedTable($orderBy, $request->get('order'), $request->get('graph'));
         }
+
+        //pagination
+        $totalResources = array('totalResources' => count($resourceManageTable));
+        $totalPagesTmp = ceil(count($resourceManageTable)/ 20);
+        $currentPageTmp = $request->get('pageValue');
+        $totalPages = null;
+        $currentPage = null;
+
+        if (empty($currentPageTmp) || $currentPageTmp < 1) {
+            $currentPage = array('currentPage' => 1);
+            $currentPageTmp = 1;
+        } elseif ($currentPageTmp >= $totalPagesTmp) {
+            $currentPage = array('currentPage' => $totalPagesTmp);
+            $currentPageTmp = $totalPagesTmp;
+        } else {
+            $currentPage = array('currentPage' => $currentPageTmp);
+        }
+
+        $totalPages = array('totalPages' => $totalPagesTmp);
+        $resourceManageTable = array_slice($resourceManageTable, (($currentPageTmp * 20) - 20), 20);
+        $order = array('orderBy' => $request->get('orderBy'), 'order' => $request->get('order'));
 
         return $this->render('resource/resourceManagement.html.twig', array(
             'resourceManageTable' => $resourceManageTable,
             'graphs' => $graphs,
+            'totalPages' => $totalPages,
+            'currentPage' => $currentPage,
+            'currentGraph' => $currentGraph,
+            'totalResources' => $totalResources,
+            'orderBy' => $order,
         ));
     }
 
@@ -169,7 +199,7 @@ class ResourceController extends AbstractController
             ));
         } else {
             $resources = $request->get('resources');
-            if ($form->isValid() && is_array($resources)) {
+            if ($form->isValid()) {
                 foreach ($resources as $resource) {
                     $this->get('ontopress.sparql_manager')->deleteResource($resource);
                 }

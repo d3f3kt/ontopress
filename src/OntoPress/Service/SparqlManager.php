@@ -295,11 +295,15 @@ class SparqlManager
      *
      * @param  string $sortBy property to sort
      * @param  string $order  "ASC" or "DESC"
+     * @param  string $graph to sort just resources of a certain graph. NULL by default
      * @return array          sorted Array
      */
-    public function getSortedTable($sortBy, $order)
+    public function getSortedTable($sortBy, $order, $graph = null)
     {
         $query = 'SELECT * WHERE { ?s ?p ?o ; <OntoPress:'.$sortBy.'> ?sort. } ORDER BY '.$order.'(?sort)';
+        if ($graph != null) {
+            $query = 'SELECT * FROM <graph:'.$graph.'> WHERE { ?s ?p ?o ;  <OntoPress:'.$sortBy.'> ?sort. } ORDER BY '.$order.'(?sort)';
+        }
         $result = $this->store->query($query);
 
         return $this->getRows($result);
