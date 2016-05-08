@@ -135,6 +135,18 @@ class SparqlManager
         $name = explode(':', $uri)[1];
 
         return preg_replace('/(?<!\ )[A-Z]/', ' $0', $name);
+        /*
+        $check = array();
+        $regEx = '/^([a-zA-Z][a-zA-Z0-9+.-]+):([^\x00-\x0f\x20\x7f<>{}|\[\]`"^\\\\])+$/';
+        preg_match($regEx, $uri, $check);
+        switch ($check[1]) {
+            case 'name':
+                $name = explode(':' , $uri)[1];
+                return preg_replace('/(?<!\ )[A-Z]/', ' $0', $name);
+            default:
+                return $uri;
+        }
+        */
     }
 
     /**
@@ -155,14 +167,6 @@ class SparqlManager
         return sizeof($result);
     }
 
-    /**
-     * Method to count the triples of a resource
-     *
-     * @param $subject
-     * @param null $graph
-     *
-     * @return int
-     */
     public function countResourceTriples($subject, $graph = null)
     {
         $query = 'SELECT DISTINCT ?s WHERE { <'.$subject.'> ?p ?o. }';
@@ -182,7 +186,7 @@ class SparqlManager
     public function deleteResource($resourceUri, $graph = null)
     {
         
-        $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } WHERE { <'.$resourceUri.'> ?p ?o. }';
+        $query = 'DELETE WHERE { <'.$resourceUri.'> ?p ?o. }';
         if ($graph != null) {
             $query = 'DELETE FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
         }
@@ -301,11 +305,6 @@ class SparqlManager
         return $this->getRows($result);
     }
 
-    /**
-     * Method to get all triples of a graph
-     *
-     * @param null $graph
-     */
     public function exportRdf($graph = null)
     {
         $triples = $this->getAllTriples($graph);
