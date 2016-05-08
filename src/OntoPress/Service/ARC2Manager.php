@@ -221,12 +221,6 @@ class ARC2Manager
     {
         $predicateUri = $this->createUriFromName('isSuspended', 'OntoPress');
         $setSuspended = $this->nodeFactory->createLiteral('true', $this->nodeFactory->createNamedNode(ARC2Manager::BOOL_URI));
-        $this->arc2->addStatements(
-            array(
-                new StatementImpl(
-                    new NamedNodeImpl($resource),
-                    new NamedNodeImpl($predicateUri),
-                    $setSuspended
-        )));
+        $this->arc2->addStatements(array(new StatementImpl(new NamedNodeImpl($resource), new NamedNodeImpl($predicateUri), $setSuspended)));
     }
 }
