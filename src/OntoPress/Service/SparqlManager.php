@@ -261,6 +261,9 @@ class SparqlManager
                     case 'OntoPress:date':
                         $answer[$subject]['date'] = $triple->getObject()->getValue();
                         break;
+                    case 'OntoPress:isSuspended':
+                        $answer[$subject]['title'] = $answer[$subject]['title'].'--suspended';
+                        break;
                 }
             } else {
                 $subject = $triple['s']->getUri();
@@ -277,6 +280,9 @@ class SparqlManager
                         break;
                     case 'OntoPress:date':
                         $answer[$subject]['date'] = $triple['o']->getValue();
+                        break;
+                    case 'OntoPress:isSuspended':
+                        $answer[$subject]['title'] = $answer[$subject]['title'].'--suspended';
                         break;
                 }
             }
@@ -302,6 +308,5 @@ class SparqlManager
     public function exportRdf($graph = null)
     {
         $triples = $this->getAllTriples($graph);
-        
     }
 }
