@@ -83,3 +83,15 @@
     color: red;
     margin-left: 4px;
 }
+
+.pagination {
+    position: absolute;
+    right: 0px;
+}
+
+.hiddenSubmit {
+    height: 0px;
+    width: 0px;
+    border: none;
+    padding: 0px;
+}
