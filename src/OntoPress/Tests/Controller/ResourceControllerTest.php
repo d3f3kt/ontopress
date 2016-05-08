@@ -169,6 +169,16 @@ class ResourceControllerTest extends OntoPressTestCase
         static::getContainer()->get('doctrine')->persist($formEntity);
         static::getContainer()->get('doctrine')->flush();
 
+        // suspended resourceAction
+        $result0 = $this->resourceController->showDeleteAction(
+            new Request(
+                array(),
+                array(),
+                array('resourceAction' => 'suspend')
+            )
+        );
+        // $this->assertContains('', $result0);
+
         // uri, no valid form
         $result1 = $this->resourceController->showDeleteAction(
             new Request(
@@ -211,48 +221,88 @@ class ResourceControllerTest extends OntoPressTestCase
                     'resourceDeleteType' => array(
                         'submit' => ''
                     )),
-                array(
-                    'resources' => ''
-                ),
-                array(),
-                array(),
-                array('REQUEST_METHOD' => 'POST')
-            )
-        );
-        $this->assertContains("Ressource löschen", $result4);
-        
-    }
-
-    public function testShowEditAction()
-    {
-        $ontologyEntity = TestHelper::createTestOntology();
-        $formEntity = TestHelper::createOntologyForm($ontologyEntity);
-        static::getContainer()->get('doctrine')->persist($ontologyEntity);
-        static::getContainer()->get('doctrine')->persist($formEntity);
-        static::getContainer()->get('doctrine')->flush();
-        /*
-        // uri, no Respository form
-        $result4 = $this->resourceController->showDeleteAction(
-            new Request(
-                array(),
-                array(
-                    '' => array(
-                        'submit' => ''
-                    )),
-                array(
-                    'uri' => 'Test:UriDelete'
-                ),
+                array('resources' => array()),
                 array(),
                 array(),
                 array('REQUEST_METHOD' => 'POST')
             )
         );
         $this->assertContains("window.location", $result4);
-        */
-        // uri, repository form, valid form
+        
+    }
 
-        // uri, repository form, no valid form
+    public function testShowEditAction()
+    {
+        /*
+        $this->invokeMethod($this->resourceController, 'getDoctrine', array())
+            ->getRepository('OntoPress\Entity\Form')
+            ->clear();
+
+        // uri, no repository
+        $result1 = $this->resourceController->showDeleteAction(
+            new Request(
+                array(),
+                array(
+                    'OntoPressForm' => array(
+                        'OntologyField_' => 'testName',
+                        'submit' => ''
+                    )),
+                array(
+                    'uri' => 'Test:Uri'
+                ),
+                array(),
+                array(),
+                array('REQUEST_METHOD' => 'POST')
+            )
+        );
+        $this->assertContains("window.location", $result1);
+
+        // create repository
+        $ontologyEntity = TestHelper::createTestOntology();
+        $formEntity = TestHelper::createOntologyForm($ontologyEntity);
+        static::getContainer()->get('doctrine')->persist($ontologyEntity);
+        static::getContainer()->get('doctrine')->persist($formEntity);
+        static::getContainer()->get('doctrine')->flush();
+
+        // uri, repository, valid form
+        $result2 = $this->resourceController->showDeleteAction(
+            new Request(
+                array(),
+                array(
+                    'OntoPressForm' => array(
+                        'OntologyField_' => 'testName',
+                        'submit' => ''
+                    )),
+                array(
+                    'uri' => 'Test:Uri'
+                ),
+                array(),
+                array(),
+                array('REQUEST_METHOD' => 'POST')
+            )
+        );
+        $this->assertContains("window.location", $result2);
+
+        // uri, repository, no valid form
+        $result3 = $this->resourceController->showDeleteAction(
+            new Request(
+                array(),
+                array(),
+                array(
+                    'uri' => 'Test:Uri'
+                ),
+                array(),
+                array(),
+                array('REQUEST_METHOD' => 'POST')
+            )
+        );
+        $this->assertContains("Ressource Bearbeiten", $result3);
 
         // no uri
+        $result4 = $this->resourceController->showDeleteAction(
+            new Request()
+        );
+        $this->assertContains("window.location", $result4);
+        */
     }
 }
