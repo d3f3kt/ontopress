@@ -7,8 +7,15 @@
     {% endif %}
 {% endif %}
 <th {% block colAttr %}scope="col" class="manage-column column-id column-primary sortable {{ sorted|default('') }} {{ request.get('order') }}"{% endblock %}>
-    <a href="{{ path(colPath, {'orderBy': colName, 'order': order|default('asc')}) }}">
-        <span>{{ colTitle }}</span>
-        <span class="sorting-indicator"></span>
-    </a>
+    {% if (currentGraph.graph) is empty == false %}
+        <a href="{{ path(colPath, {'s': '', 'graph': (currentGraph.graph), 'orderBy': colName, 'order': order|default('asc')}) }}">
+            <span>{{ colTitle }}</span>
+            <span class="sorting-indicator"></span>
+        </a>
+    {% else %}
+        <a href="{{ path(colPath, {'orderBy': colName, 'order': order|default('asc')}) }}">
+            <span>{{ colTitle }}</span>
+            <span class="sorting-indicator"></span>
+        </a>
+    {% endif %}
 </th>
