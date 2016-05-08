@@ -186,7 +186,7 @@ class ResourceControllerTest extends OntoPressTestCase
                 array(
                     'resourceDeleteType' => array(
                         'submit' => ''
-                )),
+                    )),
                 array(
                     'uri' => 'Test:UriDelete'
                 ),
