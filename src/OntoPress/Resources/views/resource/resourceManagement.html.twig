@@ -95,4 +95,30 @@
         <button type="submit" class="button">Übernehmen</button>
     </div>
     </form>
+
+    {% if  (currentGraph.graph) is empty == false and (orderBy.orderBy) is empty %}
+        <div class="pagination">
+            <form action="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph)}) }}" method="post">
+                {{ include('resource/pagination.html.twig') }}
+            </form>
+        </div>
+    {% elseif (orderBy.orderBy) is empty == false and (currentGraph.graph) is empty%}
+        <div class="pagination">
+            <form action="{{ path('ontopress_resource', {'orderBy': (orderBy.orderBy), 'order': (orderBy.order)}) }}" method="post">
+                {{ include('resource/pagination.html.twig') }}
+            </form>
+        </div>
+    {% elseif (orderBy.orderBy) is empty == false and (currentGraph.graph) is empty == false %}
+        <div class="pagination">
+            <form action="{{ path('ontopress_resource', {'s': '', 'graph': (currentGraph.graph),'orderBy': (orderBy.orderBy), 'order': (orderBy.order)}) }}" method="post">
+                {{ include('resource/pagination.html.twig') }}
+            </form>
+        </div>
+    {% else %}
+        <div class="pagination">
+            <form action="{{ path('ontopress_resource')}}" method="post">
+                {{ include('resource/pagination.html.twig') }}
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
