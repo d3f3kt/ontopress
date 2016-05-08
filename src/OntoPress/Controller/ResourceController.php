@@ -136,7 +136,7 @@ class ResourceController extends AbstractController
 
         //pagination
         $totalResources = array('totalResources' => count($resourceManageTable));
-        $totalPagesTmp = ceil(count($resourceManageTable) / 20 );
+        $totalPagesTmp = ceil(count($resourceManageTable)/ 20);
         $currentPageTmp = $request->get('pageValue');
         $totalPages = null;
         $currentPage = null;
