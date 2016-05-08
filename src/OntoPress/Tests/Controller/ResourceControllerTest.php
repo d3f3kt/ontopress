@@ -126,6 +126,6 @@ class ResourceControllerTest extends OntoPressTestCase
                 )
             )
         );
-        $this->assertContains("Ressource Löschen", $resourceOutput);
+        $this->assertContains("Ressource löschen", $resourceOutput);
     }
 }
