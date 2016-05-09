@@ -36,7 +36,7 @@ function addSelectAllLink(formFieldCheckboxes)
 
 function addLinkToOntologyUploadFiles(collectionHolder)
 {
-    addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontology hochladen</a>');
+    addTagLink = jQuery('<a href="#" class="add_tag_link">Weitere Ontologie hochladen</a>');
     collectionHolder.append(addTagLink);
 
     addTagLink.on('click', function(e) {
