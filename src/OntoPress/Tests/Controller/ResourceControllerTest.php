@@ -329,7 +329,8 @@ class ResourceControllerTest extends OntoPressTestCase
                     'title' => 'uri',
                     'resourceAction' => 'suspend',
                     'uri' => 'Test:Uri'
-                ))
+                )
+            )
         );
         $this->assertContains('Ressource deaktivieren', $result2);
 
