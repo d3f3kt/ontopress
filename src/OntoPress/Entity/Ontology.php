@@ -34,6 +34,7 @@ class Ontology
      * @ORM\Column(name="name", type="string", length=64, unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
+     * @Assert\Regex("/[a-zA-Z0-9]/", message="Bitte geben Sie einen Namen ohne Umlaute und Sonderzeichen an")
      */
     protected $name;
 

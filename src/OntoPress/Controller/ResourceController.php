@@ -6,6 +6,7 @@ use OntoPress\Form\Resource\Type\AddResourceType;
 use OntoPress\Library\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Form\Resource\Type\DeleteResourceType;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * Resource Controller.
@@ -75,6 +76,9 @@ class ResourceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            if (!$this->checkRegex($form->getData())) {
+                return $this->redirectToRoute('ontopress_resourceAddDetails');
+            }
             $arc2Manager = $this->get('ontopress.arc2_manager');
             $arc2Manager->store($form->getData(), $formId, wp_get_current_user()->user_nicename);
             $this->addFlashMessage(
@@ -327,5 +331,14 @@ class ResourceController extends AbstractController
         }
 
         return $resourceManageTable;
+    }
+
+    private function checkRegex($formData)
+    {
+        $title = $formData['OntologyField_'];
+        if (preg_match('/[a-zA-Z0-9]*/', $title)) {
+            return false;
+        }
+        return true;
     }
 }
