@@ -10,6 +10,10 @@ use OntoPress\Entity\OntologyFile;
 use OntoPress\Tests\Entity\OntologyTest;
 use OntoPress\Entity\Restriction;
 
+/**
+ * Class TestHelper
+ * Class helping tests to create entities, with connected attributes.
+ */
 class TestHelper
 {
     /**
