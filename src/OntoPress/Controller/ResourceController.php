@@ -6,7 +6,6 @@ use OntoPress\Form\Resource\Type\AddResourceType;
 use OntoPress\Library\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use OntoPress\Form\Resource\Type\DeleteResourceType;
-use Symfony\Component\Validator\Constraints;
 
 /**
  * Resource Controller.
@@ -76,9 +75,10 @@ class ResourceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $form->getData()['OntologyField_'] = $this->checkRegex($form->getData());
+            $formData = $form->getData();
+            $formData['OntologyField_'] = $this->checkRegex($formData['OntologyField_']);
             $arc2Manager = $this->get('ontopress.arc2_manager');
-            $arc2Manager->store($form->getData(), $formId, wp_get_current_user()->user_nicename);
+            $arc2Manager->store($formData, $formId, wp_get_current_user()->user_nicename);
             $this->addFlashMessage(
                 'success',
                 'Ressource erfolgreich gespeichert'
@@ -131,13 +131,13 @@ class ResourceController extends AbstractController
 
         if (!empty($orderBy = $request->get('orderBy')) && empty($request->get('graph'))) {
             $resourceManageTable = $sparqlManager->getSortedTable($orderBy, $request->get('order'));
-        } else if (!empty($orderBy = $request->get('orderBy')) && !empty($request->get('graph'))) {
+        } elseif (!empty($orderBy = $request->get('orderBy')) && !empty($request->get('graph'))) {
             $resourceManageTable = $sparqlManager->getSortedTable($orderBy, $request->get('order'), $request->get('graph'));
         }
 
         //pagination
         $totalResources = array('totalResources' => count($resourceManageTable));
-        $totalPagesTmp = ceil(count($resourceManageTable)/ 20);
+        $totalPagesTmp = ceil(count($resourceManageTable) / 20);
         $currentPageTmp = $request->get('pageValue');
         $totalPages = null;
         $currentPage = null;
@@ -151,7 +151,7 @@ class ResourceController extends AbstractController
         } else {
             $currentPage = array('currentPage' => $currentPageTmp);
         }
-        
+
         $totalPages = array('totalPages' => $totalPagesTmp);
         $resourceManageTable = array_slice($resourceManageTable, (($currentPageTmp * 20) - 20), 20);
         $order = array('orderBy' => $request->get('orderBy'), 'order' => $request->get('order'));
@@ -221,7 +221,6 @@ class ResourceController extends AbstractController
                 'action' => 'löschen',
             ));
         }
-
     }
 
     /**
@@ -257,9 +256,11 @@ class ResourceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $formData = $form->getData();
+            $formData['OntologyField_'] = $this->checkRegex($formData['OntologyField_']);
             $this->get('ontopress.sparql_manager')->deleteResource($resourceUri);
             $this->get('ontopress.arc2_manager')->store(
-                $form->getData(),
+                $formData,
                 $formId,
                 wp_get_current_user()->user_nicename
             );
@@ -276,7 +277,7 @@ class ResourceController extends AbstractController
             'form' => $form->createView(),
         ));
     }
-    
+
     private function suspendResourceAction(Request $request, $form)
     {
         $arc2Manager = $this->get('ontopress.arc2_manager');
@@ -333,13 +334,13 @@ class ResourceController extends AbstractController
 
     /**
      * Validates new Resource names.
-     * @param $formData
+     *
+     * @param $string
+     *
      * @return bool
      */
-    private function checkRegex($formData)
+    private function checkRegex($string)
     {
-        $title = $formData['OntologyField_'];
-        $title = preg_replace('/[a-zA-Z0-9]*/', "",$title);
-        return $title;
+        return preg_replace('/[^A-Za-z0-9]/', '', $string);
     }
 }
