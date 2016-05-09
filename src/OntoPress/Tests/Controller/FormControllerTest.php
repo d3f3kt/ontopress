@@ -228,21 +228,6 @@ class FormControllerTest extends OntoPressWPTestCase
             )
         );
         $this->assertContains('window.location', $validForm);
-
-        /*
-        new Request(
-                array('ontologyId' => $this->ontology->getId()),
-                array('createFormType' => array(
-                    'name' => 'TestForm_createTest',
-                    'ontologyFields' => array($this->ontologyField->getId()),
-                    'submit' => '',
-                )),
-                array(),
-                array(),
-                array(),
-                array('REQUEST_METHOD' => 'POST')
-            )
-        */
     }
 
     /**
