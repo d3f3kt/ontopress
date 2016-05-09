@@ -29,6 +29,7 @@
                 <directory suffix="Test.php">./src/OntoPress/Tests</directory>
                 <file>./src/OntoPress/Libary/OntoPressTestCase.php</file>
                 <file>./src/OntoPress/Libary/OntoPressWPTestCase.php</file>
+                <file>./src/OntoPress/Service/ARC2Manager.php</file>
             </exclude>
         </whitelist>
     </filter>
