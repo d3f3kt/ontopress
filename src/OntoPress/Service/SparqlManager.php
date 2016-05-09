@@ -41,7 +41,7 @@ class SparqlManager
         if ($graph != null) {
             $query = 'SELECT * FROM <'.$graph.'> WHERE { ?s ?p ?o. }';
         }
-
+        
         return $this->store->query($query);
     }
 
@@ -135,18 +135,6 @@ class SparqlManager
         $name = explode(':', $uri)[1];
 
         return preg_replace('/(?<!\ )[A-Z]/', ' $0', $name);
-        /*
-        $check = array();
-        $regEx = '/^([a-zA-Z][a-zA-Z0-9+.-]+):([^\x00-\x0f\x20\x7f<>{}|\[\]`"^\\\\])+$/';
-        preg_match($regEx, $uri, $check);
-        switch ($check[1]) {
-            case 'name':
-                $name = explode(':' , $uri)[1];
-                return preg_replace('/(?<!\ )[A-Z]/', ' $0', $name);
-            default:
-                return $uri;
-        }
-        */
     }
 
     /**
@@ -186,9 +174,9 @@ class SparqlManager
     public function deleteResource($resourceUri, $graph = null)
     {
         
-        $query = 'DELETE WHERE { <'.$resourceUri.'> ?p ?o. }';
+        $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } WHERE { <'.$resourceUri.'> ?p ?o. }';
         if ($graph != null) {
-            $query = 'DELETE FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
+            $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
         }
         
         $this->store->query($query);
@@ -262,7 +250,7 @@ class SparqlManager
                         $answer[$subject]['date'] = $triple->getObject()->getValue();
                         break;
                     case 'OntoPress:isSuspended':
-                        $answer[$subject]['title'] = $answer[$subject]['title'].'--suspended';
+                        $answer[$subject]['suspended'] = '--suspended';
                         break;
                 }
             } else {
@@ -282,7 +270,7 @@ class SparqlManager
                         $answer[$subject]['date'] = $triple['o']->getValue();
                         break;
                     case 'OntoPress:isSuspended':
-                        $answer[$subject]['title'] = $answer[$subject]['title'].'--suspended';
+                        $answer[$subject]['suspended'] = '--suspended';
                         break;
                 }
             }
