@@ -59,7 +59,7 @@
                         <input type="checkbox" value="{{ resource.uri }}" id="{{ resource.uri }}" name="resources[]">
                     </th>
                     <td class="Titel column-Titel" data-colname="Titel">
-                        <p>{{ resource.title }}</p>
+                        <p>{{ resource.title }}{{ resource.suspended }}</p>
                         <div class="row-actions">
                             <span class="edit"><a href="{{ path('ontopress_resourceEdit', {'uri': (resource.uri), 'title': (resource.title)}) }}">Bearbeiten</a></span>
                             <span class="edit"><a href="{{ path('ontopress_resourceDelete', {'uri': (resource.uri), 'title': (resource.title), 'resourceAction': 'suspend'}) }}">Deaktivieren</a></span>

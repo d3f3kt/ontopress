@@ -105,7 +105,6 @@ class ResourceController extends AbstractController
         $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
         $graphs = array();
         $currentGraph = null;
-
         foreach ($ontologies as $ontology) {
             $graphs[] = array(
                 'name' => $ontology->getName(),
@@ -121,6 +120,7 @@ class ResourceController extends AbstractController
         } else {
             if ((empty($graph))) {
                 $resourceManageTable = $sparqlManager->getAllManageRows();
+                
             } else {
                 $graph = 'graph:'.$graph;
                 $resourceManageTable = $sparqlManager->getAllManageRows($graph);
@@ -150,7 +150,7 @@ class ResourceController extends AbstractController
         } else {
             $currentPage = array('currentPage' => $currentPageTmp);
         }
-
+        
         $totalPages = array('totalPages' => $totalPagesTmp);
         $resourceManageTable = array_slice($resourceManageTable, (($currentPageTmp * 20) - 20), 20);
         $order = array('orderBy' => $request->get('orderBy'), 'order' => $request->get('order'));
