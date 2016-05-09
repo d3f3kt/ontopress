@@ -387,4 +387,12 @@ class ResourceControllerTest extends OntoPressTestCase
         $result = $this->invokeMethod($this->resourceController, 'getSearchTable', array('searchString', $graph));
         $this->assertEquals($sparqlManager->getResourceRowsLike('searchString', $graph), $result);
     }
+
+    /**
+     * Tests checkRegex method.
+     */
+    public function testCheckRegex()
+    {
+        $this->assertFalse($this->invokeMethod($this->resourceController, 'checkRegex', array(null)));
+    }
 }

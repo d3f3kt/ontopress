@@ -333,6 +333,11 @@ class ResourceController extends AbstractController
         return $resourceManageTable;
     }
 
+    /**
+     * Validates new Resource names.
+     * @param $formData
+     * @return bool
+     */
     private function checkRegex($formData)
     {
         $title = $formData['OntologyField_'];
