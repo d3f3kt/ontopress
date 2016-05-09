@@ -196,7 +196,7 @@ class FormControllerTest extends OntoPressWPTestCase
                 'ontologyId' => 1337,
             ))
         );
-        $this->assertContains('Ontology nicht gefunden!', $wrongId);
+        $this->assertContains('Ontologie nicht gefunden!', $wrongId);
 
         // test with correct id
         $withCorrectId = $this->formController->showCreateFormAction(

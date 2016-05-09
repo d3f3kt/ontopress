@@ -100,7 +100,7 @@ class ResourceControllerTest extends OntoPressTestCase
             'formId' => 1,
             'formEntity' => $formEntity
         )));
-        $this->assertContains("Ressourcen Hinzufügen", $resourceValid);
+        $this->assertContains("Ressourcen hinzufügen", $resourceValid);
 
         // formID, formEntity, valid form
         // TODO: doesnt work as intended
