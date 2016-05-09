@@ -22,9 +22,9 @@
                     <option value="">Alle</option>
                 {% for graph in graphs %}
                     {% if graph.name == currentGraph.graph %}
-                    <option value="{{ graph.name }}" selected >{{ graph.name }}</option>
+                        <option value="{{ graph.name }}" selected >{{ graph.name }}</option>
                     {% else %}
-                    <option value="{{ graph.name }}">{{ graph.name }}</option>
+                        <option value="{{ graph.name }}">{{ graph.name }}</option>
                     {% endif %}
                 {% endfor %}
                 </select>

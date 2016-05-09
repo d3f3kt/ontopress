@@ -28,15 +28,18 @@ class FormController extends AbstractController
      */
     public function showManageAction(Request $request)
     {
+        $ontologies = $this->getDoctrine()->getRepository('OntoPress\Entity\Ontology')->findAll();
         $formManageTable = $this->getDoctrine()->getRepository('OntoPress\Entity\Form')
             ->getSortedList(
-                $request->get('id', null),
+                $request->get('ontologyId', null),
                 $request->get('orderBy', null),
                 $request->get('order', null)
             );
 
         return $this->render('form/manageForms.html.twig', array(
             'formManageTable' => $formManageTable,
+            'ontologies' => $ontologies,
+            'currentId' => $request->get('ontologyId', null),
         ));
     }
 

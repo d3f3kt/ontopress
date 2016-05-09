@@ -6,14 +6,24 @@
 {% endblock %}
 {% block content %}
     <form method="get">
+        <input type="text" value="ontopress_forms" name="page" style="display:none">
         <div class="tablenav top">
             <div class="alignleft">
-                Ontologie: <select name="ontology">
-                    <option value="">Filtern</option>
+                Ontologie: <select onchange="this.form.submit()" name="ontologyId">
+                    <option value="">Alle</option>
+                    {% for ontology in ontologies %}
+                        {% if ontology.id == currentId %}
+                            <option value="{{ontology.id}}" selected >{{ontology.name}}</option>
+                        {% else %}
+                            <option value="{{ontology.id}}">{{ontology.name}}</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
             </div>
              <br class="clear">
         </div>
+    </form>
+    <form method="get">
         <table class="wp-list-form widefat fixed striped users">
             <thead>
             <tr>
