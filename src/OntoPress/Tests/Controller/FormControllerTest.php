@@ -190,13 +190,20 @@ class FormControllerTest extends OntoPressWPTestCase
         $withOutId = $this->formController->showCreateFormAction(new Request());
         $this->assertContains('window.location', $withOutId);
 
-        //test with wrong id
+        // test without ID
+        $noId = $this->formController->showCreateFormAction(
+            new Request()
+        );
+        $this->assertContains('window.location', $noId);
+
+
+        //test with wrong ID, non valid form
         $wrongId = $this->formController->showCreateFormAction(
             new Request(array(
                 'ontologyId' => 1337,
             ))
         );
-        $this->assertContains('Ontology nicht gefunden!', $wrongId);
+        $this->assertContains('Ontologie nicht gefunden!', $wrongId);
 
         // test with correct id
         $withCorrectId = $this->formController->showCreateFormAction(
@@ -206,12 +213,12 @@ class FormControllerTest extends OntoPressWPTestCase
         );
         $this->assertContains('Formular', $withCorrectId);
 
-        $withCorrectIdSubmit = $this->formController->showCreateFormAction(
+        //test with wrong ID, valid form
+        $validForm = $this->formController->showCreateFormAction(
             new Request(
-                array('ontologyId' => $this->ontology->getId()),
+                array('ontologyId' => 1),
                 array('createFormType' => array(
                     'name' => 'TestForm_createTest',
-                    'ontologyFields' => array($this->ontologyField->getId()),
                     'submit' => '',
                 )),
                 array(),
@@ -220,6 +227,7 @@ class FormControllerTest extends OntoPressWPTestCase
                 array('REQUEST_METHOD' => 'POST')
             )
         );
+        $this->assertContains('window.location', $validForm);
     }
 
     /**

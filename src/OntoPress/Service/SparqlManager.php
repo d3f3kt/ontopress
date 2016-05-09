@@ -41,7 +41,7 @@ class SparqlManager
         if ($graph != null) {
             $query = 'SELECT * FROM <'.$graph.'> WHERE { ?s ?p ?o. }';
         }
-        
+
         return $this->store->query($query);
     }
 
@@ -174,9 +174,9 @@ class SparqlManager
     public function deleteResource($resourceUri, $graph = null)
     {
         
-        $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } WHERE { <'.$resourceUri.'> ?p ?o. }';
+        $query = 'DELETE WHERE { <'.$resourceUri.'> ?p ?o. }';
         if ($graph != null) {
-            $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
+            $query = 'DELETE FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
         }
         
         $this->store->query($query);
@@ -250,7 +250,7 @@ class SparqlManager
                         $answer[$subject]['date'] = $triple->getObject()->getValue();
                         break;
                     case 'OntoPress:isSuspended':
-                        $answer[$subject]['suspended'] = '--suspended';
+                        $answer[$subject]['title'] = $answer[$subject]['title'].'--suspended';
                         break;
                 }
             } else {
@@ -270,7 +270,7 @@ class SparqlManager
                         $answer[$subject]['date'] = $triple['o']->getValue();
                         break;
                     case 'OntoPress:isSuspended':
-                        $answer[$subject]['suspended'] = '--suspended';
+                        $answer[$subject]['title'] = $answer[$subject]['title'].'--suspended';
                         break;
                 }
             }
@@ -295,10 +295,5 @@ class SparqlManager
         $result = $this->store->query($query);
 
         return $this->getRows($result);
-    }
-
-    public function exportRdf($graph = null)
-    {
-        $triples = $this->getAllTriples($graph);
     }
 }

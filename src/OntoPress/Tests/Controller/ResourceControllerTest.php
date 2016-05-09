@@ -3,8 +3,6 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\ResourceController;
-use OntoPress\Form\Resource\Type\DeleteResourceType;
-use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Tests\Entity\OntologyTest;
 use OntoPress\Service\SparqlManager;
@@ -102,7 +100,7 @@ class ResourceControllerTest extends OntoPressTestCase
             'formId' => 1,
             'formEntity' => $formEntity
         )));
-        $this->assertContains("Ressourcen Hinzufügen", $resourceValid);
+        $this->assertContains("Ressourcen hinzufügen", $resourceValid);
 
         // formID, formEntity, valid form
         // TODO: doesnt work as intended
@@ -161,21 +159,30 @@ class ResourceControllerTest extends OntoPressTestCase
         $this->assertContains("Ressourcen Verwaltung", $resourceOutput);
     }
 
+
     /**
      * Tests showDeleteAction function, which should return a rendered twig template about deleting resources.
      */
     public function testShowDeleteAction()
     {
-        // uri, no valid form
+        // no resourceAction
         $result1 = $this->resourceController->showDeleteAction(
+            new Request()
+        );
+        $this->assertContains("window.location", $result1);
+
+        // uri, no valid form
+        $result5 = $this->resourceController->showDeleteAction(
             new Request(
                 array(
+                    'resourceAction' => 'delete',
                     'uri' => 'Test:Uri'
                 )
             )
         );
-        $this->assertContains("Ressource löschen", $result1);
+        $this->assertContains("Ressource löschen", $result5);
 
+        /*
         // uri, valid form
         $result2 = $this->resourceController->showDeleteAction(
             new Request(
@@ -193,13 +200,18 @@ class ResourceControllerTest extends OntoPressTestCase
             )
         );
         $this->assertContains('window.location', $result2);
+        */
 
         // no uri, no valid form
         $result3 = $this->resourceController->showDeleteAction(
-            new Request()
+            new Request(
+                array(
+                    'resourceAction' => 'delete'
+                )
+            )
         );
         $this->assertContains("Ressource löschen", $result3);
-
+        /*
         // no uri, valid form
         $result4 = $this->resourceController->showDeleteAction(
             new Request(
@@ -215,7 +227,7 @@ class ResourceControllerTest extends OntoPressTestCase
             )
         );
         $this->assertContains("window.location", $result4);
-        
+        */
     }
 
     public function testShowEditAction()

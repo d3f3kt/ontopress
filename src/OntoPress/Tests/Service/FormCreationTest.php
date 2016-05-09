@@ -68,7 +68,12 @@ class FormCreationTest extends OntoPressTestCase
         $this->doctrine->persist($ontology);
         $this->doctrine->flush();
 
+        $ontologyField1 = TestHelper::createOntologyField();
+        $ontologyField2 = TestHelper::createOntologyField();
+
         $form = TestHelper::createOntologyForm($ontology);
+        $form->addOntologyField($ontologyField1);
+        $form->addOntologyField($ontologyField2);
         $this->formCreator->create($form);
         $this->twigGenerator->generate($form);
     }
@@ -83,7 +88,6 @@ class FormCreationTest extends OntoPressTestCase
         $ontologyFieldText->setType(OntologyField::TYPE_TEXT);
         $result1 = $this->invokeMethod($this->formCreator, 'addField', array($ontologyFieldText, $formBuilder));
         $this->assertEquals($formBuilder, $result1);
-        // $this->assertEquals($result->getForm('TestUri/TestOntologyField')->getName(), 'testLabel');
 
         $ontologyFieldRadio = TestHelper::createOntologyField();
         $ontologyFieldRadio->setType(OntologyField::TYPE_RADIO);
