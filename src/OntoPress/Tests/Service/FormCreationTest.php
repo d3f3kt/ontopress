@@ -6,7 +6,6 @@ use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Entity\OntologyField;
 use OntoPress\Service\OntologyParser;
 use OntoPress\Service\FormCreation;
-use Symfony\Component\Form\FormFactory;
 
 /**
  * Class FormCreationTest
@@ -105,16 +104,7 @@ class FormCreationTest extends OntoPressTestCase
      */
     public function testGetBuilder()
     {
-        // TODO: assert result
-        // $formFactory = new FormFactory()
-        $result = $this->invokeMethod($this->formCreator, 'getBuilder', array());
-        /*
-        $this->assertEquals(
-            $formFactory->createNamedBuilder('OntoPressForm', 'form', null, array(
-                'block_name' => 'OntoPressForm',
-                )),
-            $result);
-        */
+        $this->invokeMethod($this->formCreator, 'getBuilder', array());
     }
 
     /**

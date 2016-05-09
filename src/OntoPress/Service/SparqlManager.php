@@ -155,6 +155,13 @@ class SparqlManager
         return sizeof($result);
     }
 
+    /**
+     * Counts all triples in the store.
+     *
+     * @param $subject
+     * @param null $graph
+     * @return int|void
+     */
     public function countResourceTriples($subject, $graph = null)
     {
         $query = 'SELECT DISTINCT ?s WHERE { <'.$subject.'> ?p ?o. }';

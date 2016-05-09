@@ -15,6 +15,7 @@ use OntoPress\Tests\Entity\OntologyTest;
 class OntologyControllerTest extends OntoPressWPTestCase
 {
     /**
+     * OntologyController Entity.
      * @var OntologyController
      */
     private $ontologyController;

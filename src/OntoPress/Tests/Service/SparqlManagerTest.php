@@ -2,7 +2,6 @@
 
 namespace OntoPress\Tests;
 
-use OntoPress\Entity\Form;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Service\SparqlManager;
 use Saft\Rdf\NodeFactoryImpl;
@@ -192,21 +191,6 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->assertEquals('test Uri', $resultString);
     }
 
-    /*
-    public function testGetFormId()
-    {
-        // TODO: make exception for testing in sparqlManager?
-        $result = $this->sparqlManager->getFormId('test:subject');
-        $this->assertEquals($this->subject, $result);
-    }
-
-    public function testDeleteResource()
-    {
-        // TODO: cant get the given Uri to work
-        $this->sparqlManager->deleteResource('test:author');
-        $this->assertEquals(0, $this->sparqlManager->countResources($this->graph));
-    }
-    */
     public function testGetValueArray()
     {
         $subject = new NamedNodeImpl('test:subject');

@@ -278,6 +278,12 @@ class ResourceController extends AbstractController
         ));
     }
 
+    /**
+     * Method to suspend marked Resources.
+     * @param Request $request
+     * @param $form
+     * @return string
+     */
     private function suspendResourceAction(Request $request, $form)
     {
         $arc2Manager = $this->get('ontopress.arc2_manager');
@@ -319,6 +325,13 @@ class ResourceController extends AbstractController
         }
     }
 
+    /**
+     * Returns the resource table, through the SparqlManager
+     *
+     * @param String $searchString
+     * @param null $graph
+     * @return mixed
+     */
     private function getSearchTable($searchString, $graph = null)
     {
         $sparqlManager = $this->get('ontopress.sparql_manager');
