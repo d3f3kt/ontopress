@@ -27,6 +27,7 @@ class AddOntologyType extends AbstractType
             ))
             ->add('ontologyFiles', 'collection', array(
                 'type' => new OntologyFileType(),
+                'label' => 'Ontologie Dateien:',
                 'allow_add' => true,
                 'by_reference' => false,
             ))
