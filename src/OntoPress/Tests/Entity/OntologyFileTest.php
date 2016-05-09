@@ -62,21 +62,6 @@ class OntologyFileTest extends OntoPressTestCase
     }
 
     /**
-     * Tests getDir method, which should return the path of saved files.
-     */
-    public function testGetDir()
-    {
-        /*
-        // TODO: is different on testServer and main Server
-        // /var/www/wp-content/plugins/ontologie/src/OntoPress/Entity/../Resources/ontology/upload/test/testpath
-        $this->assertEquals($this->ontologyFile->getAbsolutePath(), "/builds/SWT-WordPress/plugins/src/OntoPress/Entity/../Resources/ontology/upload/test/testpath");
-
-        $this->assertEquals($this->ontologyFile->getUploadDir(), "/var/www/wp-content/plugins/ontologie/src/OntoPress/Entity/../Resources/ontology/upload");
-        $this->assertEquals($this->ontologyFile->getUploadRootDir(), "/var/www/wp-content/plugins/ontologie/src/OntoPress/Entity/../Resources/");
-        */
-    }
-
-    /**
      * Tests upload method, should return null, when nothing is uploaded.
      */
     public function testUpload()
