@@ -393,6 +393,9 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testCheckRegex()
     {
-        $this->assertFalse($this->invokeMethod($this->resourceController, 'checkRegex', array(null)));
+        $this->assertEquals(
+            $this->invokeMethod($this->resourceController, 'checkRegex', array('t#ä22st')),
+            't22st'
+        );
     }
 }
