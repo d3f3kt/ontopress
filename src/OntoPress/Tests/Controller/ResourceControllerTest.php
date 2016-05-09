@@ -3,8 +3,6 @@
 namespace OntoPress\Tests;
 
 use OntoPress\Controller\ResourceController;
-use OntoPress\Form\Resource\Type\DeleteResourceType;
-use OntoPress\Entity\Ontology;
 use OntoPress\Library\OntoPressTestCase;
 use OntoPress\Tests\Entity\OntologyTest;
 use OntoPress\Service\SparqlManager;
@@ -165,7 +163,6 @@ class ResourceControllerTest extends OntoPressTestCase
     /**
      * Tests showDeleteAction function, which should return a rendered twig template about deleting resources.
      */
-    /*
     public function testShowDeleteAction()
     {
         // uri, no valid form
@@ -177,7 +174,7 @@ class ResourceControllerTest extends OntoPressTestCase
             )
         );
         $this->assertContains("Ressource löschen", $result1);
-
+        /*
         // uri, valid form
         $result2 = $this->resourceController->showDeleteAction(
             new Request(
@@ -195,13 +192,13 @@ class ResourceControllerTest extends OntoPressTestCase
             )
         );
         $this->assertContains('window.location', $result2);
-
+        */
         // no uri, no valid form
         $result3 = $this->resourceController->showDeleteAction(
             new Request()
         );
         $this->assertContains("Ressource löschen", $result3);
-
+        /*
         // no uri, valid form
         $result4 = $this->resourceController->showDeleteAction(
             new Request(
@@ -217,8 +214,8 @@ class ResourceControllerTest extends OntoPressTestCase
             )
         );
         $this->assertContains("window.location", $result4);
+        */
     }
-    */
 
     public function testShowEditAction()
     {

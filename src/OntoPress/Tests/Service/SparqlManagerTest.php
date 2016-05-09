@@ -59,7 +59,6 @@ class SparqlManagerTest extends OntoPressTestCase
             new StatementImpl($this->subject, $predicate, $object),
             new StatementImpl($this->subject, $this->subject, $object)
         );
-        // $this->store->dropGraph($this->graph);
         $this->store->createGraph($this->graph);
         $this->store->addStatements($statements, $this->graph);
     }
@@ -207,12 +206,21 @@ class SparqlManagerTest extends OntoPressTestCase
         $this->sparqlManager->deleteResource('test:author');
         $this->assertEquals(0, $this->sparqlManager->countResources($this->graph));
     }
-
+    */
     public function testGetValueArray()
     {
-        // TODO: wrong Form Entity? OntoPress:name in subject missing.
-        $result = $this->sparqlManager->getValueArray($this->subject, new Form());
+        $subject = new NamedNodeImpl('test:subject');
+        $predicate = new NamedNodeImpl('OntoPress:name');
+        $nodeFactory = new NodeFactoryImpl();
+        $object = $nodeFactory->createLiteral('TestName');
+        $statements = array(
+            new StatementImpl($subject, $predicate, $object),
+        );
+        $this->store->createGraph($this->graph);
+        $this->store->addStatements($statements, $this->graph);
+
+        $form = TestHelper::createOntologyForm();
+        $result = $this->sparqlManager->getValueArray($this->subject, $form);
         $this->assertEquals(1, count($result));
     }
-    */
 }
