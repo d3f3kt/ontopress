@@ -76,7 +76,7 @@ class ResourceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if(!$this->checkRegex($form->getData())) {
+            if (!$this->checkRegex($form->getData())) {
                 return $this->redirectToRoute('ontopress_resourceAddDetails');
             }
             $arc2Manager = $this->get('ontopress.arc2_manager');
@@ -336,7 +336,7 @@ class ResourceController extends AbstractController
     private function checkRegex($formData)
     {
         $title = $formData['OntologyField_'];
-        if(preg_match('/[a-zA-Z0-9]*/', $title)) {
+        if (preg_match('/[a-zA-Z0-9]*/', $title)) {
             return false;
         }
         return true;
