@@ -172,6 +172,9 @@ class ResourceController extends AbstractController
      */
     public function showDeleteAction(Request $request)
     {
+        if ($request->get('resourceAction') == '') {
+            return $this->redirectToRoute('ontopress_resource');
+        }
         $form = $this->createForm(new DeleteResourceType(), null, array(
             'cancel_link' => $this->generateRoute('ontopress_resource'),
         ));
