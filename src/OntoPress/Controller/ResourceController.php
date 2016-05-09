@@ -120,7 +120,6 @@ class ResourceController extends AbstractController
         } else {
             if ((empty($graph))) {
                 $resourceManageTable = $sparqlManager->getAllManageRows();
-                
             } else {
                 $graph = 'graph:'.$graph;
                 $resourceManageTable = $sparqlManager->getAllManageRows($graph);
