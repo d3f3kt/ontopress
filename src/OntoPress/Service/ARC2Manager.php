@@ -159,12 +159,6 @@ class ARC2Manager
     {
         $title = $formData['OntologyField_'];
 
-        /*
-        if (strpbrk($title, 'ÄÖÜäöüß!?"§$%&/()=*+~#_')) {
-            $translation = array("Ä" => "Ae", "Ö" => "Oe", "Ü" => "Ue", "ä" => "ae", "ö" => "oe", "ü" => "ue", "ß" => "ss", "_" => "", "!" => "", "?" => "");
-            $title = strtr($title, $translation);
-        }
-        */
         return $title;
     }
 
