@@ -13,12 +13,19 @@
         	<input type="search" value="" name="s" id="user-search-input">
         	<input type="submit" value="Ressourcen suchen" class="button" id="search-submit">
         </p>
+    </form>
+    <form method="get">
+        <input type="text" value="ontopress_resource" name="page" style="display:none">
         <div class="tablenav top">
             <div class="alignleft">
-                Ontologie: <select name="graph">
+                Ontologie: <select onchange="this.form.submit()" name="graph">
                     <option value="">Alle</option>
                 {% for graph in graphs %}
+                    {% if graph.name == currentGraph.graph %}
+                    <option value="{{ graph.name }}" selected >{{ graph.name }}</option>
+                    {% else %}
                     <option value="{{ graph.name }}">{{ graph.name }}</option>
+                    {% endif %}
                 {% endfor %}
                 </select>
             </div>
