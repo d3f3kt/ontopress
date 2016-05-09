@@ -158,12 +158,13 @@ class ARC2Manager
     private function getSubjectName($formData)
     {
         $title = $formData['OntologyField_'];
-        if (strpbrk($title, 'äöüß!_')) {
-            $translation = array("ä" => "ae", "ö" => "oe", "ü" => "ue", "ß" => "ss", "!" => "", "_" => "");
+
+        /*
+        if (strpbrk($title, 'ÄÖÜäöüß!?"§$%&/()=*+~#_')) {
+            $translation = array("Ä" => "Ae", "Ö" => "Oe", "Ü" => "Ue", "ä" => "ae", "ö" => "oe", "ü" => "ue", "ß" => "ss", "_" => "", "!" => "", "?" => "");
             $title = strtr($title, $translation);
         }
-    // TODO: clean up title
-
+        */
         return $title;
     }
 
@@ -206,7 +207,6 @@ class ARC2Manager
      */
     private function getDatatypeNode($objectData)
     {
-        //TODO eventually other types (e.g. for an ID)
         switch (gettype($objectData)) {
             case 'integer':
                 return $this->nodeFactory->createNamedNode(ARC2Manager::INT_URI);
