@@ -165,15 +165,23 @@ class ResourceControllerTest extends OntoPressTestCase
      */
     public function testShowDeleteAction()
     {
-        // uri, no valid form
+        // no resourceAction
         $result1 = $this->resourceController->showDeleteAction(
+            new Request()
+        );
+        $this->assertContains("window.location", $result1);
+
+        // uri, no valid form
+        $result5 = $this->resourceController->showDeleteAction(
             new Request(
                 array(
+                    'resourceAction' => 'delete',
                     'uri' => 'Test:Uri'
                 )
             )
         );
-        $this->assertContains("Ressource löschen", $result1);
+        $this->assertContains("Ressource löschen", $result5);
+
         /*
         // uri, valid form
         $result2 = $this->resourceController->showDeleteAction(
@@ -193,9 +201,14 @@ class ResourceControllerTest extends OntoPressTestCase
         );
         $this->assertContains('window.location', $result2);
         */
+
         // no uri, no valid form
         $result3 = $this->resourceController->showDeleteAction(
-            new Request()
+            new Request(
+                array(
+                    'resourceAction' => 'delete'
+                )
+            )
         );
         $this->assertContains("Ressource löschen", $result3);
         /*
