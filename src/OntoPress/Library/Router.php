@@ -62,7 +62,6 @@ class Router
      */
     public function generate($siteName, $parameters = array())
     {
-        //TODO: maybe compare the siteName with the routing tree
         $url = '?page='.$siteName;
         foreach ($parameters as $parameter => $value) {
             $url .= '&'.$parameter.'='.urlencode($value);
