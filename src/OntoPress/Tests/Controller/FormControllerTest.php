@@ -190,7 +190,14 @@ class FormControllerTest extends OntoPressWPTestCase
         $withOutId = $this->formController->showCreateFormAction(new Request());
         $this->assertContains('window.location', $withOutId);
 
-        //test with wrong id
+        // test without ID
+        $noId = $this->formController->showCreateFormAction(
+            new Request()
+        );
+        $this->assertContains('window.location', $noId);
+
+
+        //test with wrong ID, non valid form
         $wrongId = $this->formController->showCreateFormAction(
             new Request(array(
                 'ontologyId' => 1337,
@@ -206,8 +213,24 @@ class FormControllerTest extends OntoPressWPTestCase
         );
         $this->assertContains('Formular', $withCorrectId);
 
-        $withCorrectIdSubmit = $this->formController->showCreateFormAction(
+        //test with wrong ID, valid form
+        $validForm = $this->formController->showCreateFormAction(
             new Request(
+                array('ontologyId' => 1),
+                array('createFormType' => array(
+                    'name' => 'TestForm_createTest',
+                    'submit' => '',
+                )),
+                array(),
+                array(),
+                array(),
+                array('REQUEST_METHOD' => 'POST')
+            )
+        );
+        $this->assertContains('window.location', $validForm);
+
+        /*
+        new Request(
                 array('ontologyId' => $this->ontology->getId()),
                 array('createFormType' => array(
                     'name' => 'TestForm_createTest',
@@ -219,7 +242,7 @@ class FormControllerTest extends OntoPressWPTestCase
                 array(),
                 array('REQUEST_METHOD' => 'POST')
             )
-        );
+        */
     }
 
     /**
