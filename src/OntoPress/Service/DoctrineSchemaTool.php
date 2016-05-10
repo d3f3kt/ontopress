@@ -43,7 +43,7 @@ class DoctrineSchemaTool
      */
     public function updateSchema()
     {
-        $this->schemaTool->updateSchema($this->metaDatas);
+        $this->schemaTool->updateSchema($this->metaDatas, true);
     }
 
     /**

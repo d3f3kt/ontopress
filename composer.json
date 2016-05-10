@@ -37,18 +37,10 @@
             "homepage": "http://geistert.info",
             "role": "Lead Developer"
         },
-        {
-            "name": "Christofer Meinecke",
-            "role": "Developer"
-        },
-        {
-            "name": "Dominik Michael",
-            "role": "Developer"
-        },
-        {
-            "name": "Lukas Rosenkranz",
-            "role": "Developer"
-        }
+        {"name": "Christofer Meinecke"},
+        {"name": "Dominik Michael"},
+        {"name": "Lukas Rosenkranz"},
+        {"name": "Enno Jertschat"}
     ],
     "minimum-stability": "dev",
     "autoload": {
