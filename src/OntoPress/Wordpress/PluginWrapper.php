@@ -31,7 +31,7 @@ class PluginWrapper
      */
     public function install()
     {
-        //TODO: Install hooks e.g. mysql table creation
+        $this->container->get('ontopress.doctrine_schema_tool')->updateSchema();
     }
 
     /**
@@ -39,7 +39,7 @@ class PluginWrapper
      */
     public function uninstall()
     {
-        //TODO: Uninstall hooks e.g. mysql table drop
+        $this->container->get('ontopress.doctrine_schema_tool')->dropSchema();
     }
 
     /**
