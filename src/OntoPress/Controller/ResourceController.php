@@ -354,6 +354,10 @@ class ResourceController extends AbstractController
      */
     private function checkRegex($string)
     {
+        if (strpbrk($string, 'äöüß')) {
+            $translation = array("Ä" => "Ae", "Ö" => "Oe", "Ü" => "Ue", "ä" => "ae", "ö" => "oe", "ü" => "ue", "ß" => "ss");
+        }
+        $string = strtr($string, $translation);
         return preg_replace('/[^A-Za-z0-9]/', '', $string);
     }
 }
