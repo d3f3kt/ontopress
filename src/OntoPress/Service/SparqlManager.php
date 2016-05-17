@@ -181,9 +181,9 @@ class SparqlManager
     public function deleteResource($resourceUri, $graph = null)
     {
         
-        $query = 'DELETE WHERE { <'.$resourceUri.'> ?p ?o. }';
+        $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } WHERE { <'.$resourceUri.'> ?p ?o. }';
         if ($graph != null) {
-            $query = 'DELETE FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
+            $query = 'DELETE { <'.$resourceUri.'> ?p ?o. } FROM <'.$graph.'> { <'.$resourceUri.'> ?p ?o . } WHERE { <'.$resourceUri.'> ?p ?o . }';
         }
         
         $this->store->query($query);
